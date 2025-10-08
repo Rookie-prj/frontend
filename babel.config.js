@@ -8,8 +8,19 @@ const presets = [
       corejs: 3, // 사용할 `corejs` 버전 명시
     },
   ],
+
   '@babel/preset-typescript',
 ];
-const plugins = [];
+const plugins = [
+  [
+    '@emotion/babel-plugin',
+    {
+      sourceMap: true,
+      autoLabel: 'dev-only',
+      labelFormat: '[filename]--[local]',
+      cssPropOptimization: true,
+    },
+  ],
+];
 
 module.exports = { presets, plugins };

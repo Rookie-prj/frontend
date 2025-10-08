@@ -1,11 +1,24 @@
-const App = () => {
-  const message = ['안녕하세요', '반갑습니다', '환영합니다'];
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import GlobalLayout from './style/reset';
+import AppRoutes from './routes/appRoutes';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      throwOnError: true,
+      retry: 1,
+      gcTime: 20000,
+    },
+  },
+});
+
+const App = () => {
   return (
     <>
-      {message.map((msg, index) => (
-        <h1 key={index}>{msg}</h1>
-      ))}
+      <GlobalLayout />
+      <QueryClientProvider client={queryClient}>
+        <AppRoutes />
+      </QueryClientProvider>
     </>
   );
 };
