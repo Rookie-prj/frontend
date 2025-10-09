@@ -1,20 +1,58 @@
 import styled from '@emotion/styled';
+import { colors } from '../../style/colors';
 
-export const CategoryContainer = styled.div`
+export interface CategoryItemProps {
+  active?: boolean;
+  categoryType?: 'home' | 'hot';
+}
+
+export const CategoryWrapper = styled.div`
   display: flex;
-  width: 100%;
-  min-height: 2.4375rem;
-  padding: 0.625rem 1rem;
-  margin-top: 3.19rem;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.625rem;
-  flex-shrink: 0;
+  position: relative;
+  padding-bottom: 0.44rem;
+  border-bottom: 2px solid #f5f7fa; /* 흰색 줄 */
+  background: white;
 `;
 
-export const CategoryTitle = styled.div`
-  font-size: 24px;
-  font-weight: bold;
+export const CategoryItem = styled.div<CategoryItemProps>`
+  font-size: 1rem;
+  display: flex;
+  font-style: normal;
+  line-height: 1.375rem;
+  letter-spacing: -0.01rem;
+  justify-content: center;
+  font-weight: 700;
+  color: ${({ active }) => (active ? colors.gray[900] : colors.gray[200])};
+  width: ${({ categoryType }) => {
+    switch (categoryType) {
+      case 'home':
+        return '1.8125rem';
+      case 'hot':
+        return '2.5625rem';
+      default:
+        return '1.8125rem';
+    }
+  }};
+  position: relative;
+  margin-left: ${({ categoryType }) => {
+    switch (categoryType) {
+      case 'home':
+        return '1rem';
+      case 'hot':
+        return '1.13rem';
+    }
+  }};
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.55rem; /* 흰 줄 위에 오도록 */
+    left: 0;
+    width: 100%;
+    height: 2px;
+
+    background: ${({ active }) => (active ? '#1c1c1c' : 'transparent')};
+  }
 `;
