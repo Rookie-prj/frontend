@@ -23,8 +23,10 @@ export const colors = {
     100: '#1D4ED8',
     50: '#E1FFE8T',
   },
+  white: '#fff',
 } as const;
 
 export type ColorKey = keyof typeof colors;
 export type GrayKey = keyof typeof colors.gray;
+export type WhiteKey = keyof typeof colors.white;
 export type GreenKey = keyof typeof colors.green;
