@@ -6,20 +6,14 @@ export const ProjectCategorySectionContainer = styled.div<{
 }>`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  margin-left: 1.13rem;
-  margin-right: 1.13rem;
+  align-items: flex-start;
   justify-content: space-between;
-  margin-top: ${({ slideIndex, isActive }) => {
-    if (!isActive) return '0';
-    return slideIndex === 1 ? '1.87rem' : '1.06rem';
-  }};
+  margin: 1rem;
 `;
 export const ProjectCategorySectionTitle = styled.p`
   color: ${colors.gray[800]};
   font-size: 1.125rem;
   font-style: normal;
-
   font-weight: 700;
   line-height: 1.625rem;
   letter-spacing: -0.0225rem;
@@ -35,4 +29,13 @@ export const ProjectCategorySectionButton = styled.button`
   font-weight: 700;
   line-height: 1.125rem;
   letter-spacing: -0.0075rem;
+`;
+
+export const ProjectCategoryCardsContainer = styled.div`
+  display: grid;
+  height: 12.875rem;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0.62rem;
+  padding: 0 1rem;
 `;
