@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   NAVIGATION,
   NAVIGATION_GROUPS,
   NAVIGATION_PLUS,
   NavigationValue,
 } from '../../constants/navigation';
+import { ROUTES } from '../../constants/routes';
 import {
   LeftNavBarGroup,
   NavBarContainer,
@@ -14,26 +16,31 @@ import {
 } from './navigationBar.styles';
 
 const NavigationBar = () => {
-  const [activeTab, setActiveTab] = useState<NavigationValue>('home');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleTabClick = (tabValue: NavigationValue) => {
-    setActiveTab(tabValue);
+    const routes = {
+      home: ROUTES.home,
+      search: ROUTES.search,
+      chat: ROUTES.chat,
+      library: ROUTES.library,
+    };
+    navigate(routes[tabValue]);
   };
 
-  const renderNavItem = (item: (typeof NAVIGATION)[keyof typeof NAVIGATION]) => {
-    const isActive = activeTab === item.value;
-    return (
-      <NavBarItem
-        key={item.value}
-        isActive={isActive}
-        onClick={() => handleTabClick(item.value)}
-        style={{ cursor: 'pointer' }}
-      >
-        <img src={isActive ? item.activeIcon : item.inactiveIcon} alt={item.label} />
-        {item.label}
-      </NavBarItem>
-    );
-  };
+  const isActive = (itemValue: NavigationValue) => location.pathname === ROUTES[itemValue];
+
+  const renderNavItem = (item: any) => (
+    <NavBarItem
+      key={item.value}
+      isActive={isActive(item.value)}
+      onClick={() => handleTabClick(item.value)}
+    >
+      <img src={isActive(item.value) ? item.activeIcon : item.inactiveIcon} alt={item.label} />
+      {item.label}
+    </NavBarItem>
+  );
 
   return (
     <NavBarContainer>

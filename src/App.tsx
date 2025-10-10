@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import GlobalLayout from './style/reset';
 import AppRoutes from './routes/appRoutes';
-import NavigationBar from './components/navigationBar/navigationBar';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,7 +19,6 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <AppRoutes />
       </QueryClientProvider>
-      <NavigationBar />
     </>
   );
 };
