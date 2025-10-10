@@ -4,8 +4,9 @@ export const HeaderContainer = styled.div`
   display: flex;
   width: 100%;
   min-height: 2.4375rem;
-  padding: 0.88rem 1rem;
-  margin-top: 2.31rem;
+  padding: 0.28rem 1rem;
+  margin-bottom: 0.88rem;
+  // margin-top: 2.31rem;
   flex-direction: row;
   justify-content: center;
   align-items: center;

@@ -23,7 +23,7 @@ export const ProjectCategorySectionButton = styled.button`
   display: flex;
   flex-direction: row;
   align-items: center;
-
+  cursor: pointer;
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 700;

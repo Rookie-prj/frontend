@@ -7,14 +7,13 @@ export const ProjectCategoryCardContainer = styled.div`
   padding: 0.8125rem;
   flex-direction: column;
   justify-content: center;
-
+  cursor: pointer;
   border-radius: 0.75rem;
   background-color: ${colors.gray[50]};
 `;
 export const ProjectCategoryCardContent = styled.div`
   display: flex;
   flex-direction: row;
-
   justify-content: center;
   align-items: flex-start;
   margin-top: 0.12rem;
