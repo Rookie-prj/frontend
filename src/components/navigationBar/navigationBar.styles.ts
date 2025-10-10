@@ -19,9 +19,7 @@ export const NavBarContainer = styled.div`
 `;
 export const LeftNavBarGroup = styled.div`
   display: flex;
-
   gap: 2.5rem;
-
   padding-left: 3rem;
 `;
 export const RightNavBarGroup = styled.div`

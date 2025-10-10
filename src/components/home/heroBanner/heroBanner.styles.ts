@@ -20,9 +20,7 @@ export const SlideContainer = styled.div<{ currentSlide: number }>`
 export const SlideImage = styled.img<{ slideIndex: number; isActive: boolean }>`
   width: 100%;
   height: 100%;
-  margin-top: ${({ slideIndex, isActive }) => {
-    if (!isActive) return '0';
-    return slideIndex === 1 ? '0.56rem' : '0.37rem';
+  margin-top: '0.37rem';
   }};
 `;
 

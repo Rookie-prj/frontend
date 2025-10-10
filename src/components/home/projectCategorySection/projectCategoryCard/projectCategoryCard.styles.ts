@@ -3,7 +3,7 @@ import { colors } from '../../../../style/colors';
 
 export const ProjectCategoryCardContainer = styled.div`
   display: flex;
-  height: 100%;
+  height: 6.125rem;
   padding: 0.8125rem;
   flex-direction: column;
   justify-content: center;
@@ -35,14 +35,11 @@ export const ProjectCategoryCardTitle = styled.h4`
   line-height: 1.375rem;
   letter-spacing: -0.01rem;
   white-space: nowrap;
-
   flex: 1;
 `;
 export const ProjectCategoryCardIconWrapper = styled.div`
   display: flex;
   align-items: flex-start;
-
   height: 100%;
   flex-shrink: 0;
 `;
-export const ProjectCategoryCardIcon = styled.div``;
