@@ -13,6 +13,7 @@ export const colors = {
     100: '#F3F4F6',
     70: '#F6F7F9',
     50: '#F9FAFB',
+    30: '#AEAEB2',
   },
   green: {
     600: '#2D743C',

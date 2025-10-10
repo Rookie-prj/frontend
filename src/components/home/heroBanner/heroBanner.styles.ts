@@ -18,13 +18,12 @@ export const SlideContainer = styled.div<{ currentSlide: number }>`
 `;
 
 export const SlideImage = styled.img<{ slideIndex: number; isActive: boolean }>`
-  width: 50%;
+  width: 100%;
   height: 100%;
   margin-top: ${({ slideIndex, isActive }) => {
     if (!isActive) return '0';
     return slideIndex === 1 ? '0.56rem' : '0.37rem';
   }};
-  transition: margin-top 0.5s ease-in-out;
 `;
 
 export const SlideBarWrapper = styled.div`
