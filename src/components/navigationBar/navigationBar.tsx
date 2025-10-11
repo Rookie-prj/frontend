@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   NAVIGATION,
@@ -12,12 +12,16 @@ import {
   NavBarContainer,
   NavBarItem,
   NavBarPlus,
+  PlusIcon,
   RightNavBarGroup,
 } from './navigationBar.styles';
+import CreateProject from '../modal/createProject/createProject';
 
 const NavigationBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRotating, setIsRotating] = useState(false);
 
   const handleTabClick = (tabValue: NavigationValue) => {
     const routes = {
@@ -27,6 +31,16 @@ const NavigationBar = () => {
       library: ROUTES.library,
     };
     navigate(routes[tabValue]);
+  };
+
+  const handlePlusClick = () => {
+    setIsRotating(true);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setIsRotating(false);
   };
 
   const isActive = (itemValue: NavigationValue) => location.pathname === ROUTES[itemValue];
@@ -43,16 +57,20 @@ const NavigationBar = () => {
   );
 
   return (
-    <NavBarContainer>
-      <LeftNavBarGroup>{Object.values(NAVIGATION_GROUPS.LEFT).map(renderNavItem)}</LeftNavBarGroup>
-
-      <RightNavBarGroup>
-        {Object.values(NAVIGATION_GROUPS.RIGHT).map(renderNavItem)}
-      </RightNavBarGroup>
-      <NavBarPlus>
-        <img src={NAVIGATION_PLUS.PLUS.inactiveIcon} alt="plus" />
-      </NavBarPlus>
-    </NavBarContainer>
+    <>
+      <NavBarContainer>
+        <LeftNavBarGroup>
+          {Object.values(NAVIGATION_GROUPS.LEFT).map(renderNavItem)}
+        </LeftNavBarGroup>
+        <RightNavBarGroup>
+          {Object.values(NAVIGATION_GROUPS.RIGHT).map(renderNavItem)}
+        </RightNavBarGroup>
+        <NavBarPlus onClick={handlePlusClick}>
+          <PlusIcon src={NAVIGATION_PLUS.PLUS.inactiveIcon} alt="plus" isRotating={isRotating} />
+        </NavBarPlus>
+      </NavBarContainer>
+      <CreateProject isOpen={isModalOpen} onClose={handleCloseModal} />
+    </>
   );
 };
 
