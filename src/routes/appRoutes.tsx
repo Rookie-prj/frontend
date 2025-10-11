@@ -4,6 +4,7 @@ import Home from '../pages/home/home';
 import Search from '../pages/search/search';
 import Chat from '../pages/chat/chat';
 import Library from '../pages/library/library';
+import Hot from '../pages/hot/hot';
 import Layout from '../components/layout/layout';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
@@ -37,6 +38,10 @@ const AppRoutes = () => {
         {
           path: ROUTES.library,
           element: <Library />,
+        },
+        {
+          path: ROUTES.hot,
+          element: <Hot />,
         },
       ],
     },
