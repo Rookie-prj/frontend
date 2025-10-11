@@ -1,30 +1,19 @@
-import {
-  ProjectCategorySectionButton,
-  ProjectCategorySectionContainer,
-  ProjectCategorySectionTitle,
-  ProjectCategoryCardsContainer,
-} from './projectCategorySection.styles';
-import rightArrow from '../../../assets/icons/rightArrow.svg';
+import { ProjectCategoryCardsContainer } from './projectCategorySection.styles';
 import PROJECT_TYPE from '../../../constants/projectType';
 import ProjectCategoryCard from './projectCategoryCard/projectCategoryCard';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
-interface ProjectCategorySectionProps {
-  slideIndex: number;
-  isActive: boolean;
-}
+import ViewAllButton from '../../common/viewAllSection/viewAllSection';
 
-const ProjectCategorySection = ({ slideIndex, isActive }: ProjectCategorySectionProps) => {
+const ProjectCategorySection = () => {
   const navigate = useNavigate();
   return (
     <>
-      <ProjectCategorySectionContainer slideIndex={slideIndex} isActive={isActive}>
-        <ProjectCategorySectionTitle>어떤 프로젝트 찾으세요?</ProjectCategorySectionTitle>
-        <ProjectCategorySectionButton onClick={() => navigate(ROUTES.search)}>
-          전체보기
-          <img src={rightArrow} alt="right-arrow" />
-        </ProjectCategorySectionButton>
-      </ProjectCategorySectionContainer>
+      <ViewAllButton
+        route="search"
+        title="어떤 프로젝트 찾으세요?"
+        onClick={() => navigate(ROUTES.search)}
+      />
       <ProjectCategoryCardsContainer>
         {Object.values(PROJECT_TYPE).map((projectType) => (
           <ProjectCategoryCard
