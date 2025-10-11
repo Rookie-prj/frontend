@@ -17,10 +17,10 @@ export const SlideContainer = styled.div<{ currentSlide: number }>`
   transition: transform 0.5s ease-in-out;
 `;
 
-export const SlideImage = styled.img<{ slideIndex: number; isActive: boolean }>`
+export const SlideImage = styled.img`
   width: 100%;
   height: 100%;
-  margin-top: '0.37rem';
+  margin-top: 0.37rem;
   }};
 `;
 
