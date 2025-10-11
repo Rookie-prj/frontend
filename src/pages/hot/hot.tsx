@@ -3,6 +3,7 @@ import CategoryBar from '../../components/category/category';
 import HeroBanner from '../../components/hot/heroBanner/heroBanner';
 import ViewAllSection from '../../components/common/viewAllSection/viewAllSection';
 import Post from '../../components/post/post';
+import Rookie from '../../components/rookie/rookie';
 
 const Hot = () => {
   const handleCategoryChange = (category: string) => {
@@ -16,6 +17,10 @@ const Hot = () => {
       <HeroBanner />
       <ViewAllSection title="많은 루키들이 집중해요!" onClick={() => {}} route="hot" />
       <Post />
+      <div style={{ marginTop: '0.56rem' }}>
+        <ViewAllSection title="나와 가까이 있는 루키" onClick={() => {}} route="hot" />
+      </div>
+      <Rookie />
     </div>
   );
 };

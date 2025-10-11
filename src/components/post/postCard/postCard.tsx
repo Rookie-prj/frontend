@@ -47,15 +47,26 @@ import {
   PostCardTitleContent,
 } from './postCard.styles';
 
+import background from '../../../assets/img/background.svg';
+
 interface PostCardProps {
   title: string;
   author: string;
+  backgroundImage?: string;
+  backgroundColor?: string;
+  overlayColor?: string;
 }
 
-export const PostCard = ({ title, author }: PostCardProps) => {
+export const PostCard = ({
+  title,
+  author,
+  backgroundImage = background,
+  backgroundColor,
+  overlayColor,
+}: PostCardProps) => {
   return (
     <PostCardContainer>
-      <PostCardTitleWrapper>
+      <PostCardTitleWrapper backgroundImage={backgroundImage} backgroundColor={backgroundColor}>
         <PostCardTitleContent>
           <PostCardTitleText>{title}</PostCardTitleText>
           <PostCardAuthor>{author}</PostCardAuthor>

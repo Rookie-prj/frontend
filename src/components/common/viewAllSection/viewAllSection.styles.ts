@@ -4,7 +4,7 @@ export const ViewAllContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  align-items: flex-start;
+
   justify-content: space-between;
   margin: 0.88rem 1rem;
 `;

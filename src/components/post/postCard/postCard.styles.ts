@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
-import background from '../../../assets/img/background.svg';
+
 export const PostCardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -9,11 +9,16 @@ export const PostCardContainer = styled.div`
   border-radius: 0.5rem;
   border: 1.25px solid ${colors.gray[100]};
   background: ${colors.white};
+  cursor: pointer;
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.05);
-
   gap: 0.63rem;
 `;
-export const PostCardTitleWrapper = styled.div`
+interface PostCardTitleWrapperProps {
+  backgroundImage?: string;
+  backgroundColor?: string;
+}
+
+export const PostCardTitleWrapper = styled.div<PostCardTitleWrapperProps>`
   display: flex;
   flex-direction: column;
   border-radius: 0.5rem 0.5rem 0 0;
@@ -21,9 +26,10 @@ export const PostCardTitleWrapper = styled.div`
   justify-content: flex-end;
   width: 10.75rem;
   height: 7.125rem;
-  flex: 1;
+  border-bottom: 1px solid ${colors.gray[150]};
   flex-shrink: 0;
-  background-image: url(${background});
+  background-image: ${(props) =>
+    props.backgroundImage ? `url(${props.backgroundImage})` : 'none'};
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -35,7 +41,7 @@ export const PostCardTitleWrapper = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(67, 179, 99, 0.6);
+    background: 'rgba(67, 179, 99, 0.6)';
     z-index: 1;
   }
 `;
