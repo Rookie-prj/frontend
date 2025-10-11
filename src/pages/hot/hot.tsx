@@ -1,6 +1,8 @@
 import Header from '../../components/header/header';
 import CategoryBar from '../../components/category/category';
 import HeroBanner from '../../components/hot/heroBanner/heroBanner';
+import ViewAllSection from '../../components/common/viewAllSection/viewAllSection';
+import Post from '../../components/post/post';
 
 const Hot = () => {
   const handleCategoryChange = (category: string) => {
@@ -8,13 +10,13 @@ const Hot = () => {
   };
 
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Header type="logo" />
       <CategoryBar group="HOME" onCategoryChange={handleCategoryChange} />
-      <div>
-        <HeroBanner />
-      </div>
-    </>
+      <HeroBanner />
+      <ViewAllSection title="많은 루키들이 집중해요!" onClick={() => {}} route="hot" />
+      <Post />
+    </div>
   );
 };
 

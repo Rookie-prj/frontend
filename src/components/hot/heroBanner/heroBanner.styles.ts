@@ -10,6 +10,7 @@ const HeroBannerContainer = styled.div`
   margin-top: 1.13rem;
   height: 4.8125rem;
   padding-left: 1.94rem;
+  margin-bottom: 0.37rem;
 `;
 export const FireText = styled.span`
   color: ${colors.red[300]};
