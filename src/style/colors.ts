@@ -22,7 +22,7 @@ export const colors = {
     300: '#45BE67',
     200: '#66F285',
     100: '#BDF9CB',
-    50: '#E1FFE8T',
+    50: '#E1FFE8',
   },
   white: '#fff',
   red: {

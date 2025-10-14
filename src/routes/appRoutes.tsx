@@ -5,6 +5,7 @@ import Search from '../pages/search/search';
 import Chat from '../pages/chat/chat';
 import Library from '../pages/library/library';
 import Hot from '../pages/hot/hot';
+import { CreateProject } from '../pages/createProject/createProject';
 import Layout from '../components/layout/layout';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
@@ -44,6 +45,14 @@ const AppRoutes = () => {
           element: <Hot />,
         },
       ],
+    },
+    {
+      path: ROUTES.createProject,
+      element: (
+        <Layout hideNavigation={true}>
+          <CreateProject />
+        </Layout>
+      ),
     },
   ];
 

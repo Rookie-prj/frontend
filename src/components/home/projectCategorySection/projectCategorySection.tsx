@@ -1,28 +1,59 @@
 import { ProjectCategoryCardsContainer } from './projectCategorySection.styles';
 import PROJECT_TYPE from '../../../constants/projectType';
-import ProjectCategoryCard from './projectCategoryCard/projectCategoryCard';
+import {
+  ProjectCategoryCardRow,
+  ProjectCategoryCardCol,
+} from './projectCategoryCard/projectCategoryCard';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
 import ViewAllButton from '../../common/viewAllSection/viewAllSection';
+import { useCreateProjectStore } from '../../../store/createProjectStore';
 
-const ProjectCategorySection = () => {
+interface ProjectCategorySectionProps {
+  showViewAll?: boolean;
+  onCardClick?: (projectType: string) => void;
+  layout?: 'row' | 'col';
+}
+
+const ProjectCategorySection = ({
+  showViewAll = true,
+  onCardClick,
+  layout = 'row',
+}: ProjectCategorySectionProps) => {
   const navigate = useNavigate();
+  const { projectType, setProjectType } = useCreateProjectStore();
+
+  const handleCardClick = (projectType: string) => {
+    setProjectType(projectType);
+    if (onCardClick) {
+      onCardClick(projectType);
+    }
+  };
+
   return (
     <>
-      <ViewAllButton
-        route="search"
-        title="어떤 프로젝트 찾으세요?"
-        onClick={() => navigate(ROUTES.search)}
-      />
-      <ProjectCategoryCardsContainer>
-        {Object.values(PROJECT_TYPE).map((projectType) => (
-          <ProjectCategoryCard
-            key={projectType.value}
-            tag={projectType.tag}
-            title={projectType.label}
-            icon={projectType.icon}
-          />
-        ))}
+      {showViewAll && (
+        <ViewAllButton
+          route="search"
+          title="어떤 프로젝트 찾으세요?"
+          onClick={() => navigate(ROUTES.search)}
+        />
+      )}
+      <ProjectCategoryCardsContainer layout={layout}>
+        {Object.values(PROJECT_TYPE).map((projectType) => {
+          const CardComponent = layout === 'col' ? ProjectCategoryCardCol : ProjectCategoryCardRow;
+          return (
+            <CardComponent
+              key={projectType.value}
+              tag={projectType.tag}
+              title={projectType.label}
+              icon={projectType.icon}
+              layout={layout}
+              isActive={projectType.value === projectType.value}
+              onClick={() => handleCardClick(projectType.value)}
+            />
+          );
+        })}
       </ProjectCategoryCardsContainer>
     </>
   );
