@@ -18,7 +18,7 @@ export default function GlobalStyle() {
           #root,
           .Nav,
           .showNav {
-            width: 430px;
+            width: 375px;
           }
         }
 
