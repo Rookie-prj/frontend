@@ -16,11 +16,8 @@ export const ProjectCategoryCardContainer = styled.div<ContainerProps>`
   justify-content: ${({ layout }) => (layout === 'row' ? 'center' : 'flex-start')};
   cursor: pointer;
   border-radius: 0.75rem;
-  border: 1px solid
-    ${({ isActive, layout }) =>
-      isActive && layout === 'col' ? colors.green[200] : colors.gray[150]};
-  background: ${({ isActive, layout }) =>
-    isActive && layout === 'col' ? colors.green[50] : colors.gray[50]};
+  border: 1px solid ${({ isActive }) => (isActive ? colors.green[200] : colors.gray[150])};
+  background: ${({ isActive }) => (isActive ? colors.green[50] : colors.gray[50])};
   transition: background 0.2s ease;
 `;
 export const ProjectCategoryCardContent = styled.div<ContainerProps>`

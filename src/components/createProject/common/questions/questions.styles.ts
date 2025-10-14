@@ -26,4 +26,5 @@ export const QuestionsTextDetail = styled.div`
 `;
 export const QuestionsNumber = styled.img`
   display: flex;
+  padding-right: 0.44rem;
 `;

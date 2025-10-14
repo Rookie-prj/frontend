@@ -18,14 +18,14 @@ interface CreateProjectStep1Props {
 }
 
 export const CreateProjectStep1 = ({ onNext }: CreateProjectStep1Props) => {
-  const { period, setPeriod, setProjectType } = useCreateProjectStore();
+  const { selectedPeriod, setSelectedPeriod, setSelectedProjectType } = useCreateProjectStore();
 
   const handleProjectTypeSelect = (projectType: string) => {
-    setProjectType(projectType);
+    setSelectedProjectType(projectType);
     console.log('Selected project type:', projectType);
   };
   const handlePeriodSelect = (period: string) => {
-    setPeriod(period);
+    setSelectedPeriod(period);
     console.log('Selected period:', period);
   };
 
@@ -47,7 +47,7 @@ export const CreateProjectStep1 = ({ onNext }: CreateProjectStep1Props) => {
               <Options
                 key={option.value}
                 text={option.label}
-                isActive={period === option.value}
+                isActive={selectedPeriod === option.value}
                 onClick={() => handlePeriodSelect(option.value)}
               />
             ))}

@@ -10,7 +10,7 @@ export const OptionsContainer = styled.div<OptionsContainerProps>`
   white-space: nowrap;
   padding: 0.75rem 0.875rem;
   flex-direction: row;
-  gap: 0.19rem;
+  gap: 0.4rem;
   border-radius: 0.5rem;
   border: 1.5px solid ${({ isActive }) => (isActive ? colors.green[200] : colors.gray[150])};
   background: ${({ isActive }) => (isActive ? colors.green[50] : colors.white)};

@@ -24,7 +24,7 @@ export type QuestionIconType = keyof typeof questionIcons;
 const Questions = ({ text, number, subText }: OptionsProps) => {
   return (
     <QuestionsContainer>
-      <QuestionsNumber src={number} />
+      <QuestionsNumber src={number ? questionIcons[number] : undefined} />
       <QuestionsTextContainer>
         <QuestionsText>{text}</QuestionsText>
         <QuestionsTextDetail>{subText}</QuestionsTextDetail>

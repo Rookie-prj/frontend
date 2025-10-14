@@ -1,6 +1,10 @@
 import handsIcon from '../assets/icons/hands.svg';
 import speakerIcon from '../assets/icons/speaker.svg';
 import leftArrow from '../assets/icons/leftArrow.svg';
+import pmIcon from '../assets/icons/pm.svg';
+import developerIcon from '../assets/icons/developer.svg';
+import designerIcon from '../assets/icons/designer.svg';
+import etcIcon from '../assets/icons/etc.svg';
 export const CREATE_PROJECT_MODAL = {
   title: '프로젝트 등록하기',
   groups: [
@@ -57,6 +61,12 @@ export const TEAM_PERIOD_OPTIONS = [
   { value: 'TEN_MONTHS', label: '10개월' },
   { value: 'ONE_YEAR', label: '1년' },
   { value: 'OVER_ONE_YEAR', label: '1년 이상' },
+];
+export const TEAM_POSITION_OPTIONS = [
+  { value: 'PM', label: '기획자', icon: pmIcon },
+  { value: 'DEVELOPER', label: '개발자', icon: developerIcon },
+  { value: 'DESIGNER', label: '디자이너', icon: designerIcon },
+  { value: 'ETC', label: '기타', icon: etcIcon },
 ];
 export const TEAM_DISTANCE_OPTIONS = [
   { value: 'NEAR', label: '가까운 게 좋아요' },
