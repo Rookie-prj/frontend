@@ -21,7 +21,7 @@ const Home = () => {
       <Header type="logo" />
       <CategoryBar group="HOME" onCategoryChange={handleCategoryChange} />
       <HeroBanner currentSlide={currentSlide} onSlideChange={handleSlideChange} />
-      <ProjectCategorySection slideIndex={currentSlide} isActive={true} />
+      <ProjectCategorySection />
     </div>
   );
 };

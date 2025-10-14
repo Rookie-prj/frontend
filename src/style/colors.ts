@@ -21,13 +21,17 @@ export const colors = {
     400: '#329B49',
     300: '#45BE67',
     200: '#66F285',
-    100: '#1D4ED8',
+    100: '#BDF9CB',
     50: '#E1FFE8T',
   },
   white: '#fff',
+  red: {
+    300: '#ff6C22',
+  },
 } as const;
 
 export type ColorKey = keyof typeof colors;
 export type GrayKey = keyof typeof colors.gray;
+export type RedKey = keyof typeof colors.red;
 export type WhiteKey = keyof typeof colors.white;
 export type GreenKey = keyof typeof colors.green;
