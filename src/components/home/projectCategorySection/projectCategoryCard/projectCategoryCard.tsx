@@ -11,17 +11,48 @@ interface ProjectTypeCardProps {
   title: string;
   icon: string;
   layout?: 'row' | 'col';
+  isActive?: boolean;
+  onClick?: () => void;
 }
 
-const ProjectCategoryCard = ({ tag, title, icon, layout = 'row' }: ProjectTypeCardProps) => {
+export const ProjectCategoryCardRow = ({
+  tag,
+  title,
+  icon,
+  layout = 'row',
+  isActive = false,
+  onClick,
+}: ProjectTypeCardProps) => {
   return (
-    <ProjectCategoryCardContainer>
+    <ProjectCategoryCardContainer layout={layout} isActive={isActive} onClick={onClick}>
       <ProjectCategoryCardTag>{tag}</ProjectCategoryCardTag>
       <ProjectCategoryCardContent>
         <ProjectCategoryCardTitle>{title}</ProjectCategoryCardTitle>
-        <img src={icon} alt="project-icon" />
+        <ProjectCategoryCardIconWrapper layout={layout}>
+          <img src={icon} alt="project-icon" />
+        </ProjectCategoryCardIconWrapper>
       </ProjectCategoryCardContent>
     </ProjectCategoryCardContainer>
   );
 };
-export default ProjectCategoryCard;
+
+export const ProjectCategoryCardCol = ({
+  tag,
+  title,
+  icon,
+  layout = 'col',
+  isActive = false,
+  onClick,
+}: ProjectTypeCardProps) => {
+  return (
+    <ProjectCategoryCardContainer layout={layout} isActive={isActive} onClick={onClick}>
+      <ProjectCategoryCardIconWrapper layout={layout}>
+        <img src={icon} alt="project-icon" style={{ width: '5rem', height: '5rem' }} />
+      </ProjectCategoryCardIconWrapper>
+      <ProjectCategoryCardTag>{tag}</ProjectCategoryCardTag>
+      <ProjectCategoryCardContent>
+        <ProjectCategoryCardTitle>{title}</ProjectCategoryCardTitle>
+      </ProjectCategoryCardContent>
+    </ProjectCategoryCardContainer>
+  );
+};

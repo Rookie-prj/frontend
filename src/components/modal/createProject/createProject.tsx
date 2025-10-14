@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   CreateProjectContainer,
   CreateProjectTitle,
@@ -7,8 +8,9 @@ import {
   GroupContent,
 } from './createProject.styles';
 import { ModalOverlay } from '../container/container.styles';
-import Button from '../../button/button';
-import { CREATE_PROJECT_MODAL } from '../../../constants/modal/createProject';
+import Button from '../../common/button/button';
+import { CREATE_PROJECT_MODAL } from '../../../constants/createProject';
+import { ROUTES } from '../../../constants/routes';
 
 interface CreateProjectProps {
   isOpen: boolean;
@@ -16,6 +18,8 @@ interface CreateProjectProps {
 }
 
 const CreateProject: React.FC<CreateProjectProps> = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
+
   if (!isOpen) return null;
 
   const handleOverlayClick = (e: React.MouseEvent) => {
@@ -27,6 +31,11 @@ const CreateProject: React.FC<CreateProjectProps> = ({ isOpen, onClose }) => {
   const handleGroupClick = (groupId: string) => {
     console.log('선택된 그룹:', groupId);
     onClose();
+
+    // '처음부터 팀을 구성해요' 옵션을 선택한 경우 funnel로 이동
+    if (groupId === '1') {
+      navigate(ROUTES.createProject);
+    }
   };
 
   return (

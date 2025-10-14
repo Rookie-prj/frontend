@@ -5,4 +5,5 @@ export const ROUTES = {
   chat: '/chat',
   library: '/library',
   hot: '/hot',
+  createProject: '/create-project',
 };
