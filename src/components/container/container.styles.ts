@@ -15,3 +15,9 @@ export const BaseContainerWithSpaceBetween = styled.div`
   justify-content: space-between;
   padding: 0 1rem;
 `;
+
+export const RowContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;

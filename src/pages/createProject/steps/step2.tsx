@@ -56,32 +56,33 @@ import {
 import { OptionsScrollWrapper } from '../../../components/createProject/common/options/options.styles';
 import BackDrop from '../../../components/common/backDrop/backDrop';
 import { StepTitle } from './steps.styles';
-import ProjectCategorySection from '../../../components/home/projectCategorySection/projectCategorySection';
-import Questions, {
-  QuestionIconType,
-} from '../../../components/createProject/common/questions/questions';
+import Questions from '../../../components/createProject/common/questions/questions';
 import Options from '../../../components/createProject/common/options/options';
 import { useCreateProjectStore } from '../../../store/createProjectStore';
+import Input from '../../../components/common/input/input';
 
 interface CreateProjectStep2Props {
   onNext: () => void;
+  onChange: (positionDetail: string | null) => void;
 }
 
-export const CreateProjectStep2 = ({ onNext }: CreateProjectStep2Props) => {
-  const { selectedPosition, setSelectedPosition } = useCreateProjectStore();
+export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props) => {
+  const {
+    selectedPosition,
+    setSelectedPosition,
+    selectedPositionDetail,
+    setSelectedPositionDetail,
+  } = useCreateProjectStore();
 
-  // const handleProjectTypeSelect = (projectType: string) => {
-  //   setProjectType(projectType);
-  //   console.log('Selected project type:', projectType);
-  // };
-  // const handlePeriodSelect = (period: string) => {
-  //   setPeriod(period);
   const handlePositionSelect = (position: string) => {
     setSelectedPosition(position);
     console.log('Selected position:', position);
   };
-  //   console.log('Selected period:', period);
-  // };
+  const handlePositionDetailChange = (value: string) => {
+    const positionDetail = value || null;
+    setSelectedPositionDetail(positionDetail);
+    console.log('Selected position detail:', positionDetail);
+  };
 
   return (
     <>
@@ -90,11 +91,6 @@ export const CreateProjectStep2 = ({ onNext }: CreateProjectStep2Props) => {
         <BaseContainer>
           <StepTitle>{TEAM.STEP2}</StepTitle>
           <StepBar currentStep={1} totalSteps={5} />
-          {/* <ProjectCategorySection
-            showViewAll={false}
-            onCardClick={handleProjectTypeSelect}
-            layout="col"
-          /> */}
           <Questions text={TEAM.STEP2_POSITION} number="one" />
           <OptionsScrollWrapper>
             {TEAM_POSITION_OPTIONS.map((option) => (
@@ -107,6 +103,23 @@ export const CreateProjectStep2 = ({ onNext }: CreateProjectStep2Props) => {
               />
             ))}
           </OptionsScrollWrapper>
+
+          <div
+            style={{
+              marginTop: '1.88rem',
+              gap: '0.88rem',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Questions text={TEAM.STEP2_POSITION_DETAIL} number="two" />
+            <Input
+              placeholder={'Front end 개발자'}
+              value={selectedPositionDetail}
+              maxLength={22}
+              onChange={handlePositionDetailChange}
+            />
+          </div>
         </BaseContainer>
 
         <div style={{ marginBottom: '1.7rem' }}>
