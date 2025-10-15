@@ -77,6 +77,8 @@ export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props
     setSelectedPosition,
     selectedPositionDetail,
     setSelectedPositionDetail,
+    selectedPositionNumberOfPeople,
+    setSelectedPositionNumberOfPeople,
   } = useCreateProjectStore();
 
   const handleCloseModal = () => {
@@ -93,6 +95,11 @@ export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props
     const positionDetail = value || null;
     setSelectedPositionDetail(positionDetail);
     console.log('Selected position detail:', positionDetail);
+  };
+
+  const handleNumberOfPeopleSelect = (value: string) => {
+    setSelectedPositionNumberOfPeople(value);
+    console.log('Selected number of people:', value);
   };
 
   return (
@@ -127,7 +134,12 @@ export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props
 
         <StepContainer>
           <Questions text={TEAM.STEP2_POSITION_NUMBER_OF_PEOPLE} number="three" />
-          <DropDown placeholder={'1명'} onClick={handleOpenModal} isOpen={isModalOpen} />
+          <DropDown
+            placeholder={'1명'}
+            value={selectedPositionNumberOfPeople || ''}
+            onClick={handleOpenModal}
+            isOpen={isModalOpen}
+          />
         </StepContainer>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <AddCollaboratorButton />
@@ -137,7 +149,11 @@ export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props
           <Button onClick={onNext}>다음</Button>
         </div>
       </CreateProjectBaseContainer>
-      <NumberOfPeople isOpen={isModalOpen} onClose={handleCloseModal} />
+      <NumberOfPeople
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onSelect={handleNumberOfPeopleSelect}
+      />
     </>
   );
 };

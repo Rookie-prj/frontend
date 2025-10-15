@@ -4,11 +4,10 @@ interface CreateProjectState {
   selectedProjectType: string | null;
   selectedPosition: string | null;
   selectedPeriod: string | null;
-
   selectedPositionDetail: string | null;
-  selectedPositionNumberOfPeople: number | null;
+  selectedPositionNumberOfPeople: string | null;
   setSelectedPositionDetail: (positionDetail: string | null) => void;
-  setSelectedPositionNumberOfPeople: (positionNumberOfPeople: number | null) => void;
+  setSelectedPositionNumberOfPeople: (positionNumberOfPeople: string | null) => void;
   setSelectedProjectType: (projectType: string | null) => void;
   setSelectedPeriod: (period: string | null) => void;
   setSelectedPosition: (position: string | null) => void;
@@ -27,5 +26,12 @@ export const useCreateProjectStore = create<CreateProjectState>((set) => ({
   setSelectedProjectType: (projectType) => set({ selectedProjectType: projectType }),
   setSelectedPeriod: (period) => set({ selectedPeriod: period }),
   setSelectedPosition: (position) => set({ selectedPosition: position }),
-  reset: () => set({ selectedProjectType: null, selectedPeriod: null, selectedPosition: null }),
+  reset: () =>
+    set({
+      selectedProjectType: null,
+      selectedPeriod: null,
+      selectedPosition: null,
+      selectedPositionDetail: null,
+      selectedPositionNumberOfPeople: null,
+    }),
 }));
