@@ -9,7 +9,8 @@ export const BaseContainer = styled.div`
 export const BaseContainerWithSpaceBetween = styled.div`
   display: flex;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  overflow-y: auto;
 
   flex-direction: column;
   justify-content: space-between;

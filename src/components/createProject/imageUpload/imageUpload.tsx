@@ -45,7 +45,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       setImageFiles(updatedImages);
       onImagesChange?.(updatedImages.map((img) => img.file));
 
-      // Reset input value to allow selecting the same file again
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
@@ -57,7 +56,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     (id: string) => {
       const updatedImages = imageFiles.filter((img) => {
         if (img.id === id) {
-          URL.revokeObjectURL(img.preview); // Clean up memory
+          URL.revokeObjectURL(img.preview);
           return false;
         }
         return true;

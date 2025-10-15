@@ -54,7 +54,7 @@ export const CreateProjectStep1 = ({ onNext }: CreateProjectStep1Props) => {
           </OptionsScrollWrapper>
         </BaseContainer>
 
-        <div style={{ marginBottom: '1.7rem' }}>
+        <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
           <Button onClick={onNext}>다음</Button>
         </div>
       </BaseContainerWithSpaceBetween>

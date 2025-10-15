@@ -11,7 +11,14 @@ const Hot = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        overflowY: 'auto',
+        paddingBottom: '4.9375rem',
+      }}
+    >
       <Header type="logo" />
       <CategoryBar group="HOME" onCategoryChange={handleCategoryChange} />
       <HeroBanner />

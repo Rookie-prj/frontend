@@ -343,7 +343,6 @@ export const CreateProjectStep3 = ({ onNext, onPrev }: CreateProjectStep3Props) 
               maxLength={2000}
               onChange={handleProjectDescriptionChange}
             />
-            {/* <ProjectDescriptionHint /> */}
           </StepContainer>
           <StepContainer style={{ marginTop: '0.5rem' }}>
             <Questions text={TEAM.STEP3_PROJECT_DESCRIPTION_EXPLANATION_PIC} number="three" />
@@ -354,12 +353,11 @@ export const CreateProjectStep3 = ({ onNext, onPrev }: CreateProjectStep3Props) 
               previewLayout="grid"
               onImagesChange={(images) => {
                 console.log('Selected images:', images);
-                // 여기에 이미지 상태 관리 로직을 추가할 수 있습니다
               }}
             />
           </StepContainer>
         </BaseContainer>
-        <div style={{ marginBottom: '1.7rem' }}>
+        <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
           <Button onClick={onNext}>다음</Button>
         </div>
       </BaseContainerWithSpaceBetween>
