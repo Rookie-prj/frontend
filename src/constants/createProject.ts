@@ -86,6 +86,13 @@ export const TEAM_COOPERATION_TOOL_OPTIONS = [
   { value: 'TOOL_6', label: 'Google Workspace' },
   { value: 'TOOL_7', label: 'Figma' },
 ];
+export const TEAM_NUMBER_OF_PEOPLE_OPTIONS = [
+  { value: '1', label: '1명' },
+  { value: '2', label: '2명' },
+  { value: '3', label: '3명' },
+  { value: '4', label: '4명' },
+  { value: '5', label: '5명 이상' },
+];
 export const TEAM_END_DATE_OPTIONS = {
   title: '마감일을 선택해주세요',
   groups: [

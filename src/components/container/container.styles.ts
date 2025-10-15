@@ -5,7 +5,12 @@ export const BaseContainer = styled.div`
   flex-direction: column;
   width: 100%;
 `;
-
+export const CreateProjectBaseContainer = styled.div`
+  display: flex;
+  padding: 0 1rem;
+  flex-direction: column;
+  width: 100%;
+`;
 export const BaseContainerWithSpaceBetween = styled.div`
   display: flex;
   width: 100%;
@@ -20,4 +25,10 @@ export const RowContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+`;
+export const StepContainer = styled.div`
+  margin-top: 1.88rem;
+  gap: 0.88rem;
+  display: flex;
+  flex-direction: column;
 `;

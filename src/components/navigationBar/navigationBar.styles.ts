@@ -3,9 +3,9 @@ import { keyframes } from '@emotion/react';
 import { colors } from '../../style/colors';
 
 export const NavBarContainer = styled.div`
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  width: 23.438rem;
+  width: 100%;
   left: 50%;
   transform: translateX(-50%);
   height: 4.9375rem;

@@ -1,4 +1,9 @@
-import { InputCharacterLimit, InputContainer, InputField, InputWrapper } from './input.styles';
+import {
+  FieldCharacterLimit,
+  FieldContainer,
+  FieldInput,
+  FieldWrapper,
+} from '../../container/filedContainer.styles';
 import x from '../../../assets/icons/x.svg';
 
 interface InputProps {
@@ -25,20 +30,20 @@ const Input = ({
   };
 
   return (
-    <InputContainer>
-      <InputWrapper>
-        <InputField
+    <FieldContainer>
+      <FieldWrapper>
+        <FieldInput
           placeholder={placeholder}
           value={value || ''}
           onChange={(e) => onChange(e.target.value)}
           maxLength={maxLength}
         />
         {value && <img src={x} alt="clear" onClick={handleClear} style={{ cursor: 'pointer' }} />}
-      </InputWrapper>
+      </FieldWrapper>
       {getCharacterLimitText() && (
-        <InputCharacterLimit>{getCharacterLimitText()}</InputCharacterLimit>
+        <FieldCharacterLimit>{getCharacterLimitText()}</FieldCharacterLimit>
       )}
-    </InputContainer>
+    </FieldContainer>
   );
 };
 

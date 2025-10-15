@@ -48,11 +48,13 @@
 
 import { TEAM, TEAM_POSITION_OPTIONS } from '../../../constants/createProject';
 import Button from '../../../components/common/button/button';
+import AddCollaboratorButton from '../../../components/createProject/addCollaboratorButton';
 import StepBar from '../../../components/createProject/stepBar/stepBar';
 import {
-  BaseContainer,
-  BaseContainerWithSpaceBetween,
+  StepContainer,
+  CreateProjectBaseContainer,
 } from '../../../components/container/container.styles';
+import NumberOfPeople from '../../../components/modal/numberOfPeople/numberOfPeople';
 import { OptionsScrollWrapper } from '../../../components/createProject/common/options/options.styles';
 import BackDrop from '../../../components/common/backDrop/backDrop';
 import { StepTitle } from './steps.styles';
@@ -60,6 +62,8 @@ import Questions from '../../../components/createProject/common/questions/questi
 import Options from '../../../components/createProject/common/options/options';
 import { useCreateProjectStore } from '../../../store/createProjectStore';
 import Input from '../../../components/common/input/input';
+import DropDown from '../../../components/common/dropDown/dropDown';
+import { useState } from 'react';
 
 interface CreateProjectStep2Props {
   onNext: () => void;
@@ -67,6 +71,7 @@ interface CreateProjectStep2Props {
 }
 
 export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     selectedPosition,
     setSelectedPosition,
@@ -74,6 +79,12 @@ export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props
     setSelectedPositionDetail,
   } = useCreateProjectStore();
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
   const handlePositionSelect = (position: string) => {
     setSelectedPosition(position);
     console.log('Selected position:', position);
@@ -86,46 +97,47 @@ export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props
 
   return (
     <>
-      <BaseContainerWithSpaceBetween>
+      <CreateProjectBaseContainer>
         <BackDrop />
-        <BaseContainer>
-          <StepTitle>{TEAM.STEP2}</StepTitle>
-          <StepBar currentStep={1} totalSteps={5} />
-          <Questions text={TEAM.STEP2_POSITION} number="one" />
-          <OptionsScrollWrapper>
-            {TEAM_POSITION_OPTIONS.map((option) => (
-              <Options
-                key={option.value}
-                text={option.label}
-                icon={option.icon}
-                isActive={selectedPosition === option.value}
-                onClick={() => handlePositionSelect(option.value)}
-              />
-            ))}
-          </OptionsScrollWrapper>
 
-          <div
-            style={{
-              marginTop: '1.88rem',
-              gap: '0.88rem',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <Questions text={TEAM.STEP2_POSITION_DETAIL} number="two" />
-            <Input
-              placeholder={'Front end 개발자'}
-              value={selectedPositionDetail}
-              maxLength={22}
-              onChange={handlePositionDetailChange}
+        <StepTitle>{TEAM.STEP2}</StepTitle>
+        <StepBar currentStep={1} totalSteps={5} />
+        <Questions text={TEAM.STEP2_POSITION} number="one" />
+        <OptionsScrollWrapper>
+          {TEAM_POSITION_OPTIONS.map((option) => (
+            <Options
+              key={option.value}
+              text={option.label}
+              icon={option.icon}
+              isActive={selectedPosition === option.value}
+              onClick={() => handlePositionSelect(option.value)}
             />
-          </div>
-        </BaseContainer>
+          ))}
+        </OptionsScrollWrapper>
+
+        <StepContainer>
+          <Questions text={TEAM.STEP2_POSITION_DETAIL} number="two" />
+          <Input
+            placeholder={'Front end 개발자'}
+            value={selectedPositionDetail}
+            maxLength={22}
+            onChange={handlePositionDetailChange}
+          />
+        </StepContainer>
+
+        <StepContainer>
+          <Questions text={TEAM.STEP2_POSITION_NUMBER_OF_PEOPLE} number="three" />
+          <DropDown placeholder={'1명'} onClick={handleOpenModal} />
+        </StepContainer>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <AddCollaboratorButton />
+        </div>
 
         <div style={{ marginBottom: '1.7rem' }}>
           <Button onClick={onNext}>다음</Button>
         </div>
-      </BaseContainerWithSpaceBetween>
+      </CreateProjectBaseContainer>
+      <NumberOfPeople isOpen={isModalOpen} onClose={handleCloseModal} />
     </>
   );
 };
