@@ -5,12 +5,14 @@ export const BaseContainer = styled.div`
   flex-direction: column;
   width: 100%;
 `;
-export const CreateProjectBaseContainer = styled.div`
-  display: flex;
-  padding: 0 1rem;
-  flex-direction: column;
-  width: 100%;
-`;
+// export const CreateProjectBaseContainer = styled.div`
+//   display: flex;
+//   padding: 0 1rem;
+//   height: 100vh;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   width: 100%;
+// `;
 export const BaseContainerWithSpaceBetween = styled.div`
   display: flex;
   width: 100%;
