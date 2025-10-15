@@ -27,7 +27,6 @@ export const RowContainer = styled.div`
   width: 100%;
 `;
 export const StepContainer = styled.div`
-  margin-top: 1.88rem;
   gap: 0.88rem;
   display: flex;
   flex-direction: column;

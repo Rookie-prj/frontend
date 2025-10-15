@@ -1,28 +1,40 @@
-import React from 'react';
-
-import { ModalOverlay, ModalTitle } from '../container/container.styles';
+import React, { useState } from 'react';
+import { ModalOverlay } from '../container/container.styles';
 import { TEAM, TEAM_NUMBER_OF_PEOPLE_OPTIONS } from '../../../constants/createProject';
 import {
   NumberOfPeopleContainer,
-  NumberOfPeopleGroupContainer,
-  NumberOfPeopleGroupContent,
-  NumberOfPeopleGroupItem,
+  ModalTitle,
+  OptionsContainer,
+  OptionItem,
+  OptionText,
+  ConfirmButtonWrapper,
 } from './numberOfPeople.styles';
+import Button from '../../../components/common/button/button';
 
-interface CreateProjectProps {
+interface NumberOfPeopleProps {
   isOpen: boolean;
+
   onClose: () => void;
+  onSelect?: (value: string) => void;
 }
 
-const CreateProject: React.FC<CreateProjectProps> = ({ isOpen, onClose }) => {
+const NumberOfPeople: React.FC<NumberOfPeopleProps> = ({ isOpen, onClose, onSelect }) => {
+  const [selectedValue, setSelectedValue] = useState<string>('2명');
+
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
   };
 
-  const handleGroupClick = (groupId: string) => {
-    console.log('선택된 그룹:', groupId);
+  const handleOptionClick = (value: string) => {
+    setSelectedValue(value);
+  };
+
+  const handleConfirm = () => {
+    if (onSelect) {
+      onSelect(selectedValue);
+    }
     onClose();
   };
 
@@ -31,22 +43,24 @@ const CreateProject: React.FC<CreateProjectProps> = ({ isOpen, onClose }) => {
   return (
     <ModalOverlay onClick={handleOverlayClick}>
       <NumberOfPeopleContainer>
-        <ModalTitle>{TEAM.STEP2_POSITION_NUMBER_OF_PEOPLE}</ModalTitle>
-        <NumberOfPeopleGroupContainer>
-          {TEAM_NUMBER_OF_PEOPLE_OPTIONS.map((group) => (
-            <NumberOfPeopleGroupItem
-              key={group.value}
-              onClick={() => handleGroupClick(group.value)}
+        <ModalTitle>구하시는 인원을 선택해주세요</ModalTitle>
+        <OptionsContainer>
+          {TEAM_NUMBER_OF_PEOPLE_OPTIONS.map((option) => (
+            <OptionItem
+              key={option.value}
+              onClick={() => handleOptionClick(option.label)}
+              isSelected={selectedValue === option.label}
             >
-              <NumberOfPeopleGroupContent>
-                <p>{group.label}</p>
-              </NumberOfPeopleGroupContent>
-            </NumberOfPeopleGroupItem>
+              <OptionText isSelected={selectedValue === option.label}>{option.label}</OptionText>
+            </OptionItem>
           ))}
-        </NumberOfPeopleGroupContainer>
+        </OptionsContainer>
+        <ConfirmButtonWrapper>
+          <Button onClick={handleConfirm}>확인</Button>
+        </ConfirmButtonWrapper>
       </NumberOfPeopleContainer>
     </ModalOverlay>
   );
 };
 
-export default CreateProject;
+export default NumberOfPeople;

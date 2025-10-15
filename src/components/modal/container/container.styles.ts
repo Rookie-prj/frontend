@@ -30,14 +30,12 @@ export const ModalOverlay = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
-
   z-index: 1000;
   animation: ${fadeIn} 0.3s ease-out;
 `;
 
 export const ModalBaseContainer = styled.div`
   display: flex;
-
   border-radius: 1rem 1rem 0 0;
   background: ${colors.white};
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.06);

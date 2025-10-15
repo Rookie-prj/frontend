@@ -115,7 +115,7 @@ export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props
           ))}
         </OptionsScrollWrapper>
 
-        <StepContainer>
+        <StepContainer style={{ marginTop: '1.88rem' }}>
           <Questions text={TEAM.STEP2_POSITION_DETAIL} number="two" />
           <Input
             placeholder={'Front end 개발자'}
@@ -127,7 +127,7 @@ export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props
 
         <StepContainer>
           <Questions text={TEAM.STEP2_POSITION_NUMBER_OF_PEOPLE} number="three" />
-          <DropDown placeholder={'1명'} onClick={handleOpenModal} />
+          <DropDown placeholder={'1명'} onClick={handleOpenModal} isOpen={isModalOpen} />
         </StepContainer>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <AddCollaboratorButton />
