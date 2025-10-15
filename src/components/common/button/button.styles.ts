@@ -7,9 +7,7 @@ export const ButtonContainer = styled.button`
   border-radius: 0.75rem;
   display: flex;
   width: 100%;
-
   text-align: center;
-
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 700;

@@ -33,6 +33,7 @@ export default function GlobalStyle() {
         #root {
           box-shadow: rgba(100, 100, 111, 0.5) 0px 7px 29px 0px;
           margin: 0 auto;
+          background-color: #fafbfe;
           min-height: 100vh;
           position: relative;
         }

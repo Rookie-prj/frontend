@@ -39,7 +39,12 @@ export const FieldInput = styled.input`
     color: ${colors.gray[300]};
   }
 `;
-
+export const FieldCharacterLimitWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+`;
 export const FieldCharacterLimit = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,6 +53,15 @@ export const FieldCharacterLimit = styled.div`
   gap: 0.375rem;
   align-self: stretch;
   color: var(--gray-300, #d1d5dc);
+  text-align: right;
+  font-size: 0.625rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 0.75rem; /* 120% */
+  letter-spacing: -0.00625rem;
+`;
+export const FieldCharacterLengthText = styled.span`
+  color: ${colors.gray[700]};
   text-align: right;
   font-size: 0.625rem;
   font-style: normal;

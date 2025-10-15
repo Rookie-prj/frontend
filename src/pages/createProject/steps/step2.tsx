@@ -229,10 +229,11 @@ import { useState } from 'react';
 
 interface CreateProjectStep2Props {
   onNext: () => void;
-  onChange: (positionDetail: string | null) => void;
+  onPrev: () => void;
+  onChange?: (positionDetail: string | null) => void;
 }
 
-export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props) => {
+export const CreateProjectStep2 = ({ onNext, onPrev, onChange }: CreateProjectStep2Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     selectedPosition,
@@ -256,6 +257,7 @@ export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props
   const handlePositionDetailChange = (value: string) => {
     const positionDetail = value || null;
     setSelectedPositionDetail(positionDetail);
+    onChange?.(positionDetail);
     console.log('Selected position detail:', positionDetail);
   };
 
@@ -294,7 +296,7 @@ export const CreateProjectStep2 = ({ onNext, onChange }: CreateProjectStep2Props
             />
           </StepContainer>
 
-          <StepContainer>
+          <StepContainer style={{ marginTop: '0.5rem' }}>
             <Questions text={TEAM.STEP2_POSITION_NUMBER_OF_PEOPLE} number="three" />
             <DropDown
               placeholder={'1명'}
