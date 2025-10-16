@@ -4,7 +4,8 @@ import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
 import { formatDate } from '../../../utils/dateUtils';
 
-type Value = Date | Date[] | null;
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 interface CalendarComponentProps {
   selectedDate: Date | null;

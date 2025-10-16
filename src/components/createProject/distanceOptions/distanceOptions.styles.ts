@@ -31,6 +31,9 @@ export const DistanceIcon = styled.div<{ isActive?: boolean }>`
   justify-content: center;
   background: ${({ isActive }) => (isActive ? colors.green[50] : 'white')};
   border-radius: 0.5rem;
+  img {
+    height: 1.75rem;
+  }
 `;
 
 export const DistanceText = styled.span<{ fontWeight?: 600 | 700 }>`
