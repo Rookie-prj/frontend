@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { colors } from '../../../../style/colors';
+import { colors } from '../../../style/colors';
 
 export const DistanceOptionsContainer = styled.div`
   display: flex;

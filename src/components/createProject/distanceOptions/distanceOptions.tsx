@@ -6,7 +6,7 @@ import {
   DistanceSubText,
   DistanceText,
 } from './distanceOptions.styles';
-import checkIcon from '../../../../assets/icons/check.svg';
+import checkIcon from '../../../assets/icons/check.svg';
 
 interface DistanceOption {
   value: string;

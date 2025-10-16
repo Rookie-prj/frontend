@@ -15,9 +15,9 @@ import BackDrop from '../../../components/common/backDrop/backDrop';
 import { StepTitle } from './steps.styles';
 import Questions from '../../../components/createProject/common/questions/questions';
 import TextArea from '../../../components/common/textArea/textArea';
-import DistanceOptions from '../../../components/createProject/common/distanceOptions/distanceOptions';
+import DistanceOptions from '../../../components/createProject/distanceOptions/distanceOptions';
 import Options from '../../../components/createProject/common/options/options';
-import MethodChips from '../../../components/createProject/common/methodChips/methodChips';
+import MethodChips from '../../../components/createProject/methodChips/methodChips';
 import { useState } from 'react';
 import { colors } from '../../../style/colors';
 
