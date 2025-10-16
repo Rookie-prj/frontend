@@ -5,6 +5,9 @@ import pmIcon from '../assets/icons/pm.svg';
 import developerIcon from '../assets/icons/developer.svg';
 import designerIcon from '../assets/icons/designer.svg';
 import etcIcon from '../assets/icons/etc.svg';
+import nearLocationIcon from '../assets/icons/nearLocation.svg';
+import farLocationIcon from '../assets/icons/farLocation.svg';
+import checkIcon from '../assets/icons/check.svg';
 export const CREATE_PROJECT_MODAL = {
   title: '프로젝트 등록하기',
   groups: [
@@ -71,8 +74,8 @@ export const TEAM_POSITION_OPTIONS = [
   { value: 'ETC', label: '기타', icon: etcIcon },
 ];
 export const TEAM_DISTANCE_OPTIONS = [
-  { value: 'NEAR', label: '가까운 게 좋아요' },
-  { value: 'IRRELEVANT', label: '상관없어요' },
+  { value: 'NEAR', label: '가까운 게 좋아요', icon: nearLocationIcon },
+  { value: 'IRRELEVANT', label: '상관없어요', icon: farLocationIcon },
 ];
 export const TEAM_COOPERATION_METHOD_OPTIONS = [
   { value: 'ONLINE', label: '온라인' },

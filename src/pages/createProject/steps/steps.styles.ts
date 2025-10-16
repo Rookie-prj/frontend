@@ -11,3 +11,14 @@ export const StepTitle = styled.div`
   color: ${colors.gray[800]};
   white-space: pre-line;
 `;
+export const StepSubTitle = styled.div`
+  color: var(--gray-400, #99a1af);
+
+  /* Caption/Caption3 | 12px */
+  font-family: Pretendard;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.125rem;
+  letter-spacing: -0.0075rem;
+`;

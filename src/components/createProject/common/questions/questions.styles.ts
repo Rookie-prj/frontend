@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../../style/colors';
 
-export const QuestionsContainer = styled.div`
+export const QuestionsContainer = styled.div<{ align?: 'center' | 'flex-start' }>`
   display: flex;
   flex-direction: row;
+  align-items: ${({ align = 'center' }) => align};
 `;
 export const QuestionsTextContainer = styled.div`
   display: flex;
