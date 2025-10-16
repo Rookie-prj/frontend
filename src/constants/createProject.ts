@@ -7,7 +7,8 @@ import designerIcon from '../assets/icons/designer.svg';
 import etcIcon from '../assets/icons/etc.svg';
 import nearLocationIcon from '../assets/icons/nearLocation.svg';
 import farLocationIcon from '../assets/icons/farLocation.svg';
-import checkIcon from '../assets/icons/check.svg';
+import calendarIcon from '../assets/icons/calendar.svg';
+import greenThunder from '../assets/icons/greenThunder.svg';
 export const CREATE_PROJECT_MODAL = {
   title: '프로젝트 등록하기',
   groups: [
@@ -98,25 +99,19 @@ export const TEAM_NUMBER_OF_PEOPLE_OPTIONS = [
   { value: '4', label: '4명' },
   { value: '5', label: '5명 이상' },
 ];
-export const TEAM_END_DATE_OPTIONS = {
-  title: '마감일을 선택해주세요',
-  groups: [
-    {
-      id: '1',
-      title: '날짜 지정 마감',
-      description: '마감일을 정해서 여유 있게 모집해요',
-      icon: handsIcon,
-      arrowIcon: leftArrow,
-    },
-    {
-      id: '2',
-      title: '모집 시 마감',
-      description: '필요한 인원이 모이면 바로 마감돼요',
-      icon: speakerIcon,
-      arrowIcon: leftArrow,
-    },
-  ],
-  button: '닫기',
-};
+export const TEAM_END_DATE_OPTIONS = [
+  {
+    value: 'DATE_SPECIFIED',
+    label: '날짜 지정 마감',
+    description: '마감일을 정해서 여유 있게 모집해요',
+    icon: calendarIcon,
+  },
+  {
+    value: 'RECRUITMENT_END',
+    label: '모집 시 마감',
+    description: '필요한 인원이 모이면 바로 마감돼요',
+    icon: greenThunder,
+  },
+];
 
 export const COMPLETE_PROJECT_STEPS = '게시물 등록이 완료되었습니다!';
