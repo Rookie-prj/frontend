@@ -18,7 +18,7 @@ import TextArea from '../../../components/common/textArea/textArea';
 import DistanceOptions from '../../../components/createProject/distanceOptions/distanceOptions';
 import Options from '../../../components/createProject/common/options/options';
 import MethodChips from '../../../components/createProject/methodChips/methodChips';
-import { useState } from 'react';
+import { useCreateProjectStore } from '../../../store/createProjectStore';
 import { colors } from '../../../style/colors';
 
 interface CreateProjectStep4Props {
@@ -27,10 +27,16 @@ interface CreateProjectStep4Props {
 }
 
 export const CreateProjectStep4 = ({ onNext, onPrev }: CreateProjectStep4Props) => {
-  const [selectedDistance, setSelectedDistance] = useState<string>('');
-  const [selectedTools, setSelectedTools] = useState<string[]>([]);
-  const [selectedMethod, setSelectedMethod] = useState<string>('');
-  const [skillText, setSkillText] = useState<string>('');
+  const {
+    selectedDistance,
+    selectedTools,
+    selectedMethod,
+    skillText,
+    setSelectedDistance,
+    setSelectedTools,
+    setSelectedMethod,
+    setSkillText,
+  } = useCreateProjectStore();
 
   const handleDistanceSelect = (distance: string) => {
     setSelectedDistance(distance);
@@ -52,6 +58,10 @@ export const CreateProjectStep4 = ({ onNext, onPrev }: CreateProjectStep4Props) 
     setSkillText(value);
   };
 
+  const handleNext = () => {
+    onNext();
+  };
+
   return (
     <>
       <BaseContainerWithSpaceBetween>
@@ -63,7 +73,7 @@ export const CreateProjectStep4 = ({ onNext, onPrev }: CreateProjectStep4Props) 
             <Questions text={TEAM.STEP4_ROOKIE_DISTANCE} number="one" />
             <DistanceOptions
               options={TEAM_DISTANCE_OPTIONS}
-              selectedValue={selectedDistance}
+              selectedValue={selectedDistance || undefined}
               onSelect={handleDistanceSelect}
             />
           </StepContainer>
@@ -102,14 +112,14 @@ export const CreateProjectStep4 = ({ onNext, onPrev }: CreateProjectStep4Props) 
             <Questions text={TEAM.STEP4_ROOKIE_COOPERATION_METHOD} number="four" />
             <MethodChips
               options={TEAM_COOPERATION_METHOD_OPTIONS}
-              selectedValue={selectedMethod}
+              selectedValue={selectedMethod || ''}
               onSelect={handleMethodSelect}
             />
           </StepContainer>
         </BaseContainer>
 
         <div style={{ marginBottom: '1.7rem', marginTop: '2.38rem' }}>
-          <Button onClick={onNext}>다음</Button>
+          <Button onClick={handleNext}>다음</Button>
         </div>
       </BaseContainerWithSpaceBetween>
     </>

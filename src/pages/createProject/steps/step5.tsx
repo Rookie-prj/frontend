@@ -50,11 +50,11 @@ const CreateProjectStep5 = ({ onPrev, onSubmit }: CreateProjectStep5Props) => {
   };
 
   const handleSubmit = () => {
-    console.log('=== Store 데이터 ===');
+    console.log('=== Step5 Store 데이터 ===');
     console.log('전체 store 데이터:', storeData);
     console.log('선택된 종료일:', selectedEndDate);
     console.log('종료일 타입:', selectedEndDateType);
-    console.log('==================');
+    console.log('=======================');
 
     if (onSubmit) {
       onSubmit();

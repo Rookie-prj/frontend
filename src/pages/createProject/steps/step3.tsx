@@ -297,6 +297,8 @@ export const CreateProjectStep3 = ({ onNext, onPrev }: CreateProjectStep3Props) 
     setSelectedProjectDescription,
     selectedProjectTitle,
     setSelectedProjectTitle,
+    selectedImages,
+    setSelectedImages,
   } = useCreateProjectStore();
 
   const handleCloseModal = () => {
@@ -316,6 +318,16 @@ export const CreateProjectStep3 = ({ onNext, onPrev }: CreateProjectStep3Props) 
     const projectDescription = value || null;
     setSelectedProjectDescription(projectDescription);
     console.log('Selected position detail:', projectDescription);
+  };
+
+  const handleNext = () => {
+    console.log('=== Step3 Store 데이터 ===');
+    console.log('프로젝트 제목:', selectedProjectTitle);
+    console.log('프로젝트 설명:', selectedProjectDescription);
+    console.log('선택된 이미지들:', selectedImages);
+    console.log('=======================');
+
+    onNext();
   };
 
   return (
@@ -352,13 +364,14 @@ export const CreateProjectStep3 = ({ onNext, onPrev }: CreateProjectStep3Props) 
               previewSize="medium"
               previewLayout="grid"
               onImagesChange={(images) => {
+                setSelectedImages(images);
                 console.log('Selected images:', images);
               }}
             />
           </StepContainer>
         </BaseContainer>
         <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-          <Button onClick={onNext}>다음</Button>
+          <Button onClick={handleNext}>다음</Button>
         </div>
       </BaseContainerWithSpaceBetween>
     </>
