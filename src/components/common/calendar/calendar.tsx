@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
+import { formatDate } from '../../../utils/dateUtils';
+
+type Value = Date | Date[] | null;
 
 interface CalendarComponentProps {
   selectedDate: Date | null;
@@ -108,13 +111,6 @@ const StyledCalendar = styled(Calendar)`
   }
 `;
 
-const formatDate = (date: Date): string => {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${month}월 ${day}일`;
-};
-
 const CalendarComponent = ({
   selectedDate,
   onDateChange,
@@ -122,9 +118,9 @@ const CalendarComponent = ({
 }: CalendarComponentProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleDateChange = (date: Date | Date[] | null) => {
-    if (date instanceof Date) {
-      onDateChange(date);
+  const handleDateChange = (value: Value) => {
+    if (value instanceof Date) {
+      onDateChange(value);
       setIsOpen(false);
     }
   };
