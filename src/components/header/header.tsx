@@ -18,7 +18,12 @@ const Header = ({ type, title }: HeaderProps) => {
       </>
     ),
     title: <HeaderTitle>{title}</HeaderTitle>,
-    search: <div>Search</div>,
+    search: (
+      <>
+        <h3>탐색</h3>
+        <img src={search} alt="search" />
+      </>
+    ),
   };
   return <HeaderContainer>{HeaderCase[type]}</HeaderContainer>;
 };
