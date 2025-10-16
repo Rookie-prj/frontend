@@ -1,6 +1,7 @@
 import Button from '../../../components/common/button/button';
 import StepBar from '../../../components/createProject/stepBar/stepBar';
 import CalendarModal from '../../../components/modal/calendar/calendarModal';
+import CompletionModal from '../../../components/modal/completionModal/completionModal';
 import {
   StepContainer,
   BaseContainer,
@@ -32,6 +33,7 @@ const CreateProjectStep5 = ({ onPrev, onSubmit }: CreateProjectStep5Props) => {
   } = useCreateProjectStore();
 
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+  const [isCompletionModalOpen, setIsCompletionModalOpen] = useState(false);
 
   const handleEndDateTypeChange = (type: string) => {
     setSelectedEndDateType(type);
@@ -56,6 +58,15 @@ const CreateProjectStep5 = ({ onPrev, onSubmit }: CreateProjectStep5Props) => {
     console.log('종료일 타입:', selectedEndDateType);
     console.log('=======================');
 
+    setIsCompletionModalOpen(true);
+  };
+
+  const handleCloseCompletionModal = () => {
+    setIsCompletionModalOpen(false);
+  };
+
+  const handleViewPost = () => {
+    setIsCompletionModalOpen(false);
     if (onSubmit) {
       onSubmit();
     }
@@ -63,7 +74,7 @@ const CreateProjectStep5 = ({ onPrev, onSubmit }: CreateProjectStep5Props) => {
 
   return (
     <>
-      <BaseContainerWithSpaceBetween>
+      <BaseContainerWithSpaceBetween style={{ display: isCompletionModalOpen ? 'none' : 'flex' }}>
         <BackDrop />
         <BaseContainer>
           <StepTitle>{TEAM.STEP5}</StepTitle>
@@ -91,6 +102,12 @@ const CreateProjectStep5 = ({ onPrev, onSubmit }: CreateProjectStep5Props) => {
         onClose={handleCalendarModalClose}
         onDateSelect={handleDateSelect}
         selectedDate={selectedEndDate}
+      />
+
+      <CompletionModal
+        isOpen={isCompletionModalOpen}
+        onClose={handleCloseCompletionModal}
+        onViewPost={handleViewPost}
       />
     </>
   );

@@ -21,6 +21,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        exclude: [/node_modules\/(?!react-datepicker)/],
         use: ['style-loader', 'css-loader'],
       },
       {
