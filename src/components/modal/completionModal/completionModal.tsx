@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 import { colors } from '../../../style/colors';
+import { ROUTES } from '../../../constants/routes';
 import twoHands from '../../../assets/icons/twoHands.svg';
 
 interface CompletionModalProps {
@@ -99,6 +101,11 @@ const Button = styled.button<{ variant: 'secondary' | 'primary' }>`
 `;
 
 const CompletionModal: React.FC<CompletionModalProps> = ({ isOpen, onClose, onViewPost }) => {
+  const navigate = useNavigate();
+
+  const handleRedirectToHome = () => {
+    navigate(ROUTES.home);
+  };
   if (!isOpen) return null;
 
   return (
@@ -107,7 +114,7 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ isOpen, onClose, onVi
         <Title>게시글 등록이 완료되었습니다!</Title>
         <img src={twoHands} alt="twoHands" />
         <ButtonContainer>
-          <Button variant="secondary" onClick={onClose}>
+          <Button variant="secondary" onClick={handleRedirectToHome}>
             닫기
           </Button>
           <Button variant="primary" onClick={onViewPost}>
