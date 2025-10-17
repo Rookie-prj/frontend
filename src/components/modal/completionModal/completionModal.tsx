@@ -39,7 +39,7 @@ const ModalContainer = styled.div`
 const Title = styled.p`
   margin-top: 1.6875rem;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 22px;
   color: #364153;
   text-align: center;
@@ -90,16 +90,11 @@ const Button = styled.button<{ variant: 'secondary' | 'primary' }>`
       ? `
         background: #f3f4f6;
         color: #0f172a;
-        &:hover {
-          background: #e5e7eb;
-        }
       `
       : `
         background: #66f285;
         color: #282828;
-        &:hover {
-          background: #5ae078;
-        }
+ 
       `}
 `;
 
