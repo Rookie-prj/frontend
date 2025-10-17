@@ -1,6 +1,7 @@
-import { HeaderContainer, HeaderTitle } from './header.styles';
+import { HeaderContainer, HeaderTitle, Title } from './header.styles';
 import logo from '../../assets/icons/logo.svg';
 import search from '../../assets/icons/search.svg';
+import { Interpolation, Theme } from '@emotion/react';
 type HeaderType = 'backdrop' | 'logo' | 'title' | 'search';
 
 type HeaderProps = {
@@ -18,7 +19,12 @@ const Header = ({ type, title }: HeaderProps) => {
       </>
     ),
     title: <HeaderTitle>{title}</HeaderTitle>,
-    search: <div>Search</div>,
+    search: (
+      <>
+        <Title>탐색</Title>
+        <img src={search} alt="search" />
+      </>
+    ),
   };
   return <HeaderContainer>{HeaderCase[type]}</HeaderContainer>;
 };

@@ -1,7 +1,7 @@
 import { ROUTES } from '../constants/routes';
 import Main from '../pages/main';
 import Home from '../pages/home/home';
-import Search from '../pages/search/search';
+import ExplorePage from '../pages/explore';
 import Chat from '../pages/chat/chat';
 import Library from '../pages/library/library';
 import Hot from '../pages/hot/hot';
@@ -30,7 +30,7 @@ const AppRoutes = () => {
         },
         {
           path: ROUTES.search,
-          element: <Search />,
+          element: <ExplorePage />,
         },
         {
           path: ROUTES.chat,
