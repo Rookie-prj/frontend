@@ -13,6 +13,7 @@ export const CATEGORY_GROUPS = {
   PROFILE: [CATEGORY.SAVED, CATEGORY.MY_PROJECT],
 } as const;
 
+export type ExploreCategoryValue = (typeof CATEGORY_GROUPS.SEARCH)[number]['value'];
 export type CategoryValue = (typeof CATEGORY)[keyof typeof CATEGORY]['value'];
 export type CategoryGroup = keyof typeof CATEGORY_GROUPS;
 
