@@ -1,5 +1,22 @@
 import Button from '../../../components/common/button/button';
 import StepBar from '../../../components/createProject/stepBar/stepBar';
+import CalendarModal from '../../../components/modal/calendar/calendarModal';
+import CompletionModal from '../../../components/modal/completionModal/completionModal';
+import {
+  StepContainer,
+  BaseContainer,
+  BaseContainerWithSpaceBetween,
+} from '../../../components/container/container.styles';
+import BackDrop from '../../../components/common/backDrop/backDrop';
+import { StepTitle } from './steps.styles';
+import Questions from '../../../components/createProject/common/questions/questions';
+import { TEAM, TEAM_END_DATE_OPTIONS } from '../../../constants/createProject';
+import { useCreateProjectStore } from '../../../store/createProjectStore';
+import styled from '@emotion/styled';
+import { colors } from '../../../style/colors';
+import { useState } from 'react';
+import DistanceOptions from '../../../components/createProject/distanceOptions/distanceOptions';
+import EndDate from '../../../components/createProject/endDate/endDate';
 
 interface CreateProjectStep5Props {
   onPrev: () => void;
@@ -7,56 +24,92 @@ interface CreateProjectStep5Props {
 }
 
 const CreateProjectStep5 = ({ onPrev, onSubmit }: CreateProjectStep5Props) => {
+  const {
+    selectedEndDate,
+    setSelectedEndDate,
+    selectedEndDateType,
+    setSelectedEndDateType,
+    ...storeData
+  } = useCreateProjectStore();
+
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+  const [isCompletionModalOpen, setIsCompletionModalOpen] = useState(false);
+
+  const handleEndDateTypeChange = (type: string) => {
+    setSelectedEndDateType(type);
+    if (type === 'DATE_SPECIFIED') {
+      setIsCalendarModalOpen(true);
+    }
+  };
+
+  const handleCalendarModalClose = () => {
+    setIsCalendarModalOpen(false);
+  };
+
+  const handleDateSelect = (date: Date) => {
+    setSelectedEndDate(date);
+    setIsCalendarModalOpen(false);
+  };
+
+  const handleSubmit = () => {
+    console.log('=== Step5 Store 데이터 ===');
+    console.log('전체 store 데이터:', storeData);
+    console.log('선택된 종료일:', selectedEndDate);
+    console.log('종료일 타입:', selectedEndDateType);
+    console.log('=======================');
+
+    setIsCompletionModalOpen(true);
+  };
+
+  const handleCloseCompletionModal = () => {
+    setIsCompletionModalOpen(false);
+  };
+
+  const handleViewPost = () => {
+    setIsCompletionModalOpen(false);
+    if (onSubmit) {
+      onSubmit();
+    }
+  };
+
   return (
-    <div style={{ padding: '2rem' }}>
-      <StepBar currentStep={4} totalSteps={5} />
-      <h2 style={{ marginTop: '2rem' }}>마감일 및 최종 확인</h2>
-      <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <div>
-          <label>모집 마감일</label>
-          <input
-            type="datetime-local"
-            style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem' }}
-            min={new Date().toISOString().slice(0, 16)}
-          />
+    <>
+      <BaseContainerWithSpaceBetween style={{ display: isCompletionModalOpen ? 'none' : 'flex' }}>
+        <BackDrop />
+        <BaseContainer>
+          <StepTitle>{TEAM.STEP5}</StepTitle>
+          <StepBar currentStep={4} totalSteps={5} />
+          <StepContainer>
+            <Questions text={TEAM.STEP5_END_DATE} number="one" />
+            <DistanceOptions
+              fontWeight={700}
+              options={TEAM_END_DATE_OPTIONS}
+              selectedValue={selectedEndDateType || undefined}
+              onSelect={handleEndDateTypeChange}
+            />
+
+            {selectedEndDateType === 'DATE_SPECIFIED' && <EndDate selectedDate={selectedEndDate} />}
+          </StepContainer>
+        </BaseContainer>
+
+        <div style={{ marginBottom: '1.7rem' }}>
+          <Button onClick={handleSubmit}>다음</Button>
         </div>
-        <div>
-          <label>프로젝트 시작일</label>
-          <input
-            type="date"
-            style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem' }}
-            min={new Date().toISOString().slice(0, 10)}
-          />
-        </div>
-        <div>
-          <label>프로젝트 종료일</label>
-          <input
-            type="date"
-            style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem' }}
-            min={new Date().toISOString().slice(0, 10)}
-          />
-        </div>
-        <div>
-          <label>연락처</label>
-          <input
-            type="text"
-            placeholder="연락 가능한 이메일 또는 전화번호"
-            style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem' }}
-          />
-        </div>
-        <div>
-          <label>추가 안내사항</label>
-          <textarea
-            placeholder="모집자에게 전달하고 싶은 추가 정보가 있다면 입력해주세요"
-            style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem', height: '100px' }}
-          />
-        </div>
-      </div>
-      <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
-        <Button onClick={onPrev}>이전</Button>
-        <Button onClick={onSubmit || (() => {})}>프로젝트 등록</Button>
-      </div>
-    </div>
+      </BaseContainerWithSpaceBetween>
+
+      <CalendarModal
+        isOpen={isCalendarModalOpen}
+        onClose={handleCalendarModalClose}
+        onDateSelect={handleDateSelect}
+        selectedDate={selectedEndDate}
+      />
+
+      <CompletionModal
+        isOpen={isCompletionModalOpen}
+        onClose={handleCloseCompletionModal}
+        onViewPost={handleViewPost}
+      />
+    </>
   );
 };
 

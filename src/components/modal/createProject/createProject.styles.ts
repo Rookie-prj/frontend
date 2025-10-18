@@ -5,15 +5,6 @@ import { colors } from '../../../style/colors';
 export const CreateProjectContainer = styled(ModalBaseContainer)`
   background: ${colors.white};
   width: 100%;
-  max-width: 23.4375rem;
-`;
-export const CreateProjectTitle = styled.div`
-  font-size: 1.125rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1.625rem;
-  letter-spacing: -0.0225rem;
-  color: ${colors.gray[800]};
 `;
 
 export const GroupContainer = styled.div`

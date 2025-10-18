@@ -13,6 +13,7 @@ interface OptionsProps {
   text: string;
   subText?: string;
   number?: QuestionIconType;
+  align?: 'center' | 'flex-start';
 }
 export const questionIcons = {
   one: oneIcon,
@@ -21,10 +22,10 @@ export const questionIcons = {
   four: fourIcon,
 } as const;
 export type QuestionIconType = keyof typeof questionIcons;
-const Questions = ({ text, number, subText }: OptionsProps) => {
+const Questions = ({ text, number, subText, align }: OptionsProps) => {
   return (
-    <QuestionsContainer>
-      <QuestionsNumber src={number} />
+    <QuestionsContainer align={align}>
+      <QuestionsNumber src={number ? questionIcons[number] : undefined} />
       <QuestionsTextContainer>
         <QuestionsText>{text}</QuestionsText>
         <QuestionsTextDetail>{subText}</QuestionsTextDetail>

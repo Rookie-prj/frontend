@@ -1,6 +1,14 @@
 import handsIcon from '../assets/icons/hands.svg';
 import speakerIcon from '../assets/icons/speaker.svg';
 import leftArrow from '../assets/icons/leftArrow.svg';
+import pmIcon from '../assets/icons/pm.svg';
+import developerIcon from '../assets/icons/developer.svg';
+import designerIcon from '../assets/icons/designer.svg';
+import etcIcon from '../assets/icons/etc.svg';
+import nearLocationIcon from '../assets/icons/nearLocation.svg';
+import farLocationIcon from '../assets/icons/farLocation.svg';
+import calendarIcon from '../assets/icons/calendar.svg';
+import greenThunder from '../assets/icons/greenThunder.svg';
 export const CREATE_PROJECT_MODAL = {
   title: '프로젝트 등록하기',
   groups: [
@@ -33,12 +41,14 @@ export const TEAM = {
   STEP3: '진행하게 될\n프로젝트를 설명해주세요',
   STEP3_PROJECT_TITLE: '어떤 제목으로 올려볼까요?',
   STEP3_PROJECT_TITLE_PLACEHOLDER: '제목을 입력해주세요',
+  STEP3_PROJECT_DESCRIPTION_PLACEHOLDER: '프로젝트를 자유롭게 설명해주세요!',
   STEP3_PROJECT_DESCRIPTION: '프로젝트를 자유롭게 설명해주세요!',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION: '이런 내용이 들어가면 좋아요!',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION_DETAIL_1: '프로젝트의 목표와 하고자 하는 일',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION_DETAIL_2: '현재까지의 진행 상황',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION_DETAIL_3: '필요하거나 함께하고 싶은 협업자 역할',
-  STEP3_PROJECT_DESCRIPTION_: '관련된 사진이 있으면 더 많은 사람들이 확인해요 (선택)',
+  STEP3_PROJECT_DESCRIPTION_EXPLANATION_PIC:
+    '관련된 사진이 있으면 더 많은 사람들이 확인해요 (선택)',
   STEP4: '이런 루키를\n선호해요',
   STEP4_ROOKIE_DISTANCE: '거리가',
   STEP4_ROOKIE_SKILL: '이 툴을 다룰 줄 아시는 분이 필요해요!',
@@ -58,9 +68,15 @@ export const TEAM_PERIOD_OPTIONS = [
   { value: 'ONE_YEAR', label: '1년' },
   { value: 'OVER_ONE_YEAR', label: '1년 이상' },
 ];
+export const TEAM_POSITION_OPTIONS = [
+  { value: 'PM', label: '기획자', icon: pmIcon },
+  { value: 'DEVELOPER', label: '개발자', icon: developerIcon },
+  { value: 'DESIGNER', label: '디자이너', icon: designerIcon },
+  { value: 'ETC', label: '기타', icon: etcIcon },
+];
 export const TEAM_DISTANCE_OPTIONS = [
-  { value: 'NEAR', label: '가까운 게 좋아요' },
-  { value: 'IRRELEVANT', label: '상관없어요' },
+  { value: 'NEAR', label: '가까운 게 좋아요', icon: nearLocationIcon },
+  { value: 'IRRELEVANT', label: '상관없어요', icon: farLocationIcon },
 ];
 export const TEAM_COOPERATION_METHOD_OPTIONS = [
   { value: 'ONLINE', label: '온라인' },
@@ -76,25 +92,26 @@ export const TEAM_COOPERATION_TOOL_OPTIONS = [
   { value: 'TOOL_6', label: 'Google Workspace' },
   { value: 'TOOL_7', label: 'Figma' },
 ];
-export const TEAM_END_DATE_OPTIONS = {
-  title: '마감일을 선택해주세요',
-  groups: [
-    {
-      id: '1',
-      title: '날짜 지정 마감',
-      description: '마감일을 정해서 여유 있게 모집해요',
-      icon: handsIcon,
-      arrowIcon: leftArrow,
-    },
-    {
-      id: '2',
-      title: '모집 시 마감',
-      description: '필요한 인원이 모이면 바로 마감돼요',
-      icon: speakerIcon,
-      arrowIcon: leftArrow,
-    },
-  ],
-  button: '닫기',
-};
+export const TEAM_NUMBER_OF_PEOPLE_OPTIONS = [
+  { value: '1', label: '1명' },
+  { value: '2', label: '2명' },
+  { value: '3', label: '3명' },
+  { value: '4', label: '4명' },
+  { value: '5', label: '5명 이상' },
+];
+export const TEAM_END_DATE_OPTIONS = [
+  {
+    value: 'DATE_SPECIFIED',
+    label: '날짜 지정 마감',
+    description: '마감일을 정해서 여유 있게 모집해요',
+    icon: calendarIcon,
+  },
+  {
+    value: 'RECRUITMENT_END',
+    label: '모집 시 마감',
+    description: '필요한 인원이 모이면 바로 마감돼요',
+    icon: greenThunder,
+  },
+];
 
 export const COMPLETE_PROJECT_STEPS = '게시물 등록이 완료되었습니다!';

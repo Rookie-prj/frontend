@@ -1,5 +1,25 @@
+import {
+  TEAM,
+  TEAM_DISTANCE_OPTIONS,
+  TEAM_COOPERATION_TOOL_OPTIONS,
+  TEAM_COOPERATION_METHOD_OPTIONS,
+} from '../../../constants/createProject';
 import Button from '../../../components/common/button/button';
 import StepBar from '../../../components/createProject/stepBar/stepBar';
+import {
+  StepContainer,
+  BaseContainer,
+  BaseContainerWithSpaceBetween,
+} from '../../../components/container/container.styles';
+import BackDrop from '../../../components/common/backDrop/backDrop';
+import { StepTitle } from './steps.styles';
+import Questions from '../../../components/createProject/common/questions/questions';
+import TextArea from '../../../components/common/textArea/textArea';
+import DistanceOptions from '../../../components/createProject/distanceOptions/distanceOptions';
+import Options from '../../../components/createProject/common/options/options';
+import MethodChips from '../../../components/createProject/methodChips/methodChips';
+import { useCreateProjectStore } from '../../../store/createProjectStore';
+import { colors } from '../../../style/colors';
 
 interface CreateProjectStep4Props {
   onNext: () => void;
@@ -7,60 +27,101 @@ interface CreateProjectStep4Props {
 }
 
 export const CreateProjectStep4 = ({ onNext, onPrev }: CreateProjectStep4Props) => {
+  const {
+    selectedDistance,
+    selectedTools,
+    selectedMethod,
+    skillText,
+    setSelectedDistance,
+    setSelectedTools,
+    setSelectedMethod,
+    setSkillText,
+  } = useCreateProjectStore();
+
+  const handleDistanceSelect = (distance: string) => {
+    setSelectedDistance(distance);
+  };
+
+  const handleToolSelect = (tool: string) => {
+    if (selectedTools.includes(tool)) {
+      setSelectedTools(selectedTools.filter((t) => t !== tool));
+    } else if (selectedTools.length < 3) {
+      setSelectedTools([...selectedTools, tool]);
+    }
+  };
+
+  const handleMethodSelect = (method: string) => {
+    setSelectedMethod(method);
+  };
+
+  const handleSkillChange = (value: string) => {
+    setSkillText(value);
+  };
+
+  const handleNext = () => {
+    onNext();
+  };
+
   return (
-    <div style={{ padding: '2rem' }}>
-      <StepBar currentStep={3} totalSteps={5} />
-      <h2 style={{ marginTop: '2rem' }}>요구사항 및 조건</h2>
-      <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <div>
-          <label>기술 스택</label>
-          <div style={{ marginTop: '0.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-            {['React', 'Vue', 'Angular', 'Node.js', 'Python', 'Java', 'TypeScript'].map((tech) => (
-              <label key={tech} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                <input type="checkbox" />
-                {tech}
-              </label>
-            ))}
-          </div>
+    <>
+      <BaseContainerWithSpaceBetween>
+        <BackDrop />
+        <BaseContainer>
+          <StepTitle>{TEAM.STEP4}</StepTitle>
+          <StepBar currentStep={3} totalSteps={5} />
+          <StepContainer>
+            <Questions text={TEAM.STEP4_ROOKIE_DISTANCE} number="one" />
+            <DistanceOptions
+              options={TEAM_DISTANCE_OPTIONS}
+              selectedValue={selectedDistance || undefined}
+              onSelect={handleDistanceSelect}
+            />
+          </StepContainer>
+
+          <StepContainer style={{ marginTop: '1.87rem' }}>
+            <Questions text={TEAM.STEP4_ROOKIE_SKILL} number="two" />
+            <TextArea
+              placeholder={TEAM.STEP4_ROOKIE_SKILL_PLACEHOLDER}
+              value={skillText}
+              onChange={handleSkillChange}
+              maxLength={2000}
+            />
+          </StepContainer>
+
+          <StepContainer style={{ marginTop: '1.25rem' }}>
+            <Questions
+              text={TEAM.STEP4_ROOKIE_COOPERATION_TOOL}
+              number="three"
+              subText={TEAM.STEP4_ROOKIE_COOPERATION_TOOL_PLACEHOLDER}
+              align="flex-start"
+            />
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.62rem', width: '100%' }}>
+              {TEAM_COOPERATION_TOOL_OPTIONS.map((option) => (
+                <Options
+                  key={option.value}
+                  text={option.label}
+                  isActive={selectedTools.includes(option.value)}
+                  onClick={() => handleToolSelect(option.value)}
+                />
+              ))}
+            </div>
+          </StepContainer>
+
+          <StepContainer style={{ marginTop: '2.38rem' }}>
+            <Questions text={TEAM.STEP4_ROOKIE_COOPERATION_METHOD} number="four" />
+            <MethodChips
+              options={TEAM_COOPERATION_METHOD_OPTIONS}
+              selectedValue={selectedMethod || ''}
+              onSelect={handleMethodSelect}
+            />
+          </StepContainer>
+        </BaseContainer>
+
+        <div style={{ marginBottom: '1.7rem', marginTop: '2.38rem' }}>
+          <Button onClick={handleNext}>다음</Button>
         </div>
-        <div>
-          <label>경력 요구사항</label>
-          <select style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem' }}>
-            <option>신입 가능</option>
-            <option>1년 이상</option>
-            <option>3년 이상</option>
-            <option>5년 이상</option>
-          </select>
-        </div>
-        <div>
-          <label>활동 방식</label>
-          <div style={{ marginTop: '0.5rem', display: 'flex', gap: '1rem' }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-              <input type="radio" name="activity" value="online" />
-              온라인
-            </label>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-              <input type="radio" name="activity" value="offline" />
-              오프라인
-            </label>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-              <input type="radio" name="activity" value="hybrid" />
-              혼합
-            </label>
-          </div>
-        </div>
-        <div>
-          <label>추가 요구사항</label>
-          <textarea
-            placeholder="기타 요구사항이나 조건을 입력해주세요"
-            style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem', height: '80px' }}
-          />
-        </div>
-      </div>
-      <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
-        <Button onClick={onPrev}>이전</Button>
-        <Button onClick={onNext}>다음</Button>
-      </div>
-    </div>
+      </BaseContainerWithSpaceBetween>
+    </>
   );
 };

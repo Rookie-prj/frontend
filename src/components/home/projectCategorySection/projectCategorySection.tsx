@@ -21,10 +21,10 @@ const ProjectCategorySection = ({
   layout = 'row',
 }: ProjectCategorySectionProps) => {
   const navigate = useNavigate();
-  const { projectType, setProjectType } = useCreateProjectStore();
+  const { selectedProjectType, setSelectedProjectType } = useCreateProjectStore();
 
   const handleCardClick = (projectType: string) => {
-    setProjectType(projectType);
+    setSelectedProjectType(projectType);
     if (onCardClick) {
       onCardClick(projectType);
     }
@@ -49,7 +49,7 @@ const ProjectCategorySection = ({
               title={projectType.label}
               icon={projectType.icon}
               layout={layout}
-              isActive={projectType.value === projectType.value}
+              isActive={selectedProjectType === projectType.value}
               onClick={() => handleCardClick(projectType.value)}
             />
           );

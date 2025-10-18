@@ -9,9 +9,21 @@ export const BaseContainer = styled.div`
 export const BaseContainerWithSpaceBetween = styled.div`
   display: flex;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  overflow-y: auto;
 
   flex-direction: column;
   justify-content: space-between;
   padding: 0 1rem;
+`;
+
+export const RowContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;
+export const StepContainer = styled.div`
+  gap: 0.88rem;
+  display: flex;
+  flex-direction: column;
 `;

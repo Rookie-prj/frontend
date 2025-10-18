@@ -21,7 +21,7 @@ const fadeIn = keyframes`
 `;
 
 export const ModalOverlay = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -36,7 +36,6 @@ export const ModalOverlay = styled.div`
 
 export const ModalBaseContainer = styled.div`
   display: flex;
-  width: 23.4375rem;
   border-radius: 1rem 1rem 0 0;
   background: ${colors.white};
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.06);
@@ -45,4 +44,13 @@ export const ModalBaseContainer = styled.div`
   align-items: flex-start;
   animation: ${slideUp} 0.3s ease-out;
   transform: translateY(0);
+`;
+
+export const ModalTitle = styled.div`
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.625rem;
+  letter-spacing: -0.0225rem;
+  color: ${colors.gray[800]};
 `;
