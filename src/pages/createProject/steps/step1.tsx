@@ -15,9 +15,11 @@ import { useCreateProjectStore } from '../../../store/createProjectStore';
 
 interface CreateProjectStep1Props {
   onNext: () => void;
+  onPrev?: () => void;
+  currentStep: number;
 }
 
-export const CreateProjectStep1 = ({ onNext }: CreateProjectStep1Props) => {
+export const CreateProjectStep1 = ({ onNext, currentStep }: CreateProjectStep1Props) => {
   const { selectedPeriod, setSelectedPeriod, setSelectedProjectType } = useCreateProjectStore();
 
   const handleProjectTypeSelect = (projectType: string) => {
@@ -35,7 +37,7 @@ export const CreateProjectStep1 = ({ onNext }: CreateProjectStep1Props) => {
         <BackDrop />
         <BaseContainer>
           <StepTitle>{TEAM.STEP1}</StepTitle>
-          <StepBar currentStep={0} totalSteps={5} />
+          <StepBar currentStep={currentStep} totalSteps={5} />
           <ProjectCategorySection
             showViewAll={false}
             onCardClick={handleProjectTypeSelect}

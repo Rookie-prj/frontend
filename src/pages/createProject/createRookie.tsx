@@ -1,12 +1,12 @@
-import { useMyFunnel } from '../../hooks/funnel/context';
+import { useRookieFunnel } from '../../hooks/funnel/context';
 import { CreateProjectStep1 } from './steps/step1';
 import { CreateProjectStep2 } from './steps/step2';
 import { CreateProjectStep3 } from './steps/step3';
 import { CreateProjectStep4 } from './steps/step4';
 import { CreateProjectStep5 } from './steps/step5';
 
-export const CreateProject = () => {
-  const funnel = useMyFunnel();
+export const CreateRookie = () => {
+  const funnel = useRookieFunnel();
 
   const handleSubmit = () => {
     // 프로젝트 등록 로직
@@ -15,18 +15,16 @@ export const CreateProject = () => {
   };
 
   return funnel.Render({
-    projectCategory: ({ history }) => (
-      <CreateProjectStep1
-        onNext={() => history.push('collaborator', (prev) => ({ ...prev }))}
+    collaborator: ({ history }) => (
+      <CreateProjectStep2
+        onNext={() => history.push('projectCategory', (prev) => ({ ...prev }))}
         currentStep={funnel.currentStep}
       />
     ),
-    collaborator: ({ history }) => (
-      <CreateProjectStep2
+    projectCategory: ({ history }) => (
+      <CreateProjectStep1
         onNext={() => history.push('projectInfo', (prev) => ({ ...prev }))}
-        onPrev={() =>
-          history.push('projectCategory', (prev) => ({ projectCategory: prev.projectCategory }))
-        }
+        onPrev={() => history.push('collaborator', (prev) => ({ collaborator: prev.collaborator }))}
         currentStep={funnel.currentStep}
       />
     ),

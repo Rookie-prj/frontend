@@ -21,9 +21,10 @@ import EndDate from '../../../components/createProject/endDate/endDate';
 interface CreateProjectStep5Props {
   onPrev: () => void;
   onSubmit?: () => void;
+  currentStep: number;
 }
 
-const CreateProjectStep5 = ({ onPrev, onSubmit }: CreateProjectStep5Props) => {
+const CreateProjectStep5 = ({ onPrev, onSubmit, currentStep }: CreateProjectStep5Props) => {
   const {
     selectedEndDate,
     setSelectedEndDate,
@@ -78,7 +79,7 @@ const CreateProjectStep5 = ({ onPrev, onSubmit }: CreateProjectStep5Props) => {
         <BackDrop />
         <BaseContainer>
           <StepTitle>{TEAM.STEP5}</StepTitle>
-          <StepBar currentStep={4} totalSteps={5} />
+          <StepBar currentStep={currentStep} totalSteps={5} />
           <StepContainer>
             <Questions text={TEAM.STEP5_END_DATE} number="one" />
             <DistanceOptions
