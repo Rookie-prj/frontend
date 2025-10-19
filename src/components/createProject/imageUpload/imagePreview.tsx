@@ -5,7 +5,7 @@ import {
   RemoveButton,
   ImagePreviewImage,
 } from './imagePreview.styles';
-import x from '../../../assets/icons/x.svg';
+import deleteIcon from '../../../assets/icons/delete.svg';
 
 export interface ImageFile {
   id: string;
@@ -35,19 +35,18 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
   return (
     <ImagePreviewContainer layout={layout}>
       {images.slice(0, maxImages).map((image) => (
-        <ImageItem key={image.id} size={imageSize}>
-          <ImagePreviewImage src={image.preview} alt={`preview ${image.id}`} size={imageSize} />
+        <ImageItem key={image.id}>
+          <ImagePreviewImage src={image.preview} alt={`preview ${image.id}`} />
           {showRemoveButton && (
             <RemoveButton onClick={() => onRemove(image.id)}>
-              <img src={x} alt="remove" />
+              <img src={deleteIcon} alt="remove" />
             </RemoveButton>
           )}
         </ImageItem>
       ))}
       {images.length > maxImages && (
-        <ImageItem size={imageSize}>
+        <ImageItem>
           <ImagePreviewImage
-            size={imageSize}
             style={{
               backgroundColor: '#f3f4f6',
               display: 'flex',

@@ -41,9 +41,10 @@ export const TEAM = {
   STEP3: '진행하게 될\n프로젝트를 설명해주세요',
   STEP3_PROJECT_TITLE: '어떤 제목으로 올려볼까요?',
   STEP3_PROJECT_TITLE_PLACEHOLDER: '제목을 입력해주세요',
-  STEP3_PROJECT_DESCRIPTION_PLACEHOLDER: '프로젝트를 자유롭게 설명해주세요!',
+  STEP3_PROJECT_DESCRIPTION_PLACEHOLDER: '협업자 포지션과 프로젝트 주제가 포함되면 좋아요!',
   STEP3_PROJECT_DESCRIPTION: '프로젝트를 자유롭게 설명해주세요!',
-  STEP3_PROJECT_DESCRIPTION_EXPLANATION: '이런 내용이 들어가면 좋아요!',
+  STEP3_PROJECT_MORE_DESCRIPTION: '어떤 프로젝트인지 더 구체적으로 알려주세요!',
+  STEP3_PROJECT_DESCRIPTION_EXPLANATION: '어떤 프로젝트인지 더 구체적으로 알려주세요!',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION_DETAIL_1: '프로젝트의 목표와 하고자 하는 일',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION_DETAIL_2: '현재까지의 진행 상황',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION_DETAIL_3: '필요하거나 함께하고 싶은 협업자 역할',
@@ -141,5 +142,10 @@ export const PROJECT_STATUS_OPTIONS = [
     percentage: '80%',
   },
 ];
+export const PROJECT_STATUS_DESCRIPTION_OPTIONS = {
+  PROJECT_TYPE: '프로젝트 유형(필수)',
+  PROJECT_FIELD: '프로젝트 해당 분야(선택)',
+  PROJECT_FIELD_MAX_SELECT: '최대 3개 선택',
+};
 
 export const COMPLETE_PROJECT_STEPS = '게시물 등록이 완료되었습니다!';

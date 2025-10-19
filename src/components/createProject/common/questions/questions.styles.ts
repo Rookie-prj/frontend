@@ -1,9 +1,13 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../../style/colors';
 
-export const QuestionsContainer = styled.div<{ align?: 'center' | 'flex-start' }>`
+export const QuestionsContainer = styled.div<{
+  align?: 'center' | 'flex-start';
+  hasNumber?: boolean;
+}>`
   display: flex;
   flex-direction: row;
+  gap: ${({ hasNumber }) => (hasNumber ? '0.44rem' : '0')};
   align-items: ${({ align = 'center' }) => align};
 `;
 export const QuestionsTextContainer = styled.div`
@@ -27,5 +31,4 @@ export const QuestionsTextDetail = styled.div`
 `;
 export const QuestionsNumber = styled.img`
   display: flex;
-  padding-right: 0.44rem;
 `;

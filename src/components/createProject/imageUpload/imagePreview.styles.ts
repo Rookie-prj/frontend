@@ -2,25 +2,18 @@ import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
 
 type LayoutType = 'grid' | 'horizontal' | 'vertical';
-type SizeType = 'small' | 'medium' | 'large';
-
-const sizeMap = {
-  small: '3rem',
-  medium: '5rem',
-  large: '8rem',
-};
 
 export const ImagePreviewContainer = styled.div<{ layout: LayoutType }>`
   display: flex;
   gap: 0.75rem;
-  margin-top: 1rem;
+  flex-shrink: 0;
 
   ${({ layout }) => {
     switch (layout) {
       case 'horizontal':
         return `
           flex-direction: row;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
         `;
       case 'vertical':
         return `
@@ -30,63 +23,40 @@ export const ImagePreviewContainer = styled.div<{ layout: LayoutType }>`
       case 'grid':
       default:
         return `
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
         `;
     }
   }}
 `;
 
-export const ImageItem = styled.div<{ size: SizeType }>`
+export const ImageItem = styled.div`
   position: relative;
-  width: ${({ size }) => sizeMap[size]};
-  height: ${({ size }) => sizeMap[size]};
+  width: 3.125rem;
+  height: 3.125rem;
   border-radius: 0.5rem;
   overflow: hidden;
   border: 1px solid ${colors.gray[200]};
-  flex-shrink: 0;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
 `;
 
-export const ImagePreviewImage = styled.img<{ size: SizeType }>`
+export const ImagePreviewImage = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 `;
 
 export const RemoveButton = styled.button`
   position: absolute;
-  top: 0.25rem;
-  right: 0.25rem;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.6);
-  border: none;
+  right: 0.3125rem;
+  top: 0.3125rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
   z-index: 1;
 
-  &:hover {
-    background: rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-
   img {
-    width: 0.75rem;
-    height: 0.75rem;
-    filter: invert(1);
+    width: 1rem;
+    height: 1rem;
   }
 `;

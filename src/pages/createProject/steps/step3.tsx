@@ -357,8 +357,8 @@ export const CreateProjectStep3 = ({ onNext, onPrev, currentStep }: CreateProjec
               onChange={handleProjectDescriptionChange}
             />
           </StepContainer>
-          <StepContainer style={{ marginTop: '0.5rem' }}>
-            <Questions text={TEAM.STEP3_PROJECT_DESCRIPTION_EXPLANATION_PIC} number="three" />
+          <StepContainer style={{ marginTop: '0.5rem', gap: '0.38rem' }}>
+            <Questions subText={TEAM.STEP3_PROJECT_DESCRIPTION_EXPLANATION_PIC} />
             <ImageUpload
               maxCount={3}
               showPreview={true}
