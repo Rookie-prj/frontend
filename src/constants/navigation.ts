@@ -17,7 +17,7 @@ export const NAVIGATION = {
   },
   SEARCH: {
     value: 'search',
-    label: '검색',
+    label: '탐색',
     activeIcon: searchActiveIcon,
     inactiveIcon: searchInactiveIcon,
   },
