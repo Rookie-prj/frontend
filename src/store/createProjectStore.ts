@@ -8,6 +8,7 @@ interface CreateProjectState {
   selectedPositionNumberOfPeople: string | null;
   selectedProjectTitle: string | null;
   selectedProjectDescription: string | null;
+  selectedProjectStatus: string | null;
   selectedEndDate: Date | null;
   selectedEndDateType: string | null;
   selectedDistance: string | null;
@@ -21,6 +22,7 @@ interface CreateProjectState {
   setSelectedPeriod: (period: string | null) => void;
   setSelectedProjectTitle: (projectTitle: string | null) => void;
   setSelectedProjectDescription: (projectDescription: string | null) => void;
+  setSelectedProjectStatus: (projectStatus: string | null) => void;
   setSelectedPosition: (position: string | null) => void;
   setSelectedEndDate: (endDate: Date | null) => void;
   setSelectedEndDateType: (endDateType: string | null) => void;
@@ -39,6 +41,7 @@ export const useCreateProjectStore = create<CreateProjectState>((set) => ({
   selectedProjectTitle: null,
   selectedPositionDetail: null,
   selectedProjectDescription: null,
+  selectedProjectStatus: null,
   selectedPositionNumberOfPeople: null,
   selectedEndDate: null,
   selectedEndDateType: null,
@@ -56,6 +59,7 @@ export const useCreateProjectStore = create<CreateProjectState>((set) => ({
   setSelectedPosition: (position) => set({ selectedPosition: position }),
   setSelectedProjectDescription: (projectDescription) =>
     set({ selectedProjectDescription: projectDescription }),
+  setSelectedProjectStatus: (projectStatus) => set({ selectedProjectStatus: projectStatus }),
   setSelectedEndDate: (endDate) => set({ selectedEndDate: endDate }),
   setSelectedEndDateType: (endDateType) => set({ selectedEndDateType: endDateType }),
   setSelectedDistance: (distance) => set({ selectedDistance: distance }),
@@ -72,6 +76,7 @@ export const useCreateProjectStore = create<CreateProjectState>((set) => ({
       selectedPositionNumberOfPeople: null,
       selectedProjectTitle: null,
       selectedProjectDescription: null,
+      selectedProjectStatus: null,
       selectedEndDate: null,
       selectedEndDateType: null,
       selectedDistance: null,

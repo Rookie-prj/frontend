@@ -59,6 +59,8 @@ export const TEAM = {
   STEP5: '거의\n다 됐어요!',
   STEP5_END_DATE: '모집 마감일을 설정해주세요',
   STEP5_END_DATE_LABEL: '마감일',
+  STEP6: '프로젝트의 상태에\n대해 알려주세요',
+  STEP6_PROJECT_STATUS: '현재 프로젝트를 완성도가 어떻게 되나요?',
 };
 export const TEAM_PERIOD_OPTIONS = [
   { value: 'ONE_MONTH', label: '1개월' },
@@ -111,6 +113,32 @@ export const TEAM_END_DATE_OPTIONS = [
     label: '모집 시 마감',
     description: '필요한 인원이 모이면 바로 마감돼요',
     icon: greenThunder,
+  },
+];
+export const PROJECT_STATUS_OPTIONS = [
+  {
+    value: 'IDEA',
+    label: '아이디어 단계',
+    description: '아이디어만 나온 상태예요',
+    percentage: '10%',
+  },
+  {
+    value: 'PLANNING',
+    label: '기획 중',
+    description: '상세한 일정과 기획을 다듬고 있어요',
+    percentage: '30%',
+  },
+  {
+    value: 'IN_PROGRESS',
+    label: '진행 중',
+    description: '이미 일부 작업이 시작됐어요',
+    percentage: '50%',
+  },
+  {
+    value: 'COMPLETING',
+    label: '마무리 단계',
+    description: '많은 것이 진행됐고 마무리 작업 중이에요',
+    percentage: '80%',
   },
 ];
 

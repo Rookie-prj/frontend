@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { colors } from '../../../style/colors';
 import { ROUTES } from '../../../constants/routes';
 import twoHands from '../../../assets/icons/twoHands.svg';
+import { useCreateProjectStore } from '../../../store/createProjectStore';
 
 interface CompletionModalProps {
   isOpen: boolean;
@@ -102,9 +103,10 @@ const Button = styled.button<{ variant: 'secondary' | 'primary' }>`
 
 const CompletionModal: React.FC<CompletionModalProps> = ({ isOpen, onClose, onViewPost }) => {
   const navigate = useNavigate();
-
+  const { reset } = useCreateProjectStore();
   const handleRedirectToHome = () => {
     navigate(ROUTES.home);
+    reset();
   };
   if (!isOpen) return null;
 

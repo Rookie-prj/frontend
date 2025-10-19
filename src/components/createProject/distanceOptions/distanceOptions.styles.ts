@@ -5,12 +5,11 @@ export const DistanceOptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-
   width: 100%;
 `;
 
 export const DistanceOption = styled.div<{ isActive?: boolean }>`
-  background: ${({ isActive }) => (isActive ? colors.green[50] : 'white')};
+  background: ${({ isActive }) => (isActive ? colors.green[50] : colors.white)};
   border: 1.5px solid ${({ isActive }) => (isActive ? colors.green[200] : colors.gray[150])};
   border-radius: 0.625rem;
   padding: 1.4375rem 1.48rem;
