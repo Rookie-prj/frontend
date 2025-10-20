@@ -10,7 +10,7 @@ import twoIcon from '../../../../assets/icons/questions/two.svg';
 import threeIcon from '../../../../assets/icons/questions/three.svg';
 import fourIcon from '../../../../assets/icons/questions/four.svg';
 interface OptionsProps {
-  text: string;
+  text?: string;
   subText?: string;
   number?: QuestionIconType;
   align?: 'center' | 'flex-start';
@@ -24,7 +24,7 @@ export const questionIcons = {
 export type QuestionIconType = keyof typeof questionIcons;
 const Questions = ({ text, number, subText, align }: OptionsProps) => {
   return (
-    <QuestionsContainer align={align}>
+    <QuestionsContainer align={align} hasNumber={!!number}>
       <QuestionsNumber src={number ? questionIcons[number] : undefined} />
       <QuestionsTextContainer>
         <QuestionsText>{text}</QuestionsText>

@@ -6,4 +6,5 @@ export const ROUTES = {
   library: '/library',
   hot: '/hot',
   createProject: '/create-project',
+  createRookie: '/create-rookie',
 };

@@ -288,9 +288,10 @@ import ImageUpload from '../../../components/createProject/imageUpload/imageUplo
 interface CreateProjectStep3Props {
   onNext: () => void;
   onPrev: () => void;
+  currentStep: number;
 }
 
-export const CreateProjectStep3 = ({ onNext, onPrev }: CreateProjectStep3Props) => {
+export const CreateProjectStep3 = ({ onNext, onPrev, currentStep }: CreateProjectStep3Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     selectedProjectDescription,
@@ -336,7 +337,7 @@ export const CreateProjectStep3 = ({ onNext, onPrev }: CreateProjectStep3Props) 
         <BackDrop />
         <BaseContainer>
           <StepTitle>{TEAM.STEP3}</StepTitle>
-          <StepBar currentStep={2} totalSteps={5} />
+          <StepBar currentStep={currentStep} totalSteps={5} />
           <StepContainer>
             <Questions text={TEAM.STEP3_PROJECT_TITLE} number="one" />
             <Input
@@ -356,8 +357,8 @@ export const CreateProjectStep3 = ({ onNext, onPrev }: CreateProjectStep3Props) 
               onChange={handleProjectDescriptionChange}
             />
           </StepContainer>
-          <StepContainer style={{ marginTop: '0.5rem' }}>
-            <Questions text={TEAM.STEP3_PROJECT_DESCRIPTION_EXPLANATION_PIC} number="three" />
+          <StepContainer style={{ marginTop: '0.5rem', gap: '0.38rem' }}>
+            <Questions subText={TEAM.STEP3_PROJECT_DESCRIPTION_EXPLANATION_PIC} />
             <ImageUpload
               maxCount={3}
               showPreview={true}

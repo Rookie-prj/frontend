@@ -24,9 +24,10 @@ import { colors } from '../../../style/colors';
 interface CreateProjectStep4Props {
   onNext: () => void;
   onPrev: () => void;
+  currentStep: number;
 }
 
-export const CreateProjectStep4 = ({ onNext, onPrev }: CreateProjectStep4Props) => {
+export const CreateProjectStep4 = ({ onNext, onPrev, currentStep }: CreateProjectStep4Props) => {
   const {
     selectedDistance,
     selectedTools,
@@ -68,7 +69,7 @@ export const CreateProjectStep4 = ({ onNext, onPrev }: CreateProjectStep4Props) 
         <BackDrop />
         <BaseContainer>
           <StepTitle>{TEAM.STEP4}</StepTitle>
-          <StepBar currentStep={3} totalSteps={5} />
+          <StepBar currentStep={currentStep} totalSteps={5} />
           <StepContainer>
             <Questions text={TEAM.STEP4_ROOKIE_DISTANCE} number="one" />
             <DistanceOptions

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
 
-export const ImageUploadContainer = styled.button<{ disabled?: boolean }>`
+export const ImageUploadContainer = styled.button<{ disabled?: boolean; hasImages?: boolean }>`
   display: flex;
   height: 3.125rem;
   width: 100%;
@@ -9,7 +9,7 @@ export const ImageUploadContainer = styled.button<{ disabled?: boolean }>`
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  color: ${colors.gray[600]};
+  color: ${({ hasImages }) => (hasImages ? colors.gray[600] : colors.gray[600])};
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 600;
@@ -20,6 +20,35 @@ export const ImageUploadContainer = styled.button<{ disabled?: boolean }>`
   border: 1.25px solid ${colors.gray[150]};
   background: ${colors.white};
   cursor: pointer;
+`;
+
+export const ImageUploadButton = styled.button<{ disabled?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 3.125rem;
+  width: 3.125rem;
+  border-radius: 0.5rem;
+  border: 1px solid ${colors.gray[150]};
+  background: ${colors.white};
+  cursor: pointer;
+`;
+
+export const ImageCountText = styled.p`
+  color: ${colors.gray[600]};
+  font-size: 0.625rem;
+  font-weight: 500;
+  line-height: 0.75rem;
+  letter-spacing: -0.00625rem;
+  margin: 0;
+`;
+
+export const ImageUploadWrapper = styled.div`
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+  flex-wrap: nowrap;
 `;
 
 export const ImagePreview = styled.div`

@@ -1,5 +1,10 @@
 import React, { useRef, useState, useCallback } from 'react';
-import { ImageUploadContainer } from './imageUpload.styles';
+import {
+  ImageUploadContainer,
+  ImageUploadButton,
+  ImageCountText,
+  ImageUploadWrapper,
+} from './imageUpload.styles';
 import ImagePreview, { ImageFile } from './imagePreview';
 import camera from '../../../assets/icons/camera.svg';
 
@@ -76,38 +81,56 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
   return (
     <div className={className}>
-      <ImageUploadContainer
-        onClick={handleClick}
-        disabled={disabled}
-        style={{
-          opacity: disabled ? 0.6 : 1,
-          cursor: disabled ? 'not-allowed' : 'pointer',
-        }}
-      >
-        <img src={camera} alt="camera" />
-        <div>
-          사진추가 ({imageFiles.length}/{maxCount})
-        </div>
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleImageSelect}
+      {imageFiles.length === 0 ? (
+        <ImageUploadContainer
+          onClick={handleClick}
           disabled={disabled}
-          style={{ display: 'none' }}
-        />
-      </ImageUploadContainer>
-
-      {showPreview && imageFiles.length > 0 && (
-        <ImagePreview
-          images={imageFiles}
-          onRemove={handleRemoveImage}
-          maxImages={maxCount}
-          imageSize={previewSize}
-          layout={previewLayout}
-        />
+          hasImages={false}
+          style={{
+            opacity: disabled ? 0.6 : 1,
+            cursor: disabled ? 'not-allowed' : 'pointer',
+          }}
+        >
+          <img src={camera} alt="camera" />
+          <div>
+            사진추가 ({imageFiles.length}/{maxCount})
+          </div>
+        </ImageUploadContainer>
+      ) : (
+        <ImageUploadWrapper>
+          {showPreview && (
+            <ImagePreview
+              images={imageFiles}
+              onRemove={handleRemoveImage}
+              maxImages={maxCount}
+              imageSize={previewSize}
+              layout={previewLayout}
+            />
+          )}
+          <ImageUploadButton
+            onClick={handleClick}
+            disabled={disabled}
+            style={{
+              cursor: disabled ? 'not-allowed' : 'pointer',
+            }}
+          >
+            <img src={camera} alt="camera" />
+            <ImageCountText>
+              ({imageFiles.length}/{maxCount})
+            </ImageCountText>
+          </ImageUploadButton>
+        </ImageUploadWrapper>
       )}
+
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleImageSelect}
+        disabled={disabled}
+        style={{ display: 'none' }}
+      />
     </div>
   );
 };

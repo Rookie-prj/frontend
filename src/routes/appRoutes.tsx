@@ -6,6 +6,7 @@ import Chat from '../pages/chat/chat';
 import Library from '../pages/library/library';
 import Hot from '../pages/hot/hot';
 import { CreateProject } from '../pages/createProject/createProject';
+import { CreateRookie } from '../pages/createProject/createRookie';
 import Layout from '../components/layout/layout';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
@@ -51,6 +52,14 @@ const AppRoutes = () => {
       element: (
         <Layout hideNavigation={true}>
           <CreateProject />
+        </Layout>
+      ),
+    },
+    {
+      path: ROUTES.createRookie,
+      element: (
+        <Layout hideNavigation={true}>
+          <CreateRookie />
         </Layout>
       ),
     },

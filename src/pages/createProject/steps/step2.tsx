@@ -20,11 +20,17 @@ import { useState } from 'react';
 
 interface CreateProjectStep2Props {
   onNext: () => void;
-  onPrev: () => void;
+  onPrev?: () => void;
   onChange?: (positionDetail: string | null) => void;
+  currentStep: number;
 }
 
-export const CreateProjectStep2 = ({ onNext, onPrev, onChange }: CreateProjectStep2Props) => {
+export const CreateProjectStep2 = ({
+  onNext,
+  onPrev,
+  onChange,
+  currentStep,
+}: CreateProjectStep2Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     selectedPosition,
@@ -63,7 +69,7 @@ export const CreateProjectStep2 = ({ onNext, onPrev, onChange }: CreateProjectSt
         <BackDrop />
         <BaseContainer>
           <StepTitle>{TEAM.STEP2}</StepTitle>
-          <StepBar currentStep={1} totalSteps={5} />
+          <StepBar currentStep={currentStep} totalSteps={5} />
           <Questions text={TEAM.STEP2_POSITION} number="one" />
           <OptionsScrollWrapper>
             {TEAM_POSITION_OPTIONS.map((option) => (

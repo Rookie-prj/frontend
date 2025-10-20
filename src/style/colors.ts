@@ -28,8 +28,9 @@ export const colors = {
   red: {
     300: '#ff6C22',
   },
+  black: '#282828',
 } as const;
-
+export type BlackKey = keyof typeof colors.black;
 export type ColorKey = keyof typeof colors;
 export type GrayKey = keyof typeof colors.gray;
 export type RedKey = keyof typeof colors.red;

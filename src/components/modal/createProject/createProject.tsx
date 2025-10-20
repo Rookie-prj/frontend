@@ -34,6 +34,9 @@ const CreateProject: React.FC<CreateProjectProps> = ({ isOpen, onClose }) => {
     if (groupId === '1') {
       navigate(ROUTES.createProject);
     }
+    if (groupId === '2') {
+      navigate(ROUTES.createRookie);
+    }
   };
 
   return (

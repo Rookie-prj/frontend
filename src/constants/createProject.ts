@@ -41,9 +41,10 @@ export const TEAM = {
   STEP3: '진행하게 될\n프로젝트를 설명해주세요',
   STEP3_PROJECT_TITLE: '어떤 제목으로 올려볼까요?',
   STEP3_PROJECT_TITLE_PLACEHOLDER: '제목을 입력해주세요',
-  STEP3_PROJECT_DESCRIPTION_PLACEHOLDER: '프로젝트를 자유롭게 설명해주세요!',
+  STEP3_PROJECT_DESCRIPTION_PLACEHOLDER: '협업자 포지션과 프로젝트 주제가 포함되면 좋아요!',
   STEP3_PROJECT_DESCRIPTION: '프로젝트를 자유롭게 설명해주세요!',
-  STEP3_PROJECT_DESCRIPTION_EXPLANATION: '이런 내용이 들어가면 좋아요!',
+  STEP3_PROJECT_MORE_DESCRIPTION: '어떤 프로젝트인지 더 구체적으로 알려주세요!',
+  STEP3_PROJECT_DESCRIPTION_EXPLANATION: '어떤 프로젝트인지 더 구체적으로 알려주세요!',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION_DETAIL_1: '프로젝트의 목표와 하고자 하는 일',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION_DETAIL_2: '현재까지의 진행 상황',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION_DETAIL_3: '필요하거나 함께하고 싶은 협업자 역할',
@@ -59,6 +60,8 @@ export const TEAM = {
   STEP5: '거의\n다 됐어요!',
   STEP5_END_DATE: '모집 마감일을 설정해주세요',
   STEP5_END_DATE_LABEL: '마감일',
+  STEP6: '프로젝트의 상태에\n대해 알려주세요',
+  STEP6_PROJECT_STATUS: '현재 프로젝트를 완성도가 어떻게 되나요?',
 };
 export const TEAM_PERIOD_OPTIONS = [
   { value: 'ONE_MONTH', label: '1개월' },
@@ -113,5 +116,36 @@ export const TEAM_END_DATE_OPTIONS = [
     icon: greenThunder,
   },
 ];
+export const PROJECT_STATUS_OPTIONS = [
+  {
+    value: 'IDEA',
+    label: '아이디어 단계',
+    description: '아이디어만 나온 상태예요',
+    percentage: '10%',
+  },
+  {
+    value: 'PLANNING',
+    label: '기획 중',
+    description: '상세한 일정과 기획을 다듬고 있어요',
+    percentage: '30%',
+  },
+  {
+    value: 'IN_PROGRESS',
+    label: '진행 중',
+    description: '이미 일부 작업이 시작됐어요',
+    percentage: '50%',
+  },
+  {
+    value: 'COMPLETING',
+    label: '마무리 단계',
+    description: '많은 것이 진행됐고 마무리 작업 중이에요',
+    percentage: '80%',
+  },
+];
+export const PROJECT_STATUS_DESCRIPTION_OPTIONS = {
+  PROJECT_TYPE: '프로젝트 유형(필수)',
+  PROJECT_FIELD: '프로젝트 해당 분야(선택)',
+  PROJECT_FIELD_MAX_SELECT: '최대 3개 선택',
+};
 
 export const COMPLETE_PROJECT_STEPS = '게시물 등록이 완료되었습니다!';

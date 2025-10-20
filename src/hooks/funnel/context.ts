@@ -1,9 +1,15 @@
 import { useMemo } from 'react';
 import { useFunnel } from '@use-funnel/react-router-dom';
 
-type Step = 'projectCategory' | 'collaborator' | 'projectInfo' | 'rookie' | 'endDate';
+type ProjectStep = 'projectCategory' | 'collaborator' | 'projectInfo' | 'rookie' | 'endDate';
+type RookieStep =
+  | 'projectCategory'
+  | 'collaborator'
+  | 'projectInfo'
+  | 'rookie'
+  | 'projectStatus'
+  | 'endDate';
 
-// 각 단계별로 필요한 데이터를 정의
 type ProjectCategoryInput = {
   projectCategory?: string;
   collaborator?: string;
@@ -29,6 +35,7 @@ type RookieInput = {
   projectCategory?: string;
   collaborator?: string;
   projectInfo?: string;
+  projectStatus?: string;
   rookie?: string;
   endDate?: string;
 };
@@ -36,15 +43,28 @@ type EndDateInput = {
   projectCategory?: string;
   collaborator?: string;
   projectInfo?: string;
+  projectStatus?: string;
   rookie?: string;
   endDate?: string;
 };
+type ProjectStatusInput = {
+  projectCategory?: string;
+  collaborator?: string;
+  projectInfo?: string;
+  rookie?: string;
+  endDate?: string;
+  projectStatus?: string;
+};
 
-export type PlantFormData = {
-  plantName: string;
-  plantDate: string;
-  plantType: string;
-  plantLocation: string;
+const STEP_ORDER: ProjectStep[] = [
+  'projectCategory',
+  'collaborator',
+  'projectInfo',
+  'rookie',
+  'endDate',
+];
+export const getCurrentStepNumber = (currentStep: ProjectStep): number => {
+  return STEP_ORDER.indexOf(currentStep);
 };
 
 export function useMyFunnel() {
@@ -56,7 +76,7 @@ export function useMyFunnel() {
     [],
   );
 
-  return useFunnel<{
+  const funnel = useFunnel<{
     projectCategory: ProjectCategoryInput;
     collaborator: CollaboratorInput;
     projectInfo: ProjectInfoInput;
@@ -66,4 +86,52 @@ export function useMyFunnel() {
     id: 'create-project',
     initial: initialConfig,
   });
+
+  const currentStepNumber = getCurrentStepNumber(funnel.step);
+
+  return {
+    ...funnel,
+    currentStep: currentStepNumber,
+  };
+}
+
+const ROOKIE_STEP_ORDER: RookieStep[] = [
+  'collaborator',
+  'projectCategory',
+  'projectInfo',
+  'projectStatus',
+  'rookie',
+  'endDate',
+];
+
+export const getRookieCurrentStepNumber = (currentStep: RookieStep): number => {
+  return ROOKIE_STEP_ORDER.indexOf(currentStep);
+};
+
+export function useRookieFunnel() {
+  const initialConfig = useMemo(
+    () => ({
+      step: 'collaborator' as const,
+      context: {},
+    }),
+    [],
+  );
+
+  const funnel = useFunnel<{
+    projectCategory: ProjectCategoryInput;
+    collaborator: CollaboratorInput;
+    projectInfo: ProjectInfoInput;
+    projectStatus: ProjectStatusInput;
+    rookie: RookieInput;
+    endDate: EndDateInput;
+  }>({
+    id: 'create-rookie',
+    initial: initialConfig,
+  });
+
+  const currentStepNumber = getRookieCurrentStepNumber(funnel.step);
+  return {
+    ...funnel,
+    currentStep: currentStepNumber,
+  };
 }
