@@ -7,4 +7,5 @@ export const ROUTES = {
   hot: '/hot',
   createProject: '/create-project',
   createRookie: '/create-rookie',
+  postDetail: '/post/:id',
 };
