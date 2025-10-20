@@ -4,14 +4,6 @@ import {
   PostDetailContainer,
   HeaderImage,
   ContentContainer,
-  TitleSection,
-  TitleText,
-  TagsText,
-  InfoSection,
-  InfoItem,
-  InfoLabel,
-  InfoValue,
-  InfoIcon,
   AuthorSection,
   AuthorTitle,
   AuthorCard,
@@ -38,13 +30,6 @@ import {
   DistanceChip,
   ToolsChip,
   MethodChip,
-  PositionSection,
-  PositionTitle,
-  PositionCards,
-  PositionCard,
-  PositionCardContent,
-  PositionTitle as PositionCardTitle,
-  PositionCount,
   BottomActions,
   ActionButton,
   SecondaryButton,
@@ -57,6 +42,9 @@ import BackDrop from '../../components/common/backDrop/backDrop';
 import { BaseContainerWithSpaceBetween } from '../../components/container/container.styles';
 import Bookmark from '../../assets/icons/bookmark.svg';
 import StatusChips from '../../components/post/statusChips/statusChips';
+import TitleSection from '../../components/post/postDetail/titleSection';
+import InfoSection from '../../components/post/postDetail/infoSection';
+import PositionSection from '../../components/post/postDetail/positionSection';
 const PostDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const postData = mockPostData.find((post) => post.id === Number(id)) || mockPostData[0];
@@ -78,85 +66,24 @@ const PostDetail: React.FC = () => {
         <BaseContainerWithSpaceBetween>
           <BackDrop />
         </BaseContainerWithSpaceBetween>
-
-        <div className="image-counter">1/3</div>
       </HeaderImage>
 
       {/* 콘텐츠 */}
       <ContentContainer>
-        {/* 제목 섹션 */}
-        <TitleSection>
-          <div className="title-content">
-            <TitleText>{postData.title}</TitleText>
-            <TagsText>{postData.tags}</TagsText>
-          </div>
-
-          <img src={Bookmark} alt="bookmark" />
-        </TitleSection>
-
+        {/* 제목 */}
+        <TitleSection title={postData.title} tags={postData.tags} />
         {/* 상태 칩 */}
         <StatusChips progress={postData.status.progress} deadline={postData.status.deadline} />
 
         {/* 정보 섹션 */}
-        <InfoSection>
-          <InfoItem>
-            <InfoIcon>
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path
-                  d="M9 1V17M1 9H17"
-                  stroke={colors.gray[400]}
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </InfoIcon>
-            <InfoLabel>모집 인원</InfoLabel>
-            <InfoValue>{postData.recruitment.current}명</InfoValue>
-          </InfoItem>
-          <InfoItem>
-            <InfoIcon>
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path
-                  d="M9 1V17M1 9H17"
-                  stroke={colors.gray[400]}
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </InfoIcon>
-            <InfoLabel>모집 분야</InfoLabel>
-            <InfoValue>{postData.recruitment.field}</InfoValue>
-          </InfoItem>
-          <InfoItem>
-            <InfoIcon>
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path
-                  d="M9 1V17M1 9H17"
-                  stroke={colors.gray[400]}
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </InfoIcon>
-            <InfoLabel>예상 기간</InfoLabel>
-            <InfoValue>{postData.recruitment.duration}</InfoValue>
-          </InfoItem>
-        </InfoSection>
+        <InfoSection
+          total={postData.recruitment.total || 0}
+          field={postData.recruitment.field}
+          duration={postData.recruitment.duration}
+        />
 
         {/* 포지션 섹션 */}
-        <PositionSection>
-          <PositionTitle>{postData.recruitment.current}명 모집중</PositionTitle>
-          <PositionCards>
-            {postData.positions.map((position, index) => (
-              <PositionCard key={index}>
-                <PositionCardContent>
-                  <PositionCardTitle>{position.title}</PositionCardTitle>
-                  <PositionCount>{position.count}명</PositionCount>
-                </PositionCardContent>
-              </PositionCard>
-            ))}
-          </PositionCards>
-        </PositionSection>
+        <PositionSection total={postData.recruitment.total} positions={postData.positions} />
 
         {/* 작성자 정보 */}
         <AuthorSection>

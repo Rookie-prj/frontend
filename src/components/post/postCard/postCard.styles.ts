@@ -69,7 +69,7 @@ export const PostCardAuthor = styled.p`
   font-size: 0.625rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 0.75rem; /* 120% */
+  line-height: 0.75rem;
   letter-spacing: -0.00625rem;
 `;
 

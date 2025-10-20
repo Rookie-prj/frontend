@@ -15,8 +15,7 @@ export const mockPostData = [
       responseRate: 16,
     },
     recruitment: {
-      total: 3,
-      current: 2,
+      total: 2,
       field: '개발자',
       duration: '4개월 예상',
     },
