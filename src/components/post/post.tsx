@@ -1,20 +1,24 @@
 import { PostContainer } from './post.styles';
 import { PostCard } from './postCard/postCard';
+import { mockPostData } from '../../mock/post';
 
-const Post = () => {
-  const postData = [
-    {
-      id: 1,
-      title: '제목제목이야 제목이ㅇㅇㅇㅇ제목이라고ㅇ야제목',
-      author: '춤추는 악어 · 상명대학교',
-    },
-    { id: 2, title: '또 다른 프로젝트', author: '개발자 · 서울대학교' },
-  ];
+interface PostProps {
+  limit?: number;
+  maxRows?: number;
+}
 
+const Post = ({ limit, maxRows }: PostProps) => {
   return (
-    <PostContainer>
-      {postData.map((post) => (
-        <PostCard key={post.id} title={post.title} author={post.author} />
+    <PostContainer maxRows={maxRows}>
+      {(limit ? mockPostData.slice(0, limit) : mockPostData).map((post) => (
+        <PostCard
+          key={post.id}
+          id={post.id}
+          title={post.title}
+          author={post.author}
+          progress={post.progress}
+          deadline={post.deadline}
+        />
       ))}
     </PostContainer>
   );

@@ -7,6 +7,7 @@ import Library from '../pages/library/library';
 import Hot from '../pages/hot/hot';
 import { CreateProject } from '../pages/createProject/createProject';
 import { CreateRookie } from '../pages/createProject/createRookie';
+import PostDetail from '../pages/postDetail/postDetail';
 import Layout from '../components/layout/layout';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
@@ -44,6 +45,10 @@ const AppRoutes = () => {
         {
           path: ROUTES.hot,
           element: <Hot />,
+        },
+        {
+          path: ROUTES.postDetail,
+          element: <PostDetail />,
         },
       ],
     },

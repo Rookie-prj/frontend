@@ -4,7 +4,7 @@ import { colors } from '../../../style/colors';
 export const RookieCardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 10.75rem;
+  width: 100%;
   cursor: pointer;
   border-radius: 0.75rem;
   border: 0.5px solid ${colors.gray[150]};
@@ -16,7 +16,7 @@ export const RookieTitleWrapper = styled.div`
   border-radius: 0.5rem 0.5rem 0 0;
   position: relative;
   padding-top: 0.75rem;
-  width: 10.75rem;
+  width: 100%;
   height: 7.125rem;
   border-bottom: 1px solid ${colors.gray[150]};
   background: ${colors.gray[150]};

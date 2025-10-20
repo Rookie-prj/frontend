@@ -1,4 +1,5 @@
-import { RookieContainer } from './rookie.styles';
+// import { RookieContainer } from './rookie.styles';
+import { PostContainer } from '../post/post.styles';
 import RookieCard from './rookieCard/rookieCard';
 
 const Rookie = () => {
@@ -20,7 +21,7 @@ const Rookie = () => {
   ];
 
   return (
-    <RookieContainer>
+    <PostContainer>
       {RookieData.map((rookie) => (
         <RookieCard
           key={rookie.id}
@@ -30,7 +31,7 @@ const Rookie = () => {
           school={rookie.school}
         />
       ))}
-    </RookieContainer>
+    </PostContainer>
   );
 };
 
