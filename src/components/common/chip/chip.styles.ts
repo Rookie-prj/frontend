@@ -25,7 +25,7 @@ const getChipStyles = ($variant: ChipVariant, $isActive: boolean) => {
   if ($variant === 'outlined') {
     return {
       background: colors.gray[100],
-      color: colors.gray[700],
+      color: colors.gray[500],
       border: `1px solid ${colors.gray[500]}`,
     };
   }
@@ -41,7 +41,7 @@ const getChipStyles = ($variant: ChipVariant, $isActive: boolean) => {
     }
     return {
       background: colors.gray[100],
-      color: colors.gray[700],
+      color: colors.gray[500],
       border: 'none',
     };
   }
@@ -57,7 +57,7 @@ const getChipStyles = ($variant: ChipVariant, $isActive: boolean) => {
 
   return {
     background: colors.gray[100],
-    color: colors.gray[700],
+    color: colors.gray[500],
     border: 'none',
   };
 };
@@ -81,7 +81,7 @@ const getSizeStyles = ($size: ChipSize) => {
       return {
         padding: '8.5px 11px',
         height: '33px',
-        fontSize: typography.caption.caption5, // 10px
+        fontSize: typography.caption.caption4, // 10px
       };
   }
 };
