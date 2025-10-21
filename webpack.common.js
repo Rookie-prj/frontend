@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+
 module.exports = {
   mode: 'development',
   entry: './src/index.tsx',
@@ -32,10 +34,10 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.REACT_APP_API_BASE_URL': JSON.stringify(
-        process.env.REACT_APP_API_BASE_URL || '',
-      ),
+    new Dotenv({
+      path: './.env',
+      safe: false,
+      systemvars: true,
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
