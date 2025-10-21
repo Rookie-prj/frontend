@@ -1,5 +1,5 @@
 import HTTPError from './httpError';
-import { HTTP_STATUS } from '../constants/api';
+import { HTTP_STATUS } from '../constants/http';
 
 const ERROR_MESSAGES: Record<number, string> = {
   [HTTP_STATUS.BAD_REQUEST]: '잘못된 요청입니다.',
