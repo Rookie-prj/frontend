@@ -1,7 +1,7 @@
 import { colors } from '../../../style/colors';
 import styled from '@emotion/styled';
 export const AuthorContainer = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 1.38rem;
 `;
 
 export const AuthorTitle = styled.h3`

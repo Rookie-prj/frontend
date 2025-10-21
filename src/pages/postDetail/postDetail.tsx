@@ -1,28 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   PostDetailContainer,
   HeaderImage,
   ContentContainer,
-  ProjectDescription,
-  DescriptionTitle,
-  DescriptionContent,
-  PreferencesSection,
-  PreferencesTitle,
-  PreferencesItem,
-  PreferencesLabel,
-  PreferencesValue,
-  DistanceChip,
-  ToolsChip,
-  MethodChip,
   BottomActions,
   ActionButton,
   SecondaryButton,
   PrimaryButton,
   BookmarkInfo,
 } from './postDetail.styles';
+import PreferenceSection from '../../components/post/postDetail/preferenceSection';
 import { colors } from '../../style/colors';
 import { mockPostData } from '../../mock/post';
+import { CATEGORY, PostCategoryValue } from '../../constants/category';
 import BackDrop from '../../components/common/backDrop/backDrop';
 import { BaseContainerWithSpaceBetween } from '../../components/container/container.styles';
 import Bookmark from '../../assets/icons/bookmark.svg';
@@ -31,9 +22,16 @@ import TitleSection from '../../components/post/postDetail/titleSection';
 import InfoSection from '../../components/post/postDetail/infoSection';
 import PositionSection from '../../components/post/postDetail/positionSection';
 import AuthorSection from '../../components/post/postDetail/authorSection';
+import DetailSection from '../../components/post/postDetail/detailSection';
+import ContentSection from '../../components/post/postDetail/contentSection';
+import TabBar from '../../components/post/postDetail/tabBar';
+import DividerBar from '../../components/post/postDetail/dividerBar';
 const PostDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const postData = mockPostData.find((post) => post.id === Number(id)) || mockPostData[0];
+  const [activeTab, setActiveTab] = useState<PostCategoryValue>(
+    CATEGORY.POST_CONTENT?.value || 'content',
+  );
 
   const handleSupport = () => {
     // 응원하기 기능
@@ -79,32 +77,27 @@ const PostDetail: React.FC = () => {
           responseRate={postData.authorInfo.responseRate}
           level={postData.authorInfo.level}
         />
-        {/* 프로젝트 설명 */}
-        <ProjectDescription>
-          <DescriptionTitle>프로젝트 소개</DescriptionTitle>
-          <DescriptionContent>{postData.description}</DescriptionContent>
-        </ProjectDescription>
+        <DividerBar />
+        {/* 탭 바 */}
+        <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
 
+        {/* 탭 콘텐츠 */}
+        {activeTab === (CATEGORY.POST_CONTENT?.value || 'content') && (
+          <>
+            <ContentSection description={postData.description} />
+            <DividerBar />
+            <PreferenceSection
+              distance={postData.preferences.distance}
+              tools={postData.preferences.tools}
+              method={postData.preferences.method}
+            />
+          </>
+        )}
+
+        {activeTab === (CATEGORY.POST_DETAIL?.value || 'detail') && (
+          <DetailSection category={postData.category || ''} techTools={postData.techTools || []} />
+        )}
         {/* 선호사항 */}
-        <PreferencesSection>
-          <PreferencesTitle>이런 사람과 같이 하고 싶어요!</PreferencesTitle>
-          <PreferencesItem>
-            <PreferencesLabel>선호하는 거리</PreferencesLabel>
-            <DistanceChip>{postData.preferences.distance}</DistanceChip>
-          </PreferencesItem>
-          <PreferencesItem>
-            <PreferencesLabel>사용하는 협업툴</PreferencesLabel>
-            <div className="tools-chips">
-              {postData.preferences.tools.map((tool, index) => (
-                <ToolsChip key={index}>{tool}</ToolsChip>
-              ))}
-            </div>
-          </PreferencesItem>
-          <PreferencesItem>
-            <PreferencesLabel>모이는 방식</PreferencesLabel>
-            <MethodChip>{postData.preferences.method}</MethodChip>
-          </PreferencesItem>
-        </PreferencesSection>
 
         {/* 북마크 정보 */}
         <BookmarkInfo>

@@ -37,111 +37,6 @@ export const ContentContainer = styled.div`
   flex-direction: column;
 `;
 
-export const ProjectDescription = styled.div`
-  margin-bottom: 16px;
-`;
-
-export const DescriptionTitle = styled.h3`
-  font-size: 14px;
-  font-weight: 600;
-  color: ${colors.gray[900]};
-  margin: 0 0 12px 0;
-  line-height: 20px;
-  letter-spacing: -0.14px;
-  text-align: center;
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 172px;
-    height: 2px;
-    background: ${colors.gray[900]};
-  }
-`;
-
-export const DescriptionContent = styled.div`
-  font-size: 14px;
-  font-weight: 400;
-  color: ${colors.gray[900]};
-  line-height: 24px;
-  letter-spacing: -0.14px;
-  white-space: pre-wrap;
-  margin-top: 24px;
-`;
-
-export const PreferencesSection = styled.div`
-  margin-bottom: 16px;
-`;
-
-export const PreferencesTitle = styled.h3`
-  font-size: 16px;
-  font-weight: 700;
-  color: ${colors.gray[900]};
-  margin: 0 0 16px 0;
-  line-height: 22px;
-  letter-spacing: -0.16px;
-`;
-
-export const PreferencesItem = styled.div`
-  margin-bottom: 16px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-export const PreferencesLabel = styled.div`
-  font-size: 14px;
-  font-weight: 600;
-  color: ${colors.gray[400]};
-  margin-bottom: 8px;
-  line-height: 20px;
-  letter-spacing: -0.14px;
-`;
-
-export const PreferencesValue = styled.div`
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-`;
-
-export const DistanceChip = styled.div`
-  background: ${colors.green[100]};
-  color: ${colors.gray[600]};
-  padding: 2px 5px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 18px;
-  letter-spacing: -0.12px;
-`;
-
-export const ToolsChip = styled.div`
-  background: ${colors.green[100]};
-  color: ${colors.gray[700]};
-  padding: 2px 5px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 18px;
-  letter-spacing: -0.12px;
-`;
-
-export const MethodChip = styled.div`
-  background: ${colors.green[100]};
-  color: ${colors.gray[700]};
-  padding: 2px 5px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 18px;
-  letter-spacing: -0.12px;
-`;
-
 export const BookmarkInfo = styled.div`
   font-size: 10px;
   font-weight: 500;
@@ -152,7 +47,6 @@ export const BookmarkInfo = styled.div`
 `;
 
 export const BottomActions = styled.div`
-  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
