@@ -8,12 +8,15 @@ import { FILTER_TABS, RoleTabValue } from '../../constants/filter';
 import { ROLE_TABS } from '../../constants/filter';
 import option from '../../assets/icons/iconSlider.svg';
 import { ChipBar } from '../../components/common/chipbar/chipBar';
+import useRookieQuery from '../../components/explore/hooks/useRookieQuery';
 
 const ExplorePage = () => {
   const [searchParams] = useSearchParams();
   const sortType = searchParams.get('sortType') as ExploreCategoryValue;
   const roleType = searchParams.get('roleType') as RoleTabValue;
   const tabs = sortType === 'rookie' ? ROLE_TABS : FILTER_TABS;
+  const { data } = useRookieQuery();
+
   return (
     <div>
       <Header type="search" />
