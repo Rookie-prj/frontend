@@ -46,10 +46,6 @@ const AppRoutes = () => {
           path: ROUTES.hot,
           element: <Hot />,
         },
-        {
-          path: ROUTES.postDetail,
-          element: <PostDetail />,
-        },
       ],
     },
     {
@@ -65,6 +61,14 @@ const AppRoutes = () => {
       element: (
         <Layout hideNavigation={true}>
           <CreateRookie />
+        </Layout>
+      ),
+    },
+    {
+      path: ROUTES.postDetail,
+      element: (
+        <Layout hideNavigation={true}>
+          <PostDetail />
         </Layout>
       ),
     },

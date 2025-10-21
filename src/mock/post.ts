@@ -32,6 +32,8 @@ export const mockPostData = [
       { title: 'Front end 개발자', count: 1 },
       { title: 'Back end 개발자', count: 1 },
     ],
+    techTools: ['React', 'TypeScript'],
+    category: '졸업작품 프로젝트',
     description: `할 말을 잃은 순간을 기록하는 감정 기반 메모 서비스, 함께 만들 개발자 분을 찾습니다.
 
 안녕하세요! 상명대학교 커뮤니케이션디자인을 전공 중인 대학생입니다.
@@ -40,6 +42,7 @@ export const mockPostData = [
 감정 태그, 상황 분류, 나만 볼 수 있는 공간 등 가볍지만 깊이 있는 구조를 갖춘 웹 기반 MVP를 목표로 하고 있으며, 이에 함께할 프론트엔드 개발자 1명을 모집합니다.
 
 현재 주요 사용자 흐름과 서비스 구조에 대한 큰 방향은 정리된 상태이며, 디자인은 본격적으로 시작하기 전 단계입니다. 아이디어 스케치와 사용자 시나리오, 기획 문서는 노션 기반으로 정리되어 있어 협업 시 공유 가능합니다.`,
+
     stats: {
       bookmarks: 2,
       views: 245,
@@ -79,6 +82,8 @@ export const mockPostData = [
       { title: 'AI 개발자', count: 1 },
       { title: 'Frontend 개발자', count: 1 },
     ],
+    techTools: ['TypeScript'],
+    category: '공모전',
     description: `AI를 활용한 개인 맞춤형 학습 플랫폼을 개발하고 있습니다. 학생들의 학습 패턴을 분석하여 최적의 학습 경로를 제안하는 서비스입니다.`,
     stats: {
       bookmarks: 15,
