@@ -11,19 +11,34 @@ import {
   RookieTitleWrapper,
   RookieDepartmentTextContainer,
   RookieCardContainer,
+  RookieFavoriteSubjectWrapper,
+  RookieFavoriteSubjectChip,
 } from './rookieCard.styles';
 interface RookieCardProps {
+  isExplore?: boolean;
   name: string;
   department: string;
   year: string;
   school: string;
+  profileImageUrl?: string;
+  favoriteSubject?: string;
 }
-const RookieCard = ({ name, department, year, school }: RookieCardProps) => {
+const RookieCard = ({
+  isExplore,
+  name,
+  department,
+  year,
+  school,
+  profileImageUrl,
+  favoriteSubject,
+}: RookieCardProps) => {
+  const subjects = favoriteSubject ? favoriteSubject.split(',').map((s) => s.trim()) : [];
+
   return (
-    <RookieCardContainer>
-      <RookieTitleWrapper>
+    <RookieCardContainer isExplore={isExplore}>
+      <RookieTitleWrapper isExplore={isExplore}>
         <RookieIcon>
-          <img src={profile} alt="profile" />
+          <img src={profileImageUrl || profile} alt="profile" />
         </RookieIcon>
         <RookieName>{name}</RookieName>
       </RookieTitleWrapper>
@@ -34,10 +49,17 @@ const RookieCard = ({ name, department, year, school }: RookieCardProps) => {
           </RookieDepartmentText>
         </RookieDepartmentTextWrapper>
       </RookieDepartmentTextContainer>
-      <RookieSchoolTextWrapper>
+      <RookieSchoolTextWrapper isExplore={isExplore}>
         <img src={pin} alt="pin" />
         <RookieSchoolText>{school}</RookieSchoolText>
       </RookieSchoolTextWrapper>
+      {isExplore && subjects.length > 0 && (
+        <RookieFavoriteSubjectWrapper>
+          {subjects.map((subject, index) => (
+            <RookieFavoriteSubjectChip key={index}>{subject}</RookieFavoriteSubjectChip>
+          ))}
+        </RookieFavoriteSubjectWrapper>
+      )}
     </RookieCardContainer>
   );
 };

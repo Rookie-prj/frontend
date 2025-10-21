@@ -1,8 +1,9 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getRookie } from '../api';
 import { ROOKIE_QUERY_KEY } from './key';
+import { ExploreCategoryValue } from 'constants/category';
 
-const useRookieQuery = () => {
+const useRookieQuery = (sortType: ExploreCategoryValue) => {
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: [ROOKIE_QUERY_KEY.rookie],
@@ -16,10 +17,13 @@ const useRookieQuery = () => {
         return allPages.length;
       },
       initialPageParam: 0,
+      enabled: sortType === 'rookie',
     });
 
+  const rookies = data?.pages.flat() ?? [];
+
   return {
-    data,
+    rookies,
     isLoading,
     isFetching,
     hasNextPage,

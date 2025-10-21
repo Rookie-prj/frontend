@@ -1,5 +1,6 @@
 import { API_ENDPOINT } from '../../../constants/apiEndpoint';
 import { apiClient } from '../../../api/index';
+import { RookieList } from 'models';
 
 interface GetRookieParams {
   page?: number;
@@ -11,7 +12,7 @@ interface GetRookieParams {
 export const getRookie = (params: GetRookieParams = {}) => {
   const { page = 0, size = 10, sortBy = 'createdAt', sortDirection = 'desc' } = params;
 
-  return apiClient.get(API_ENDPOINT.ROOKIE, {
+  return apiClient.get<RookieList>(API_ENDPOINT.ROOKIE, {
     params: {
       page,
       size,

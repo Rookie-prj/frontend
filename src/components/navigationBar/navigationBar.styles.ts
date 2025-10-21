@@ -3,7 +3,7 @@ import { keyframes } from '@emotion/react';
 import { colors } from '../../style/colors';
 
 export const NavBarContainer = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   left: 50%;
@@ -18,6 +18,7 @@ export const NavBarContainer = styled.div`
   padding-top: 0.62rem;
   padding-bottom: 1.56rem;
   z-index: 1000;
+  width: 430px;
 `;
 export const LeftNavBarGroup = styled.div`
   display: flex;
