@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getRookie } from '../api';
+import { getRookie } from '../api/rookie';
 import { ROOKIE_QUERY_KEY } from './key';
-import { ExploreCategoryValue } from 'constants/category';
+import { ExploreCategoryValue } from '../../../constants/category';
 
 const useRookieQuery = (sortType: ExploreCategoryValue) => {
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
