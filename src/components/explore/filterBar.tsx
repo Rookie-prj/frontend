@@ -1,9 +1,10 @@
-import { FILTER_TABS, ROLE_TABS } from '../../constants/filter';
+import { FILTER_TABS, ROLE_TABS, RoleTabValue } from '../../constants/filter';
 import option from '../../assets/icons/iconSlider.svg';
 import { ChipBar } from '../../components/common/chipbar/chipBar';
+import { ExploreCategoryValue } from '../../constants/category';
 interface FilterBarProps {
-  sortType: string;
-  roleType: string | null;
+  sortType: ExploreCategoryValue;
+  roleType: RoleTabValue;
 }
 
 function FilterBar({ sortType, roleType }: FilterBarProps) {
@@ -11,7 +12,7 @@ function FilterBar({ sortType, roleType }: FilterBarProps) {
   return (
     <div style={{ display: 'flex', padding: '18px 16px' }}>
       {sortType === 'project' && <img src={option} />}
-      <ChipBar tabs={tabs} roleType={roleType} gap="8px" />
+      <ChipBar tabs={tabs} type={roleType} gap="8px" />
     </div>
   );
 }

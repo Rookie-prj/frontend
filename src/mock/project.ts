@@ -1,0 +1,177 @@
+import { HttpResponse, http } from 'msw';
+import { ProjectResponse } from '../models/project';
+import { API_ENDPOINT } from '../constants/apiEndpoint';
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '';
+
+const mockProjectData: ProjectResponse = {
+  boards: [
+    {
+      boardId: 1,
+      title: '포트폴리오 웹사이트 제작 프로젝트',
+      boardType: '웹 개발',
+      cowrkrPosition: '프론트엔드 개발자',
+      cowrkrSpeciality: 'React, TypeScript',
+      distance: '서울',
+      deadline: '2025-11-15',
+      writer: '김철수',
+      viewCount: 127,
+      support: 8,
+      bookmark: 12,
+      createdAt: '2025-10-15T09:30:00.000Z',
+    },
+    {
+      boardId: 2,
+      title: '모바일 앱 UI/UX 디자인 협업',
+      boardType: '디자인',
+      cowrkrPosition: 'UI/UX 디자이너',
+      cowrkrSpeciality: 'Figma, Adobe XD',
+      distance: '경기',
+      deadline: '2025-10-30',
+      writer: '박지영',
+      viewCount: 98,
+      support: 15,
+      bookmark: 23,
+      createdAt: '2025-10-18T14:20:00.000Z',
+    },
+    {
+      boardId: 3,
+      title: '스타트업 MVP 개발 팀원 모집',
+      boardType: '창업',
+      cowrkrPosition: '풀스택 개발자',
+      cowrkrSpeciality: 'Node.js, React',
+      distance: '서울',
+      deadline: null,
+      writer: '이민호',
+      viewCount: 245,
+      support: 32,
+      bookmark: 45,
+      createdAt: '2025-10-10T11:00:00.000Z',
+    },
+    {
+      boardId: 4,
+      title: '대학생 커뮤니티 플랫폼 제작',
+      boardType: '웹 개발',
+      cowrkrPosition: '백엔드 개발자',
+      cowrkrSpeciality: 'Spring Boot, MySQL',
+      distance: '부산',
+      deadline: '2025-11-30',
+      writer: '최수진',
+      viewCount: 167,
+      support: 12,
+      bookmark: 19,
+      createdAt: '2025-10-12T16:45:00.000Z',
+    },
+    {
+      boardId: 5,
+      title: '게임 캐릭터 디자인 프로젝트',
+      boardType: '디자인',
+      cowrkrPosition: '그래픽 디자이너',
+      cowrkrSpeciality: 'Illustrator, Photoshop',
+      distance: '대전',
+      deadline: '2025-11-10',
+      writer: '정다은',
+      viewCount: 89,
+      support: 6,
+      bookmark: 14,
+      createdAt: '2025-10-16T10:15:00.000Z',
+    },
+    {
+      boardId: 6,
+      title: 'AI 챗봇 서비스 개발',
+      boardType: '인공지능',
+      cowrkrPosition: 'AI 개발자',
+      cowrkrSpeciality: 'Python, TensorFlow',
+      distance: '서울',
+      deadline: '2025-12-15',
+      writer: '강민수',
+      viewCount: 312,
+      support: 28,
+      bookmark: 56,
+      createdAt: '2025-10-08T13:30:00.000Z',
+    },
+    {
+      boardId: 7,
+      title: '소셜 미디어 마케팅 콘텐츠 제작',
+      boardType: '마케팅',
+      cowrkrPosition: '콘텐츠 크리에이터',
+      cowrkrSpeciality: '영상 편집, 카피라이팅',
+      distance: '인천',
+      deadline: null,
+      writer: '윤서아',
+      viewCount: 134,
+      support: 9,
+      bookmark: 17,
+      createdAt: '2025-10-14T08:00:00.000Z',
+    },
+    {
+      boardId: 8,
+      title: '블록체인 기반 투표 시스템',
+      boardType: '블록체인',
+      cowrkrPosition: '블록체인 개발자',
+      cowrkrSpeciality: 'Solidity, Web3.js',
+      distance: '서울',
+      deadline: '2025-11-20',
+      writer: '홍길동',
+      viewCount: 201,
+      support: 18,
+      bookmark: 34,
+      createdAt: '2025-10-11T15:20:00.000Z',
+    },
+    {
+      boardId: 9,
+      title: 'E-커머스 쇼핑몰 제작',
+      boardType: '웹 개발',
+      cowrkrPosition: '프론트엔드 개발자',
+      cowrkrSpeciality: 'Vue.js, Vuex',
+      distance: '경기',
+      deadline: '2025-12-01',
+      writer: '송지훈',
+      viewCount: 178,
+      support: 14,
+      bookmark: 25,
+      createdAt: '2025-10-13T12:10:00.000Z',
+    },
+    {
+      boardId: 10,
+      title: '환경 보호 캠페인 앱 개발',
+      boardType: '모바일 앱',
+      cowrkrPosition: '안드로이드 개발자',
+      cowrkrSpeciality: 'Kotlin, Jetpack Compose',
+      distance: '광주',
+      deadline: '2025-11-25',
+      writer: '임수연',
+      viewCount: 95,
+      support: 7,
+      bookmark: 11,
+      createdAt: '2025-10-17T09:45:00.000Z',
+    },
+  ],
+  page: 0,
+  size: 10,
+  totalElements: 10,
+  totalPages: 1,
+};
+
+export const project = http.get(`${API_BASE_URL}${API_ENDPOINT.PROJECT}`, ({ request }) => {
+  const url = new URL(request.url);
+  const page = parseInt(url.searchParams.get('page') || '0');
+  const size = parseInt(url.searchParams.get('size') || '10');
+
+  const startIndex = page * size;
+  const endIndex = startIndex + size;
+  const paginatedBoards = mockProjectData.boards.slice(startIndex, endIndex);
+
+  return HttpResponse.json(
+    {
+      boards: paginatedBoards,
+      page,
+      size,
+      totalElements: mockProjectData.boards.length,
+      totalPages: Math.ceil(mockProjectData.boards.length / size),
+    },
+    {
+      status: 200,
+    },
+  );
+});

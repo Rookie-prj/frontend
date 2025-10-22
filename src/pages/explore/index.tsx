@@ -6,9 +6,11 @@ import Rookies from '../../components/rookie/rookies';
 
 import { RoleTabValue } from '../../constants/filter';
 import useRookieQuery from '../../components/explore/hooks/useRookieQuery';
-import useInfiniteScroll from '../../hooks/useInfiniteScroll';
-import { Loading } from '../../components/common/loading';
 import FilterTab from '../../components/explore/filterBar';
+import useProjectsQuery from '../../components/explore/hooks/useProjectsQuery';
+import ProjectList from '../../components/explore/projectList';
+import bookmark from '../../assets/icons/bookmark.svg';
+import InfiniteScrollList from '../../components/common/infiniteScrollList';
 
 const ExplorePage = () => {
   const [searchParams] = useSearchParams();
@@ -16,13 +18,12 @@ const ExplorePage = () => {
   const roleType = searchParams.get('roleType') as RoleTabValue;
 
   const { rookies, hasNextPage, fetchNextPage, isFetchingNextPage } = useRookieQuery(sortType);
-
-  const { observerRef } = useInfiniteScroll({
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-    enabled: sortType === 'rookie',
-  });
+  const {
+    projects,
+    hasNextPage: projectHasNextPage,
+    fetchNextPage: projectFetchNextPage,
+    isFetchingNextPage: projectIsFetchingNextPage,
+  } = useProjectsQuery(sortType);
 
   return (
     <div>
@@ -31,11 +32,25 @@ const ExplorePage = () => {
       <FilterTab sortType={sortType} roleType={roleType} />
       <div style={{ paddingBottom: '130px' }}>
         {sortType === 'rookie' && (
-          <>
+          <InfiniteScrollList
+            hasNextPage={hasNextPage}
+            fetchNextPage={fetchNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            enabled={sortType === 'rookie'}
+          >
             <Rookies rookies={rookies} isExplore={true} />
-            <div ref={observerRef} style={{ height: '20px' }} />
-            {isFetchingNextPage && <Loading />}
-          </>
+          </InfiniteScrollList>
+        )}
+        {sortType === 'project' && (
+          <InfiniteScrollList
+            hasNextPage={projectHasNextPage}
+            fetchNextPage={projectFetchNextPage}
+            isFetchingNextPage={projectIsFetchingNextPage}
+            enabled={sortType === 'project'}
+            padding="4px 16px 0 16px"
+          >
+            <ProjectList projects={projects} rightIcon={bookmark} />
+          </InfiniteScrollList>
         )}
       </div>
     </div>
