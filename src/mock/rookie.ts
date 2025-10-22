@@ -2,7 +2,7 @@ import { HttpResponse, http } from 'msw';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '';
 
-const mockRookieData = [
+export const mockRookieData = [
   {
     id: 1,
     name: '춤추는 악어',
@@ -33,7 +33,7 @@ const mockRookieData = [
   },
 ];
 
-export const rookie = http.get(`${API_BASE_URL}/rookie`, () => {
+export const rookie = http.get(`${API_BASE_URL}/explore/member`, () => {
   return HttpResponse.json(mockRookieData, {
     status: 200,
   });
