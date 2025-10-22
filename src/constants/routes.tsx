@@ -8,4 +8,5 @@ export const ROUTES = {
   createProject: '/create-project',
   createRookie: '/create-rookie',
   postDetail: '/post/:id',
+  toolkit: '/toolkit',
 };
