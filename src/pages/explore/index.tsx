@@ -9,6 +9,9 @@ import useRookieQuery from '../../components/explore/hooks/useRookieQuery';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import { Loading } from '../../components/common/loading';
 import FilterTab from '../../components/explore/filterBar';
+import useProjectsQuery from '../../components/explore/hooks/useProjectsQuery';
+import ProjectList from '../../components/explore/projectList';
+import bookmark from '../../assets/icons/bookmark.svg';
 
 const ExplorePage = () => {
   const [searchParams] = useSearchParams();
@@ -16,12 +19,18 @@ const ExplorePage = () => {
   const roleType = searchParams.get('roleType') as RoleTabValue;
 
   const { rookies, hasNextPage, fetchNextPage, isFetchingNextPage } = useRookieQuery(sortType);
+  const {
+    projects,
+    hasNextPage: projectNextPage,
+    fetchNextPage: projectFetchNextPage,
+    isFetchingNextPage: projectIsFetchingNextPage,
+  } = useProjectsQuery(sortType);
 
   const { observerRef } = useInfiniteScroll({
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-    enabled: sortType === 'rookie',
+    hasNextPage: sortType === 'rookie' ? hasNextPage : projectNextPage,
+    fetchNextPage: sortType === 'rookie' ? fetchNextPage : projectFetchNextPage,
+    isFetchingNextPage: sortType === 'rookie' ? isFetchingNextPage : projectIsFetchingNextPage,
+    enabled: sortType === 'rookie' || sortType === 'project',
   });
 
   return (
@@ -36,6 +45,13 @@ const ExplorePage = () => {
             <div ref={observerRef} style={{ height: '20px' }} />
             {isFetchingNextPage && <Loading />}
           </>
+        )}
+        {sortType === 'project' && (
+          <div style={{ padding: '4px 16px 0 16px' }}>
+            <ProjectList projects={projects} rightIcon={bookmark} />
+            <div ref={observerRef} style={{ height: '20px' }} />
+            {isFetchingNextPage && <Loading />}
+          </div>
         )}
       </div>
     </div>
