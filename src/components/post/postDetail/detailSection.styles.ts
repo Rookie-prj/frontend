@@ -2,7 +2,6 @@ import { colors } from '../../../style/colors';
 import styled from '@emotion/styled';
 import { typography } from '../../../style/theme';
 export const DetailContainer = styled.div`
-  margin-bottom: 16px;
   padding: 1.5rem 0.31rem;
   width: 100%;
   display: flex;
