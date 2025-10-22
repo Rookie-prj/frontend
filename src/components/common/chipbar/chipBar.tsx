@@ -4,13 +4,13 @@ import QueryLink from '../../../components/common/queryLink';
 
 interface FilterChipBarProps<T extends readonly { value: string; label: string }[]> {
   tabs: T;
-  roleType: string | null;
+  type: string | null;
   gap?: string;
 }
 
 export const ChipBar = <T extends readonly { value: string; label: string }[]>({
   tabs,
-  roleType,
+  type,
   gap = '8px',
 }: FilterChipBarProps<T>) => {
   return (
@@ -21,7 +21,7 @@ export const ChipBar = <T extends readonly { value: string; label: string }[]>({
             key={tab.value}
             label={tab.label}
             size="medium"
-            variant={roleType === tab.value ? 'primary' : 'default'}
+            variant={type === tab.value ? 'primary' : 'default'}
           />
         </QueryLink>
       ))}
