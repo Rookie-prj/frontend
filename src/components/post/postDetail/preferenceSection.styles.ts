@@ -7,7 +7,7 @@ export const PreferencesContainer = styled.div`
 
 export const PreferencesTitle = styled.h3`
   color: ${colors.gray[950]};
-
+  padding-bottom: 1.25rem;
   font-size: ${typography.subhead.subhead5.fontSize};
   font-weight: ${typography.subhead.subhead5.fontWeight};
   line-height: ${typography.subhead.subhead5.lineHeight};
