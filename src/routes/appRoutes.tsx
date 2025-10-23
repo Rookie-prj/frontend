@@ -25,10 +25,6 @@ const AppRoutes = () => {
       ),
       children: [
         {
-          path: ROUTES.main,
-          element: <Main />,
-        },
-        {
           path: ROUTES.home,
           element: <Home />,
         },
