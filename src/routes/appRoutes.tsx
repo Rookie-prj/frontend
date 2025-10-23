@@ -13,7 +13,6 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Toolkit from '../pages/toolkit/toolkit';
 import RookieDetail from '../pages/rookieDetail';
 
-//라우팅 관련 함수
 const AppRoutes = () => {
   const routes = [
     {
