@@ -57,11 +57,11 @@ export const PostCard = ({
         <PostCardRecruitTeamWrapper>
           <PostCardRecruitTeamPeople>
             <img src={people} alt="people" />
-            <p> 2명</p>
+            <span>2명</span>
           </PostCardRecruitTeamPeople>
 
           <PostCardRecruitTeamPeople>
-            <img src={thunder} alt="thunder" /> <p>개발자</p>
+            <img src={thunder} alt="thunder" /> <span>개발자</span>
           </PostCardRecruitTeamPeople>
         </PostCardRecruitTeamWrapper>
       </div>

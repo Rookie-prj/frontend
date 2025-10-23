@@ -4,12 +4,11 @@ import { mockPostData } from '../../mock/post';
 
 interface PostProps {
   limit?: number;
-  maxRows?: number;
 }
 
-const Post = ({ limit, maxRows }: PostProps) => {
+const Post = ({ limit }: PostProps) => {
   return (
-    <PostContainer maxRows={maxRows}>
+    <PostContainer>
       {(limit ? mockPostData.slice(0, limit) : mockPostData).map((post) => (
         <PostCard
           key={post.id}

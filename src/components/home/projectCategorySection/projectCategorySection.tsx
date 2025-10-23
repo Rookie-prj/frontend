@@ -34,9 +34,9 @@ const ProjectCategorySection = ({
     <>
       {showViewAll && (
         <ViewAllButton
-          route="search"
+          route="explore"
           title="어떤 프로젝트 찾으세요?"
-          onClick={() => navigate(ROUTES.search)}
+          onClick={() => navigate(ROUTES.explore)}
         />
       )}
       <ProjectCategoryCardsContainer layout={layout}>

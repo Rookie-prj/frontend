@@ -38,7 +38,7 @@ const ExplorePage = () => {
             isFetchingNextPage={isFetchingNextPage}
             enabled={sortType === 'rookie'}
           >
-            <Rookies rookies={rookies} isExplore={true} />
+            <Rookies rookies={rookies} type="explore" />
           </InfiniteScrollList>
         )}
         {sortType === 'project' && (

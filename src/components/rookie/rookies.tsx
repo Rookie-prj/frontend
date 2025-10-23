@@ -2,26 +2,21 @@
 import { RookieList } from 'models';
 import { PostContainer } from '../post/post.styles';
 import RookieCard from './rookieCard/rookieCard';
+import QueryLink from '../../components/common/queryLink';
+import { Link } from 'react-router';
 
 interface RookieProps {
   rookies: RookieList;
-  isExplore?: boolean;
+  type?: 'explore' | 'default' | 'detail';
 }
 
-const Rookies = ({ rookies, isExplore }: RookieProps) => {
+const Rookies = ({ rookies, type }: RookieProps) => {
   return (
     <PostContainer>
       {rookies?.map((rookie) => (
-        <RookieCard
-          key={rookie.userId}
-          isExplore={isExplore}
-          name={rookie.name}
-          department={rookie.major}
-          year={rookie.grade}
-          school={rookie.universityName}
-          profileImageUrl={rookie.profileImageUrl}
-          favoriteSubject={rookie.favoriteSubject}
-        />
+        <Link to={`/explore/rookie/${rookie.userId}`} key={rookie.userId}>
+          <RookieCard type={type} rookie={rookie} />
+        </Link>
       ))}
     </PostContainer>
   );

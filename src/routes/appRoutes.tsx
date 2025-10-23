@@ -11,6 +11,7 @@ import PostDetail from '../pages/postDetail/postDetail';
 import Layout from '../components/layout/layout';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Toolkit from '../pages/toolkit/toolkit';
+import RookieDetail from '../pages/rookieDetail';
 
 //라우팅 관련 함수
 const AppRoutes = () => {
@@ -32,7 +33,7 @@ const AppRoutes = () => {
           element: <Home />,
         },
         {
-          path: ROUTES.search,
+          path: ROUTES.explore,
           element: <ExplorePage />,
         },
         {
@@ -78,6 +79,14 @@ const AppRoutes = () => {
       element: (
         <Layout hideNavigation={true}>
           <Toolkit />
+        </Layout>
+      ),
+    },
+    {
+      path: ROUTES.rookieDetail,
+      element: (
+        <Layout hideNavigation={true}>
+          <RookieDetail />
         </Layout>
       ),
     },

@@ -1,7 +1,8 @@
 export const ROUTES = {
   main: '/',
   home: '/home',
-  search: '/search',
+  explore: '/explore',
+  rookieDetail: '/explore/rookie/:id',
   chat: '/chat',
   library: '/library',
   hot: '/hot',

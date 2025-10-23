@@ -38,7 +38,7 @@ const Hot = () => {
       <CategoryBar group="HOME" onCategoryChange={handleCategoryChange} />
       <HeroBanner />
       <ViewAllSection title="많은 루키들이 집중해요!" onClick={() => {}} route="hot" />
-      <Post limit={2} maxRows={1} />
+      <Post limit={2} />
       <div style={{ marginTop: '0.56rem' }}>
         <ViewAllSection title="나와 가까이 있는 루키" onClick={() => {}} route="hot" />
       </div>

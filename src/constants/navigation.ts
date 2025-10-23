@@ -15,8 +15,8 @@ export const NAVIGATION = {
     activeIcon: homeActiveIcon,
     inactiveIcon: homeInactiveIcon,
   },
-  SEARCH: {
-    value: 'search',
+  EXPLORE: {
+    value: 'explore',
     label: '탐색',
     activeIcon: searchActiveIcon,
     inactiveIcon: searchInactiveIcon,
@@ -41,7 +41,7 @@ export const NAVIGATION_PLUS = {
   },
 } as const;
 export const NAVIGATION_GROUPS = {
-  LEFT: [NAVIGATION.HOME, NAVIGATION.SEARCH],
+  LEFT: [NAVIGATION.HOME, NAVIGATION.EXPLORE],
   RIGHT: [NAVIGATION.CHAT, NAVIGATION.LIBRARY],
 } as const;
 
