@@ -1,3 +1,4 @@
+import { Rookie } from 'models';
 import pin from '../../../assets/icons/pin.svg';
 import profile from '../../../assets/icons/profileEx.svg';
 import {
@@ -15,45 +16,33 @@ import {
   RookieFavoriteSubjectChip,
 } from './rookieCard.styles';
 interface RookieCardProps {
-  isExplore?: boolean;
-  name: string;
-  department: string;
-  year: string;
-  school: string;
-  profileImageUrl?: string;
-  favoriteSubject?: string;
+  type?: 'explore' | 'default' | 'detail';
+  rookie: Rookie;
 }
-const RookieCard = ({
-  isExplore,
-  name,
-  department,
-  year,
-  school,
-  profileImageUrl,
-  favoriteSubject,
-}: RookieCardProps) => {
+const RookieCard = ({ type: type = 'default', rookie }: RookieCardProps) => {
+  const { userId, name, major, grade, universityName, profileImageUrl, favoriteSubject } = rookie;
   const subjects = favoriteSubject ? favoriteSubject.split(',').map((s) => s.trim()) : [];
 
   return (
-    <RookieCardContainer isExplore={isExplore}>
-      <RookieTitleWrapper isExplore={isExplore}>
+    <RookieCardContainer type={type}>
+      <RookieTitleWrapper type={type}>
         <RookieIcon>
-          <img src={profileImageUrl || profile} alt="profile" />
+          <img src={profile} alt="profile" />
         </RookieIcon>
-        <RookieName>{name}</RookieName>
+        <RookieName type={type}>{name}</RookieName>
       </RookieTitleWrapper>
       <RookieDepartmentTextContainer>
-        <RookieDepartmentTextWrapper>
-          <RookieDepartmentText>
-            {department} · <RookieYearText>{year}</RookieYearText>
+        <RookieDepartmentTextWrapper type={type}>
+          <RookieDepartmentText type={type}>
+            {major} · <RookieYearText type={type}>{grade}</RookieYearText>
           </RookieDepartmentText>
         </RookieDepartmentTextWrapper>
       </RookieDepartmentTextContainer>
-      <RookieSchoolTextWrapper isExplore={isExplore}>
+      <RookieSchoolTextWrapper type={type}>
         <img src={pin} alt="pin" />
-        <RookieSchoolText>{school}</RookieSchoolText>
+        <RookieSchoolText type={type}>{universityName}</RookieSchoolText>
       </RookieSchoolTextWrapper>
-      {isExplore && subjects.length > 0 && (
+      {type === 'explore' && subjects.length > 0 && (
         <RookieFavoriteSubjectWrapper>
           {subjects.map((subject, index) => (
             <RookieFavoriteSubjectChip key={index}>{subject}</RookieFavoriteSubjectChip>
