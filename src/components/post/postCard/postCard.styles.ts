@@ -4,7 +4,8 @@ import { colors } from '../../../style/colors';
 export const PostCardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  //width: 100%;
+  width: 172px;
   min-width: 0;
   height: 11.9375rem;
   border-radius: 0.5rem;
@@ -78,7 +79,7 @@ export const PostCardRecruitTeamWrapper = styled.div`
   padding-bottom: 0.81rem;
   gap: 0.87rem;
 `;
-export const PostCardRecruitTeamPeople = styled.p`
+export const PostCardRecruitTeamPeople = styled.div`
   color: ${colors.gray[500]};
   font-size: 0.75rem;
   font-style: normal;
