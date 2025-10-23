@@ -1,0 +1,45 @@
+name: CI - Build Test (Develop)
+
+on:
+  pull_request:
+    branches:
+      - develop
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    name: Build Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout codes
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: NPM install
+        run: npm install
+
+      - name: NPM Build
+        run: npm run build
+
+      - name: Check build output
+        run: |
+          if [ -d "dist" ]; then
+            echo "✅ Build successful! dist folder created."
+            ls -la dist
+          else
+            echo "❌ Build failed! dist folder not found."
+            exit 1
+          fi
