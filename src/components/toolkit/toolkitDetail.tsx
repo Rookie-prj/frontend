@@ -91,8 +91,11 @@ const ToolkitDetail = () => {
   }
 
   const handleDownload = () => {
-    // PDF 다운로드 로직 구현
-    console.log('PDF 다운로드:', toolkit.id);
+    (() =>
+      Object.assign(document.createElement('a'), {
+        href: `/pdfs/toolkit-${toolkit.id}.pdf`,
+        download: `toolkit-${toolkit.id}.pdf`,
+      }).click())();
   };
 
   return (
@@ -135,7 +138,7 @@ const ToolkitDetail = () => {
           </Description>
         </ContentContainer>
         <Button onClick={handleDownload} size="large">
-          PDF 다운받기
+          PDF 다운로드
         </Button>
       </ContentSection>
     </PageContainer>
