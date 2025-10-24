@@ -12,4 +12,6 @@ export const ROUTES = {
   postDetail: '/post/:id',
   toolkit: '/toolkit',
   toolkitDetail: '/toolkit/:id',
+  login: '/login',
+  signup: '/signup',
 };
