@@ -45,6 +45,7 @@ export const HeroBannerButton = styled(BaseButton)`
   right: 20px;
   z-index: 10;
   display: inline-flex;
+
   height: 2.3rem;
   font-size: 0.8145rem;
   line-height: 1.19456rem; /* 146.667% */

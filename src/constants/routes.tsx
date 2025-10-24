@@ -11,6 +11,7 @@ export const ROUTES = {
   createRookie: '/create-rookie',
   postDetail: '/post/:id',
   toolkit: '/toolkit',
+  signup: '/signup',
   toolkitDetail: '/toolkit/:id',
   login: '/login',
   //signup: '/signup',
