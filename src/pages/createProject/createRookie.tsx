@@ -1,4 +1,4 @@
-import { useRookieFunnel } from '../../hooks/funnel/context';
+import { useRookieFunnel } from '../../hooks/funnel/postContext';
 import ProjectStatus from './steps/projectStatus';
 import { CreateProjectStep1 } from './steps/step1';
 import { CreateProjectStep2 } from './steps/step2';
