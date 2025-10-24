@@ -93,7 +93,8 @@ const AppRoutes = () => {
         <Layout hideNavigation={true}>
           <ToolkitDetail />
         </Layout>
-    }
+      ),
+    },
   ];
 
   const router = createBrowserRouter(routes);
