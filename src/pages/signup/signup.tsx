@@ -1,16 +1,17 @@
+import { TEAM } from 'constants/createProject';
 import BackDrop from '../../components/common/backDrop/backDrop';
 import {
   BaseContainer,
   BaseContainerWithSpaceBetween,
 } from '../../components/container/container.styles';
 
-import { StepTitle } from '../../components/createProject/steps/steps.styles';
+import { StepBarItem } from '../../components/createProject/stepBar/stepBar.styles';
 const Signup = () => {
   return (
     <BaseContainerWithSpaceBetween>
       <BackDrop />
       <BaseContainer>
-        <StepTitle>{TEAM.STEP1}</StepTitle>
+        <StepBarItem>{TEAM.STEP1}</StepBarItem>
       </BaseContainer>
     </BaseContainerWithSpaceBetween>
   );
