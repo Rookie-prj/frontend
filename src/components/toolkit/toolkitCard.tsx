@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { colors } from '../../style/colors';
 import { typography } from '../../style/theme';
@@ -60,7 +61,7 @@ const CardIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 4.6rem;
+  margin-top: 4.5rem;
 `;
 
 const CardInfo = styled.div`
@@ -123,8 +124,14 @@ const ToolkitLogoContainer = styled.div`
 `;
 
 export default function ToolkitCard({ toolkit, style }: ToolkitCardProps) {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/toolkit/${toolkit.id}`);
+  };
+
   return (
-    <CardContainer style={style}>
+    <CardContainer style={style} onClick={handleCardClick}>
       <CardContent>
         <CardImage $backgroundColor={toolkit.backgroundColor}>
           <CardTitle>
