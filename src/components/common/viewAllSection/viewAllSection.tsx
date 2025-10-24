@@ -6,16 +6,19 @@ interface ViewAllButtonProps {
   title: string;
   onClick: () => void;
   route?: keyof typeof ROUTES;
+  showButton?: boolean;
 }
 
-const ViewAllSection = ({ title, onClick }: ViewAllButtonProps) => {
+const ViewAllSection = ({ title, onClick, showButton = true }: ViewAllButtonProps) => {
   return (
     <ViewAllContainer onClick={onClick}>
       <ViewAllTitle>{title}</ViewAllTitle>
-      <ViewAllButton>
-        전체보기
-        <img src={rightArrow} alt="right-arrow" />
-      </ViewAllButton>
+      {showButton && (
+        <ViewAllButton>
+          전체보기
+          <img src={rightArrow} alt="right-arrow" />
+        </ViewAllButton>
+      )}
     </ViewAllContainer>
   );
 };
