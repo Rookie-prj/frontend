@@ -41,6 +41,7 @@ const HeroBanner = ({ totalSlides = 4, currentSlide, onSlideChange }: HeroBanner
                 onClick={() => {
                   navigate('/toolkit');
                 }}
+                variant="primary"
               >
                 툴킷 바로가기
               </HeroBannerButton>
