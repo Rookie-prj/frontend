@@ -15,7 +15,7 @@ import ToolkitDetail from '../components/toolkit/toolkitDetail';
 
 import RookieDetail from '../pages/rookieDetail';
 import Intro from '../pages/intro/intro';
-import Splash from '../pages/onboarding/onboarding';
+import Onboarding from '../pages/onboarding/onboarding';
 
 const AppRoutes = () => {
   const routes = [
@@ -55,7 +55,7 @@ const AppRoutes = () => {
     },
     {
       path: ROUTES.onboarding,
-      element: <Splash />,
+      element: <Onboarding />,
     },
     {
       path: ROUTES.createProject,
