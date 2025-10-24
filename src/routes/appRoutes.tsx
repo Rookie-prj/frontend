@@ -15,7 +15,7 @@ import ToolkitDetail from '../components/toolkit/toolkitDetail';
 
 import RookieDetail from '../pages/rookieDetail';
 import Intro from '../pages/intro/intro';
-import Splash from '../pages/splash/splash';
+import Splash from '../pages/onboarding/onboarding';
 
 const AppRoutes = () => {
   const routes = [
