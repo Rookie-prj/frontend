@@ -6,12 +6,34 @@ import { Loading } from '../../components/common/loading';
 import { RookieStats, RookieInfoSection } from '../../components/rookieDetail';
 import { ProjectList } from '../../components/post';
 import { FixedBottomBar } from '../../components/common/FixedBottomBar';
+import RedirectModal from '../../components/rookieDetail/redirectModal';
+import { useModal } from '../../hooks/useModal';
+import CheerupModal from '../../components/rookieDetail/cheerupModal';
+import { useState } from 'react';
+import {
+  CHEERUP_DESCRIPTION,
+  CHEERUP_TITLE,
+  REDIRECT_LOGIN_MESSAGE,
+} from '../../utils/messageTemplate';
+import { ROUTES } from '../../constants/routes';
+import { useUserCheerUpMutation } from '../../components/rookieDetail/hook/useCheerUpMutation';
 
 function RookieDetail() {
   const { id } = useParams<{ id: string }>();
   const rookieId = Number(id);
-
+  const {
+    isOpen: isRedirectOpen,
+    handleModalOpen: handleRedirectOpen,
+    handleModalClose: handleRedirectClose,
+  } = useModal();
+  const {
+    isOpen: isCheerupOpen,
+    handleModalOpen: handleCheerupOpen,
+    handleModalClose: handleCheerupClose,
+  } = useModal();
   const { rookie, isLoading, isError } = useRookieDetail({ id: rookieId });
+  const [loginState, setLoginState] = useState<boolean>(true); // 임시 로그인 상태
+  const { handleUserCheerUp } = useUserCheerUpMutation();
 
   if (isLoading) {
     return <Loading />;
@@ -43,8 +65,23 @@ function RookieDetail() {
       <RookieInfoSection rookie={rookie} />
       <ProjectList limit={4} title="등록한 프로젝트" />
       <FixedBottomBar
-        onSupport={() => console.log('응원하기 clicked')}
-        onMessage={() => console.log('메시지 보내기 clicked')}
+        onSupport={loginState ? handleCheerupOpen : handleRedirectOpen}
+        onMessage={loginState ? handleCheerupOpen : handleRedirectOpen}
+      />
+      {/* 추후 로그인 상태로 제어 */}
+      <RedirectModal
+        isOpen={isRedirectOpen}
+        onClose={handleRedirectClose}
+        title={REDIRECT_LOGIN_MESSAGE}
+        redirectTo={ROUTES.login}
+      />
+
+      <CheerupModal
+        isOpen={isCheerupOpen}
+        onClose={handleCheerupClose}
+        onCheerUp={() => handleUserCheerUp(rookie.userId)}
+        title={CHEERUP_TITLE(rookie.name)}
+        description={CHEERUP_DESCRIPTION(rookie.name)}
       />
     </div>
   );
