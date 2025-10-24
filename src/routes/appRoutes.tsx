@@ -11,6 +11,8 @@ import PostDetail from '../pages/postDetail/postDetail';
 import Layout from '../components/layout/layout';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Toolkit from '../pages/toolkit/toolkit';
+import ToolkitDetail from '../components/toolkit/toolkitDetail';
+
 import RookieDetail from '../pages/rookieDetail';
 
 const AppRoutes = () => {
@@ -85,6 +87,13 @@ const AppRoutes = () => {
         </Layout>
       ),
     },
+    {
+      path: ROUTES.toolkitDetail,
+      element: (
+        <Layout hideNavigation={true}>
+          <ToolkitDetail />
+        </Layout>
+    }
   ];
 
   const router = createBrowserRouter(routes);

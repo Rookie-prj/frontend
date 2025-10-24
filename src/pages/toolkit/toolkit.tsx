@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Header from '../../components/header/header';
 import { Chip } from '../../components/common/chip';
-import ToolkitCard from './toolkitCard';
+import ToolkitCard from '../../components/toolkit/toolkitCard';
 import { ToolkitData } from '../../constants/toolkit';
 import { colors } from '../../style/colors';
 import BackDrop from '../../components/common/backDrop/backDrop';
@@ -23,8 +23,9 @@ const Toolkit = () => {
         minHeight: '100vh',
       }}
     >
-      <Header type="title" title="툴킷" />
       <Header type="backdrop" />
+      <Header type="title" title="툴킷" />
+
       {/* 필터 섹션 */}
       <div
         style={{

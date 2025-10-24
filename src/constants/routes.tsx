@@ -9,4 +9,5 @@ export const ROUTES = {
   createRookie: '/create-rookie',
   postDetail: '/post/:id',
   toolkit: '/toolkit',
+  toolkitDetail: '/toolkit/:id',
 };
