@@ -22,7 +22,7 @@ export interface ToolkitItem {
   subtitle: string;
   backgroundColor: string;
   icon: string;
-
+  cardTitle: string;
   contentDescription: string;
   performance: string;
   categories: string;
@@ -39,6 +39,7 @@ export const ToolkitData: ToolkitItem[] = [
       { text: '부터 알자' },
     ],
     mainTitle: '함께하기 전에, 나부터 알자',
+    cardTitle: '함께하기 전에, 나부터 알자',
     subtitle: 'Collab Path – 협업으로 가는 나만의 경로',
     backgroundColor: colors.green[50],
     icon: ToolkitCharacter,
@@ -58,6 +59,7 @@ export const ToolkitData: ToolkitItem[] = [
       { text: ' 찾기' },
     ],
     mainTitle: '내 안의 프로젝트 아이디어 찾기',
+    cardTitle: '내 안의 프로젝트\n아이디어 찾기',
     subtitle: 'Spark Finder Toolkit – 내 안의 숨겨진 아이디어 찾기',
     backgroundColor: colors.white,
     icon: ToolkitFire,
@@ -78,6 +80,7 @@ export const ToolkitData: ToolkitItem[] = [
       { text: '을 찾아서', color: colors.gray[50] },
     ],
     mainTitle: '포트폴리오, 만들어볼까?나의 색과 결을 찾아서',
+    cardTitle: '포트폴리오, 만들어볼까?\n나의 색과 결을 찾아서',
     subtitle: 'Portfolio Path – 나만의 결을 찾아가는 디자인 여정',
     backgroundColor: colors.gray[800],
     icon: ToolkitFile,
@@ -92,6 +95,7 @@ export const ToolkitData: ToolkitItem[] = [
     id: '4',
     title: [{ text: '시작 전,\n우리들의 ' }, { text: '첫걸음', color: colors.green[200] }],
     mainTitle: '시작 전, 우리들의 첫걸음',
+    cardTitle: '시작 전, 우리들의 첫걸음',
     subtitle: 'Project Idea Brief Toolkit – 협업의 첫걸음',
     backgroundColor: colors.white,
     icon: ToolkitWrite,
@@ -111,6 +115,7 @@ export const ToolkitData: ToolkitItem[] = [
       { text: '게임', color: colors.gray[900] },
     ],
     mainTitle: '빙고: 서로를 알아가는 첫 대화 게임',
+    cardTitle: '빙고: 서로를 알아가는\n첫 대화 게임',
     subtitle: 'Icebreak Bingo Toolkit – 시작을 위한 대화 게임',
     backgroundColor: colors.green[50],
     icon: ToolkitPin,
