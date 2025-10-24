@@ -1,20 +1,42 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
 
-export const ButtonContainer = styled.button<{ $size?: 'small' | 'large' }>`
+export const BaseButton = styled.button`
   background-color: ${colors.green[200]};
   color: ${colors.gray[800]};
-  border-radius: 0.75rem;
+
   display: flex;
-  width: 100%;
-  text-align: center;
-  font-size: ${({ $size }) => ($size === 'small' ? '0.875rem' : '1rem')};
   font-style: normal;
   font-weight: 700;
-  line-height: 1.25rem;
-  justify-content: center;
+
+  text-align: center;
   align-items: center;
   white-space: nowrap;
+  cursor: pointer;
+`;
+export const ButtonContainer = styled(BaseButton)<{ $size?: 'small' | 'large' }>`
+  width: 100%;
+  font-size: ${({ $size }) => ($size === 'small' ? '0.875rem' : '1rem')};
+  justify-content: center;
+  border-radius: 0.75rem;
+  line-height: 1.25rem;
   height: ${({ $size }) => ($size === 'small' ? '3.125rem' : '3.625rem')};
   padding: ${({ $size }) => ($size === 'small' ? '1rem 2rem' : '1rem 9.875rem')};
+`;
+
+export const HeroBannerButton = styled(BaseButton)`
+  position: absolute;
+  bottom: 45px;
+  border-radius: 0.65156rem;
+  right: 20px;
+  z-index: 10;
+  display: inline-flex;
+  height: 2.3rem;
+  font-size: 0.8145rem;
+  line-height: 1.19456rem; /* 146.667% */
+  letter-spacing: -0.00813rem;
+  padding: 0.86875rem 1.30313rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.543rem;
 `;

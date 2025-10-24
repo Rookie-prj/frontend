@@ -82,7 +82,6 @@ const BoldText = styled.div`
 
 const ToolkitDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
 
   const toolkit: ToolkitItem | undefined = ToolkitData.find((item) => item.id === id);
 
@@ -118,7 +117,6 @@ const ToolkitDetail = () => {
         />
       </HeroSection>
 
-      {/* Content Section */}
       <ContentSection>
         <ContentContainer>
           <TitleSection>
