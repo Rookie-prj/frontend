@@ -88,7 +88,7 @@ const Hot = () => {
           route="toolkit"
         />
       </div>
-      <div style={{ marginLeft: '1rem', marginRight: '1rem' }}>
+      <div style={{ marginLeft: '1rem', marginRight: '1rem', marginBottom: '2.25rem' }}>
         <ScrollBar direction="row">
           {ToolkitData.map((toolkit) => (
             <ToolkitSmallCard key={toolkit.id} toolkit={toolkit} />
