@@ -24,11 +24,13 @@ export const LeftNavBarGroup = styled.div`
   display: flex;
   gap: 2.5rem;
   padding-left: 3rem;
+  cursor: pointer;
 `;
 export const RightNavBarGroup = styled.div`
   display: flex;
   gap: 2rem;
   padding-right: 2rem;
+  cursor: pointer;
 `;
 
 export const NavBarItem = styled.div<{ isActive?: boolean }>`

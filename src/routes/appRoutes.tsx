@@ -13,7 +13,8 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Toolkit from '../pages/toolkit/toolkit';
 import ToolkitDetail from '../components/toolkit/toolkitDetail';
 
-//라우팅 관련 함수
+import RookieDetail from '../pages/rookieDetail';
+
 const AppRoutes = () => {
   const routes = [
     {
@@ -25,15 +26,11 @@ const AppRoutes = () => {
       ),
       children: [
         {
-          path: ROUTES.main,
-          element: <Main />,
-        },
-        {
           path: ROUTES.home,
           element: <Home />,
         },
         {
-          path: ROUTES.search,
+          path: ROUTES.explore,
           element: <ExplorePage />,
         },
         {
@@ -83,13 +80,20 @@ const AppRoutes = () => {
       ),
     },
     {
+      path: ROUTES.rookieDetail,
+      element: (
+        <Layout hideNavigation={true}>
+          <RookieDetail />
+        </Layout>
+      ),
+    },
+    {
       path: ROUTES.toolkitDetail,
       element: (
         <Layout hideNavigation={true}>
           <ToolkitDetail />
         </Layout>
-      ),
-    },
+    }
   ];
 
   const router = createBrowserRouter(routes);

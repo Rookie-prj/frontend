@@ -17,5 +17,6 @@ export interface Rookie {
   passionMeter: string;
   profileImageUrl: string;
 }
+export interface RookieDetail extends Rookie {}
 
 export type RookieList = Rookie[];

@@ -26,7 +26,7 @@ const NavigationBar = () => {
   const handleTabClick = (tabValue: NavigationValue) => {
     const routes = {
       home: ROUTES.home,
-      search: ROUTES.search,
+      explore: ROUTES.explore,
       chat: ROUTES.chat,
       library: ROUTES.library,
     };
