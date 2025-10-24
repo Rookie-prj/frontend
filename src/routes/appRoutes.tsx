@@ -14,6 +14,7 @@ import Toolkit from '../pages/toolkit/toolkit';
 import ToolkitDetail from '../components/toolkit/toolkitDetail';
 
 import RookieDetail from '../pages/rookieDetail';
+import Intro from '../pages/intro/intro';
 
 const AppRoutes = () => {
   const routes = [
@@ -48,6 +49,10 @@ const AppRoutes = () => {
       ],
     },
     {
+      path: ROUTES.intro,
+      element: <Intro />,
+    },
+    {
       path: ROUTES.createProject,
       element: (
         <Layout hideNavigation={true}>
@@ -63,6 +68,7 @@ const AppRoutes = () => {
         </Layout>
       ),
     },
+
     {
       path: ROUTES.postDetail,
       element: (
