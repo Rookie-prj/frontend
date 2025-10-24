@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IntroContainer, IntroContent } from './intro.styles';
 import RookieLogo from '../../assets/img/rookie-logo.svg';
+import { ROUTES } from '../../constants/routes';
 
 const Intro = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/home');
+      navigate(ROUTES.onboarding);
     }, 1000);
 
     return () => clearTimeout(timer);

@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
 
-export const BaseButton = styled.button`
-  background-color: ${colors.green[200]};
+export const BaseButton = styled.button<{ variant?: 'primary' | 'gray' }>`
+  background-color: ${({ variant }) =>
+    variant === 'primary' ? colors.green[200] : colors.gray[150]};
   color: ${colors.gray[800]};
 
   display: flex;

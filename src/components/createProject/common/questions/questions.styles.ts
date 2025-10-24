@@ -4,11 +4,13 @@ import { colors } from '../../../../style/colors';
 export const QuestionsContainer = styled.div<{
   align?: 'center' | 'flex-start';
   hasNumber?: boolean;
+  justifyContent?: string;
 }>`
   display: flex;
   flex-direction: row;
   gap: ${({ hasNumber }) => (hasNumber ? '0.44rem' : '0')};
   align-items: ${({ align = 'center' }) => align};
+  justify-content: ${({ justifyContent }) => justifyContent ?? 'none'};
 `;
 export const QuestionsTextContainer = styled.div`
   display: flex;
