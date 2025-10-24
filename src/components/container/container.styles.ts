@@ -11,7 +11,6 @@ export const BaseContainerWithSpaceBetween = styled.div`
   width: 100%;
   min-height: 100vh;
   overflow-y: auto;
-
   flex-direction: column;
   justify-content: space-between;
   padding: 0 1rem;

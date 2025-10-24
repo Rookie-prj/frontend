@@ -1,4 +1,4 @@
-import { useMyFunnel } from '../../hooks/funnel/context';
+import { useMyFunnel } from '../../hooks/funnel/postContext';
 import { CreateProjectStep1 } from './steps/step1';
 import { CreateProjectStep2 } from './steps/step2';
 import { CreateProjectStep3 } from './steps/step3';
