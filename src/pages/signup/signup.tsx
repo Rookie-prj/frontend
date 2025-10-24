@@ -1,4 +1,4 @@
-import { TEAM } from 'constants/createProject';
+import { TEAM } from '../../constants/createProject';
 import BackDrop from '../../components/common/backDrop/backDrop';
 import {
   BaseContainer,
