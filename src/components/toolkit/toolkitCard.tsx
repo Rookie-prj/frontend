@@ -44,7 +44,6 @@ const CardTitle = styled.div`
   transform: translateX(-50%);
   width: 15.125rem;
   text-align: center;
-
   font-weight: ${typography.display.display2.fontWeight};
   font-size: ${typography.display.display2.fontSize};
   line-height: ${typography.display.display2.lineHeight};
