@@ -1,11 +1,11 @@
 import { HeaderContainer, HeaderTitle, Title } from './header.styles';
 import logo from '../../assets/icons/logo.svg';
 import search from '../../assets/icons/search.svg';
-import { Interpolation, Theme } from '@emotion/react';
+import profile from '../../assets/icons/profile.svg';
 import BackDrop, { BackDropWithSkip } from '../../components/common/backDrop/backDrop';
 
 type BackdropType = 'backdrop' | 'backdropWithSkip';
-type ContainerType = 'logo' | 'title' | 'search';
+type ContainerType = 'logo' | 'title' | 'search' | 'library';
 type HeaderType = BackdropType | ContainerType;
 
 type HeaderProps = {
