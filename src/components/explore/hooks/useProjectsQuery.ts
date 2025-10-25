@@ -7,7 +7,7 @@ import { ProjectResponse } from '../../../models/project';
 const useProjectsQuery = (sortType: ExploreCategoryValue) => {
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery<ProjectResponse>({
-      queryKey: ['procect'],
+      queryKey: ['projects'],
       queryFn: async ({ pageParam = 0 }) => {
         return await getProjects({ page: pageParam as number, size: 10 });
       },
@@ -18,7 +18,6 @@ const useProjectsQuery = (sortType: ExploreCategoryValue) => {
         return allPages.length;
       },
       initialPageParam: 0,
-      enabled: sortType === 'project',
     });
 
   const projects = data?.pages.flatMap((page) => page.boards) ?? [];
