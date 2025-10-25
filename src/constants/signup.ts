@@ -4,13 +4,14 @@ import pmIcon from '../assets/icons/pm.svg';
 import developerIcon from '../assets/icons/developer.svg';
 import designerIcon from '../assets/icons/designer.svg';
 import etcIcon from '../assets/icons/etc.svg';
+
 export const SIGNUP = {
   REQUIRED_EMAIL_AND_PASSWORD: '이메일과 비밀번호를\n 입력해주세요',
   REQUIRED_UNIVERSITY: '안녕하세요!\n소속 학교를 입력해주세요',
   REQUIRED_UNIVERSITY_PUBLIC: '다른 사람에게\n내 대학교를',
   REQUIRED_UNIVERSITY_MAJOR: '학과 이름을\n 작성해주세요',
   REQUIRED_UNIVERSITY_GRADE: '학년을 입력해주세요',
-  REQUIRED_CURRENT_STUDY: '현재 전공하고 있거나\n 공부하는 분야를 알려주세요!',
+  REQUIRED_CURRENT_STUDY: 'REQUIRED_CURRENT_STUDY',
   REQUIRED_CURRENT_STUDY_DETAIL: '해당되는 세부 분야를\n 선택해주세요',
   CURRENT_STUDY_DETAIL_SUBTEXT: '가장 먼저 선택한 분야가 프로필에 우선 표시돼요.',
   CURRENT_STUDY_DETAIL_DUPLICATION_SELECT: '중복선택 가능',
