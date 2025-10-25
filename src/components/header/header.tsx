@@ -34,6 +34,12 @@ const Header = ({ type, title }: HeaderProps) => {
         <img src={search} alt="search" />
       </>
     ),
+    library: (
+      <>
+        <Title>라이브러리</Title>
+        <img src={profile} alt="profileIcon" />
+      </>
+    ),
   };
 
   if (isBackdropType(type)) {
