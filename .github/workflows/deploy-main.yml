@@ -24,6 +24,9 @@ jobs:
 
       - name: NPM Build
         run: npm run build
+        env:
+          NODE_ENV: production
+          REACT_APP_API_BASE_URL: ${{ secrets.REACT_APP_API_BASE_URL }}
 
       - name: Transfer to S3 for serving static
         uses: jakejarvis/s3-sync-action@master

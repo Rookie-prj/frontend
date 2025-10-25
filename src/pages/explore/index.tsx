@@ -41,12 +41,11 @@ const ExplorePage = () => {
             <Rookies rookies={rookies} type="explore" />
           </InfiniteScrollList>
         )}
-        {sortType === 'project' && (
+        {(sortType === 'project' || !sortType) && (
           <InfiniteScrollList
             hasNextPage={projectHasNextPage}
             fetchNextPage={projectFetchNextPage}
             isFetchingNextPage={projectIsFetchingNextPage}
-            enabled={sortType === 'project'}
             padding="4px 16px 0 16px"
           >
             <ProjectList projects={projects} rightIcon={bookmark} />

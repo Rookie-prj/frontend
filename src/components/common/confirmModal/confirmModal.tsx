@@ -1,6 +1,8 @@
 import React from 'react';
 import Modal from '../modal/modal';
 import * as S from './confirmModal.styles';
+import { usePreventScroll } from '../../../hooks/usepreventScroll';
+import { useOutsideClick } from '../../../hooks/useOutsideClick';
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -10,13 +12,15 @@ interface ConfirmModalProps {
 }
 
 function ConfirmModal({ isOpen, onClose, message, confirmText = '확인' }: ConfirmModalProps) {
+  usePreventScroll(isOpen);
+  const ref = useOutsideClick(() => onClose());
   const handleConfirm = () => {
     onClose();
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Modal.Content>
+      <Modal.Content ref={ref}>
         <S.ConfirmModalContainer>
           <S.Message>{message}</S.Message>
           <S.ButtonContainer>
