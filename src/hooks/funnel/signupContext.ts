@@ -9,7 +9,8 @@ type SignupStep =
   | 'currentStudyDetail'
   | 'toolset'
   | 'favoriteSubject'
-  | 'projectCount';
+  | 'projectCount'
+  | 'complete';
 
 type University = {
   university?: string;
@@ -21,6 +22,7 @@ type University = {
   toolset?: string;
   favoriteSubject?: string;
   projectCount?: string;
+  complete?: string;
 };
 type UniversityPublic = {
   university?: string;
@@ -32,6 +34,7 @@ type UniversityPublic = {
   toolset?: string;
   favoriteSubject?: string;
   projectCount?: string;
+  complete?: string;
 };
 type UniversityMajor = {
   university?: string;
@@ -43,6 +46,7 @@ type UniversityMajor = {
   toolset?: string;
   favoriteSubject?: string;
   projectCount?: string;
+  complete?: string;
 };
 type CurrentStudy = {
   university?: string;
@@ -54,6 +58,7 @@ type CurrentStudy = {
   toolset?: string;
   favoriteSubject?: string;
   projectCount?: string;
+  complete?: string;
 };
 type CurrentStudyDetail = {
   university?: string;
@@ -65,6 +70,7 @@ type CurrentStudyDetail = {
   toolset?: string;
   favoriteSubject?: string;
   projectCount?: string;
+  complete?: string;
 };
 type Toolset = {
   university?: string;
@@ -76,6 +82,7 @@ type Toolset = {
   toolset?: string;
   favoriteSubject?: string;
   projectCount?: string;
+  complete?: string;
 };
 type FavoriteSubject = {
   university?: string;
@@ -87,6 +94,7 @@ type FavoriteSubject = {
   toolset?: string;
   favoriteSubject?: string;
   projectCount?: string;
+  complete?: string;
 };
 type ProjectCount = {
   university?: string;
@@ -98,6 +106,19 @@ type ProjectCount = {
   toolset?: string;
   favoriteSubject?: string;
   projectCount?: string;
+  complete?: string;
+};
+type Complete = {
+  university?: string;
+  universityPublic?: string;
+  universityMajor?: string;
+  universityGrade?: string;
+  currentStudy?: string;
+  currentStudyDetail?: string;
+  toolset?: string;
+  favoriteSubject?: string;
+  projectCount?: string;
+  complete?: string;
 };
 const STEP_ORDER: SignupStep[] = [
   'university',
@@ -108,6 +129,7 @@ const STEP_ORDER: SignupStep[] = [
   'toolset',
   'favoriteSubject',
   'projectCount',
+  'complete',
 ];
 export const getSignupCurrentStepNumber = (currentStep: SignupStep): number => {
   return STEP_ORDER.indexOf(currentStep);
@@ -131,6 +153,7 @@ export function useSignupFunnel() {
     toolset: Toolset;
     favoriteSubject: FavoriteSubject;
     projectCount: ProjectCount;
+    complete: Complete;
   }>({
     id: 'signup',
     initial: initialConfig,

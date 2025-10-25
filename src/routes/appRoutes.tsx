@@ -12,7 +12,7 @@ import Layout from '../components/layout/layout';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Toolkit from '../pages/toolkit/toolkit';
 import ToolkitDetail from '../components/toolkit/toolkitDetail';
-import Signup from '../pages/signup/signup';
+import { Signup } from '../pages/signup/signup';
 import RookieDetail from '../pages/rookieDetail';
 import Intro from '../pages/intro/intro';
 import Onboarding from '../pages/onboarding/onboarding';

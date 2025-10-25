@@ -36,7 +36,7 @@ const DistanceOptions = ({
           isActive={selectedValue === option.value}
           onClick={() => onSelect(option.value)}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.96rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <DistanceIcon isActive={selectedValue === option.value}>
               <img src={option.icon} alt={option.label} />
             </DistanceIcon>

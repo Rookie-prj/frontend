@@ -12,6 +12,7 @@ interface InputProps {
   onChange: (value: string) => void;
   maxLength?: number;
   showCharacterCount?: boolean;
+  showMaxLength?: boolean;
 }
 
 const Input = ({
@@ -20,11 +21,12 @@ const Input = ({
   onChange,
   maxLength = 2000,
   showCharacterCount = true,
+  showMaxLength = true,
 }: InputProps) => {
   const handleClear = () => onChange('');
 
   const getCharacterLimitText = () => {
-    if (!showCharacterCount) return null;
+    if (!showCharacterCount || !showMaxLength) return null;
     if (maxLength === 22) return '22자 이내';
     return `${value?.length || 0}/${maxLength}`;
   };
