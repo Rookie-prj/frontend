@@ -207,98 +207,74 @@ export const TOOLSET_OPTION_CATEGORY = {
 };
 
 export const TOOLSET_OPTIONS = [
-  // 디자인/편집/3D 카테고리
   {
-    value: 'photoshop',
-    label: 'Photoshop',
+    category: '디자인/편집/3D',
+    toolsGroup1: [
+      { value: 'photoshop', label: 'Photoshop' },
+      { value: 'illustrator', label: 'Illustrator' },
+      { value: 'afterEffects', label: 'After Effects' },
+      { value: 'indesign', label: 'InDesign' },
+      { value: 'premierePro', label: 'Premiere Pro' },
+      { value: 'lightroom', label: 'Lightroom' },
+    ],
+    toolsGroup2: [
+      { value: 'figma', label: 'Figma' },
+      { value: 'framer', label: 'Framer' },
+    ],
+    toolsGroup3: [
+      { value: 'rhino', label: 'Rhino' },
+      { value: 'sketchup', label: 'SketchUp' },
+      { value: 'unity', label: 'Unity' },
+      { value: 'blender', label: 'Blender' },
+      { value: 'cinema4d', label: 'Cinema 4D' },
+      { value: 'unrealEngine', label: 'Unreal Engine' },
+    ],
   },
-  {
-    value: 'illustrator',
-    label: 'Illustrator',
-  },
-  {
-    value: 'afterEffects',
-    label: 'After Effects',
-  },
-  {
-    value: 'indesign',
-    label: 'InDesign',
-  },
-  {
-    value: 'premierePro',
-    label: 'Premiere Pro',
-  },
-  {
-    value: 'lightroom',
-    label: 'Lightroom',
-  },
-  {
-    value: 'figma',
-    label: 'Figma',
-  },
-  {
-    value: 'framer',
-    label: 'Framer',
-  },
-  {
-    value: 'rhino',
-    label: 'Rhino',
-  },
-  {
-    value: 'sketchup',
-    label: 'SketchUp',
-  },
-  {
-    value: 'unity',
-    label: 'Unity',
-  },
-  {
-    value: 'blender',
-    label: 'Blender',
-  },
-  {
-    value: 'cinema4d',
-    label: 'Cinema 4D',
-  },
-  {
-    value: 'unrealEngine',
-    label: 'Unreal Engine',
-  },
+
   // 개발 카테고리
   {
+    category: '개발',
     value: 'htmlCss',
     label: 'HTML/CSS',
   },
   {
+    category: '개발',
     value: 'javascript',
     label: 'JavaScript',
   },
   {
+    category: '개발',
     value: 'typescript',
     label: 'TypeScript',
   },
   // 기타 카테고리
   {
+    category: '기타',
     value: 'googleAnalytics',
     label: 'Google Analytics',
   },
   {
+    category: '기타',
     value: 'davinciResolve',
     label: 'DaVinci Resolve',
   },
   {
+    category: '기타',
     value: 'clo3d',
     label: 'CLO 3D',
   },
   {
+    category: '기타',
     value: 'browzwear',
     label: 'Browzwear',
   },
   {
+    category: '기타',
     value: 'proTools',
     label: 'Pro Tools',
   },
   {
+    category: '기타',
     value: 'logicProX',
     label: 'Logic Pro X',
   },

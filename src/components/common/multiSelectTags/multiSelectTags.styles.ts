@@ -14,7 +14,10 @@ export const MultiSelectLabel = styled.div`
   color: ${colors.gray[500]};
 `;
 
-export const TagsGrid = styled.div`
+export const TagsGrid = styled.div<{ isDesignSection?: boolean }>`
+  //   display: ${({ isDesignSection }) => (isDesignSection ? 'grid' : 'flex')};
+  //   ${({ isDesignSection }) => isDesignSection && 'grid-template-columns: repeat(3, 1fr);'}
+  //   ${({ isDesignSection }) => !isDesignSection && 'flex-wrap: wrap;'}
   display: flex;
   flex-wrap: wrap;
 `;
@@ -22,16 +25,16 @@ export const TagsGrid = styled.div`
 export const Tag = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin: 0.3125rem 0.625rem 0.3125rem 0;
-  padding: 0.88rem 0.75rem;
+  justify-content: center;
+  margin: 0.3125rem 0.625rem 0 0;
+  padding: 0.65rem 0.75rem;
   border: 1.5px solid ${({ isSelected }) => (isSelected ? colors.green[200] : colors.gray[200])};
   border-radius: 0.5rem;
   background: ${({ isSelected }) => (isSelected ? colors.green[50] : 'white')};
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
-  min-height: 2.5rem;
+  width: fit-content;
 `;
 
 export const TagText = styled.span<{ isSelected: boolean }>`

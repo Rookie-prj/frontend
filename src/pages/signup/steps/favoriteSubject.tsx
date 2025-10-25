@@ -1,17 +1,7 @@
-import { TEAM, TEAM_PERIOD_OPTIONS } from '../../../constants/createProject';
-import Button from '../../../components/common/button/button';
-import StepBar from '../../../components/createProject/stepBar/stepBar';
-import {
-  BaseContainer,
-  BaseContainerWithSpaceBetween,
-} from '../../../components/container/container.styles';
-import { OptionsScrollWrapper } from '../../../components/createProject/common/options/options.styles';
-import BackDrop from '../../../components/common/backDrop/backDrop';
-import { StepTitle } from '../../createProject/steps/steps.styles';
-import ProjectCategorySection from '../../../components/home/projectCategorySection/projectCategorySection';
-import Questions from '../../../components/createProject/common/questions/questions';
-import Options from '../../../components/createProject/common/options/options';
-import { useCreateProjectStore } from '../../../store/createProjectStore';
+import { SignupLayout } from '../../../components/layout/signupLayout/signupLayout';
+import Input from '../../../components/common/input/input';
+import { useSignupStore } from '../../../store/signupStore';
+import { SIGNUP } from '../../../constants/signup';
 
 interface FavoriteSubjectProps {
   onNext: () => void;
@@ -20,19 +10,16 @@ interface FavoriteSubjectProps {
 }
 
 export const FavoriteSubject = ({ onNext, currentStep }: FavoriteSubjectProps) => {
-  return (
-    <>
-      <BaseContainerWithSpaceBetween>
-        <BackDrop />
-        <BaseContainer>
-          <StepTitle>{TEAM.STEP1}</StepTitle>
-          <StepBar currentStep={currentStep} totalSteps={5} />
-        </BaseContainer>
+  const { university, setUniversity } = useSignupStore();
 
-        <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-          <Button onClick={onNext}>다음</Button>
-        </div>
-      </BaseContainerWithSpaceBetween>
-    </>
+  return (
+    <SignupLayout title={SIGNUP.REQUIRED_TOOLSET} currentStep={4} totalSteps={5} onNext={onNext}>
+      <Input
+        placeholder="루키대학교"
+        value={university}
+        onChange={setUniversity}
+        showMaxLength={false}
+      />
+    </SignupLayout>
   );
 };
