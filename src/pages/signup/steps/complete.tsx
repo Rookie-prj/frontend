@@ -4,10 +4,21 @@ import rookieGreenLogo from '../../../assets/img/rookie-green-logo.svg';
 import { LogoContainer, WelcomeText } from './complete.styles';
 import { useNavigate } from 'react-router-dom';
 import { BaseContainerWithSpaceBetween } from '../../../components/container/container.styles';
-export const Complete = () => {
-  const navigate = useNavigate();
+import { useSignupStore } from '../../../store/signupStore';
 
-  const handleNext = () => {
+interface CompleteProps {
+  onSubmit: () => void;
+}
+export const Complete = ({ onSubmit }: CompleteProps) => {
+  const navigate = useNavigate();
+  const signupStore = useSignupStore();
+
+  const handleSubmit = () => {
+    console.log('=== signup Store 데이터 ===');
+    console.log('전체 store 데이터:', signupStore);
+    console.log('=======================');
+
+    onSubmit();
     navigate('/');
   };
 
@@ -19,7 +30,7 @@ export const Complete = () => {
       </LogoContainer>
 
       <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-        <Button onClick={handleNext} size="large">
+        <Button onClick={handleSubmit} size="large">
           다음
         </Button>
       </div>

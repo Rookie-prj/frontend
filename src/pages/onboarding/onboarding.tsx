@@ -108,8 +108,7 @@ const Onboarding = () => {
   }, []);
 
   const handleEmailSignup = () => {
-    // 이메일 회원가입 로직
-    console.log('이메일 회원가입');
+    navigate('/signup');
   };
 
   const handleGuestMode = () => {

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-
+import { colors } from '../../../style/colors';
+import { typography } from '../../../style/theme';
 export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
@@ -10,12 +11,11 @@ export const LogoContainer = styled.div`
 `;
 
 export const WelcomeText = styled.h1`
-  font-family: 'Pretendard', sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 30px;
-  color: #282828;
+  font-weight: ${typography.headline.headline4.fontWeight};
+  font-size: ${typography.headline.headline4.fontSize};
+  line-height: ${typography.headline.headline4.lineHeight};
+  color: ${colors.gray[800]};
   text-align: center;
   margin: 0;
-  letter-spacing: -0.2px;
+  letter-spacing: ${typography.headline.headline4.letterSpacing};
 `;

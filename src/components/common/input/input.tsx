@@ -13,6 +13,7 @@ interface InputProps {
   maxLength?: number;
   showCharacterCount?: boolean;
   showMaxLength?: boolean;
+  type?: string;
 }
 
 const Input = ({
@@ -22,6 +23,7 @@ const Input = ({
   maxLength = 2000,
   showCharacterCount = true,
   showMaxLength = true,
+  type = 'text',
 }: InputProps) => {
   const handleClear = () => onChange('');
 
@@ -39,6 +41,7 @@ const Input = ({
           value={value || ''}
           onChange={(e) => onChange(e.target.value)}
           maxLength={maxLength}
+          type={type}
         />
         {value && <img src={x} alt="clear" onClick={handleClear} style={{ cursor: 'pointer' }} />}
       </FieldWrapper>

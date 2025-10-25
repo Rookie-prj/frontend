@@ -12,8 +12,6 @@ import { StepTitle } from './steps.styles';
 import Questions from '../../../components/createProject/common/questions/questions';
 import { TEAM, TEAM_END_DATE_OPTIONS } from '../../../constants/createProject';
 import { useCreateProjectStore } from '../../../store/createProjectStore';
-import styled from '@emotion/styled';
-import { colors } from '../../../style/colors';
 import { useState } from 'react';
 import DistanceOptions from '../../../components/createProject/distanceOptions/distanceOptions';
 import EndDate from '../../../components/createProject/endDate/endDate';
