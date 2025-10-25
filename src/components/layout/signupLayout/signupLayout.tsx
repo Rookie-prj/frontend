@@ -6,7 +6,7 @@ import BackDrop from '../../common/backDrop/backDrop';
 import { StepTitle } from '../../../pages/createProject/steps/steps.styles';
 
 interface SignupLayoutProps {
-  title: string;
+  title: ReactNode;
   currentStep: number;
   totalSteps: number;
   onNext: () => void;

@@ -19,11 +19,6 @@ export const UniversityMajor = ({ onNext, currentStep }: UniversityMajorProps) =
   const { universityGrade, setUniversityGrade } = useSignupStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // const handleGradeSelect = (value: string) => {
-  //   setUniversityGrade(value);
-  //   console.log('Selected grade:', value);
-  // };
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
