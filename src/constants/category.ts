@@ -14,8 +14,10 @@ export const CATEGORY_GROUPS = {
   SEARCH: [CATEGORY.PROJECT, CATEGORY.ROOKIE],
   PROFILE: [CATEGORY.SAVED, CATEGORY.MY_PROJECT],
   POST: [CATEGORY.POST_CONTENT, CATEGORY.POST_DETAIL],
+  LIBRARY: [CATEGORY.SAVED, CATEGORY.MY_PROJECT],
 } as const;
 
+export type LibraryCategoryValue = (typeof CATEGORY_GROUPS.LIBRARY)[number]['value'];
 export type ExploreCategoryValue = (typeof CATEGORY_GROUPS.SEARCH)[number]['value'];
 export type CategoryValue = (typeof CATEGORY)[keyof typeof CATEGORY]['value'];
 export type CategoryGroup = keyof typeof CATEGORY_GROUPS;
