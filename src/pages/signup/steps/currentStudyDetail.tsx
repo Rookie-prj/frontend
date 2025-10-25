@@ -1,17 +1,12 @@
-import { TEAM, TEAM_PERIOD_OPTIONS } from '../../../constants/createProject';
-import Button from '../../../components/common/button/button';
-import StepBar from '../../../components/createProject/stepBar/stepBar';
+import { SignupLayout } from '../../../components/layout/signupLayout/signupLayout';
+import { useSignupStore } from '../../../store/signupStore';
 import {
-  BaseContainer,
-  BaseContainerWithSpaceBetween,
-} from '../../../components/container/container.styles';
-import { OptionsScrollWrapper } from '../../../components/createProject/common/options/options.styles';
-import BackDrop from '../../../components/common/backDrop/backDrop';
-import { StepTitle } from '../../createProject/steps/steps.styles';
-import ProjectCategorySection from '../../../components/home/projectCategorySection/projectCategorySection';
-import Questions from '../../../components/createProject/common/questions/questions';
-import Options from '../../../components/createProject/common/options/options';
-import { useCreateProjectStore } from '../../../store/createProjectStore';
+  SIGNUP,
+  CURRENT_STUDY_OPTIONS,
+  CURRENT_STUDY_DETAIL_OPTIONS,
+} from '../../../constants/signup';
+import MultiSelectTags from '../../../components/common/multiSelectTags/multiSelectTags';
+import { useState } from 'react';
 
 interface CurrentStudyDetailProps {
   onNext: () => void;
@@ -20,19 +15,29 @@ interface CurrentStudyDetailProps {
 }
 
 export const CurrentStudyDetail = ({ onNext, currentStep }: CurrentStudyDetailProps) => {
-  return (
-    <>
-      <BaseContainerWithSpaceBetween>
-        <BackDrop />
-        <BaseContainer>
-          <StepTitle>{TEAM.STEP1}</StepTitle>
-          <StepBar currentStep={currentStep} totalSteps={5} />
-        </BaseContainer>
+  const { currentStudy, currentStudyDetail, setCurrentStudyDetail } = useSignupStore();
+  const [selectedDetails, setSelectedDetails] = useState<string[]>([]);
 
-        <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-          <Button onClick={onNext}>다음</Button>
-        </div>
-      </BaseContainerWithSpaceBetween>
-    </>
+  const handleSelectionChange = (selectedValues: string[]) => {
+    setSelectedDetails(selectedValues);
+    setCurrentStudyDetail(selectedValues.join(','));
+  };
+
+  return (
+    <SignupLayout
+      title={SIGNUP.REQUIRED_CURRENT_STUDY_DETAIL}
+      subText={SIGNUP.CURRENT_STUDY_DETAIL_SUBTEXT}
+      currentStep={currentStep}
+      totalSteps={5}
+      onNext={onNext}
+    >
+      <MultiSelectTags
+        label={SIGNUP.CURRENT_STUDY_DETAIL_DUPLICATION_SELECT}
+        options={CURRENT_STUDY_DETAIL_OPTIONS}
+        selectedValues={selectedDetails}
+        onSelectionChange={handleSelectionChange}
+        maxSelections={3}
+      />
+    </SignupLayout>
   );
 };
