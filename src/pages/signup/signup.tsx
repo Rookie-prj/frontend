@@ -8,7 +8,7 @@ import { CurrentStudyDetail } from './steps/currentStudyDetail';
 import { Toolset } from './steps/toolset';
 import { FavoriteSubject } from './steps/favoriteSubject';
 import { Complete } from './steps/complete';
-import { ProjectCount } from './steps/projectCount';
+import { ProjectCountStep } from './steps/projectCount';
 
 export const Signup = () => {
   const funnel = useSignupFunnel();
@@ -50,20 +50,21 @@ export const Signup = () => {
         currentStep={funnel.currentStep}
       />
     ),
-    toolset: ({ history }) => (
-      <Toolset
-        onNext={() => history.push('favoriteSubject', (prev) => ({ ...prev }))}
-        currentStep={funnel.currentStep}
-      />
-    ),
     favoriteSubject: ({ history }) => (
       <FavoriteSubject
         onNext={() => history.push('projectCount', (prev) => ({ ...prev }))}
         currentStep={funnel.currentStep}
       />
     ),
+    toolset: ({ history }) => (
+      <Toolset
+        onNext={() => history.push('favoriteSubject', (prev) => ({ ...prev }))}
+        currentStep={funnel.currentStep}
+      />
+    ),
+
     projectCount: ({ history }) => (
-      <ProjectCount
+      <ProjectCountStep
         onNext={() => history.push('complete', (prev) => ({ ...prev }))}
         currentStep={funnel.currentStep}
       />

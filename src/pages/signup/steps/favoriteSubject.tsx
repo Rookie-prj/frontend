@@ -1,17 +1,8 @@
-import { TEAM, TEAM_PERIOD_OPTIONS } from '../../../constants/createProject';
-import Button from '../../../components/common/button/button';
-import StepBar from '../../../components/createProject/stepBar/stepBar';
-import {
-  BaseContainer,
-  BaseContainerWithSpaceBetween,
-} from '../../../components/container/container.styles';
-import { OptionsScrollWrapper } from '../../../components/createProject/common/options/options.styles';
-import BackDrop from '../../../components/common/backDrop/backDrop';
-import { StepTitle } from '../../createProject/steps/steps.styles';
-import ProjectCategorySection from '../../../components/home/projectCategorySection/projectCategorySection';
-import Questions from '../../../components/createProject/common/questions/questions';
-import Options from '../../../components/createProject/common/options/options';
-import { useCreateProjectStore } from '../../../store/createProjectStore';
+import { SignupLayout } from '../../../components/layout/signupLayout/signupLayout';
+import { useSignupStore } from '../../../store/signupStore';
+import { FAVORITE_SUBJECT, SIGNUP } from '../../../constants/signup';
+import MultiSelectTags from '../../../components/common/multiSelectTags/multiSelectTags';
+import { useState } from 'react';
 
 interface FavoriteSubjectProps {
   onNext: () => void;
@@ -20,19 +11,31 @@ interface FavoriteSubjectProps {
 }
 
 export const FavoriteSubject = ({ onNext, currentStep }: FavoriteSubjectProps) => {
-  return (
-    <>
-      <BaseContainerWithSpaceBetween>
-        <BackDrop />
-        <BaseContainer>
-          <StepTitle>{TEAM.STEP1}</StepTitle>
-          <StepBar currentStep={currentStep} totalSteps={5} />
-        </BaseContainer>
+  const { favoriteSubject, setFavoriteSubject } = useSignupStore();
+  const [selectedSubjects, setSelectedSubjects] = useState<string[]>(
+    favoriteSubject ? favoriteSubject.split(',') : [],
+  );
 
-        <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-          <Button onClick={onNext}>다음</Button>
-        </div>
-      </BaseContainerWithSpaceBetween>
-    </>
+  const handleSelectionChange = (values: string[]) => {
+    setSelectedSubjects(values);
+    setFavoriteSubject(values.join(','));
+  };
+
+  return (
+    <SignupLayout
+      title={SIGNUP.REQUIRED_FAVORITE_SUBJECT}
+      currentStep={4}
+      totalSteps={5}
+      onNext={onNext}
+      headerType="backdropWithSkip"
+    >
+      <MultiSelectTags
+        label={SIGNUP.FAVORITE_SUBJECT_SELECTION_LIMIT}
+        options={FAVORITE_SUBJECT}
+        selectedValues={selectedSubjects}
+        onSelectionChange={handleSelectionChange}
+        maxSelections={5}
+      />
+    </SignupLayout>
   );
 };

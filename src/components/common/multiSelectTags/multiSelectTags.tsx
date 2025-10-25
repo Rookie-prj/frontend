@@ -11,6 +11,7 @@ import {
 export interface TagOption {
   value: string;
   label: string;
+  category?: string;
 }
 
 interface MultiSelectTagsProps {
@@ -19,6 +20,7 @@ interface MultiSelectTagsProps {
   selectedValues: string[];
   onSelectionChange: (selectedValues: string[]) => void;
   maxSelections?: number;
+  isDesignSection?: boolean;
 }
 
 const MultiSelectTags: React.FC<MultiSelectTagsProps> = ({

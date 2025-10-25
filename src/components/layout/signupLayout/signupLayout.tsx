@@ -2,9 +2,9 @@ import { ReactNode } from 'react';
 import Button from '../../common/button/button';
 import StepBar from '../../createProject/stepBar/stepBar';
 import { BaseContainer, BaseContainerWithSpaceBetween } from '../../container/container.styles';
-import BackDrop from '../../common/backDrop/backDrop';
 import { StepTitle } from '../../../pages/createProject/steps/steps.styles';
 import { StepSubText } from './signupLayout.styles';
+import Header from '../../header/header';
 
 interface SignupLayoutProps {
   title: ReactNode;
@@ -14,6 +14,7 @@ interface SignupLayoutProps {
   onNext: () => void;
   onPrev?: () => void;
   children?: ReactNode;
+  headerType?: 'backdrop' | 'backdropWithSkip';
 }
 
 export const SignupLayout = ({
@@ -24,10 +25,11 @@ export const SignupLayout = ({
   onNext,
   onPrev,
   children,
+  headerType = 'backdrop',
 }: SignupLayoutProps) => {
   return (
     <BaseContainerWithSpaceBetween>
-      <BackDrop />
+      <Header type={headerType} />
       <BaseContainer>
         <StepTitle>{title}</StepTitle>
         {subText && <StepSubText>{subText}</StepSubText>}

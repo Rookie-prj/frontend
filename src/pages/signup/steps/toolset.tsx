@@ -1,17 +1,9 @@
-import { TEAM, TEAM_PERIOD_OPTIONS } from '../../../constants/createProject';
-import Button from '../../../components/common/button/button';
-import StepBar from '../../../components/createProject/stepBar/stepBar';
-import {
-  BaseContainer,
-  BaseContainerWithSpaceBetween,
-} from '../../../components/container/container.styles';
-import { OptionsScrollWrapper } from '../../../components/createProject/common/options/options.styles';
-import BackDrop from '../../../components/common/backDrop/backDrop';
-import { StepTitle } from '../../createProject/steps/steps.styles';
-import ProjectCategorySection from '../../../components/home/projectCategorySection/projectCategorySection';
-import Questions from '../../../components/createProject/common/questions/questions';
-import Options from '../../../components/createProject/common/options/options';
-import { useCreateProjectStore } from '../../../store/createProjectStore';
+import { SignupLayout } from '../../../components/layout/signupLayout/signupLayout';
+import { useSignupStore } from '../../../store/signupStore';
+import { SIGNUP, TOOLSET_OPTIONS, TOOLSET_OPTION_CATEGORY } from '../../../constants/signup';
+import MultiSelectTags from '../../../components/common/multiSelectTags/multiSelectTags';
+import { useState } from 'react';
+import { colors } from '../../../style/colors';
 
 interface ToolsetProps {
   onNext: () => void;
@@ -20,19 +12,80 @@ interface ToolsetProps {
 }
 
 export const Toolset = ({ onNext, currentStep }: ToolsetProps) => {
-  return (
-    <>
-      <BaseContainerWithSpaceBetween>
-        <BackDrop />
-        <BaseContainer>
-          <StepTitle>{TEAM.STEP1}</StepTitle>
-          <StepBar currentStep={currentStep} totalSteps={5} />
-        </BaseContainer>
+  const { toolset, setToolset } = useSignupStore();
+  const [selectedTools, setSelectedTools] = useState<string[]>([]);
 
-        <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-          <Button onClick={onNext}>다음</Button>
+  const handleSelectionChange = (selectedValues: string[]) => {
+    setSelectedTools(selectedValues);
+    setToolset(selectedValues.join(','));
+  };
+
+  const getOptionsByCategory = (category: string) => {
+    return TOOLSET_OPTIONS.filter(
+      (option) => option.category === category && option.value && option.label,
+    ).map((option) => ({
+      value: option.value!,
+      label: option.label!,
+    }));
+  };
+
+  const getDesignGroups = () => {
+    const designCategory = TOOLSET_OPTIONS.find((option) => option.category === '디자인/편집/3D');
+    if (designCategory && designCategory.toolsGroup1) {
+      return [
+        designCategory.toolsGroup1,
+        designCategory.toolsGroup2,
+        designCategory.toolsGroup3,
+      ].filter(Boolean);
+    }
+    return [];
+  };
+
+  return (
+    <SignupLayout title={SIGNUP.REQUIRED_TOOLSET} currentStep={3} totalSteps={5} onNext={onNext}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        <div>
+          <div style={{ fontSize: '0.875rem', fontWeight: 500, color: colors.gray[500] }}>
+            디자인/편집/3D
+          </div>
+          {getDesignGroups().map((group, index) => (
+            <div
+              key={index}
+              style={{ marginBottom: index < getDesignGroups().length - 1 ? '1.5rem' : '0' }}
+            >
+              <MultiSelectTags
+                label=""
+                options={group.map((tool) => ({
+                  value: tool.value,
+                  label: tool.label,
+                }))}
+                selectedValues={selectedTools}
+                onSelectionChange={handleSelectionChange}
+                maxSelections={10}
+                isDesignSection={true}
+              />
+            </div>
+          ))}
         </div>
-      </BaseContainerWithSpaceBetween>
-    </>
+
+        {/* 개발 카테고리 */}
+        <MultiSelectTags
+          label="개발"
+          options={getOptionsByCategory('개발')}
+          selectedValues={selectedTools}
+          onSelectionChange={handleSelectionChange}
+          maxSelections={10}
+        />
+
+        {/* 기타 카테고리 */}
+        <MultiSelectTags
+          label="기타"
+          options={getOptionsByCategory('기타')}
+          selectedValues={selectedTools}
+          onSelectionChange={handleSelectionChange}
+          maxSelections={10}
+        />
+      </div>
+    </SignupLayout>
   );
 };

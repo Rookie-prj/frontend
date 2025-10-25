@@ -34,7 +34,7 @@ module.exports = {
   },
   plugins: [
     new Dotenv({
-      path: './.env',
+      path: process.env.NODE_ENV === 'production' ? './.env.production' : './.env',
       safe: false,
       systemvars: true,
     }),

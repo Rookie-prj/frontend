@@ -18,6 +18,11 @@ export const CurrentStudyDetail = ({ onNext, currentStep }: CurrentStudyDetailPr
   const { currentStudy, currentStudyDetail, setCurrentStudyDetail } = useSignupStore();
   const [selectedDetails, setSelectedDetails] = useState<string[]>([]);
 
+  const getCurrentOptions = () => {
+    const currentCategory = CURRENT_STUDY_OPTIONS.find((option) => option.value === currentStudy);
+    return currentCategory?.options || [];
+  };
+
   const handleSelectionChange = (selectedValues: string[]) => {
     setSelectedDetails(selectedValues);
     setCurrentStudyDetail(selectedValues.join(','));
@@ -27,13 +32,13 @@ export const CurrentStudyDetail = ({ onNext, currentStep }: CurrentStudyDetailPr
     <SignupLayout
       title={SIGNUP.REQUIRED_CURRENT_STUDY_DETAIL}
       subText={SIGNUP.CURRENT_STUDY_DETAIL_SUBTEXT}
-      currentStep={currentStep}
+      currentStep={2}
       totalSteps={5}
       onNext={onNext}
     >
       <MultiSelectTags
         label={SIGNUP.CURRENT_STUDY_DETAIL_DUPLICATION_SELECT}
-        options={CURRENT_STUDY_DETAIL_OPTIONS}
+        options={getCurrentOptions()}
         selectedValues={selectedDetails}
         onSelectionChange={handleSelectionChange}
         maxSelections={3}

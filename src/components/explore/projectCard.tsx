@@ -4,12 +4,15 @@ import backgroundImg from '../../assets/img/dim.png';
 import member from '../../assets/icons/member.svg';
 import position from '../../assets/icons/electronic.svg';
 import profile from '../../assets/icons/profileEx.svg';
+import { MyProjectBoard } from '../../models/myProject';
+import { SavedBoard } from '../../models/saved';
 interface ProjectCardProps {
-  project: Project;
+  project: Project | MyProjectBoard | SavedBoard;
   rightIcon?: string;
+  onDeleteModalOpen?: () => void;
 }
 
-function ProjectCard({ project, rightIcon }: ProjectCardProps) {
+function ProjectCard({ project, rightIcon, onDeleteModalOpen }: ProjectCardProps) {
   // D-day 계산
   const calculateDday = (endDate: string) => {
     const today = new Date();
@@ -28,7 +31,7 @@ function ProjectCard({ project, rightIcon }: ProjectCardProps) {
         <S.ProjectImage src={projectImage} alt="프로젝트 이미지" />
         <S.ImageDimOverlay />
 
-        <S.IconButtonWrapper iconSrc={rightIcon}></S.IconButtonWrapper>
+        <S.IconButtonWrapper iconSrc={rightIcon} onClick={onDeleteModalOpen}></S.IconButtonWrapper>
 
         <S.ProjectTitle>{project.title}</S.ProjectTitle>
 

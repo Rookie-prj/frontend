@@ -1,17 +1,11 @@
-import { TEAM, TEAM_PERIOD_OPTIONS } from '../../../constants/createProject';
-import Button from '../../../components/common/button/button';
-import StepBar from '../../../components/createProject/stepBar/stepBar';
-import {
-  BaseContainer,
-  BaseContainerWithSpaceBetween,
-} from '../../../components/container/container.styles';
-import { OptionsScrollWrapper } from '../../../components/createProject/common/options/options.styles';
-import BackDrop from '../../../components/common/backDrop/backDrop';
-import { StepTitle } from '../../createProject/steps/steps.styles';
-import ProjectCategorySection from '../../../components/home/projectCategorySection/projectCategorySection';
-import Questions from '../../../components/createProject/common/questions/questions';
-import Options from '../../../components/createProject/common/options/options';
-import { useCreateProjectStore } from '../../../store/createProjectStore';
+import { SignupLayout } from '../../../components/layout/signupLayout/signupLayout';
+import Input from '../../../components/common/input/input';
+import { useSignupStore } from '../../../store/signupStore';
+import { SIGNUP } from '../../../constants/signup';
+import Grade from '../../../components/modal/grade/grade';
+import DropDown from '../../../components/common/dropDown/dropDown';
+import { useState } from 'react';
+import ProjectCount from '../../../components/modal/projectCount/projectCount';
 
 interface ProjectCountProps {
   onNext: () => void;
@@ -19,20 +13,35 @@ interface ProjectCountProps {
   currentStep: number;
 }
 
-export const ProjectCount = ({ onNext, currentStep }: ProjectCountProps) => {
+export const ProjectCountStep = ({ onNext, currentStep }: ProjectCountProps) => {
+  const { projectCount, setProjectCount } = useSignupStore();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <>
-      <BaseContainerWithSpaceBetween>
-        <BackDrop />
-        <BaseContainer>
-          <StepTitle>{TEAM.STEP1}</StepTitle>
-          <StepBar currentStep={currentStep} totalSteps={5} />
-        </BaseContainer>
-
-        <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-          <Button onClick={onNext}>다음</Button>
-        </div>
-      </BaseContainerWithSpaceBetween>
+      <SignupLayout
+        title={SIGNUP.REQUIRED_PROJECT_COUNT}
+        currentStep={4}
+        totalSteps={5}
+        headerType="backdropWithSkip"
+        onNext={onNext}
+      >
+        <DropDown
+          placeholder={'1개'}
+          value={projectCount || ''}
+          onClick={handleOpenModal}
+          isOpen={isModalOpen}
+        />
+      </SignupLayout>
+      <ProjectCount isOpen={isModalOpen} onClose={handleCloseModal} onSelect={setProjectCount} />
     </>
   );
 };

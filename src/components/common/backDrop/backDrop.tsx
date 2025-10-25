@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import backdrop from '../../../assets/icons/backdrop.svg';
-import { BackDropContainer } from './backDrop.styles';
+import { BackDropContainer, BackDropWithSkipContainer } from './backDrop.styles';
+import { ROUTES } from '../../../constants/routes';
 
 const BackDrop = () => {
   const navigate = useNavigate();
@@ -16,3 +17,20 @@ const BackDrop = () => {
 };
 
 export default BackDrop;
+
+export const BackDropWithSkip = () => {
+  const navigate = useNavigate();
+  const handleSkip = () => {
+    navigate(ROUTES.home);
+  };
+  const handleClick = () => {
+    navigate(-1);
+  };
+
+  return (
+    <BackDropWithSkipContainer onClick={handleClick}>
+      <img src={backdrop} alt="backdrop" onClick={handleSkip} />
+      <p>건너뛰기</p>
+    </BackDropWithSkipContainer>
+  );
+};

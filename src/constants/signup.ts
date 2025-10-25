@@ -17,8 +17,10 @@ export const SIGNUP = {
   CURRENT_STUDY_DETAIL_DUPLICATION_SELECT: '중복선택 가능',
   REQUIRED_TOOLSET: '사용 가능한 툴을\n 체크해주세요',
   REQUIRED_TOOLSET_DETAIL: '최대 3개 선택 가능',
-  REQUIRED_FAVORITE_SUBJECT: '관심 주제를 체크해주세요',
+  REQUIRED_FAVORITE_SUBJECT: '관심 주제를\n 체크해주세요',
+  FAVORITE_SUBJECT_SELECTION_LIMIT: '중복선택 가능(최대 5개 선택 가능)',
   REQUIRED_PROJECT_COUNT: '현재까지 진행한\n 프로젝트 개수를 선택해주세요',
+  REQUIRED_PROJECT_COUNT_MODAL: '프로젝트 개수를 선택해주세요',
   WELCOME: '루키에 오신걸 환영합니다!',
 };
 export const UNIVERSITY_PUBLIC_OPTIONS = [
@@ -207,98 +209,74 @@ export const TOOLSET_OPTION_CATEGORY = {
 };
 
 export const TOOLSET_OPTIONS = [
-  // 디자인/편집/3D 카테고리
   {
-    value: 'photoshop',
-    label: 'Photoshop',
+    category: '디자인/편집/3D',
+    toolsGroup1: [
+      { value: 'photoshop', label: 'Photoshop' },
+      { value: 'illustrator', label: 'Illustrator' },
+      { value: 'afterEffects', label: 'After Effects' },
+      { value: 'indesign', label: 'InDesign' },
+      { value: 'premierePro', label: 'Premiere Pro' },
+      { value: 'lightroom', label: 'Lightroom' },
+    ],
+    toolsGroup2: [
+      { value: 'figma', label: 'Figma' },
+      { value: 'framer', label: 'Framer' },
+    ],
+    toolsGroup3: [
+      { value: 'rhino', label: 'Rhino' },
+      { value: 'sketchup', label: 'SketchUp' },
+      { value: 'unity', label: 'Unity' },
+      { value: 'blender', label: 'Blender' },
+      { value: 'cinema4d', label: 'Cinema 4D' },
+      { value: 'unrealEngine', label: 'Unreal Engine' },
+    ],
   },
-  {
-    value: 'illustrator',
-    label: 'Illustrator',
-  },
-  {
-    value: 'afterEffects',
-    label: 'After Effects',
-  },
-  {
-    value: 'indesign',
-    label: 'InDesign',
-  },
-  {
-    value: 'premierePro',
-    label: 'Premiere Pro',
-  },
-  {
-    value: 'lightroom',
-    label: 'Lightroom',
-  },
-  {
-    value: 'figma',
-    label: 'Figma',
-  },
-  {
-    value: 'framer',
-    label: 'Framer',
-  },
-  {
-    value: 'rhino',
-    label: 'Rhino',
-  },
-  {
-    value: 'sketchup',
-    label: 'SketchUp',
-  },
-  {
-    value: 'unity',
-    label: 'Unity',
-  },
-  {
-    value: 'blender',
-    label: 'Blender',
-  },
-  {
-    value: 'cinema4d',
-    label: 'Cinema 4D',
-  },
-  {
-    value: 'unrealEngine',
-    label: 'Unreal Engine',
-  },
+
   // 개발 카테고리
   {
+    category: '개발',
     value: 'htmlCss',
     label: 'HTML/CSS',
   },
   {
+    category: '개발',
     value: 'javascript',
     label: 'JavaScript',
   },
   {
+    category: '개발',
     value: 'typescript',
     label: 'TypeScript',
   },
   // 기타 카테고리
   {
+    category: '기타',
     value: 'googleAnalytics',
     label: 'Google Analytics',
   },
   {
+    category: '기타',
     value: 'davinciResolve',
     label: 'DaVinci Resolve',
   },
   {
+    category: '기타',
     value: 'clo3d',
     label: 'CLO 3D',
   },
   {
+    category: '기타',
     value: 'browzwear',
     label: 'Browzwear',
   },
   {
+    category: '기타',
     value: 'proTools',
     label: 'Pro Tools',
   },
   {
+    category: '기타',
     value: 'logicProX',
     label: 'Logic Pro X',
   },
