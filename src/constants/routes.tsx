@@ -1,5 +1,7 @@
 export const ROUTES = {
-  home: '/',
+  intro: '/intro',
+  onboarding: '/onboarding',
+  home: '/home',
   explore: '/explore',
   rookieDetail: '/explore/rookie/:id',
   chat: '/chat',
@@ -9,4 +11,8 @@ export const ROUTES = {
   createRookie: '/create-rookie',
   postDetail: '/post/:id',
   toolkit: '/toolkit',
+  signup: '/signup',
+  toolkitDetail: '/toolkit/:id',
+  login: '/login',
+  //signup: '/signup',
 };

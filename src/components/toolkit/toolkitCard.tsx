@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { colors } from '../../style/colors';
 import { typography } from '../../style/theme';
@@ -43,7 +44,6 @@ const CardTitle = styled.div`
   transform: translateX(-50%);
   width: 15.125rem;
   text-align: center;
-
   font-weight: ${typography.display.display2.fontWeight};
   font-size: ${typography.display.display2.fontSize};
   line-height: ${typography.display.display2.lineHeight};
@@ -60,7 +60,7 @@ const CardIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 4.6rem;
+  margin-top: 4.5rem;
 `;
 
 const CardInfo = styled.div`
@@ -123,8 +123,14 @@ const ToolkitLogoContainer = styled.div`
 `;
 
 export default function ToolkitCard({ toolkit, style }: ToolkitCardProps) {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/toolkit/${toolkit.id}`);
+  };
+
   return (
-    <CardContainer style={style}>
+    <CardContainer style={style} onClick={handleCardClick}>
       <CardContent>
         <CardImage $backgroundColor={toolkit.backgroundColor}>
           <CardTitle>

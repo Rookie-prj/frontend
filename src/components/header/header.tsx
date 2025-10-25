@@ -1,9 +1,9 @@
 import { HeaderContainer, HeaderTitle, Title } from './header.styles';
 import logo from '../../assets/icons/logo.svg';
 import search from '../../assets/icons/search.svg';
-import { Interpolation, Theme } from '@emotion/react';
 import BackDrop from '../../components/common/backDrop/backDrop';
-type HeaderType = 'backdrop' | 'logo' | 'title' | 'search';
+import profile from '../../assets/icons/profile.svg';
+type HeaderType = 'backdrop' | 'logo' | 'title' | 'search' | 'library';
 
 type HeaderProps = {
   type: HeaderType;
@@ -24,6 +24,12 @@ const Header = ({ type, title }: HeaderProps) => {
       <>
         <Title>탐색</Title>
         <img src={search} alt="search" />
+      </>
+    ),
+    library: (
+      <>
+        <Title>라이브러리</Title>
+        <img src={profile} alt="profileIcon" />
       </>
     ),
   };

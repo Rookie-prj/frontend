@@ -11,7 +11,11 @@ import PostDetail from '../pages/postDetail/postDetail';
 import Layout from '../components/layout/layout';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Toolkit from '../pages/toolkit/toolkit';
+import ToolkitDetail from '../components/toolkit/toolkitDetail';
+import { Signup } from '../pages/signup/signup';
 import RookieDetail from '../pages/rookieDetail';
+import Intro from '../pages/intro/intro';
+import Onboarding from '../pages/onboarding/onboarding';
 
 const AppRoutes = () => {
   const routes = [
@@ -46,6 +50,14 @@ const AppRoutes = () => {
       ],
     },
     {
+      path: ROUTES.intro,
+      element: <Intro />,
+    },
+    {
+      path: ROUTES.onboarding,
+      element: <Onboarding />,
+    },
+    {
       path: ROUTES.createProject,
       element: (
         <Layout hideNavigation={true}>
@@ -61,6 +73,7 @@ const AppRoutes = () => {
         </Layout>
       ),
     },
+
     {
       path: ROUTES.postDetail,
       element: (
@@ -82,6 +95,22 @@ const AppRoutes = () => {
       element: (
         <Layout hideNavigation={true}>
           <RookieDetail />
+        </Layout>
+      ),
+    },
+    {
+      path: ROUTES.toolkitDetail,
+      element: (
+        <Layout hideNavigation={true}>
+          <ToolkitDetail />
+        </Layout>
+      ),
+    },
+    {
+      path: ROUTES.signup,
+      element: (
+        <Layout hideNavigation={true}>
+          <Signup />
         </Layout>
       ),
     },
