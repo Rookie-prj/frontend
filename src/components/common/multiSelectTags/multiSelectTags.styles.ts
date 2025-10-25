@@ -14,10 +14,7 @@ export const MultiSelectLabel = styled.div`
   color: ${colors.gray[500]};
 `;
 
-export const TagsGrid = styled.div<{ isDesignSection?: boolean }>`
-  //   display: ${({ isDesignSection }) => (isDesignSection ? 'grid' : 'flex')};
-  //   ${({ isDesignSection }) => isDesignSection && 'grid-template-columns: repeat(3, 1fr);'}
-  //   ${({ isDesignSection }) => !isDesignSection && 'flex-wrap: wrap;'}
+export const TagsGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;

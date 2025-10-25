@@ -2,8 +2,11 @@ import { HeaderContainer, HeaderTitle, Title } from './header.styles';
 import logo from '../../assets/icons/logo.svg';
 import search from '../../assets/icons/search.svg';
 import { Interpolation, Theme } from '@emotion/react';
-import BackDrop from '../../components/common/backDrop/backDrop';
-type HeaderType = 'backdrop' | 'logo' | 'title' | 'search';
+import BackDrop, { BackDropWithSkip } from '../../components/common/backDrop/backDrop';
+
+type BackdropType = 'backdrop' | 'backdropWithSkip';
+type ContainerType = 'logo' | 'title' | 'search';
+type HeaderType = BackdropType | ContainerType;
 
 type HeaderProps = {
   type: HeaderType;
@@ -11,8 +14,13 @@ type HeaderProps = {
 };
 
 const Header = ({ type, title }: HeaderProps) => {
+  const isBackdropType = (type: HeaderType): type is BackdropType => {
+    return type === 'backdrop' || type === 'backdropWithSkip';
+  };
+
   const HeaderCase: Record<HeaderType, React.ReactNode> = {
     backdrop: <BackDrop />,
+    backdropWithSkip: <BackDropWithSkip />,
     logo: (
       <>
         <img src={logo} alt="logo" />
@@ -27,6 +35,11 @@ const Header = ({ type, title }: HeaderProps) => {
       </>
     ),
   };
+
+  if (isBackdropType(type)) {
+    return <>{HeaderCase[type]}</>;
+  }
+
   return <HeaderContainer>{HeaderCase[type]}</HeaderContainer>;
 };
 
