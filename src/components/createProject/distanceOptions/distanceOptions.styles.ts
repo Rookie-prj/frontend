@@ -12,8 +12,10 @@ export const DistanceOption = styled.div<{ isActive?: boolean }>`
   background: ${({ isActive }) => (isActive ? colors.green[50] : colors.white)};
   border: 1.5px solid ${({ isActive }) => (isActive ? colors.green[200] : colors.gray[150])};
   border-radius: 0.625rem;
-  padding: 1.4375rem 1.48rem;
+  padding: 1.4375rem 1.125rem;
   cursor: pointer;
+  height: 4.375rem;
+
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
@@ -30,9 +32,6 @@ export const DistanceIcon = styled.div<{ isActive?: boolean }>`
   justify-content: center;
   background: ${({ isActive }) => (isActive ? colors.green[50] : 'white')};
   border-radius: 0.5rem;
-  img {
-    height: 1.75rem;
-  }
 `;
 
 export const DistanceText = styled.span<{ fontWeight?: 600 | 700 }>`
