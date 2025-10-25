@@ -1,38 +1,28 @@
-import { TEAM, TEAM_PERIOD_OPTIONS } from '../../../constants/createProject';
 import Button from '../../../components/common/button/button';
-import StepBar from '../../../components/createProject/stepBar/stepBar';
-import {
-  BaseContainer,
-  BaseContainerWithSpaceBetween,
-} from '../../../components/container/container.styles';
-import { OptionsScrollWrapper } from '../../../components/createProject/common/options/options.styles';
-import BackDrop from '../../../components/common/backDrop/backDrop';
-import { StepTitle } from '../../createProject/steps/steps.styles';
-import ProjectCategorySection from '../../../components/home/projectCategorySection/projectCategorySection';
-import Questions from '../../../components/createProject/common/questions/questions';
-import Options from '../../../components/createProject/common/options/options';
-import { useCreateProjectStore } from '../../../store/createProjectStore';
+import { SIGNUP } from '../../../constants/signup';
+import rookieGreenLogo from '../../../assets/img/rookie-green-logo.svg';
+import { LogoContainer, WelcomeText } from './complete.styles';
+import { useNavigate } from 'react-router-dom';
+import { BaseContainerWithSpaceBetween } from '../../../components/container/container.styles';
+export const Complete = () => {
+  const navigate = useNavigate();
 
-interface CompleteProps {
-  onNext: () => void;
-  onPrev?: () => void;
-  currentStep: number;
-}
+  const handleNext = () => {
+    navigate('/');
+  };
 
-export const Complete = ({ onNext, currentStep }: CompleteProps) => {
   return (
-    <>
-      <BaseContainerWithSpaceBetween>
-        <BackDrop />
-        <BaseContainer>
-          <StepTitle>{TEAM.STEP1}</StepTitle>
-          <StepBar currentStep={currentStep} totalSteps={5} />
-        </BaseContainer>
+    <BaseContainerWithSpaceBetween>
+      <LogoContainer>
+        <img src={rookieGreenLogo} alt="Rookie Logo" />
+        <WelcomeText>{SIGNUP.WELCOME}</WelcomeText>
+      </LogoContainer>
 
-        <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-          <Button onClick={onNext}>다음</Button>
-        </div>
-      </BaseContainerWithSpaceBetween>
-    </>
+      <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
+        <Button onClick={handleNext} size="large">
+          다음
+        </Button>
+      </div>
+    </BaseContainerWithSpaceBetween>
   );
 };
