@@ -4,10 +4,22 @@ interface ButtonProps {
   onClick: () => void;
   size?: 'small' | 'large';
   variant?: 'primary' | 'gray';
+  disabled?: boolean;
 }
-const Button = ({ children, onClick, size = 'small', variant = 'primary' }: ButtonProps) => {
+const Button = ({
+  children,
+  onClick,
+  size = 'small',
+  variant = 'primary',
+  disabled = false,
+}: ButtonProps) => {
   return (
-    <ButtonContainer $size={size} onClick={onClick} variant={variant}>
+    <ButtonContainer
+      $size={size}
+      onClick={disabled ? undefined : onClick}
+      variant={variant}
+      disabled={disabled}
+    >
       {children}
     </ButtonContainer>
   );

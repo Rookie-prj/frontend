@@ -9,12 +9,16 @@ import Header from '../../header/header';
 interface SignupLayoutProps {
   title: ReactNode;
   subText?: string;
-  currentStep: number;
-  totalSteps: number;
+  currentStep?: number;
+  totalSteps?: number;
   onNext: () => void;
   onPrev?: () => void;
   children?: ReactNode;
   headerType?: 'backdrop' | 'backdropWithSkip';
+  stepBar?: boolean;
+  buttonText?: string;
+  buttonVariant?: 'default' | 'signup';
+  isFormValid?: boolean;
 }
 
 export const SignupLayout = ({
@@ -26,6 +30,10 @@ export const SignupLayout = ({
   onPrev,
   children,
   headerType = 'backdrop',
+  stepBar = true,
+  buttonText = '다음',
+  buttonVariant = 'default',
+  isFormValid = true,
 }: SignupLayoutProps) => {
   return (
     <BaseContainerWithSpaceBetween>
@@ -33,12 +41,19 @@ export const SignupLayout = ({
       <BaseContainer>
         <StepTitle>{title}</StepTitle>
         {subText && <StepSubText>{subText}</StepSubText>}
-        <StepBar currentStep={currentStep} totalSteps={totalSteps} />
+        {stepBar && currentStep && totalSteps && (
+          <StepBar currentStep={currentStep} totalSteps={totalSteps} />
+        )}
         {children}
       </BaseContainer>
       <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-        <Button onClick={onNext} size="large">
-          다음
+        <Button
+          onClick={onNext}
+          size="large"
+          variant={buttonVariant === 'signup' ? (isFormValid ? 'primary' : 'gray') : 'primary'}
+          disabled={buttonVariant === 'signup' && !isFormValid}
+        >
+          {buttonText}
         </Button>
       </div>
     </BaseContainerWithSpaceBetween>
