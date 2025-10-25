@@ -50,18 +50,19 @@ export const Signup = () => {
         currentStep={funnel.currentStep}
       />
     ),
-    toolset: ({ history }) => (
-      <Toolset
-        onNext={() => history.push('favoriteSubject', (prev) => ({ ...prev }))}
-        currentStep={funnel.currentStep}
-      />
-    ),
     favoriteSubject: ({ history }) => (
       <FavoriteSubject
         onNext={() => history.push('projectCount', (prev) => ({ ...prev }))}
         currentStep={funnel.currentStep}
       />
     ),
+    toolset: ({ history }) => (
+      <Toolset
+        onNext={() => history.push('favoriteSubject', (prev) => ({ ...prev }))}
+        currentStep={funnel.currentStep}
+      />
+    ),
+
     projectCount: ({ history }) => (
       <ProjectCount
         onNext={() => history.push('complete', (prev) => ({ ...prev }))}
