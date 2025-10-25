@@ -61,9 +61,9 @@ function ProjectCard({ project, rightIcon }: ProjectCardProps) {
             필수 툴
           </S.DetailLabel>
           <S.DetailContent>
-            {project.cowrkrPosition.join(', ')}
+            {project.cowrkrPosition?.join(', ') || ''}
             <br />
-            {project.workTools?.join(', ') || project.techTools}
+            {project.workTools?.join(', ') || project.techTools || ''}
           </S.DetailContent>
         </S.DetailSection>
       </S.ContentWrapper>
