@@ -1,5 +1,6 @@
 import { useSignupFunnel } from '../../hooks/funnel/signupContext';
 
+import { EmailPassword } from './steps/emailPassword';
 import { University } from './steps/university';
 import { UniversityPublic } from './steps/universityPublic';
 import { UniversityMajor } from './steps/universityMajor';
@@ -20,6 +21,12 @@ export const Signup = () => {
   };
 
   return funnel.Render({
+    emailPassword: ({ history }) => (
+      <EmailPassword
+        onNext={() => history.push('university', (prev) => ({ ...prev }))}
+        currentStep={funnel.currentStep}
+      />
+    ),
     university: ({ history }) => (
       <University
         onNext={() => history.push('universityPublic', (prev) => ({ ...prev }))}
@@ -69,6 +76,6 @@ export const Signup = () => {
         currentStep={funnel.currentStep}
       />
     ),
-    complete: ({ history }) => <Complete onNext={handleSubmit} currentStep={funnel.currentStep} />,
+    complete: ({ history }) => <Complete onSubmit={handleSubmit} />,
   });
 };

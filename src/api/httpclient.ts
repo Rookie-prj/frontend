@@ -2,11 +2,8 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import HttpError from './httpError';
 import throwAPIError from './throwAPIError';
 
-export const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+export const BASE_URL = 'http://3.34.183.203';
 
-// Debug: 환경변수 확인을 위한 로깅
-console.log('REACT_APP_API_BASE_URL:', process.env.REACT_APP_API_BASE_URL);
-console.log('BASE_URL:', BASE_URL);
 const DEFAULT_TIMEOUT = 15000;
 
 interface APIClientType {

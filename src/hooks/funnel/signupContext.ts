@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useFunnel } from '@use-funnel/react-router-dom';
 
 type SignupStep =
+  | 'emailPassword'
   | 'university'
   | 'universityPublic'
   | 'universityMajor'
@@ -11,7 +12,20 @@ type SignupStep =
   | 'favoriteSubject'
   | 'projectCount'
   | 'complete';
-
+type EmailPassword = {
+  email?: string;
+  password?: string;
+  university?: string;
+  universityPublic?: string;
+  universityMajor?: string;
+  universityGrade?: string;
+  currentStudy?: string;
+  currentStudyDetail?: string;
+  toolset?: string;
+  favoriteSubject?: string;
+  projectCount?: string;
+  complete?: string;
+};
 type University = {
   university?: string;
   universityPublic?: string;
@@ -121,6 +135,7 @@ type Complete = {
   complete?: string;
 };
 const STEP_ORDER: SignupStep[] = [
+  'emailPassword',
   'university',
   'universityPublic',
   'universityMajor',
@@ -138,13 +153,14 @@ export const getSignupCurrentStepNumber = (currentStep: SignupStep): number => {
 export function useSignupFunnel() {
   const initialConfig = useMemo(
     () => ({
-      step: 'university' as const,
+      step: 'emailPassword' as const,
       context: {},
     }),
     [],
   );
 
   const funnel = useFunnel<{
+    emailPassword: EmailPassword;
     university: University;
     universityPublic: UniversityPublic;
     universityMajor: UniversityMajor;

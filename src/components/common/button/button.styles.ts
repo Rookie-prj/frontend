@@ -3,7 +3,7 @@ import { colors } from '../../../style/colors';
 
 export const BaseButton = styled.button<{ variant?: 'primary' | 'gray' }>`
   background-color: ${({ variant }) =>
-    variant === 'primary' ? colors.green[200] : colors.gray[150]};
+    variant === 'primary' ? colors.green[200] : colors.gray[10]};
   color: ${colors.gray[800]};
   width: 100%;
   display: flex;
@@ -36,6 +36,9 @@ export const ButtonContainer = styled(BaseButton)<{ $size?: 'small' | 'medium' |
     if ($size === 'small') return '1rem 2rem';
     else if ($size === 'large') return '1rem 9.875rem';
   }};
+    &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const HeroBannerButton = styled(BaseButton)`
