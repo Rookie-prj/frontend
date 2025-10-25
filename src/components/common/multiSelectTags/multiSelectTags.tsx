@@ -29,7 +29,6 @@ const MultiSelectTags: React.FC<MultiSelectTagsProps> = ({
   selectedValues,
   onSelectionChange,
   maxSelections,
-  isDesignSection = false,
 }) => {
   const handleTagClick = (value: string) => {
     const isSelected = selectedValues.includes(value);

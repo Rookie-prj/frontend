@@ -17,8 +17,10 @@ export const SIGNUP = {
   CURRENT_STUDY_DETAIL_DUPLICATION_SELECT: '중복선택 가능',
   REQUIRED_TOOLSET: '사용 가능한 툴을\n 체크해주세요',
   REQUIRED_TOOLSET_DETAIL: '최대 3개 선택 가능',
-  REQUIRED_FAVORITE_SUBJECT: '관심 주제를 체크해주세요',
+  REQUIRED_FAVORITE_SUBJECT: '관심 주제를\n 체크해주세요',
+  FAVORITE_SUBJECT_SELECTION_LIMIT: '중복선택 가능(최대 5개 선택 가능)',
   REQUIRED_PROJECT_COUNT: '현재까지 진행한\n 프로젝트 개수를 선택해주세요',
+  REQUIRED_PROJECT_COUNT_MODAL: '프로젝트 개수를 선택해주세요',
   WELCOME: '루키에 오신걸 환영합니다!',
 };
 export const UNIVERSITY_PUBLIC_OPTIONS = [
