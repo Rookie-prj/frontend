@@ -4,7 +4,8 @@ import throwAPIError from './throwAPIError';
 import { refreshAccessToken, saveAccessToken, clearAuthData, getAccessToken } from './token';
 import { RefreshTokenResponse } from '../models/auth';
 
-export const BASE_URL = process.env.REACT_APP_API_BASE_URL || '';
+export const BASE_URL = process.env.REACT_APP_API_BASE_URL ?? '';
+
 const DEFAULT_TIMEOUT = 15000;
 
 interface APIClientType {

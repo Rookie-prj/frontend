@@ -5,6 +5,7 @@ export const BaseButton = styled.button<{ variant?: 'primary' | 'gray' }>`
   background-color: ${({ variant }) =>
     variant === 'primary' ? colors.green[200] : colors.gray[10]};
   color: ${colors.gray[800]};
+  width: 100%;
   display: flex;
   font-style: normal;
   font-weight: 700;
@@ -13,15 +14,28 @@ export const BaseButton = styled.button<{ variant?: 'primary' | 'gray' }>`
   white-space: nowrap;
   cursor: pointer;
 `;
-export const ButtonContainer = styled(BaseButton)<{ $size?: 'small' | 'large' }>`
-  width: 100%;
-  font-size: ${({ $size }) => ($size === 'small' ? '0.875rem' : '1rem')};
+export const ButtonContainer = styled(BaseButton)<{ $size?: 'small' | 'medium' | 'large' }>`
+  width: ${({ $size }) => {
+    return '100%';
+  }};
+  font-size: ${({ $size }) => {
+    if ($size === 'small') return '0.875rem';
+    else if ($size === 'medium') return '14px';
+    else if ($size === 'large') return '1rem';
+  }};
   justify-content: center;
   border-radius: 0.75rem;
   line-height: 1.25rem;
-  height: ${({ $size }) => ($size === 'small' ? '3.125rem' : '3.625rem')};
-  padding: ${({ $size }) => ($size === 'small' ? '1rem 2rem' : '1rem 9.875rem')};
-  &:disabled {
+  height: ${({ $size }) => {
+    if ($size === 'small') return '3.125rem';
+    else if ($size === 'medium') return '43px';
+    else if ($size === 'large') return '3.625rem';
+  }};
+  padding: ${({ $size }) => {
+    if ($size === 'small') return '1rem 2rem';
+    else if ($size === 'large') return '1rem 9.875rem';
+  }};
+    &:disabled {
     cursor: not-allowed;
   }
 `;

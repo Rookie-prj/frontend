@@ -14,5 +14,19 @@ export const ROLE_TABS = [
   { value: 'etc', label: '기타' },
 ] as const;
 
+export const LIBRARY_TABS = [
+  { value: 'all', label: '전체' },
+  { value: 'recruiting', label: '모집중' },
+  { value: 'completed', label: '모집완료' },
+] as const;
+
+export const CHAT_TABS = [
+  { value: 'all', label: '전체' },
+  { value: 'recruiting', label: '📌 모집 중' },
+  { value: 'suggesting', label: '🙋 참여 제안 중' },
+] as const;
+
+export type LibraryTabValue = (typeof LIBRARY_TABS)[number]['value'];
 export type FilterTabValue = (typeof FILTER_TABS)[number]['value'];
 export type RoleTabValue = (typeof ROLE_TABS)[number]['value'];
+export type ChatTabValue = (typeof CHAT_TABS)[number]['value'];

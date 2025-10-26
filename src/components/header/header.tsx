@@ -1,11 +1,11 @@
 import { HeaderContainer, HeaderTitle, Title } from './header.styles';
 import logo from '../../assets/icons/logo.svg';
 import search from '../../assets/icons/search.svg';
-import { Interpolation, Theme } from '@emotion/react';
+import profile from '../../assets/icons/profile.svg';
 import BackDrop, { BackDropWithSkip } from '../../components/common/backDrop/backDrop';
 
 type BackdropType = 'backdrop' | 'backdropWithSkip';
-type ContainerType = 'logo' | 'title' | 'search';
+type ContainerType = 'logo' | 'title' | 'search' | 'library';
 type HeaderType = BackdropType | ContainerType;
 
 type HeaderProps = {
@@ -31,7 +31,14 @@ const Header = ({ type, title }: HeaderProps) => {
     search: (
       <>
         <Title>탐색</Title>
-        <img src={search} alt="search" />
+        <img src={search} alt="search" style={{ cursor: 'pointer' }} />
+      </>
+    ),
+    library: (
+      <>
+        <Title>라이브러리</Title>
+
+        <img src={profile} alt="profileIcon" style={{ cursor: 'pointer' }} />
       </>
     ),
   };

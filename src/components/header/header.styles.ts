@@ -16,8 +16,10 @@ export const HeaderContainer = styled.div`
 `;
 
 export const HeaderTitle = styled.div`
-  font-size: 24px;
-  font-weight: bold;
+  font-size: ${typography.headline.headline4.fontSize};
+  font-weight: ${typography.headline.headline4.fontWeight};
+  line-height: ${typography.headline.headline4.lineHeight};
+  letter-spacing: ${typography.headline.headline4.letterSpacing};
 `;
 export const Title = styled.h3`
   font-size: ${typography.headline.headline4.fontSize};
