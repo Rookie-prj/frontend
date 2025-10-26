@@ -41,7 +41,7 @@ export const SignupLayout = ({
       <BaseContainer>
         <StepTitle>{title}</StepTitle>
         {subText && <StepSubText>{subText}</StepSubText>}
-        {stepBar && currentStep && totalSteps && (
+        {stepBar && currentStep !== undefined && totalSteps && (
           <StepBar currentStep={currentStep} totalSteps={totalSteps} />
         )}
         {children}

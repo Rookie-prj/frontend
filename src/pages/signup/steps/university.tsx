@@ -13,12 +13,7 @@ export const University = ({ onNext, currentStep }: UniversityProps) => {
   const { university, setUniversity } = useSignupStore();
 
   return (
-    <SignupLayout
-      title={SIGNUP.REQUIRED_UNIVERSITY}
-      currentStep={currentStep}
-      totalSteps={5}
-      onNext={onNext}
-    >
+    <SignupLayout title={SIGNUP.REQUIRED_UNIVERSITY} currentStep={0} totalSteps={5} onNext={onNext}>
       <Input
         placeholder="루키대학교"
         value={university}

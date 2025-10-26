@@ -16,6 +16,7 @@ import { Signup } from '../pages/signup/signup';
 import RookieDetail from '../pages/rookieDetail';
 import Intro from '../pages/intro/intro';
 import Onboarding from '../pages/onboarding/onboarding';
+import Login from '../pages/login/login';
 
 const AppRoutes = () => {
   const routes = [
@@ -111,6 +112,14 @@ const AppRoutes = () => {
       element: (
         <Layout hideNavigation={true}>
           <Signup />
+        </Layout>
+      ),
+    },
+    {
+      path: ROUTES.login,
+      element: (
+        <Layout hideNavigation={true}>
+          <Login />
         </Layout>
       ),
     },

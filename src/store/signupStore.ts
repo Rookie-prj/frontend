@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 
 interface SignupStore {
-  // Email/Password 관련
+  // 기본 정보
+  name?: string;
   email: string;
   password: string;
 
@@ -25,6 +26,7 @@ interface SignupStore {
   projectCount: string;
 
   // Actions
+  setName: (name: string) => void;
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
   setUniversity: (university: string) => void;
@@ -41,6 +43,7 @@ interface SignupStore {
 
 export const useSignupStore = create<SignupStore>((set) => ({
   // Initial state
+  name: '',
   email: '',
   password: '',
   university: '',
@@ -54,6 +57,7 @@ export const useSignupStore = create<SignupStore>((set) => ({
   projectCount: '',
 
   // Actions
+  setName: (name) => set({ name }),
   setEmail: (email) => set({ email }),
   setPassword: (password) => set({ password }),
   setUniversity: (university) => set({ university }),
@@ -67,6 +71,7 @@ export const useSignupStore = create<SignupStore>((set) => ({
   setProjectCount: (projectCount) => set({ projectCount }),
   resetSignup: () =>
     set({
+      name: '',
       email: '',
       password: '',
       university: '',

@@ -5,11 +5,9 @@ export const BaseButton = styled.button<{ variant?: 'primary' | 'gray' }>`
   background-color: ${({ variant }) =>
     variant === 'primary' ? colors.green[200] : colors.gray[10]};
   color: ${colors.gray[800]};
-
   display: flex;
   font-style: normal;
   font-weight: 700;
-
   text-align: center;
   align-items: center;
   white-space: nowrap;
@@ -23,7 +21,6 @@ export const ButtonContainer = styled(BaseButton)<{ $size?: 'small' | 'large' }>
   line-height: 1.25rem;
   height: ${({ $size }) => ($size === 'small' ? '3.125rem' : '3.625rem')};
   padding: ${({ $size }) => ($size === 'small' ? '1rem 2rem' : '1rem 9.875rem')};
-
   &:disabled {
     cursor: not-allowed;
   }

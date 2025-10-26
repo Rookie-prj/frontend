@@ -5,6 +5,7 @@ import { LogoContainer, WelcomeText } from './complete.styles';
 import { useNavigate } from 'react-router-dom';
 import { BaseContainerWithSpaceBetween } from '../../../components/container/container.styles';
 import { useSignupStore } from '../../../store/signupStore';
+import { useState } from 'react';
 
 interface CompleteProps {
   onSubmit: () => void;
@@ -12,14 +13,27 @@ interface CompleteProps {
 export const Complete = ({ onSubmit }: CompleteProps) => {
   const navigate = useNavigate();
   const signupStore = useSignupStore();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = () => {
-    console.log('=== signup Store 데이터 ===');
-    console.log('전체 store 데이터:', signupStore);
-    console.log('=======================');
+  const handleSubmit = async () => {
+    try {
+      setIsLoading(true);
 
-    onSubmit();
-    navigate('/');
+      console.log('=== signup Store 데이터 ===');
+      console.log('전체 store 데이터:', signupStore);
+      console.log('=======================');
+
+      // 회원가입 API 호출
+      await onSubmit();
+
+      // 성공 시 홈으로 이동
+      navigate('/');
+    } catch (error) {
+      console.error('❌ 회원가입 완료 처리 중 오류:', error);
+      // 에러가 발생해도 로딩 상태는 해제
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -30,8 +44,8 @@ export const Complete = ({ onSubmit }: CompleteProps) => {
       </LogoContainer>
 
       <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-        <Button onClick={handleSubmit} size="large">
-          다음
+        <Button onClick={handleSubmit} size="large" disabled={isLoading}>
+          {isLoading ? '회원가입 중...' : '다음'}
         </Button>
       </div>
     </BaseContainerWithSpaceBetween>
