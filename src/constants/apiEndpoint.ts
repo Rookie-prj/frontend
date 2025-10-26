@@ -5,4 +5,6 @@ export const API_ENDPOINT = {
   CHEERUP: '/api/supports/user',
   LIBRARY_SAVED: '/library/saved',
   LIBRARY_MY_PROJECT: '/library/myproject',
+  CHAT_ROOMS: '/api/chat/rooms/my',
+  WS_CHAT: '/ws-chat',
 };

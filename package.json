@@ -6,6 +6,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@stomp/stompjs": "^7.2.1",
     "@tanstack/react-query": "^5.90.2",
     "@types/react-datepicker": "^7.0.0",
     "@use-funnel/react-router": "^0.0.5",
@@ -18,6 +19,8 @@
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.3",
     "sanitize.css": "^13.0.0",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "zustand": "^5.0.8"
   },
   "scripts": {
@@ -35,6 +38,8 @@
     "@svgr/webpack": "^8.1.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "@types/sockjs-client": "^1.5.4",
+    "@types/stompjs": "^2.3.9",
     "babel-loader": "^10.0.0",
     "copy-webpack-plugin": "^13.0.1",
     "core-js": "^3.45.1",
