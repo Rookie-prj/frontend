@@ -4,12 +4,21 @@ import { ExploreCategoryValue } from '../../../constants/category';
 import { getProjects } from '../api/project';
 import { ProjectResponse } from '../../../models/project';
 
-const useProjectsQuery = (sortType: ExploreCategoryValue) => {
+interface UseProjectsQueryParams {
+  sortType?: ExploreCategoryValue;
+  boardType?: string;
+}
+
+const useProjectsQuery = ({ sortType, boardType }: UseProjectsQueryParams = {}) => {
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery<ProjectResponse>({
-      queryKey: ['projects'],
+      queryKey: ['projects', boardType],
       queryFn: async ({ pageParam = 0 }) => {
-        return await getProjects({ page: pageParam as number, size: 10 });
+        return await getProjects({
+          page: pageParam as number,
+          size: 10,
+          boardType,
+        });
       },
       getNextPageParam: (lastPage, allPages) => {
         if (!lastPage || !lastPage.boards || lastPage.boards.length < 10) {
