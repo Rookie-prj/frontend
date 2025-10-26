@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import HttpError from './httpError';
 import throwAPIError from './throwAPIError';
 
-export const BASE_URL = 'http://3.34.183.203';
+export const BASE_URL = process.env.REACT_APP_API_BASE_URL ?? '';
 
 const DEFAULT_TIMEOUT = 15000;
 
