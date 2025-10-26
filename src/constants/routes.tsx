@@ -14,5 +14,4 @@ export const ROUTES = {
   signup: '/signup',
   toolkitDetail: '/toolkit/:id',
   login: '/login',
-  //signup: '/signup',
 };

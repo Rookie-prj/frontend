@@ -9,7 +9,6 @@ export const BaseButton = styled.button<{ variant?: 'primary' | 'gray' }>`
   display: flex;
   font-style: normal;
   font-weight: 700;
-
   text-align: center;
   align-items: center;
   white-space: nowrap;

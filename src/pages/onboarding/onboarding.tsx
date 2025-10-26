@@ -107,11 +107,11 @@ const Onboarding = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleEmailSignup = () => {
-    navigate('/signup');
+  const handleLogin = () => {
+    navigate('/login');
   };
 
-  const handleGuestMode = () => {
+  const handleGuest = () => {
     // 게스트 모드 로직
     navigate('/home');
   };
@@ -161,11 +161,11 @@ const Onboarding = () => {
       </GifWrapper>
 
       <ButtonContainer>
-        <Button onClick={handleGuestMode} size="large" variant="gray">
+        <Button onClick={handleGuest} size="large" variant="gray">
           지금 바로 둘러보기
         </Button>
-        <Button onClick={handleEmailSignup} size="large" variant="primary">
-          이메일로 회원가입
+        <Button onClick={handleLogin} size="large" variant="primary">
+          로그인하기
         </Button>
       </ButtonContainer>
     </OnboardingContainer>
