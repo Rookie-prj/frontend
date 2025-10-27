@@ -17,6 +17,7 @@ import {
 } from '../../utils/messageTemplate';
 import { ROUTES } from '../../constants/routes';
 import { useUserCheerUpMutation } from '../../components/rookieDetail/hook/useCheerUpMutation';
+import { getAccessToken } from '../../api/token';
 
 function RookieDetail() {
   const { id } = useParams<{ id: string }>();
@@ -32,7 +33,8 @@ function RookieDetail() {
     handleModalClose: handleCheerupClose,
   } = useModal();
   const { rookie, isLoading, isError } = useRookieDetail({ id: rookieId });
-  const [loginState, setLoginState] = useState<boolean>(true); // 임시 로그인 상태
+  const accessToken = getAccessToken();
+  const [loginState, setLoginState] = useState<boolean>(accessToken ? true : false); // 임시 로그인 상태
   const { handleUserCheerUp } = useUserCheerUpMutation();
 
   if (isLoading) {
@@ -52,7 +54,9 @@ function RookieDetail() {
 
   return (
     <div style={{ paddingBottom: '100px' }}>
-      <Header type="backdrop" />
+      <div style={{ marginLeft: '16px', marginBottom: '10px' }}>
+        <Header type="backdrop" />
+      </div>
       <RookieCard rookie={rookie} type="detail" />
 
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '27px' }}>
