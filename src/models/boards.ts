@@ -10,11 +10,6 @@ export interface Board {
   imageUrl3: string | null;
 }
 
-export interface BoardCreateRequest {
-  title: string;
-  content: string;
-}
-
 export interface BoardUpdateRequest {
   title?: string;
   content?: string;
@@ -38,6 +33,7 @@ export interface BoardWithImagesRequest {
   workTools?: string[];
   collabTools?: string[];
   doneType?: string;
+  processStatus?: string;
   images: File[];
 }
 export interface ImageUploadResponse {
