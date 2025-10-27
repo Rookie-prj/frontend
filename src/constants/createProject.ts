@@ -44,7 +44,7 @@ export const TEAM = {
   STEP3_PROJECT_DESCRIPTION_PLACEHOLDER: '협업자 포지션과 프로젝트 주제가 포함되면 좋아요!',
   STEP3_PROJECT_DESCRIPTION: '프로젝트를 자유롭게 설명해주세요!',
   STEP3_PROJECT_MORE_DESCRIPTION: '어떤 프로젝트인지 더 구체적으로 알려주세요!',
-  STEP3_PROJECT_DESCRIPTION_EXPLANATION: '어떤 프로젝트인지 더 구체적으로 알려주세요!',
+  STEP3_PROJECT_DESCRIPTION_EXPLANATION: '이런 내용이 들어가면 좋아요!',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION_DETAIL_1: '프로젝트의 목표와 하고자 하는 일',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION_DETAIL_2: '현재까지의 진행 상황',
   STEP3_PROJECT_DESCRIPTION_EXPLANATION_DETAIL_3: '필요하거나 함께하고 싶은 협업자 역할',
@@ -64,12 +64,12 @@ export const TEAM = {
   STEP6_PROJECT_STATUS: '현재 프로젝트를 완성도가 어떻게 되나요?',
 };
 export const TEAM_PERIOD_OPTIONS = [
-  { value: 'ONE_MONTH', label: '1개월' },
-  { value: 'THREE_MONTHS', label: '3개월' },
-  { value: 'SIX_MONTHS', label: '6개월' },
-  { value: 'TEN_MONTHS', label: '10개월' },
-  { value: 'ONE_YEAR', label: '1년' },
-  { value: 'OVER_ONE_YEAR', label: '1년 이상' },
+  { value: '1', label: '1개월' },
+  { value: '3', label: '3개월' },
+  { value: '6', label: '6개월' },
+  { value: '10', label: '10개월' },
+  { value: '12', label: '1년' },
+  { value: '13', label: '1년 이상' },
 ];
 export const TEAM_POSITION_OPTIONS = [
   { value: 'PM', label: '기획자', icon: pmIcon },
@@ -87,13 +87,13 @@ export const TEAM_COOPERATION_METHOD_OPTIONS = [
   { value: 'HYBRID', label: '온라인, 오프라인 둘 다 필요' },
 ];
 export const TEAM_COOPERATION_TOOL_OPTIONS = [
-  { value: 'TOOL_1', label: 'Discord' },
-  { value: 'TOOL_2', label: '카카오톡' },
-  { value: 'TOOL_3', label: 'Notion' },
-  { value: 'TOOL_4', label: 'Zoom' },
-  { value: 'TOOL_5', label: 'Slack' },
-  { value: 'TOOL_6', label: 'Google Workspace' },
-  { value: 'TOOL_7', label: 'Figma' },
+  { value: 'DISCORD', label: 'Discord' },
+  { value: 'KAKAO_TALK', label: '카카오톡' },
+  { value: 'NOTION', label: 'Notion' },
+  { value: 'ZOOM', label: 'Zoom' },
+  { value: 'SLACK', label: 'Slack' },
+  { value: 'GOOGLE_WORKSPACE', label: 'Google Workspace' },
+  { value: 'FIGMA', label: 'Figma' },
 ];
 export const TEAM_NUMBER_OF_PEOPLE_OPTIONS = [
   { value: '1', label: '1명' },
