@@ -19,6 +19,7 @@ import { useRemoveBookmarkMutation } from '../../components/explore/hooks/useRem
 import EmptyState from '../../components/common/emptyState/emptyState';
 import rookieyGray from '../../assets/icons/rookieGray.svg';
 import { getAccessToken } from '../../api/token';
+import RedirectModal from '../../components/rookieDetail/redirectModal';
 
 const ExplorePage = () => {
   const [searchParams] = useSearchParams();
@@ -27,7 +28,6 @@ const ExplorePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedInterestFields, setSelectedInterestFields] = useState<string[]>([]);
   const { rookies, hasNextPage, fetchNextPage, isFetchingNextPage } = useRookieQuery(sortType);
-  const { handleRemoveBookmark } = useRemoveBookmarkMutation();
   const [selectedBoardId, setSelectedBoardId] = useState<number>(0);
   const [isLoginState, setIsLoginState] = useState(getAccessToken() ? true : false);
 
@@ -36,6 +36,14 @@ const ExplorePage = () => {
     handleModalClose: handleDeleteModalClose,
     handleModalOpen: handleDeleteModalOpen,
   } = useModal();
+
+  const {
+    isOpen: isRedirectModalOpen,
+    handleModalClose: handleRedirectModalClose,
+    handleModalOpen: handleRedirectModalOpen,
+  } = useModal();
+
+  const { handleRemoveBookmark } = useRemoveBookmarkMutation(handleRedirectModalOpen);
   const {
     projects,
     hasNextPage: projectHasNextPage,
@@ -84,6 +92,7 @@ const ExplorePage = () => {
                 rightIcon={bookmark}
                 handleDeleteBookmark={handleDeleteBookmark}
                 isBookmark={true}
+                onError={handleRedirectModalOpen}
               />
             )}
             {projects.length === 0 && (
@@ -98,6 +107,13 @@ const ExplorePage = () => {
         onClose={handleDeleteModalClose}
         onConfirm={() => handleRemoveBookmark(selectedBoardId)}
         message="북마크에서 제거할까요?"
+      />
+
+      <RedirectModal
+        isOpen={isRedirectModalOpen}
+        onClose={handleRedirectModalClose}
+        redirectTo="/login"
+        title="로그인 후 이용해주세요"
       />
 
       <FilterBottomSheet
