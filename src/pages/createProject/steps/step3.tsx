@@ -284,7 +284,8 @@ import { useState } from 'react';
 import TextArea from '../../../components/common/textArea/textArea';
 import { ProjectDescriptionHint } from '../../../components/createProject/projectDescriptionHint/projectDescriptionHint';
 import ImageUpload from '../../../components/createProject/imageUpload/imageUpload';
-
+import { ProjectDetailTypeChips } from '../../../components/createProject/projectTypeChips/projectDetailTypeChips';
+import { ProjectTypeChips } from '../../../components/createProject/projectTypeChips/projectTypeChips';
 interface CreateProjectStep3Props {
   onNext: () => void;
   onPrev: () => void;
@@ -300,6 +301,10 @@ export const CreateProjectStep3 = ({ onNext, onPrev, currentStep }: CreateProjec
     setSelectedProjectTitle,
     selectedImages,
     setSelectedImages,
+    projectFields,
+    setProjectFields,
+    selectedProjectType,
+    setSelectedProjectType,
   } = useCreateProjectStore();
 
   const handleCloseModal = () => {
@@ -319,6 +324,11 @@ export const CreateProjectStep3 = ({ onNext, onPrev, currentStep }: CreateProjec
     const projectDescription = value || null;
     setSelectedProjectDescription(projectDescription);
     console.log('Selected position detail:', projectDescription);
+  };
+
+  const handleImagesChange = (images: File[]) => {
+    setSelectedImages(images);
+    console.log('Selected images:', images);
   };
 
   const handleNext = () => {
@@ -357,6 +367,7 @@ export const CreateProjectStep3 = ({ onNext, onPrev, currentStep }: CreateProjec
               onChange={handleProjectDescriptionChange}
             />
           </StepContainer>
+
           <StepContainer style={{ marginTop: '0.5rem', gap: '0.38rem' }}>
             <Questions subText={TEAM.STEP3_PROJECT_DESCRIPTION_EXPLANATION_PIC} />
             <ImageUpload
@@ -364,10 +375,18 @@ export const CreateProjectStep3 = ({ onNext, onPrev, currentStep }: CreateProjec
               showPreview={true}
               previewSize="medium"
               previewLayout="grid"
-              onImagesChange={(images) => {
-                setSelectedImages(images);
-                console.log('Selected images:', images);
-              }}
+              onImagesChange={handleImagesChange}
+            />
+          </StepContainer>
+          <StepContainer style={{ marginTop: '2.12rem' }}>
+            <Questions text={TEAM.STEP3_PROJECT_MORE_DESCRIPTION} number="three" />
+            <ProjectTypeChips
+              selectedProjectType={selectedProjectType}
+              setSelectedProjectType={setSelectedProjectType}
+            />
+            <ProjectDetailTypeChips
+              selectedCategories={projectFields}
+              setSelectedCategories={setProjectFields}
             />
           </StepContainer>
         </BaseContainer>
