@@ -13,6 +13,12 @@ import bookmark from '../../assets/icons/bookmark.svg';
 import InfiniteScrollList from '../../components/common/infiniteScrollList';
 import { useState } from 'react';
 import FilterBottomSheet from '../../components/explore/filterBottomSheet';
+import DeleteConfirmModal from '../../components/common/deleteModal/deleteConfirmModal';
+import { useModal } from '../../hooks/useModal';
+import { useRemoveBookmarkMutation } from '../../components/explore/hooks/useRemoveBookmarkMutation';
+import EmptyState from '../../components/common/emptyState/emptyState';
+import rookieyGray from '../../assets/icons/rookieGray.svg';
+import { getAccessToken } from '../../api/token';
 
 const ExplorePage = () => {
   const [searchParams] = useSearchParams();
@@ -21,12 +27,26 @@ const ExplorePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedInterestFields, setSelectedInterestFields] = useState<string[]>([]);
   const { rookies, hasNextPage, fetchNextPage, isFetchingNextPage } = useRookieQuery(sortType);
+  const { handleRemoveBookmark } = useRemoveBookmarkMutation();
+  const [selectedBoardId, setSelectedBoardId] = useState<number>(0);
+  const [isLoginState, setIsLoginState] = useState(getAccessToken() ? true : false);
+
+  const {
+    isOpen: isDeleteModalOpen,
+    handleModalClose: handleDeleteModalClose,
+    handleModalOpen: handleDeleteModalOpen,
+  } = useModal();
   const {
     projects,
     hasNextPage: projectHasNextPage,
     fetchNextPage: projectFetchNextPage,
     isFetchingNextPage: projectIsFetchingNextPage,
   } = useProjectsQuery({ sortType, boardType: roleType });
+
+  const handleDeleteBookmark = (boardId: number) => {
+    setSelectedBoardId(boardId);
+    handleDeleteModalOpen();
+  };
 
   const handleBottomSheet = () => {
     setIsOpen(!isOpen);
@@ -45,7 +65,10 @@ const ExplorePage = () => {
             isFetchingNextPage={isFetchingNextPage}
             enabled={sortType === 'rookie'}
           >
-            <Rookies rookies={rookies} type="explore" />
+            {rookies.length > 0 && <Rookies rookies={rookies} type="explore" />}
+            {rookies.length === 0 && (
+              <EmptyState message="탐색할 루키가 없어요" icon={rookieyGray} />
+            )}
           </InfiniteScrollList>
         )}
         {sortType === 'project' && (
@@ -55,10 +78,28 @@ const ExplorePage = () => {
             isFetchingNextPage={projectIsFetchingNextPage}
             padding="4px 16px 0 16px"
           >
-            <ProjectList projects={projects} rightIcon={bookmark} />
+            {projects.length > 0 && (
+              <ProjectList
+                projects={projects}
+                rightIcon={bookmark}
+                handleDeleteBookmark={handleDeleteBookmark}
+                isBookmark={true}
+              />
+            )}
+            {projects.length === 0 && (
+              <EmptyState message="탐색할 프로젝트가 없어요" icon={rookieyGray} />
+            )}
           </InfiniteScrollList>
         )}
       </div>
+
+      <DeleteConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={handleDeleteModalClose}
+        onConfirm={() => handleRemoveBookmark(selectedBoardId)}
+        message="북마크에서 제거할까요?"
+      />
+
       <FilterBottomSheet
         isOpen={isOpen}
         onClose={handleBottomSheet}
@@ -71,6 +112,7 @@ const ExplorePage = () => {
         onReset={() => setSelectedInterestFields([])}
         onConfirm={() => {
           /* 필터 적용 로직 */
+          console.log('필터 적용 로직');
         }}
       />
     </div>
