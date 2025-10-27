@@ -1,11 +1,11 @@
 class HttpError extends Error {
-  statusCode: number;
+  status: number;
   response?: any;
 
-  constructor(message: string, statusCode: number, response?: any) {
+  constructor(message: string, status: number, response?: any) {
     super(message);
     this.name = 'CustomHttpError';
-    this.statusCode = statusCode;
+    this.status = status;
     this.response = response;
   }
 }

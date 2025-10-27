@@ -4,6 +4,8 @@ import { ProjectResponse } from '../../../models/project';
 import { PROJECT_QUERY_KEY } from './key';
 import { LIBRARY_QUERY_KEY } from '../../library/key';
 import { getAccessToken } from '../../../api/token';
+import axios from 'axios';
+import HttpError from '../../../api/httpError';
 
 export const useAddBookmarkMutation = (onError?: () => void) => {
   const queryClient = useQueryClient();
@@ -39,7 +41,7 @@ export const useAddBookmarkMutation = (onError?: () => void) => {
       queryClient.invalidateQueries({ queryKey: [LIBRARY_QUERY_KEY.savedBoards] });
       queryClient.invalidateQueries({ queryKey: [LIBRARY_QUERY_KEY.myProjectBoards] });
     },
-    onError: (error: any, boardId, context) => {
+    onError: (error: HttpError, boardId, context) => {
       // 실패 시 이전 데이터로 롤백
       if (context?.previousData) {
         queryClient.setQueryData([PROJECT_QUERY_KEY.project], context.previousData);
@@ -49,8 +51,8 @@ export const useAddBookmarkMutation = (onError?: () => void) => {
       console.error('북마크 추가 실패:', error);
 
       // 500 에러 또는 인증 오류 체크
-      const isAuthError =
-        error?.response?.status === 401 || error?.response?.status === 500 || !getAccessToken();
+      const isAuthError = error.status === 401 || error.status === 500 || !getAccessToken();
+      console.log('isAuthError', isAuthError);
       if (isAuthError && onError) {
         onError();
       } else if (!isAuthError) {
