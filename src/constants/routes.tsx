@@ -15,4 +15,5 @@ export const ROUTES = {
   toolkitDetail: '/toolkit/:id',
   login: '/login',
   myprofile: '/myprofile',
+  myprofileSetting: '/myprofile/setting',
 };

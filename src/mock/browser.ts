@@ -7,6 +7,7 @@ import { savedBoards as savedBoardsHandler } from './savedBoards';
 import { myProjectBoards, deleteMyProject, modifyProjectActive } from './myProject';
 import { chatRooms } from './chat';
 import { addBookmark, removeBookmark } from './bookmark';
+import { myProfileDetail } from './myProfile';
 
 const handlers = [
   ex,
@@ -20,6 +21,7 @@ const handlers = [
   chatRooms,
   addBookmark,
   removeBookmark,
+  myProfileDetail,
 ];
 
 export const worker = setupWorker(...handlers);

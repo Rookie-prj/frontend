@@ -18,6 +18,7 @@ import Intro from '../pages/intro/intro';
 import Onboarding from '../pages/onboarding/onboarding';
 import Login from '../pages/login/login';
 import MyProfile from '../pages/myprofile';
+import MyProfileSetting from '../pages/myprofile/setting';
 import QueryErrorBoundary from '../error/QueryErrorBoundary';
 
 const AppRoutes = () => {
@@ -139,6 +140,16 @@ const AppRoutes = () => {
         <QueryErrorBoundary>
           <Layout hideNavigation={true}>
             <MyProfile />
+          </Layout>
+        </QueryErrorBoundary>
+      ),
+    },
+    {
+      path: ROUTES.myprofileSetting,
+      element: (
+        <QueryErrorBoundary>
+          <Layout hideNavigation={true}>
+            <MyProfileSetting />
           </Layout>
         </QueryErrorBoundary>
       ),
