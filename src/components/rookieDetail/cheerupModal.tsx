@@ -32,6 +32,7 @@ function CheerupModal({
 
   const handleCheerup = () => {
     onCheerUp();
+    onClose();
   };
 
   return (

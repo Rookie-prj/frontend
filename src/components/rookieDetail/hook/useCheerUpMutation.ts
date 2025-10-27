@@ -9,11 +9,11 @@ export const useUserCheerUpMutation = () => {
     },
     onSuccess: (data) => {
       //토스트로 변경
-      alert('Cheer up successful!');
+      alert('지지 완료!');
     },
     onError: (error) => {
       //토스트로 변경
-      alert('Cheer up failed. Please try again.');
+      alert('이미 지지한 사용자에요');
     },
   });
 
