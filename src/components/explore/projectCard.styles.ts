@@ -43,7 +43,10 @@ export const ImageDimOverlay = styled.div`
   border-radius: 8px 8px 0 0;
 `;
 
-export const IconButtonWrapper = styled.div<{ iconSrc?: string }>`
+export const IconButtonWrapper = styled.div<{
+  iconSrc?: string;
+  onClick?: (e: React.MouseEvent) => void;
+}>`
   position: absolute;
   top: 10px;
   right: 10px;
@@ -122,7 +125,12 @@ export const TagsWrapper = styled.div`
   z-index: 1;
 `;
 
-export const Tag = styled.div<{ backgroundColor?: string; textColor?: string }>`
+export const Tag = styled.div<{
+  backgroundColor?: string;
+  isdoneType?: boolean;
+  textColor?: string;
+  doneType?: string;
+}>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,8 +138,16 @@ export const Tag = styled.div<{ backgroundColor?: string; textColor?: string }>`
   padding: 5px;
   height: 20px;
   border-radius: 6.49px;
-  background: ${(props) => props.backgroundColor || colors.gray[150]};
-  color: ${(props) => props.textColor || colors.gray[700]};
+  background: ${(props) => {
+    if (props.doneType === 'RECRUITMENT_END') {
+      return colors.red[100];
+    }
+    if (!props.isdoneType) {
+      return colors.gray[150];
+    }
+    return colors.green[100];
+  }};
+  color: ${(props) => props.textColor || colors.gray[800]};
   font-size: 10px;
   font-weight: 700;
   line-height: 1.19em;
