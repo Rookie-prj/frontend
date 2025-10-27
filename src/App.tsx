@@ -18,9 +18,9 @@ const App = () => {
     <>
       <GlobalLayout />
       <QueryClientProvider client={queryClient}>
-        <MSWProvider>
-          <AppRoutes />
-        </MSWProvider>
+        {/* <MSWProvider> */}
+        <AppRoutes />
+        {/* </MSWProvider> */}
       </QueryClientProvider>
       {/* <QueryClientProvider client={queryClient}>
           <AppRoutes />

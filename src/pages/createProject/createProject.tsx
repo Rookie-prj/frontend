@@ -45,9 +45,6 @@ export const CreateProject = () => {
 
       // 성공 시 스토어 초기화
       storeData.reset();
-
-      // 성공 시 추가 로직 (리다이렉트 등)
-      // navigate('/projects') 또는 다른 페이지로 이동
     } catch (error) {
       console.error('❌ 프로젝트 생성 실패:', error);
       alert('프로젝트 생성 중 오류가 발생했습니다. 다시 시도해주세요.');

@@ -12,18 +12,6 @@ import { createBoardWithImages } from './boards';
 import { BoardWithImagesRequest } from '../models/boards';
 import { format } from 'date-fns';
 
-// 헬퍼 함수들
-// const getPeriodInMonths = (period: string): number => {
-//   const periodMap: { [key: string]: number } = {
-//     ONE_MONTH: 1,
-//     TWO_MONTHS: 2,
-//     THREE_MONTHS: 3,
-//     SIX_MONTHS: 6,
-//     ONE_YEAR: 12,
-//   };
-//   return periodMap[period] || 1;
-// };
-
 /**
  * 프로젝트 목록 조회
  * GET /api/projects
@@ -186,12 +174,12 @@ export const createProjectFromStore = async (storeData: StoreProjectData): Promi
       workTools: storeData.selectedTools || [],
       collabTools: storeData.selectedTools || [],
       doneType: storeData.selectedEndDateType || '',
+      processStatus: storeData.selectedProjectStatus || '',
       images: storeData.selectedImages || [],
     };
     console.log('📝 변환된 게시글 데이터:', boardData);
     console.log('📝 원본 스토어 데이터:', storeData);
 
-    // boards API를 사용하여 게시글 생성
     const result = await createBoardWithImages(boardData);
     console.log('✅ 스토어 데이터로 게시글 생성 성공:', result);
     return result;

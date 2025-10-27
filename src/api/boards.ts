@@ -2,7 +2,6 @@ import { apiClient } from './index';
 import { API_ENDPOINT } from '../constants/apiEndpoint';
 import {
   Board,
-  BoardCreateRequest,
   BoardUpdateRequest,
   BoardWithImagesRequest,
   ImageUploadResponse,
@@ -39,22 +38,6 @@ export const getBoardDetail = async (id: number): Promise<Board> => {
     return response;
   } catch (error) {
     console.error('❌ 게시판 상세 조회 실패:', error);
-    throw error;
-  }
-};
-
-/**
- * 게시판 생성
- * POST /api/boards
- */
-export const createBoard = async (boardData: BoardCreateRequest): Promise<Board> => {
-  try {
-    console.log('🚀 게시판 생성 시작:', boardData);
-    const response = await apiClient.post<Board>(API_ENDPOINT.BOARDS, boardData);
-    console.log('✅ 게시판 생성 성공:', response);
-    return response;
-  } catch (error) {
-    console.error('❌ 게시판 생성 실패:', error);
     throw error;
   }
 };
@@ -124,6 +107,7 @@ export const createBoardWithImages = async (boardData: BoardWithImagesRequest): 
       workTools: boardData.workTools,
       collabTools: boardData.collabTools,
       doneType: boardData.doneType,
+      processStatus: boardData.processStatus,
     };
 
     console.log('📝 JSON Data:', jsonData);
