@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import { ErrorBoundaryContext } from '../context/ErrorBoundaryContext';
 import * as S from './ErrorFallBack.styles';
-import wifi from '../assets/wifi.svg';
 import Button from '../components/common/button/button';
 import { HTTP_STATUS } from '../constants/http';
 import HttpError from '../api/httpError';
 import rookieGray from '../assets/icons/rookieGray.svg';
+import Header from '../components/header/header';
 
 interface ErrorFallBackProps {
   error: HttpError;
@@ -25,15 +25,20 @@ const ErrorFallback = ({ error }: ErrorFallBackProps) => {
   const { resetErrorBoundary } = context;
 
   return (
-    <S.Container>
-      <img src={rookieGray} alt="rookieGray" />
-      <S.ErrorMessage>{errorMessage}</S.ErrorMessage>
-      <div style={{ display: 'flex', justifyContent: 'center', width: '300px' }}>
-        <Button size="medium" variant="primary" onClick={resetErrorBoundary}>
-          재시도하기
-        </Button>
+    <>
+      <div style={{ padding: '0 16px' }}>
+        <Header type="backdrop" />
       </div>
-    </S.Container>
+      <S.Container>
+        <img src={rookieGray} alt="rookieGray" />
+        <S.ErrorMessage>{errorMessage}</S.ErrorMessage>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '300px' }}>
+          <Button size="medium" variant="primary" onClick={resetErrorBoundary}>
+            재시도하기
+          </Button>
+        </div>
+      </S.Container>
+    </>
   );
 };
 
