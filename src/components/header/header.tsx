@@ -24,6 +24,7 @@ const Header = ({ type, title }: HeaderProps) => {
   const HeaderCase: Record<HeaderType, React.ReactNode> = {
     backdrop: <BackDrop />,
     backdropWithSkip: <BackDropWithSkip />,
+
     logo: (
       <>
         <img src={logo} alt="logo" />
