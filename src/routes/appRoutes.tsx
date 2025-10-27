@@ -18,6 +18,7 @@ import Intro from '../pages/intro/intro';
 import Onboarding from '../pages/onboarding/onboarding';
 import Login from '../pages/login/login';
 import MyProfile from '../pages/myprofile';
+import QueryErrorBoundary from '../error/QueryErrorBoundary';
 
 const AppRoutes = () => {
   const routes = [
@@ -39,11 +40,19 @@ const AppRoutes = () => {
         },
         {
           path: ROUTES.chat,
-          element: <Chat />,
+          element: (
+            <QueryErrorBoundary>
+              <Chat />
+            </QueryErrorBoundary>
+          ),
         },
         {
           path: ROUTES.library,
-          element: <Library />,
+          element: (
+            <QueryErrorBoundary>
+              <Library />
+            </QueryErrorBoundary>
+          ),
         },
         {
           path: ROUTES.hot,
@@ -127,9 +136,11 @@ const AppRoutes = () => {
     {
       path: ROUTES.myprofile,
       element: (
-        <Layout hideNavigation={true}>
-          <MyProfile />
-        </Layout>
+        <QueryErrorBoundary>
+          <Layout hideNavigation={true}>
+            <MyProfile />
+          </Layout>
+        </QueryErrorBoundary>
       ),
     },
   ];
