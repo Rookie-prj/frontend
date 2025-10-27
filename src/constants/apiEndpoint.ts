@@ -9,6 +9,7 @@ export const API_ENDPOINT = {
   CHEERUP: '/api/supports/user',
   LIBRARY_SAVED: '/library/bookmark',
   LIBRARY_MY_PROJECT: '/library/myproject',
+  LIBRARY_MY_DETAIL: '/library/myDetail',
   LIBRARY_DELETE_MY_PROJECT: '/library/deleteMyProject',
   LIBRARY_MODIFY_PROJECT_ACTIVE: '/library/modifyProjectActive',
   CHAT_ROOMS: '/api/chat/rooms/my',
