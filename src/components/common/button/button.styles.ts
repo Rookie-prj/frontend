@@ -5,7 +5,7 @@ export const BaseButton = styled.button<{ variant?: 'primary' | 'gray' }>`
   background-color: ${({ variant }) =>
     variant === 'primary' ? colors.green[200] : colors.gray[10]};
   color: ${colors.gray[800]};
-  width: 100%;
+
   display: flex;
   font-style: normal;
   font-weight: 700;
@@ -35,7 +35,7 @@ export const ButtonContainer = styled(BaseButton)<{ $size?: 'small' | 'medium' |
     if ($size === 'small') return '1rem 2rem';
     else if ($size === 'large') return '1rem 9.875rem';
   }};
-    &:disabled {
+  &:disabled {
     cursor: not-allowed;
   }
 `;
