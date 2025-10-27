@@ -9,12 +9,22 @@ interface ConfirmModalProps {
   onClose: () => void;
   message: string;
   confirmText?: string;
+  onConfirm?: () => void;
 }
 
-function ConfirmModal({ isOpen, onClose, message, confirmText = '확인' }: ConfirmModalProps) {
+function ConfirmModal({
+  isOpen,
+  onClose,
+  message,
+  confirmText = '확인',
+  onConfirm,
+}: ConfirmModalProps) {
   usePreventScroll(isOpen);
   const ref = useOutsideClick(() => onClose());
   const handleConfirm = () => {
+    if (onConfirm) {
+      onConfirm();
+    }
     onClose();
   };
 

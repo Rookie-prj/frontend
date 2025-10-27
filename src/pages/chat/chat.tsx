@@ -3,8 +3,8 @@ import { ChipBar } from '../../components/common/chipbar/chipBar';
 import Header from '../../components/header/header';
 import { CHAT_TABS, ChatTabValue } from '../../constants/filter';
 import { useEffect, useState } from 'react';
-// import SockJS from 'sockjs-client';
-// import { Client } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+import { Client } from '@stomp/stompjs';
 import useChatRooms from '../../hooks/useChatRooms';
 import ChatRoomList from '../../components/chat/chatRoomList';
 import { BASE_URL } from '../../api/httpclient';
@@ -15,36 +15,36 @@ import { ChatEmpty } from '../../components/chat';
 const Chat = () => {
   const [searchParams] = useSearchParams();
   const chatType = searchParams.get('roleType') as ChatTabValue;
-  // const [stompClient, setStompClient] = useState<Client | null>(null);
-  const { chatRooms, isLoading } = useChatRooms();
+  const [stompClient, setStompClient] = useState<Client | null>(null);
 
-  // 웹소켓 연결 (주석처리)
-  // useEffect(() => {
-  //   const socket = new SockJS(`${BASE_URL}${API_ENDPOINT.WS_CHAT}`);
-  //   const client = new Client({
-  //     webSocketFactory: () => socket,
-  //     reconnectDelay: 5000,
-  //     debug: function (str) {
-  //       console.log('STOMP:', str);
-  //     },
-  //     onConnect: () => {
-  //       console.log('웹소켓 연결 성공');
-  //       setStompClient(client);
-  //     },
-  //     onStompError: (frame) => {
-  //       console.log('웹소켓 연결 실패', frame);
-  //     },
-  //   });
+  const { chatRooms, isLoading, error } = useChatRooms();
 
-  //   console.log('웹소켓 연결 시도');
-  //   client.activate();
+  useEffect(() => {
+    const socket = new SockJS(`${BASE_URL}${API_ENDPOINT.WS_CHAT}`);
+    const client = new Client({
+      webSocketFactory: () => socket,
+      reconnectDelay: 5000,
+      debug: function (str) {
+        console.log('STOMP:', str);
+      },
+      onConnect: () => {
+        console.log('웹소켓 연결 성공');
+        setStompClient(client);
+      },
+      onStompError: (frame) => {
+        console.log('웹소켓 연결 실패', frame);
+      },
+    });
 
-  //   return () => {
-  //     if (client.connected) {
-  //       client.deactivate();
-  //     }
-  //   };
-  // }, []);
+    console.log('웹소켓 연결 시도');
+    client.activate();
+
+    return () => {
+      if (client.connected) {
+        client.deactivate();
+      }
+    };
+  }, []);
 
   return (
     <div>

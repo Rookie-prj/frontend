@@ -104,7 +104,7 @@ export class APIClient implements APIClientType {
         throwAPIError(error.response.status);
       }
       if (error instanceof HttpError) {
-        console.error(`HTTP Error ${error.statusCode}: ${error.message}`);
+        console.error(`HTTP Error ${error.status}: ${error.message}`);
       }
       throw error;
     }

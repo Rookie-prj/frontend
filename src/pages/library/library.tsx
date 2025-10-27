@@ -34,7 +34,9 @@ const Library = () => {
   const { handleModifyProjectActive } = useModifyProjectActiveMutation();
   const { myProjectBoards, isLoading: isLoadingMyProjectBoards } = useMyProjectBoardsQuery(
     sortType || 'my_project',
+    '철수',
   );
+
   const navigate = useNavigate();
   const {
     isOpen: isConfirmModalOpen,
