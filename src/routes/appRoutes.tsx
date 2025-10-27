@@ -17,6 +17,7 @@ import RookieDetail from '../pages/rookieDetail';
 import Intro from '../pages/intro/intro';
 import Onboarding from '../pages/onboarding/onboarding';
 import Login from '../pages/login/login';
+import MyProfile from '../pages/myprofile';
 
 const AppRoutes = () => {
   const routes = [
@@ -120,6 +121,14 @@ const AppRoutes = () => {
       element: (
         <Layout hideNavigation={true}>
           <Login />
+        </Layout>
+      ),
+    },
+    {
+      path: ROUTES.myprofile,
+      element: (
+        <Layout hideNavigation={true}>
+          <MyProfile />
         </Layout>
       ),
     },
