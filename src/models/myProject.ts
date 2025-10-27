@@ -1,5 +1,5 @@
 // 내가 작성한 프로젝트 모델
-export interface MyProjectBoardData {
+export interface CowrkrSpeciality {
   additionalProp1?: string;
   additionalProp2?: string;
   additionalProp3?: string;
@@ -9,19 +9,19 @@ export interface MyProjectBoard {
   boardId: number;
   boardType: 'PROJECT' | 'ROOKIE';
   estmtPeriod: number;
-  cowrkrPosition: string[];
-  data: MyProjectBoardData;
+  cowrkrPosition: string;
+  cowrkrSpeciality: CowrkrSpeciality;
   endDate: string;
   title: string;
   description: string;
   imageUrl1: string;
   imageUrl2: string;
   imageUrl3: string;
-  projectFields: string[];
+  projectFields: string;
   distance: string;
   techTools: string;
-  workTools: string[];
-  collabTools: string[];
+  workTools: string;
+  collabTools: string;
   collabMthds: string;
   isActive: boolean;
   requredPpl: number;
