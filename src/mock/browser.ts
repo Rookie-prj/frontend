@@ -5,7 +5,13 @@ import { project } from './project';
 import { postUserCheerup } from './cheerup';
 import { savedBoards as savedBoardsHandler } from './savedBoards';
 import { myProjectBoards, deleteMyProject, modifyProjectActive } from './myProject';
-import { chatRooms } from './chat';
+import {
+  chatRooms,
+  chatRoomMessages,
+  sendMessage,
+  sendMessageToRoom,
+  markMessagesAsRead,
+} from './chat';
 import { addBookmark, removeBookmark } from './bookmark';
 import { myProfileDetail } from './myProfile';
 
@@ -19,6 +25,10 @@ const handlers = [
   deleteMyProject,
   modifyProjectActive,
   chatRooms,
+  chatRoomMessages,
+  sendMessage,
+  sendMessageToRoom,
+  markMessagesAsRead,
   addBookmark,
   removeBookmark,
   myProfileDetail,

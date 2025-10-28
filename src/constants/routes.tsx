@@ -5,6 +5,7 @@ export const ROUTES = {
   explore: '/explore',
   rookieDetail: '/explore/rookie/:id',
   chat: '/chat',
+  chatRoom: '/chat/:id',
   library: '/library',
   hot: '/hot',
   createProject: '/create-project',
