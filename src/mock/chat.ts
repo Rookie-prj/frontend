@@ -256,6 +256,23 @@ export const sendMessage = http.post(
   },
 );
 
+// 채팅방 상세 조회
+export const chatRoomDetail = http.get(
+  `${API_BASE_URL}${API_ENDPOINT.CHAT_ROOM_MESSAGES}/:roomId`,
+  ({ params }) => {
+    const { roomId } = params;
+    const room = mockChatRooms.find((room) => room.id === roomId);
+
+    if (!room) {
+      return HttpResponse.json({ message: '채팅방을 찾을 수 없습니다.' }, { status: 404 });
+    }
+
+    return HttpResponse.json(room, {
+      status: 200,
+    });
+  },
+);
+
 // 메시지 읽음 처리
 export const markMessagesAsRead = http.put(
   `${API_BASE_URL}${API_ENDPOINT.CHAT_ROOM_MESSAGES}/:roomId/messages/read`,
