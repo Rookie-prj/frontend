@@ -1,13 +1,31 @@
 export interface Board {
-  id: number;
+  boardId: number;
+  boardType: 'PROJECT' | 'STUDY' | 'CONTEST' | 'MENTORING';
+  estmtPeriod: number;
+  cowrkrPosition: string[];
+  data: { [key: string]: number };
+  endDate: string;
   title: string;
-  content: string;
-  author: string;
-  createdAt: string;
-  updatedAt: string;
+  description: string;
   imageUrl1: string | null;
   imageUrl2: string | null;
   imageUrl3: string | null;
+  projectFields: string[];
+  distance: string;
+  processStatus: string;
+  techTools: string;
+  workTools: string[];
+  collabTools: string[];
+  collabMthds: string;
+  isActive: boolean;
+  requredPpl: number;
+  viewCount: number;
+  support: number;
+  bookmark: number;
+  writer: string;
+  doneType: string | null;
+  createdAt: string;
+  modifiedAt: string | null;
 }
 
 export interface BoardUpdateRequest {

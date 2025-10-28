@@ -26,7 +26,7 @@ export const CreateProjectStep1 = ({ onNext, currentStep }: CreateProjectStep1Pr
     setSelectedProjectType(projectType);
     console.log('Selected project type:', projectType);
   };
-  const handlePeriodSelect = (period: string) => {
+  const handlePeriodSelect = (period: number) => {
     setSelectedPeriod(period);
     console.log('Selected period:', period);
   };
@@ -49,8 +49,8 @@ export const CreateProjectStep1 = ({ onNext, currentStep }: CreateProjectStep1Pr
               <Options
                 key={option.value}
                 text={option.label}
-                isActive={selectedPeriod === option.value}
-                onClick={() => handlePeriodSelect(option.value)}
+                isActive={selectedPeriod === Number(option.value)}
+                onClick={() => handlePeriodSelect(Number(option.value))}
               />
             ))}
           </OptionsScrollWrapper>
