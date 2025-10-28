@@ -7,10 +7,13 @@ export const BackDropContainer = styled.div`
   height: 2.5rem;
   padding-top: 0.37rem;
   align-items: center;
+  cursor: pointer;
+  z-index: 100;
 `;
 
 export const BackDropWithSkipContainer = styled(BackDropContainer)`
   justify-content: space-between;
+
   p {
     color: ${colors.gray[400]};
     font-size: ${typography.subhead.subhead1.fontSize};
