@@ -12,18 +12,25 @@ import { useCreateProjectStore } from '../../../store/createProjectStore';
 interface ProjectCategorySectionProps {
   showViewAll?: boolean;
   layout?: 'row' | 'col';
+  onCardClick?: (projectType: string) => void;
 }
 
 const ProjectCategorySection = ({
   showViewAll = true,
   layout = 'row',
+  onCardClick,
 }: ProjectCategorySectionProps) => {
   const navigate = useNavigate();
   const { selectedProjectType, setSelectedProjectType } = useCreateProjectStore();
 
   const handleCardClick = (projectType: string) => {
-    setSelectedProjectType(projectType);
-    navigate(`${ROUTES.explore}?roleType=${projectType}`);
+    if (onCardClick) {
+      // onCardClick이 있으면 그것을 사용 (step1에서 스토어에 저장)
+      onCardClick(projectType);
+    } else {
+      // onCardClick이 없으면 navigate (홈화면에서 페이지 이동)
+      navigate(`${ROUTES.explore}?roleType=${projectType}`);
+    }
   };
 
   return (
