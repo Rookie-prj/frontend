@@ -11,9 +11,9 @@ export const HeroBannerContainer = styled.div`
 
 export const SlideContainer = styled.div<{ currentSlide: number }>`
   display: flex;
-  width: 200%;
+  width: 300%;
   height: 100%;
-  transform: translateX(${({ currentSlide }) => -currentSlide * 50}%);
+  transform: translateX(${({ currentSlide }) => -currentSlide * 33.333}%);
   transition: transform 0.5s ease-in-out;
 `;
 
