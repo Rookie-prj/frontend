@@ -13,6 +13,9 @@ export const API_ENDPOINT = {
   LIBRARY_DELETE_MY_PROJECT: '/library/deleteMyProject',
   LIBRARY_MODIFY_PROJECT_ACTIVE: '/library/modifyProjectActive',
   CHAT_ROOMS: '/api/chat/rooms/my',
+  CHAT_ROOM_MESSAGES: '/api/chat/rooms',
+  CHAT_SEND: '/api/chat/send',
+  CHAT_SEND_TO_ROOM: '/api/chat/rooms',
   WS_CHAT: '/ws-chat',
   BOOKMARK: '/api/bookmark',
 
