@@ -22,6 +22,8 @@ import { useModifyProjectActiveMutation } from '../../components/library/hook/us
 import { ROUTES } from '../../constants/routes';
 import EmptyState from '../../components/common/emptyState/emptyState';
 import rookieyGray from '../../assets/icons/rookieGray.svg';
+import { useMyProfileDetail } from '../../hooks/useMyProfile';
+import RedirectModal from '../../components/rookieDetail/redirectModal';
 
 const Library = () => {
   const [searchParams] = useSearchParams();
@@ -32,9 +34,10 @@ const Library = () => {
   const { handleRemoveBookmark } = useRemoveBookmarkMutation();
   const { handleDeleteMyProject } = useDeleteMyProjectMutation();
   const { handleModifyProjectActive } = useModifyProjectActiveMutation();
+  const { profile } = useMyProfileDetail();
   const { myProjectBoards, isLoading: isLoadingMyProjectBoards } = useMyProjectBoardsQuery(
     sortType || 'my_project',
-    '철수',
+    profile?.name,
   );
 
   const navigate = useNavigate();
@@ -52,6 +55,11 @@ const Library = () => {
     isOpen: isActionSheetOpen,
     handleModalClose: handleActionSheetClose,
     handleModalOpen: handleActionSheetOpen,
+  } = useModal();
+  const {
+    isOpen: isRedirectModalOpen,
+    handleModalClose: handleRedirectModalClose,
+    handleModalOpen: handleRedirectModalOpen,
   } = useModal();
 
   const handleDeleteBookmark = (boardId: number) => {
@@ -71,8 +79,17 @@ const Library = () => {
   };
 
   const handleComplete = () => {
-    handleModifyProjectActive(selectedBoardId, true); // isActive를 false로 설정하여 모집완료로 변경
-    handleConfirmModalOpen();
+    handleModifyProjectActive(
+      { boardId: selectedBoardId, isActive: true },
+      {
+        onSuccess: () => {
+          handleConfirmModalOpen();
+        },
+        onError: () => {
+          handleRedirectModalOpen();
+        },
+      },
+    ); // isActive를 false로 설정하여 모집완료로 변경
     handleActionSheetClose();
   };
 
@@ -108,11 +125,11 @@ const Library = () => {
     <div>
       <Header type="library" />
       <CategoryBar sortType={sortType} />
-      <FilterBar sortType={sortType} roleType={roleType} />
+      {sortType === 'my_project' && <FilterBar sortType={sortType} roleType={roleType} />}
 
       <div style={{ paddingBottom: '130px' }}>
         {(sortType === 'saved' || !sortType) && (
-          <div style={{ padding: '4px 16px 0 16px' }}>
+          <div style={{ padding: '4px 16px 0 16px', marginTop: '16px' }}>
             {savedBoards.length > 0 && (
               <ProjectList
                 projects={savedBoards}
@@ -156,12 +173,27 @@ const Library = () => {
         onClose={handleDeleteModalClose}
         onConfirm={() => {
           if (sortType === 'my_project') {
-            handleDeleteMyProject(selectedBoardId);
+            handleDeleteMyProject(selectedBoardId, {
+              onError: () => {
+                handleRedirectModalOpen();
+              },
+            });
           } else {
-            handleRemoveBookmark(selectedBoardId);
+            handleRemoveBookmark(selectedBoardId, {
+              onError: () => {
+                handleRedirectModalOpen();
+              },
+            });
           }
         }}
         message={sortType === 'my_project' ? '프로젝트를 삭제할까요?' : '보관함에서 제거할까요?'}
+      />
+
+      <RedirectModal
+        isOpen={isRedirectModalOpen}
+        onClose={handleRedirectModalClose}
+        redirectTo={ROUTES.login}
+        title="로그인이 필요해요"
       />
 
       <ActionBottomSheet

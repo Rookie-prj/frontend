@@ -63,9 +63,5 @@ export const useRemoveBookmarkMutation = (onError?: () => void) => {
     },
   });
 
-  const handleRemoveBookmark = (boardId: number) => {
-    removeBookmarkMutation.mutate(boardId);
-  };
-
-  return { handleRemoveBookmark };
+  return { handleRemoveBookmark: removeBookmarkMutation.mutate };
 };

@@ -14,13 +14,11 @@ export const useDeleteMyProjectMutation = () => {
     },
     onError: (error) => {
       console.error('내 프로젝트 삭제 실패:', error);
-      alert('프로젝트 삭제에 실패했습니다. 다시 시도해주세요.');
     },
   });
 
-  const handleDeleteMyProject = (boardId: number) => {
-    deleteMyProjectMutation.mutate(boardId);
+  return {
+    handleDeleteMyProject: deleteMyProjectMutation.mutate,
+    isLoading: deleteMyProjectMutation.isPending,
   };
-
-  return { handleDeleteMyProject, isLoading: deleteMyProjectMutation.isPending };
 };

@@ -28,6 +28,6 @@ export const mockMyProfileDetail: MyProfileDetail = {
 // 내 프로필 상세 정보 조회
 export const myProfileDetail = http.get(`${API_BASE_URL}${API_ENDPOINT.LIBRARY_MY_DETAIL}`, () => {
   return HttpResponse.json(mockMyProfileDetail, {
-    status: 500,
+    status: 200,
   });
 });

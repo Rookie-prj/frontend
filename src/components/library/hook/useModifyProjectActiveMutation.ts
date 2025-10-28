@@ -15,13 +15,11 @@ export const useModifyProjectActiveMutation = () => {
     },
     onError: (error) => {
       console.error('프로젝트 상태 변경 실패:', error);
-      alert('프로젝트 상태 변경에 실패했습니다. 다시 시도해주세요.');
     },
   });
 
-  const handleModifyProjectActive = (boardId: number, isActive: boolean) => {
-    modifyProjectActiveMutation.mutate({ boardId, isActive });
+  return {
+    handleModifyProjectActive: modifyProjectActiveMutation.mutate,
+    isLoading: modifyProjectActiveMutation.isPending,
   };
-
-  return { handleModifyProjectActive, isLoading: modifyProjectActiveMutation.isPending };
 };
