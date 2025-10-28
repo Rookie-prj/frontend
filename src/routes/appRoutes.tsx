@@ -20,6 +20,7 @@ import Login from '../pages/login/login';
 import MyProfile from '../pages/myprofile';
 import MyProfileSetting from '../pages/myprofile/setting';
 import QueryErrorBoundary from '../error/QueryErrorBoundary';
+import Chatroom from '../pages/chat/chatRoom/chatroom';
 
 const AppRoutes = () => {
   const routes = [
@@ -150,6 +151,16 @@ const AppRoutes = () => {
         <QueryErrorBoundary>
           <Layout hideNavigation={true}>
             <MyProfileSetting />
+          </Layout>
+        </QueryErrorBoundary>
+      ),
+    },
+    {
+      path: ROUTES.chatRoom,
+      element: (
+        <QueryErrorBoundary>
+          <Layout hideNavigation={true}>
+            <Chatroom />
           </Layout>
         </QueryErrorBoundary>
       ),
