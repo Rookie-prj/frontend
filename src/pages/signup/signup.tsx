@@ -1,4 +1,6 @@
 import { useSignupFunnel } from '../../hooks/funnel/signupContext';
+import { signupFromStore } from '../../api/auth';
+import { useSignupStore } from '../../store/signupStore';
 
 import { EmailPassword } from './steps/emailPassword';
 import { University } from './steps/university';
@@ -13,11 +15,32 @@ import { ProjectCountStep } from './steps/projectCount';
 
 export const Signup = () => {
   const funnel = useSignupFunnel();
+  const { name } = useSignupStore();
 
-  const handleSubmit = () => {
-    // 프로젝트 등록 로직
-    console.log('프로젝트가 등록되었습니다!');
-    // 여기에 API 호출이나 다른 로직을 추가할 수 있습니다
+  const handleSubmit = async () => {
+    try {
+      console.log('🚀 회원가입 프로세스 시작');
+
+      // 스토어에서 회원가입 실행
+      const result = await signupFromStore({
+        name: name || '사용자', // 스토어에서 이름 가져오기
+        recruitPeople: '2-3명',
+        responseRate: '90%',
+        passionMeter: '85%',
+      });
+
+      console.log('✅ 회원가입 성공:', result);
+
+      // 성공 시 추가 로직 (토큰 저장, 리다이렉트 등)
+      if (result.success) {
+        console.log('🎉 회원가입이 완료되었습니다!');
+        // 필요시 토큰 저장 또는 다른 처리
+      }
+    } catch (error) {
+      console.error('❌ 회원가입 실패:', error);
+      // 에러 처리 로직
+      alert('회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
   };
 
   return funnel.Render({

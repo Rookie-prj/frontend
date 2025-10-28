@@ -74,14 +74,14 @@ const getSizeStyles = ($size: ChipSize) => {
       return {
         padding: '12px 14px',
         height: '35px',
-        font: typography.caption.caption5, //12px
+        fontSize: typography.caption.caption5.fontSize, //12px
       };
     case 'medium':
     default:
       return {
         padding: '8.5px 11px',
         height: '33px',
-        fontSize: typography.caption.caption4, // 10px
+        fontSize: typography.caption.caption4.fontSize, // 10px
       };
   }
 };

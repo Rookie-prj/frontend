@@ -1,15 +1,24 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { ROOKIE_QUERY_KEY } from './key';
+import { PROJECT_QUERY_KEY, ROOKIE_QUERY_KEY } from './key';
 import { ExploreCategoryValue } from '../../../constants/category';
 import { getProjects } from '../api/project';
 import { ProjectResponse } from '../../../models/project';
 
-const useProjectsQuery = (sortType: ExploreCategoryValue) => {
+interface UseProjectsQueryParams {
+  sortType?: ExploreCategoryValue;
+  boardType?: string;
+}
+
+const useProjectsQuery = ({ sortType, boardType }: UseProjectsQueryParams = {}) => {
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery<ProjectResponse>({
-      queryKey: ['projects'],
+      queryKey: [PROJECT_QUERY_KEY.project, boardType],
       queryFn: async ({ pageParam = 0 }) => {
-        return await getProjects({ page: pageParam as number, size: 10 });
+        return await getProjects({
+          page: pageParam as number,
+          size: 10,
+          boardType,
+        });
       },
       getNextPageParam: (lastPage, allPages) => {
         if (!lastPage || !lastPage.boards || lastPage.boards.length < 10) {

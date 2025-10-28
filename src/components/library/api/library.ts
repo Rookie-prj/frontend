@@ -3,42 +3,37 @@ import { apiClient } from '../../../api/index';
 import { SavedLibraryResponse } from '../../../models/saved';
 import { MyProjectLibraryResponse } from '../../../models/myProject';
 
-interface GetSavedBoardsParams {
-  page?: number;
-  size?: number;
-  sortBy?: string;
-  sortDirection?: string;
-}
-
 interface GetMyProjectBoardsParams {
-  page?: number;
-  size?: number;
-  sortBy?: string;
-  sortDirection?: string;
+  writer?: string;
 }
 
-export const getSavedBoards = (params: GetSavedBoardsParams = {}) => {
-  const { page = 0, size = 10, sortBy = 'createdAt', sortDirection = 'desc' } = params;
+export const getSavedBoards = () => {
+  return apiClient.get<SavedLibraryResponse>(API_ENDPOINT.LIBRARY_SAVED);
+};
 
-  return apiClient.get<SavedLibraryResponse>(API_ENDPOINT.LIBRARY_SAVED, {
+export const getMyProjectBoards = (params: GetMyProjectBoardsParams = {}) => {
+  const { writer } = params;
+
+  return apiClient.get<MyProjectLibraryResponse>(API_ENDPOINT.LIBRARY_MY_PROJECT, {
     params: {
-      page,
-      size,
-      sortBy,
-      sortDirection,
+      writer,
     },
   });
 };
 
-export const getMyProjectBoards = (params: GetMyProjectBoardsParams = {}) => {
-  const { page = 0, size = 10, sortBy = 'createdAt', sortDirection = 'desc' } = params;
-
-  return apiClient.get<MyProjectLibraryResponse>(API_ENDPOINT.LIBRARY_MY_PROJECT, {
+export const deleteMyProject = (boardId: number) => {
+  return apiClient.delete(API_ENDPOINT.LIBRARY_DELETE_MY_PROJECT, {
     params: {
-      page,
-      size,
-      sortBy,
-      sortDirection,
+      boardId,
+    },
+  });
+};
+
+export const modifyProjectActive = (boardId: number, isActive: boolean) => {
+  return apiClient.patch(API_ENDPOINT.LIBRARY_MODIFY_PROJECT_ACTIVE, undefined, {
+    params: {
+      boardId,
+      isActive,
     },
   });
 };

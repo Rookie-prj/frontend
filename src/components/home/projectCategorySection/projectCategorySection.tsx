@@ -11,13 +11,11 @@ import { useCreateProjectStore } from '../../../store/createProjectStore';
 
 interface ProjectCategorySectionProps {
   showViewAll?: boolean;
-  onCardClick?: (projectType: string) => void;
   layout?: 'row' | 'col';
 }
 
 const ProjectCategorySection = ({
   showViewAll = true,
-  onCardClick,
   layout = 'row',
 }: ProjectCategorySectionProps) => {
   const navigate = useNavigate();
@@ -25,9 +23,7 @@ const ProjectCategorySection = ({
 
   const handleCardClick = (projectType: string) => {
     setSelectedProjectType(projectType);
-    if (onCardClick) {
-      onCardClick(projectType);
-    }
+    navigate(`${ROUTES.explore}?roleType=${projectType}`);
   };
 
   return (

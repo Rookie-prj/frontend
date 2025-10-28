@@ -5,14 +5,29 @@ import member from '../../assets/icons/member.svg';
 import position from '../../assets/icons/electronic.svg';
 import profile from '../../assets/icons/profileEx.svg';
 import { MyProjectBoard } from '../../models/myProject';
-import { SavedBoard } from '../../models/saved';
+import { BookmarkBoard } from '../../models/saved';
+import bookmark from '../../assets/icons/bookmark_fiiled.svg';
+import { Link, useNavigate } from 'react-router-dom';
+
 interface ProjectCardProps {
-  project: Project | MyProjectBoard | SavedBoard;
+  project: Project | MyProjectBoard | BookmarkBoard;
   rightIcon?: string;
+  isBookmark: boolean;
+  handleAddBookmark?: (boardId: number) => void;
   onDeleteModalOpen?: () => void;
+  handleDeleteBookmark?: (boardId: number) => void;
+  onActionSheetOpen?: (boardId: number) => void;
 }
 
-function ProjectCard({ project, rightIcon, onDeleteModalOpen }: ProjectCardProps) {
+function ProjectCard({
+  project,
+  rightIcon,
+  isBookmark,
+  handleAddBookmark,
+  handleDeleteBookmark,
+  onActionSheetOpen,
+}: ProjectCardProps) {
+  const navigate = useNavigate();
   // D-day 계산
   const calculateDday = (endDate: string) => {
     const today = new Date();
@@ -24,14 +39,42 @@ function ProjectCard({ project, rightIcon, onDeleteModalOpen }: ProjectCardProps
 
   // 첫 번째 이미지 또는 기본 이미지
   const projectImage = project.imageUrl1 || backgroundImg;
-
+  const handleRoute = (id: number) => {
+    navigate(`/post/${id}`);
+  };
   return (
-    <S.ProjectCardContainer>
+    <S.ProjectCardContainer onClick={() => handleRoute(project.boardId)}>
       <S.ProjectImageWrapper>
         <S.ProjectImage src={projectImage} alt="프로젝트 이미지" />
         <S.ImageDimOverlay />
 
-        <S.IconButtonWrapper iconSrc={rightIcon} onClick={onDeleteModalOpen}></S.IconButtonWrapper>
+        {project.bookmark > 0 && isBookmark && (
+          <S.IconButtonWrapper
+            iconSrc={bookmark}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteBookmark?.(project.boardId);
+            }}
+          />
+        )}
+        {project.bookmark === 0 && isBookmark && (
+          <S.IconButtonWrapper
+            iconSrc={rightIcon}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAddBookmark?.(project.boardId);
+            }}
+          />
+        )}
+        {!isBookmark && (
+          <S.IconButtonWrapper
+            iconSrc={rightIcon}
+            onClick={(e) => {
+              e.stopPropagation();
+              onActionSheetOpen?.(project.boardId);
+            }}
+          />
+        )}
 
         <S.ProjectTitle>{project.title}</S.ProjectTitle>
 
@@ -40,8 +83,12 @@ function ProjectCard({ project, rightIcon, onDeleteModalOpen }: ProjectCardProps
         <S.ProfileImage src={profile} alt="작성자" />
 
         <S.TagsWrapper>
-          <S.Tag textColor="#1E2939">{calculateDday(project.endDate)}</S.Tag>
-          <S.Tag textColor="#364153">{project.distance}</S.Tag>
+          <S.Tag textColor="#1E2939" isdoneType={false}>
+            {calculateDday(project.endDate)}
+          </S.Tag>
+          <S.Tag doneType={project.doneType}>
+            {project.doneType === 'RECRUITMENT_END' ? '모집 완료' : '모집시 마감'}
+          </S.Tag>
         </S.TagsWrapper>
       </S.ProjectImageWrapper>
 
@@ -64,9 +111,14 @@ function ProjectCard({ project, rightIcon, onDeleteModalOpen }: ProjectCardProps
             필수 툴
           </S.DetailLabel>
           <S.DetailContent>
-            {project.cowrkrPosition?.join(', ') || ''}
+            {Array.isArray(project.cowrkrPosition)
+              ? project.cowrkrPosition.join(', ')
+              : project.cowrkrPosition || ''}
             <br />
-            {project.workTools?.join(', ') || project.techTools || ''}
+            {Array.isArray(project.workTools)
+              ? project.workTools.join(', ')
+              : project.workTools || ''}
+            {project.techTools || ''}
           </S.DetailContent>
         </S.DetailSection>
       </S.ContentWrapper>

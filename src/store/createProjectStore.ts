@@ -3,7 +3,7 @@ import { create } from 'zustand';
 interface CreateProjectState {
   selectedProjectType: string | null;
   selectedPosition: string | null;
-  selectedPeriod: string | null;
+  selectedPeriod: number | null;
   selectedPositionDetail: string | null;
   selectedPositionNumberOfPeople: string | null;
   selectedProjectTitle: string | null;
@@ -16,10 +16,11 @@ interface CreateProjectState {
   selectedMethod: string | null;
   skillText: string | null;
   selectedImages: File[];
+  projectFields: string[];
   setSelectedPositionDetail: (positionDetail: string | null) => void;
   setSelectedPositionNumberOfPeople: (positionNumberOfPeople: string | null) => void;
   setSelectedProjectType: (projectType: string | null) => void;
-  setSelectedPeriod: (period: string | null) => void;
+  setSelectedPeriod: (period: number | null) => void;
   setSelectedProjectTitle: (projectTitle: string | null) => void;
   setSelectedProjectDescription: (projectDescription: string | null) => void;
   setSelectedProjectStatus: (projectStatus: string | null) => void;
@@ -31,6 +32,7 @@ interface CreateProjectState {
   setSelectedMethod: (method: string | null) => void;
   setSkillText: (skillText: string | null) => void;
   setSelectedImages: (images: File[]) => void;
+  setProjectFields: (fields: string[]) => void;
   reset: () => void;
 }
 
@@ -50,6 +52,7 @@ export const useCreateProjectStore = create<CreateProjectState>((set) => ({
   selectedMethod: null,
   skillText: null,
   selectedImages: [],
+  projectFields: [],
   setSelectedPositionDetail: (positionDetail) => set({ selectedPositionDetail: positionDetail }),
   setSelectedProjectTitle: (projectTitle) => set({ selectedProjectTitle: projectTitle }),
   setSelectedPositionNumberOfPeople: (positionNumberOfPeople) =>
@@ -67,6 +70,7 @@ export const useCreateProjectStore = create<CreateProjectState>((set) => ({
   setSelectedMethod: (method) => set({ selectedMethod: method }),
   setSkillText: (skillText) => set({ skillText: skillText }),
   setSelectedImages: (images) => set({ selectedImages: images }),
+  setProjectFields: (fields) => set({ projectFields: fields }),
   reset: () =>
     set({
       selectedProjectType: null,
@@ -84,5 +88,6 @@ export const useCreateProjectStore = create<CreateProjectState>((set) => ({
       selectedMethod: null,
       skillText: null,
       selectedImages: [],
+      projectFields: [],
     }),
 }));

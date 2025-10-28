@@ -1,22 +1,41 @@
 import { Project } from '../../models';
 import ProjectCard from '../../components/explore/projectCard';
 import { MyProjectBoard } from '../../models/myProject';
-import { SavedBoard } from '../../models/saved';
+import { BookmarkBoard } from '../../models/saved';
+import { useAddBookmarkMutation } from './hooks/useAddBookmarkMutation';
+import { Link } from 'react-router-dom';
 interface ProjectListProps {
-  projects: Project[] | MyProjectBoard[] | SavedBoard[];
+  projects: Project[] | MyProjectBoard[] | BookmarkBoard[];
   rightIcon?: string;
+  isBookmark: boolean;
+  handleDeleteBookmark?: (boardId: number) => void;
   onDeleteModalOpen?: () => void;
+  onActionSheetOpen?: (boardId: number) => void;
+  onError?: () => void;
 }
-function ProjectList({ projects, rightIcon, onDeleteModalOpen }: ProjectListProps) {
+function ProjectList({
+  projects,
+  rightIcon,
+  isBookmark,
+  handleDeleteBookmark,
+  onDeleteModalOpen,
+  onActionSheetOpen,
+  onError,
+}: ProjectListProps) {
+  const { handleAddBookmark } = useAddBookmarkMutation(onError);
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {projects &&
         projects.map((project) => (
           <ProjectCard
-            key={project.boardId}
             project={project}
             rightIcon={rightIcon}
-            onDeleteModalOpen={onDeleteModalOpen}
+            isBookmark={isBookmark}
+            handleAddBookmark={handleAddBookmark}
+            handleDeleteBookmark={handleDeleteBookmark}
+            onActionSheetOpen={onActionSheetOpen}
+            key={project.boardId}
           />
         ))}
     </div>

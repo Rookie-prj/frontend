@@ -1,27 +1,21 @@
 // 보관함 모델
-export interface SavedBoardData {
-  additionalProp1?: string;
-  additionalProp2?: string;
-  additionalProp3?: string;
-}
-
-export interface SavedBoard {
+export interface BookmarkBoard {
   boardId: number;
   boardType: 'PROJECT' | 'ROOKIE';
   estmtPeriod: number;
-  cowrkrPosition: string[];
-  data: SavedBoardData;
+  cowrkrPosition: string | string[];
+  cowrkrSpeciality: Record<string, string>;
   endDate: string;
   title: string;
   description: string;
   imageUrl1: string;
   imageUrl2: string;
   imageUrl3: string;
-  projectFields: string[];
+  projectFields: string | string[];
   distance: string;
   techTools: string;
-  workTools: string[];
-  collabTools: string[];
+  workTools: string | string[];
+  collabTools: string | string[];
   collabMthds: string;
   isActive: boolean;
   requredPpl: number;
@@ -34,12 +28,16 @@ export interface SavedBoard {
   modifiedAt: string;
 }
 
+export interface BookmarkItem {
+  bookmarkId: number;
+  userId: number;
+  board: BookmarkBoard;
+  isActive: boolean;
+  createdAt: string;
+}
+
 export interface SavedLibraryResponse {
-  boards: SavedBoard[];
-  page: number;
-  size: number;
-  totalElements: number;
-  totalPages: number;
+  bookmarks: BookmarkItem[];
 }
 
 export default SavedLibraryResponse;

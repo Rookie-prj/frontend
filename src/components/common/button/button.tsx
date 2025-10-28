@@ -1,7 +1,7 @@
 import { ButtonContainer } from './button.styles';
 interface ButtonProps {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   size?: 'small' | 'medium' | 'large';
   variant?: 'primary' | 'gray';
   disabled?: boolean;
