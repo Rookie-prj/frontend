@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import RookieCard from '../../components/rookie/rookieCard/rookieCard';
 import Header from '../../components/header/header';
 import useRookieDetail from '../../hooks/useRookieDetail';
@@ -18,6 +18,7 @@ import {
 import { ROUTES } from '../../constants/routes';
 import { useUserCheerUpMutation } from '../../components/rookieDetail/hook/useCheerUpMutation';
 import { getAccessToken } from '../../api/token';
+import useChatRooms from '../../hooks/useChatRooms';
 
 function RookieDetail() {
   const { id } = useParams<{ id: string }>();
@@ -36,41 +37,55 @@ function RookieDetail() {
   const accessToken = getAccessToken();
   const [loginState, setLoginState] = useState<boolean>(accessToken ? true : false); // 임시 로그인 상태
   const { handleUserCheerUp } = useUserCheerUpMutation();
+  localStorage.setItem('otherUserName', rookie?.name || '');
+  localStorage.setItem('otherUserId', rookie?.userId.toString() || '');
+  const { chatRooms } = useChatRooms();
 
+  // 현재 rookie와 대화한 채팅방 찾기
+  const findChatRoomId = () => {
+    if (!rookie || !chatRooms || chatRooms.length === 0) {
+      return undefined;
+    }
+
+    const existingChatRoom = chatRooms.find((room) =>
+      room.participants.some((participant) => participant.userId === rookie.userId),
+    );
+
+    return existingChatRoom?.id;
+  };
+
+  const existingRoomId = findChatRoomId();
+  console.log(existingRoomId);
+  const navigate = useNavigate();
   if (isLoading) {
     return <Loading />;
   }
 
-  if (isError || !rookie) {
-    return (
-      <div>
-        <Header type="backdrop" />
-        <div style={{ padding: '20px', textAlign: 'center' }}>
-          루키 정보를 불러오는데 실패했습니다.
-        </div>
-      </div>
-    );
-  }
+  const hadnleToChatRoom = () => {
+    navigate(`${ROUTES.chat}/${existingRoomId}`);
+  };
 
   return (
     <div style={{ paddingBottom: '100px' }}>
       <div style={{ marginLeft: '16px', marginBottom: '10px' }}>
         <Header type="backdrop" />
       </div>
-      <RookieCard rookie={rookie} type="detail" />
+      {rookie && <RookieCard rookie={rookie} type="detail" />}
 
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '27px' }}>
-        <RookieStats
-          publicPortfolioCount={rookie.publicPortfolioCount}
-          responseRate={rookie.responseRate}
-          passionMeter={rookie.passionMeter}
-        />
+        {rookie && (
+          <RookieStats
+            publicPortfolioCount={rookie.publicPortfolioCount}
+            responseRate={rookie.responseRate}
+            passionMeter={rookie.passionMeter}
+          />
+        )}
       </div>
-      <RookieInfoSection rookie={rookie} />
+      {rookie && <RookieInfoSection rookie={rookie} />}
       <ProjectList limit={4} title="등록한 프로젝트" />
       <FixedBottomBar
         onSupport={loginState ? handleCheerupOpen : handleRedirectOpen}
-        onMessage={loginState ? handleCheerupOpen : handleRedirectOpen}
+        onMessage={loginState ? hadnleToChatRoom : handleRedirectOpen}
       />
       {/* 추후 로그인 상태로 제어 */}
       <RedirectModal
@@ -80,13 +95,15 @@ function RookieDetail() {
         redirectTo={ROUTES.login}
       />
 
-      <CheerupModal
-        isOpen={isCheerupOpen}
-        onClose={handleCheerupClose}
-        onCheerUp={() => handleUserCheerUp(rookie.userId)}
-        title={CHEERUP_TITLE(rookie.name)}
-        description={CHEERUP_DESCRIPTION(rookie.name)}
-      />
+      {rookie && (
+        <CheerupModal
+          isOpen={isCheerupOpen}
+          onClose={handleCheerupClose}
+          onCheerUp={() => handleUserCheerUp(rookie.userId)}
+          title={CHEERUP_TITLE(rookie.name)}
+          description={CHEERUP_DESCRIPTION(rookie.name)}
+        />
+      )}
     </div>
   );
 }
