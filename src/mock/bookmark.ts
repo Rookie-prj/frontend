@@ -9,5 +9,5 @@ export const addBookmark = http.post(`${BASE_URL}${API_ENDPOINT.BOOKMARK}/:board
 
 // 북마크 삭제
 export const removeBookmark = http.delete(`${BASE_URL}${API_ENDPOINT.BOOKMARK}/:boardId`, () => {
-  return HttpResponse.json({ message: '북마크가 삭제되었습니다.' }, { status: 500 });
+  return HttpResponse.json({ message: '북마크가 삭제되었습니다.' }, { status: 200 });
 });

@@ -12,6 +12,7 @@ const mockMyProjectBoardsData: MyProjectLibraryResponse = {
       boardType: 'PROJECT',
       estmtPeriod: 3,
       cowrkrPosition: '프론트엔드 개발자, 백엔드 개발자',
+      processStatus: 'RECRUITMENT_END',
       cowrkrSpeciality: {
         additionalProp1: 'React',
         additionalProp2: 'Node.js',
@@ -44,6 +45,7 @@ const mockMyProjectBoardsData: MyProjectLibraryResponse = {
       boardType: 'PROJECT',
       estmtPeriod: 2,
       cowrkrPosition: 'UI/UX 디자이너',
+      processStatus: 'IN_PROGRESS',
       cowrkrSpeciality: {
         additionalProp1: 'Figma',
         additionalProp2: 'Adobe XD',
@@ -75,6 +77,7 @@ const mockMyProjectBoardsData: MyProjectLibraryResponse = {
       boardType: 'ROOKIE',
       estmtPeriod: 1,
       cowrkrPosition: '신입 개발자',
+      processStatus: 'IN_PROGRESS',
       cowrkrSpeciality: {},
       endDate: '2025-11-15T00:00:00.000Z',
       title: '코딩 부트캠프 프로젝트',
@@ -103,6 +106,7 @@ const mockMyProjectBoardsData: MyProjectLibraryResponse = {
       boardType: 'PROJECT',
       estmtPeriod: 4,
       cowrkrPosition: '풀스택 개발자',
+      processStatus: 'IN_PROGRESS',
       cowrkrSpeciality: {},
       endDate: '2025-12-15T00:00:00.000Z',
       title: '이커머스 웹사이트 제작',
@@ -131,6 +135,7 @@ const mockMyProjectBoardsData: MyProjectLibraryResponse = {
       boardType: 'PROJECT',
       estmtPeriod: 3,
       cowrkrPosition: '프론트엔드 개발자, 백엔드 개발자',
+      processStatus: 'IN_PROGRESS',
       cowrkrSpeciality: {},
       endDate: '2025-12-08T00:00:00.000Z',
       title: '실시간 협업 도구 개발',
@@ -159,6 +164,7 @@ const mockMyProjectBoardsData: MyProjectLibraryResponse = {
       boardType: 'ROOKIE',
       estmtPeriod: 2,
       cowrkrPosition: '신입 개발자, 주니어 개발자',
+      processStatus: 'IN_PROGRESS',
       cowrkrSpeciality: {},
       endDate: '2025-11-22T00:00:00.000Z',
       title: '웹 개발 기초 스터디',
@@ -187,6 +193,7 @@ const mockMyProjectBoardsData: MyProjectLibraryResponse = {
       boardType: 'PROJECT',
       estmtPeriod: 5,
       cowrkrPosition: 'AI/ML 엔지니어, 데이터 사이언티스트',
+      processStatus: 'IN_PROGRESS',
       cowrkrSpeciality: {},
       endDate: '2025-12-25T00:00:00.000Z',
       title: 'AI 기반 개인화 서비스 개발',
@@ -215,6 +222,7 @@ const mockMyProjectBoardsData: MyProjectLibraryResponse = {
       boardType: 'PROJECT',
       estmtPeriod: 2,
       cowrkrPosition: '모바일 개발자, UI/UX 디자이너',
+      processStatus: 'IN_PROGRESS',
       cowrkrSpeciality: {},
       endDate: '2025-11-30T00:00:00.000Z',
       title: '건강 관리 모바일 앱 개발',
@@ -243,6 +251,7 @@ const mockMyProjectBoardsData: MyProjectLibraryResponse = {
       boardType: 'ROOKIE',
       estmtPeriod: 1,
       cowrkrPosition: '신입 개발자',
+      processStatus: 'IN_PROGRESS',
       cowrkrSpeciality: {},
       endDate: '2025-11-12T00:00:00.000Z',
       title: 'Git & GitHub 마스터하기',
@@ -271,6 +280,7 @@ const mockMyProjectBoardsData: MyProjectLibraryResponse = {
       boardType: 'PROJECT',
       estmtPeriod: 4,
       cowrkrPosition: '풀스택 개발자, DevOps 엔지니어',
+      processStatus: 'IN_PROGRESS',
       cowrkrSpeciality: {},
       endDate: '2025-12-18T00:00:00.000Z',
       title: '마이크로서비스 아키텍처 플랫폼',
@@ -299,6 +309,7 @@ const mockMyProjectBoardsData: MyProjectLibraryResponse = {
       boardType: 'PROJECT',
       estmtPeriod: 3,
       cowrkrPosition: '블록체인 개발자, 스마트 컨트랙트 개발자',
+      processStatus: 'IN_PROGRESS',
       cowrkrSpeciality: {},
       endDate: '2025-12-05T00:00:00.000Z',
       title: 'DeFi 프로토콜 개발',
@@ -324,9 +335,9 @@ const mockMyProjectBoardsData: MyProjectLibraryResponse = {
     },
   ],
   page: 0,
-  size: 10,
+  size: 11,
   totalElements: 11,
-  totalPages: 2,
+  totalPages: 1,
 };
 
 // 내가 작성한 프로젝트 API 핸들러
@@ -342,18 +353,18 @@ export const myProjectBoards = http.get(
       filteredBoards = mockMyProjectBoardsData.boards.filter((board) => board.writer === writer);
     }
 
-    return HttpResponse.json(
-      {
-        boards: filteredBoards,
-        page: 0,
-        size: filteredBoards.length,
-        totalElements: filteredBoards.length,
-        totalPages: 1,
-      },
-      {
-        status: 200,
-      },
-    );
+    // 일반 GET 방식 - 모든 데이터를 한 번에 반환
+    const response = {
+      boards: mockMyProjectBoardsData.boards,
+      page: 0,
+      size: filteredBoards.length,
+      totalElements: filteredBoards.length,
+      totalPages: 1,
+    };
+
+    return HttpResponse.json(response, {
+      status: 200,
+    });
   },
 );
 
@@ -371,9 +382,8 @@ export const deleteMyProject = http.delete(
     if (index > -1) {
       mockMyProjectBoardsData.boards.splice(index, 1);
       mockMyProjectBoardsData.totalElements -= 1;
-      mockMyProjectBoardsData.totalPages = Math.ceil(
-        mockMyProjectBoardsData.totalElements / mockMyProjectBoardsData.size,
-      );
+      mockMyProjectBoardsData.totalPages = 1;
+      mockMyProjectBoardsData.size = mockMyProjectBoardsData.boards.length;
     }
 
     return HttpResponse.json({ message: '프로젝트가 삭제되었습니다.' }, { status: 200 });
@@ -393,6 +403,7 @@ export const modifyProjectActive = http.patch(
     if (board) {
       board.isActive = isActive;
       board.doneType = isActive ? '진행중' : '모집완료';
+      board.processStatus = isActive ? 'IN_PROGRESS' : 'RECRUITMENT_END';
     }
 
     return HttpResponse.json({ message: '프로젝트 상태가 변경되었습니다.' }, { status: 200 });

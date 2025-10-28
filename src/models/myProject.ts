@@ -10,6 +10,7 @@ export interface MyProjectBoard {
   boardType: 'PROJECT' | 'ROOKIE';
   estmtPeriod: number;
   cowrkrPosition: string;
+  processStatus: string;
   cowrkrSpeciality: CowrkrSpeciality;
   endDate: string;
   title: string;
