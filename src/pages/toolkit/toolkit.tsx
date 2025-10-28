@@ -23,7 +23,9 @@ const Toolkit = () => {
         minHeight: '100vh',
       }}
     >
-      <Header type="backdrop" />
+      <div style={{ paddingLeft: '1rem' }}>
+        <Header type="backdrop" />
+      </div>
       <Header type="title" title="툴킷" />
 
       {/* 필터 섹션 */}

@@ -12,6 +12,7 @@ export const Container = styled.div`
   height: 72px;
   background-color: #f9fafb;
   position: relative;
+  cursor: pointer;
 `;
 
 export const ContentWrapper = styled.div`

@@ -4,8 +4,7 @@ import { colors } from '../../../style/colors';
 export const PostCardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  //width: 100%;
-  width: 172px;
+
   min-width: 0;
   height: 11.9375rem;
   border-radius: 0.5rem;

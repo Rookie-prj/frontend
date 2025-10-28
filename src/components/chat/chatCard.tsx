@@ -10,23 +10,39 @@ import {
 } from './chatRoom.styles';
 import profileEx from '../../assets/icons/profileEx.svg';
 
-interface ChatRoomProps {
+interface ChatCardProps {
+  userId: number;
   userName: string;
   lastMessage: string;
   unreadCount: number;
   profileImage?: string;
+  onClick?: () => void;
 }
 
-function ChatRoom({ userName, lastMessage, unreadCount }: ChatRoomProps) {
+function ChatCard({
+  userId,
+  userName,
+  lastMessage,
+  unreadCount,
+  profileImage,
+  onClick,
+}: ChatCardProps) {
+  const handleClick = () => {
+    localStorage.setItem('otherUserId', userId.toString());
+    localStorage.setItem('otherUserName', userName);
+    onClick?.();
+  };
+
+  const cleanLastMessage = lastMessage.replace(/^["']|["']$/g, '');
   return (
-    <Container>
+    <Container onClick={handleClick}>
       <ContentWrapper>
         <ProfileImage>
-          <img src={profileEx} alt="profile" />
+          <img src={profileImage || profileEx} alt="profile" />
         </ProfileImage>
         <MessageContent>
           <UserName>{userName}</UserName>
-          <LastMessage>{lastMessage}</LastMessage>
+          <LastMessage>{cleanLastMessage}</LastMessage>
         </MessageContent>
         {unreadCount > 0 && (
           <Badge>
@@ -38,4 +54,4 @@ function ChatRoom({ userName, lastMessage, unreadCount }: ChatRoomProps) {
   );
 }
 
-export default ChatRoom;
+export default ChatCard;
