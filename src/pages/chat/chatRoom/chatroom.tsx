@@ -1,28 +1,33 @@
-import { Client } from '@stomp/stompjs';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useChatMessages } from '../../../hooks/useChatMessages';
 import MessageItem from '../../../components/chat/chatroom';
 import ChatInput from '../../../components/chat/chatInput';
 import * as S from './chatroom.styles';
 import { Loading } from '../../../components/common/loading';
-import { useMyProfileDetail } from '../../../hooks/useMyProfile';
-import useMessageMutation, {
-  getRoomIdFromLocalStorage,
-} from '../../../components/chat/hook/useMessageMutation';
+import useMessageMutation from '../../../components/chat/hook/useMessageMutation';
 import ChatRoomHeader from '../../../components/chat/chatroom/header';
+import useChatRoomDetail from '../../../hooks/useChatRoomDetail';
+import { ChatRoom as ChatRoomType } from '../../../models/chat';
 
 function Chatroom() {
   const { id } = useParams();
-  const { messages, isLoading, error, refetch } = useChatMessages({
+  const { messages, isLoading } = useChatMessages({
     roomId: id as string,
     refetchInterval: 500,
   });
-  const { profile } = useMyProfileDetail();
-  const roomId = getRoomIdFromLocalStorage();
   const otherUserId = localStorage.getItem('otherUserId');
   const { handleSendMessage } = useMessageMutation();
   const messageEndRef = useRef<HTMLDivElement>(null);
+  const { data: chatRoomDetail } = useChatRoomDetail({
+    roomId: id as string,
+  });
+
+  const participantProfile = chatRoomDetail?.participants.find(
+    (p) => p.userId === Number(otherUserId),
+  );
+  const participantName = participantProfile?.name;
+  const profileImage = participantProfile?.profileImageUrl;
 
   // 메시지가 변경될 때마다 스크롤을 맨 아래로 이동
   useEffect(() => {
@@ -46,7 +51,12 @@ function Chatroom() {
       <ChatRoomHeader />
       <S.MessageContainer>
         {messages.map((message) => (
-          <MessageItem key={message.id} message={message} />
+          <MessageItem
+            key={message.id}
+            participantName={participantName || ''}
+            profileImage={profileImage || ''}
+            message={message}
+          />
         ))}
         <div ref={messageEndRef} />
       </S.MessageContainer>
