@@ -11,13 +11,8 @@ import DeleteConfirmModal from '../../components/common/deleteModal/deleteConfir
 
 const MyProfileSetting = () => {
   const navigate = useNavigate();
-  const { isOpen, handleModalClose, handleModalOpen } = useModal();
 
   const handleLogout = () => {
-    handleModalOpen();
-  };
-
-  const handleConfirmLogout = () => {
     clearAuthData();
     navigate(ROUTES.login);
   };
@@ -44,13 +39,6 @@ const MyProfileSetting = () => {
           <S.IconImage src={rightArrow} alt="arrow" />
         </S.SettingItem>
       </S.Container>
-
-      <DeleteConfirmModal
-        isOpen={isOpen}
-        onClose={handleModalClose}
-        onConfirm={handleConfirmLogout}
-        message="정말 로그아웃하시겠어요?"
-      />
     </>
   );
 };
