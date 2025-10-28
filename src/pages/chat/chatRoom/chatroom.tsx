@@ -23,11 +23,11 @@ function Chatroom() {
     roomId: id as string,
   });
 
-  const participantProfile = chatRoomDetail?.participants.find(
+  const participantProfile = chatRoomDetail?.participants?.find(
     (p) => p.userId === Number(otherUserId),
   );
-  const participantName = participantProfile?.name;
-  const profileImage = participantProfile?.profileImageUrl;
+  const participantName = participantProfile?.name || '';
+  const profileImage = participantProfile?.profileImageUrl || '';
 
   // 메시지가 변경될 때마다 스크롤을 맨 아래로 이동
   useEffect(() => {
@@ -53,8 +53,8 @@ function Chatroom() {
         {messages.map((message) => (
           <MessageItem
             key={message.id}
-            participantName={participantName || ''}
-            profileImage={profileImage || ''}
+            participantName={participantName}
+            profileImage={profileImage}
             message={message}
           />
         ))}
