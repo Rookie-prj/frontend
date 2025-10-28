@@ -8,6 +8,7 @@ import { myProjectBoards, deleteMyProject, modifyProjectActive } from './myProje
 import {
   chatRooms,
   chatRoomMessages,
+  chatRoomDetail,
   sendMessage,
   sendMessageToRoom,
   markMessagesAsRead,
@@ -26,6 +27,7 @@ const handlers = [
   modifyProjectActive,
   chatRooms,
   chatRoomMessages,
+  chatRoomDetail,
   sendMessage,
   sendMessageToRoom,
   markMessagesAsRead,
