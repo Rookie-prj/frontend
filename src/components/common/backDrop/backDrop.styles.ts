@@ -7,7 +7,6 @@ export const BackDropContainer = styled.div`
   height: 2.5rem;
   padding-top: 0.37rem;
   align-items: center;
-  padding-left: 1rem;
 `;
 
 export const BackDropWithSkipContainer = styled(BackDropContainer)`
