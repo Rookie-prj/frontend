@@ -27,6 +27,7 @@ const useProjectsQuery = ({ sortType, boardType }: UseProjectsQueryParams = {}) 
         return allPages.length;
       },
       initialPageParam: 0,
+      enabled: sortType === 'project' || !sortType,
     });
 
   const projects = data?.pages.flatMap((page) => page.boards) ?? [];
