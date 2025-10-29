@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import thunder from '../../../assets/icons/thunder.svg';
 import people from '../../../assets/icons/people.svg';
 import StatusChips from '../statusChips/statusChips';
-
 import {
   PostCardAuthor,
   PostCardContainer,
@@ -12,18 +11,22 @@ import {
   PostCardTitleText,
   PostCardTitleContent,
 } from './postCard.styles';
-
 import background from '../../../assets/img/background.svg';
+import backgroundImg from '../../../assets/img/dim.png';
 
 interface PostCardProps {
   id: number;
   title: string;
   author: string;
   progress?: string;
-  deadline?: string;
+  deadline: string;
+  total?: number;
+  field?: string;
+  imageUrl1?: string | null;
   backgroundImage?: string;
   backgroundColor?: string;
   overlayColor?: string;
+  variant?: 'default' | 'large';
 }
 
 export const PostCard = ({
@@ -32,9 +35,13 @@ export const PostCard = ({
   author,
   progress,
   deadline,
+  total,
+  field,
+  imageUrl1,
   backgroundImage = background,
   backgroundColor,
   overlayColor,
+  variant = 'default',
 }: PostCardProps) => {
   const navigate = useNavigate();
 
@@ -42,9 +49,15 @@ export const PostCard = ({
     navigate(`/post/${id}`);
   };
 
+  const projectImage = imageUrl1 || backgroundImg;
+
   return (
-    <PostCardContainer onClick={handleClick}>
-      <PostCardTitleWrapper backgroundImage={backgroundImage} backgroundColor={backgroundColor}>
+    <PostCardContainer $variant={variant} onClick={handleClick}>
+      <PostCardTitleWrapper
+        backgroundImage={projectImage}
+        backgroundColor={backgroundColor}
+        $variant={variant}
+      >
         <PostCardTitleContent>
           <PostCardTitleText>{title}</PostCardTitleText>
           <PostCardAuthor>{author}</PostCardAuthor>
@@ -53,15 +66,15 @@ export const PostCard = ({
       <div
         style={{ marginLeft: '0.95rem', display: 'flex', flexDirection: 'column', gap: '0.74rem' }}
       >
-        <StatusChips progress={progress || ''} deadline={deadline || ''} />
+        <StatusChips progress={progress || ''} deadline={deadline} />
         <PostCardRecruitTeamWrapper>
           <PostCardRecruitTeamPeople>
             <img src={people} alt="people" />
-            <span>2명</span>
+            <span>{total || 0}명</span>
           </PostCardRecruitTeamPeople>
 
           <PostCardRecruitTeamPeople>
-            <img src={thunder} alt="thunder" /> <span>개발자</span>
+            <img src={thunder} alt="thunder" /> <span>{field || '개발자'}</span>
           </PostCardRecruitTeamPeople>
         </PostCardRecruitTeamWrapper>
       </div>

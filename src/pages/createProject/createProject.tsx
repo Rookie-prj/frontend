@@ -13,7 +13,7 @@ export const CreateProject = () => {
   const [isLoading, setIsLoading] = useState(false);
   const storeData = useCreateProjectStore();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (onSuccess: (boardId: number) => void) => {
     try {
       setIsLoading(true);
       console.log('🚀 프로젝트 생성 프로세스 시작');
@@ -45,6 +45,8 @@ export const CreateProject = () => {
 
       // 성공 시 스토어 초기화
       storeData.reset();
+
+      onSuccess(result.boardId);
     } catch (error) {
       console.error('❌ 프로젝트 생성 실패:', error);
       alert('프로젝트 생성 중 오류가 발생했습니다. 다시 시도해주세요.');

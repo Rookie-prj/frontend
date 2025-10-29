@@ -6,6 +6,7 @@ import {
   ContentContainer,
   BookmarkInfo,
 } from './postDetail.styles';
+import backgroundImg from '../../assets/img/dim.png';
 import PreferenceSection from '../../components/post/postDetail/preferenceSection';
 import { CATEGORY, PostCategoryValue } from '../../constants/category';
 import BackDrop from '../../components/common/backDrop/backDrop';
@@ -37,9 +38,17 @@ const PostDetail: React.FC = () => {
     return <div>게시글을 찾을 수 없습니다.</div>;
   }
 
+  const projectImage = boardData.imageUrl1 || backgroundImg;
+
   return (
     <PostDetailContainer>
-      <HeaderImage>
+      <HeaderImage
+        style={{
+          backgroundImage: `url(${projectImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
         <BaseContainerWithSpaceBetween>
           <BackDrop />
         </BaseContainerWithSpaceBetween>

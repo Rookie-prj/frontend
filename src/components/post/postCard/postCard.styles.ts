@@ -1,32 +1,45 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
 
-export const PostCardContainer = styled.div`
+interface PostCardContainerProps {
+  $variant?: 'default' | 'large';
+}
+
+export const PostCardContainer = styled.div<PostCardContainerProps>`
   display: flex;
   flex-direction: column;
 
-  min-width: 0;
-  height: 11.9375rem;
+  min-width: ${({ $variant }) => ($variant === 'large' ? '17.5rem' : '10.75rem')};
+  width: ${({ $variant }) => ($variant === 'large' ? '17.5rem' : '100%')};
+  max-width: ${({ $variant }) => ($variant === 'large' ? '17.5rem' : '100%')};
+  height: ${({ $variant }) => ($variant === 'large' ? '16.3125rem' : '11.9375rem')};
   border-radius: 0.5rem;
   border: 1.25px solid ${colors.gray[100]};
   background: ${colors.white};
   cursor: pointer;
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.05);
   gap: 0.87rem;
+  overflow: ${({ $variant }) => ($variant === 'large' ? 'hidden' : 'visible')};
+  flex-shrink: 0;
 `;
 interface PostCardTitleWrapperProps {
   backgroundImage?: string;
   backgroundColor?: string;
 }
 
-export const PostCardTitleWrapper = styled.div<PostCardTitleWrapperProps>`
+interface PostCardTitleWrapperExtendedProps extends PostCardTitleWrapperProps {
+  $variant?: 'default' | 'large';
+}
+
+export const PostCardTitleWrapper = styled.div<PostCardTitleWrapperExtendedProps>`
   display: flex;
   flex-direction: column;
   border-radius: 0.5rem 0.5rem 0 0;
   position: relative;
   justify-content: flex-end;
   width: 100%;
-  height: 100%;
+  height: ${({ $variant }) => ($variant === 'large' ? '10.5rem' : '100%')};
+  min-height: ${({ $variant }) => ($variant === 'large' ? '10.5rem' : 'auto')};
   border-bottom: 1px solid ${colors.gray[150]};
   background-image: ${(props) =>
     props.backgroundImage ? `url(${props.backgroundImage})` : 'none'};
@@ -41,7 +54,7 @@ export const PostCardTitleWrapper = styled.div<PostCardTitleWrapperProps>`
     left: 0;
     right: 0;
     bottom: 0;
-    background: 'rgba(67, 179, 99, 0.6)';
+    background: rgba(67, 179, 99, 0.6);
     z-index: 1;
   }
 `;
