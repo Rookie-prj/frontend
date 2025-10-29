@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteMyProject } from '../api/library';
 import { LIBRARY_QUERY_KEY } from '../key';
+import { PROJECT_QUERY_KEY } from '../../explore/hooks/key';
 
 export const useDeleteMyProjectMutation = () => {
   const queryClient = useQueryClient();
@@ -11,6 +12,7 @@ export const useDeleteMyProjectMutation = () => {
       // 성공 시 캐시 무효화하여 최신 데이터 가져오기
       queryClient.invalidateQueries({ queryKey: [LIBRARY_QUERY_KEY.myProjectBoards] });
       queryClient.invalidateQueries({ queryKey: [LIBRARY_QUERY_KEY.savedBoards] });
+      queryClient.invalidateQueries({ queryKey: [PROJECT_QUERY_KEY.project] });
     },
     onError: (error) => {
       console.error('내 프로젝트 삭제 실패:', error);

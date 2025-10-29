@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getRookieDetail } from '../api/rookie';
+import { getRookieDetail } from '../../../api/rookie';
 
 const ROOKIE_DETAIL_QUERY_KEY = 'rookieDetail';
 

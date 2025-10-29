@@ -4,10 +4,13 @@ import { ProjectResponse } from '../../../models/project';
 import { PROJECT_QUERY_KEY } from './key';
 import { LIBRARY_QUERY_KEY } from '../../library/key';
 import { getAccessToken } from '../../../api/token';
-import axios from 'axios';
 import HttpError from '../../../api/httpError';
 
-export const useRemoveBookmarkMutation = (onError?: () => void) => {
+export const useRemoveBookmarkMutation = (options?: {
+  onError?: () => void;
+  onSuccess?: (message: string) => void;
+}) => {
+  const { onError, onSuccess } = options || {};
   const queryClient = useQueryClient();
 
   const removeBookmarkMutation = useMutation({
@@ -42,6 +45,9 @@ export const useRemoveBookmarkMutation = (onError?: () => void) => {
       queryClient.invalidateQueries({ queryKey: [PROJECT_QUERY_KEY.project] });
       queryClient.invalidateQueries({ queryKey: [LIBRARY_QUERY_KEY.savedBoards] });
       queryClient.invalidateQueries({ queryKey: [LIBRARY_QUERY_KEY.myProjectBoards] });
+      if (onSuccess) {
+        onSuccess('북마크가 삭제되었습니다.');
+      }
     },
     onError: (error: HttpError, boardId, context) => {
       // 실패 시 이전 데이터로 롤백
@@ -50,15 +56,11 @@ export const useRemoveBookmarkMutation = (onError?: () => void) => {
         queryClient.setQueryData([LIBRARY_QUERY_KEY.savedBoards], context.previousData);
         queryClient.setQueryData([LIBRARY_QUERY_KEY.myProjectBoards], context.previousData);
       }
-      console.error('북마크 삭제 실패:', error);
 
       // 500 에러 또는 인증 오류 체크
       const isAuthError = error.status === 401 || error.status === 500 || !getAccessToken();
-      console.log('isAuthError', isAuthError);
       if (isAuthError && onError) {
         onError();
-      } else if (!isAuthError) {
-        alert('북마크 삭제에 실패했습니다. 다시 시도해주세요.');
       }
     },
   });
