@@ -15,6 +15,7 @@ import {
 } from './chat';
 import { addBookmark, removeBookmark } from './bookmark';
 import { myProfileDetail } from './myProfile';
+import { filterBoardsHandler } from './filterBoards';
 
 const handlers = [
   ex,
@@ -34,6 +35,7 @@ const handlers = [
   addBookmark,
   removeBookmark,
   myProfileDetail,
+  filterBoardsHandler,
 ];
 
 export const worker = setupWorker(...handlers);
