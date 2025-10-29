@@ -10,7 +10,6 @@ export const InfoRowContainer = styled.div`
 
 export const Label = styled.div`
   color: ${colors.gray[600]};
-  font-family: Pretendard;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.5em;
@@ -19,7 +18,6 @@ export const Label = styled.div`
 
 export const Value = styled.div`
   color: ${colors.gray[950]};
-  font-family: Pretendard;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.43em;
