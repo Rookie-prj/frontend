@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getChatRoomDetail } from '../api/chat';
+import { getChatRoomDetail } from '../../../api/chat';
 
 const CHAT_ROOM_DETAIL_QUERY_KEY = 'chatRoomDetail';
 

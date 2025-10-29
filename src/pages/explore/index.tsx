@@ -4,7 +4,7 @@ import Header from '../../components/header/header';
 import { ExploreCategoryValue } from '../../constants/category';
 import Rookies from '../../components/rookie/rookies';
 
-import { FilterTabValue, RoleTabValue } from '../../constants/filter';
+import { RoleTabValue } from '../../constants/filter';
 import useRookieQuery from '../../components/explore/hooks/useRookieQuery';
 import FilterTab from '../../components/explore/filterBar';
 import useProjectsQuery from '../../components/explore/hooks/useProjectsQuery';
@@ -18,8 +18,9 @@ import { useModal } from '../../hooks/useModal';
 import { useRemoveBookmarkMutation } from '../../components/explore/hooks/useRemoveBookmarkMutation';
 import EmptyState from '../../components/common/emptyState/emptyState';
 import rookieyGray from '../../assets/icons/rookieGray.svg';
-import { getAccessToken } from '../../api/token';
 import RedirectModal from '../../components/rookieDetail/redirectModal';
+import useToast from '../../hooks/useToast';
+import Toast from '../../components/common/toast/toast';
 
 const ExplorePage = () => {
   const [searchParams] = useSearchParams();
@@ -29,7 +30,6 @@ const ExplorePage = () => {
   const [selectedInterestFields, setSelectedInterestFields] = useState<string[]>([]);
   const { rookies, hasNextPage, fetchNextPage, isFetchingNextPage } = useRookieQuery(sortType);
   const [selectedBoardId, setSelectedBoardId] = useState<number>(0);
-  const [isLoginState, setIsLoginState] = useState(getAccessToken() ? true : false);
 
   const {
     isOpen: isDeleteModalOpen,
@@ -43,7 +43,11 @@ const ExplorePage = () => {
     handleModalOpen: handleRedirectModalOpen,
   } = useModal();
 
-  const { handleRemoveBookmark } = useRemoveBookmarkMutation(handleRedirectModalOpen);
+  const { isOpen: isToastOpen, message, handleToastOpen, handleToastClose } = useToast();
+  const { handleRemoveBookmark } = useRemoveBookmarkMutation({
+    onError: handleRedirectModalOpen,
+    onSuccess: handleToastOpen,
+  });
   const {
     projects,
     hasNextPage: projectHasNextPage,
@@ -93,6 +97,7 @@ const ExplorePage = () => {
                 handleDeleteBookmark={handleDeleteBookmark}
                 isBookmark={true}
                 onError={handleRedirectModalOpen}
+                onSuccess={handleToastOpen}
               />
             )}
             {projects.length === 0 && (
@@ -131,6 +136,7 @@ const ExplorePage = () => {
           console.log('필터 적용 로직');
         }}
       />
+      <Toast isOpen={isToastOpen} message={message} onClose={handleToastClose} />
     </div>
   );
 };

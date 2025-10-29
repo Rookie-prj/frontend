@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getChatRoomMessages } from '../api/chat';
+import { getChatRoomMessages } from '../../../api/chat';
 
 const CHAT_MESSAGES_QUERY_KEY = 'chatMessages';
 

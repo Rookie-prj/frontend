@@ -28,7 +28,7 @@ const mockProjectData: ProjectResponse = {
       requredPpl: 3,
       viewCount: 127,
       support: 8,
-      bookmark: 12,
+      bookmark: 0,
       writer: '김철수',
       doneType: '진행중',
       createdAt: '2025-10-15T09:30:00.000Z',

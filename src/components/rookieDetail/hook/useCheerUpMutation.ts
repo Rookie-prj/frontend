@@ -1,19 +1,28 @@
 import { useMutation } from '@tanstack/react-query';
 import { postUserCheerUp } from '../api/postCheerup';
 
-export const useUserCheerUpMutation = () => {
+interface UseUserCheerUpMutationOptions {
+  onSuccess?: (message: string) => void;
+  onError?: (message: string) => void;
+}
+
+export const useUserCheerUpMutation = (options?: UseUserCheerUpMutationOptions) => {
   const userCheerupMutation = useMutation({
     mutationFn: (targetUserId: number) => {
       const response = postUserCheerUp({ targetUserId });
       return response;
     },
     onSuccess: (data) => {
-      //토스트로 변경
-      alert('지지 완료!');
+      const message = '응원이 전달됐어요! 루키의 도전이 계속될 거예요.';
+      if (options?.onSuccess) {
+        options.onSuccess(message);
+      }
     },
     onError: (error) => {
-      //토스트로 변경
-      alert('이미 지지한 사용자에요');
+      const message = '이미 지지한 사용자에요';
+      if (options?.onError) {
+        options.onError(message);
+      }
     },
   });
 
