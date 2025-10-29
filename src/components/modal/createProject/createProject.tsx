@@ -13,7 +13,7 @@ import { ROUTES } from '../../../constants/routes';
 import RedirectModal from '../../rookieDetail/redirectModal';
 import { useModal } from '../../../hooks/useModal';
 import { getAccessToken } from '../../../api/token';
-import { REDIRECT_LOGIN_MESSAGE } from '../../../utils/messageTemplate';
+import { getMyProfileDetail } from '../../../api/myProfile';
 
 interface CreateProjectProps {
   isOpen: boolean;
@@ -28,61 +28,70 @@ const CreateProject: React.FC<CreateProjectProps> = ({ isOpen, onClose }) => {
     handleModalClose: closeRedirect,
   } = useModal();
 
-  if (!isOpen) return null;
-
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
   };
 
-  const handleGroupClick = (groupId: string) => {
+  const handleGroupClick = async (groupId: string) => {
     console.log('선택된 그룹:', groupId);
     const token = getAccessToken();
 
     if (!token) {
-      // 로그인 요구 모달 표시
+      onClose();
       openRedirect();
       return;
     }
 
-    onClose();
+    try {
+      await getMyProfileDetail();
+      onClose();
 
-    if (groupId === '1') {
-      navigate(ROUTES.createProject);
-    }
-    if (groupId === '2') {
-      navigate(ROUTES.createRookie);
+      if (groupId === '1') {
+        navigate(ROUTES.createProject);
+      }
+      if (groupId === '2') {
+        navigate(ROUTES.createRookie);
+      }
+    } catch (error) {
+      console.error('인증 체크 실패:', error);
+      onClose();
+      openRedirect();
     }
   };
 
   return (
-    <ModalOverlay onClick={handleOverlayClick}>
-      <CreateProjectContainer>
-        <ModalTitle>{CREATE_PROJECT_MODAL.title}</ModalTitle>
-        <GroupContainer>
-          {CREATE_PROJECT_MODAL.groups.map((group) => (
-            <GroupItem key={group.id} onClick={() => handleGroupClick(group.id)}>
-              <img src={group.icon} alt="group-icon" />
+    <>
+      {isOpen && (
+        <ModalOverlay onClick={handleOverlayClick}>
+          <CreateProjectContainer>
+            <ModalTitle>{CREATE_PROJECT_MODAL.title}</ModalTitle>
+            <GroupContainer>
+              {CREATE_PROJECT_MODAL.groups.map((group) => (
+                <GroupItem key={group.id} onClick={() => handleGroupClick(group.id)}>
+                  <img src={group.icon} alt="group-icon" />
 
-              <GroupContent>
-                <h3>{group.title}</h3>
-                <p>{group.description}</p>
-              </GroupContent>
-              <img src={group.arrowIcon} alt="arrow-icon" />
-            </GroupItem>
-          ))}
-        </GroupContainer>
+                  <GroupContent>
+                    <h3>{group.title}</h3>
+                    <p>{group.description}</p>
+                  </GroupContent>
+                  <img src={group.arrowIcon} alt="arrow-icon" />
+                </GroupItem>
+              ))}
+            </GroupContainer>
 
-        <Button onClick={onClose}>{CREATE_PROJECT_MODAL.button}</Button>
-      </CreateProjectContainer>
+            <Button onClick={onClose}>{CREATE_PROJECT_MODAL.button}</Button>
+          </CreateProjectContainer>
+        </ModalOverlay>
+      )}
       <RedirectModal
         isOpen={isRedirectOpen}
         onClose={closeRedirect}
-        title={REDIRECT_LOGIN_MESSAGE}
+        title="로그인 후 이용해주세요"
         redirectTo={ROUTES.login}
       />
-    </ModalOverlay>
+    </>
   );
 };
 
