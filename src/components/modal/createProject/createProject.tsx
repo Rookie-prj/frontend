@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   CreateProjectContainer,
@@ -10,6 +10,10 @@ import { ModalOverlay, ModalTitle } from '../container/container.styles';
 import Button from '../../common/button/button';
 import { CREATE_PROJECT_MODAL } from '../../../constants/createProject';
 import { ROUTES } from '../../../constants/routes';
+import RedirectModal from '../../rookieDetail/redirectModal';
+import { useModal } from '../../../hooks/useModal';
+import { getAccessToken } from '../../../api/token';
+import { REDIRECT_LOGIN_MESSAGE } from '../../../utils/messageTemplate';
 
 interface CreateProjectProps {
   isOpen: boolean;
@@ -18,6 +22,11 @@ interface CreateProjectProps {
 
 const CreateProject: React.FC<CreateProjectProps> = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
+  const {
+    isOpen: isRedirectOpen,
+    handleModalOpen: openRedirect,
+    handleModalClose: closeRedirect,
+  } = useModal();
 
   if (!isOpen) return null;
 
@@ -29,6 +38,14 @@ const CreateProject: React.FC<CreateProjectProps> = ({ isOpen, onClose }) => {
 
   const handleGroupClick = (groupId: string) => {
     console.log('선택된 그룹:', groupId);
+    const token = getAccessToken();
+
+    if (!token) {
+      // 로그인 요구 모달 표시
+      openRedirect();
+      return;
+    }
+
     onClose();
 
     if (groupId === '1') {
@@ -59,6 +76,12 @@ const CreateProject: React.FC<CreateProjectProps> = ({ isOpen, onClose }) => {
 
         <Button onClick={onClose}>{CREATE_PROJECT_MODAL.button}</Button>
       </CreateProjectContainer>
+      <RedirectModal
+        isOpen={isRedirectOpen}
+        onClose={closeRedirect}
+        title={REDIRECT_LOGIN_MESSAGE}
+        redirectTo={ROUTES.login}
+      />
     </ModalOverlay>
   );
 };
