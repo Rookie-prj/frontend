@@ -17,7 +17,7 @@ const Home = () => {
   };
 
   return (
-    <div style={{ overflowY: 'auto', paddingBottom: '4.9375rem' }}>
+    <div style={{ paddingBottom: '4.9375rem' }}>
       <Header type="logo" />
       <CategoryBar group="HOME" onCategoryChange={handleCategoryChange} />
       <HeroBanner currentSlide={currentSlide} onSlideChange={handleSlideChange} />
