@@ -30,13 +30,6 @@ function ProjectCard({
 }: ProjectCardProps) {
   const navigate = useNavigate();
   // D-day 계산
-  const calculateDday = (endDate: string) => {
-    const today = new Date();
-    const end = new Date(endDate);
-    const diffTime = end.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays > 0 ? `D-${diffDays}` : '마감';
-  };
 
   // processStatus 라벨 가져오기
   const getProcessStatusLabel = () => {

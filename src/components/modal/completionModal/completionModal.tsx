@@ -10,6 +10,7 @@ interface CompletionModalProps {
   isOpen: boolean;
   onClose: () => void;
   onViewPost: () => void;
+  boardId?: number | null;
 }
 
 const Overlay = styled.div`
@@ -101,7 +102,12 @@ const Button = styled.button<{ variant: 'secondary' | 'primary' }>`
       `}
 `;
 
-const CompletionModal: React.FC<CompletionModalProps> = ({ isOpen, onClose, onViewPost }) => {
+const CompletionModal: React.FC<CompletionModalProps> = ({
+  isOpen,
+  onClose,
+  onViewPost,
+  boardId,
+}) => {
   const navigate = useNavigate();
   const { reset } = useCreateProjectStore();
   const handleRedirectToHome = () => {
@@ -110,6 +116,11 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ isOpen, onClose, onVi
   };
   if (!isOpen) return null;
 
+  const handleViewPost = (id: number) => {
+    reset();
+    navigate(`/post/${id}`);
+    onViewPost();
+  };
   return (
     <Overlay onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
@@ -119,7 +130,7 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ isOpen, onClose, onVi
           <Button variant="secondary" onClick={handleRedirectToHome}>
             닫기
           </Button>
-          <Button variant="primary" onClick={onViewPost}>
+          <Button variant="primary" onClick={() => boardId && handleViewPost(boardId)}>
             게시글 보기
           </Button>
         </ButtonContainer>
