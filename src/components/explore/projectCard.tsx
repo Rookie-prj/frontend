@@ -8,6 +8,7 @@ import { MyProjectBoard } from '../../models/myProject';
 import { BookmarkBoard } from '../../models/saved';
 import bookmark from '../../assets/icons/bookmark_fiiled.svg';
 import { Link, useNavigate } from 'react-router-dom';
+import { PROJECT_STATUS_OPTIONS } from '../../constants/createProject';
 
 interface ProjectCardProps {
   project: Project | MyProjectBoard | BookmarkBoard;
@@ -35,6 +36,15 @@ function ProjectCard({
     const diffTime = end.getTime() - today.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays > 0 ? `D-${diffDays}` : '마감';
+  };
+
+  // processStatus 라벨 가져오기
+  const getProcessStatusLabel = () => {
+    const processStatus = 'processStatus' in project ? project.processStatus : null;
+    if (!processStatus) return '처음부터 시작';
+
+    const statusOption = PROJECT_STATUS_OPTIONS.find((option) => option.value === processStatus);
+    return statusOption ? statusOption.label : '처음부터 시작';
   };
 
   // 첫 번째 이미지 또는 기본 이미지
@@ -84,7 +94,7 @@ function ProjectCard({
 
         <S.TagsWrapper>
           <S.Tag textColor="#1E2939" isdoneType={false}>
-            {calculateDday(project.endDate)}
+            {getProcessStatusLabel()}
           </S.Tag>
           <S.Tag doneType={project.doneType}>
             {project.doneType === 'RECRUITMENT_END' ? '모집 완료' : '모집시 마감'}

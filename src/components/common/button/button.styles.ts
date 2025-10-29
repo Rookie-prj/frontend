@@ -62,6 +62,7 @@ export const HeroBannerSlideOneButton = styled(HeroBannerBaseButton)`
   position: absolute;
   bottom: 11.25%;
   background-color: ${colors.green[200]};
+  color: ${colors.gray[800]};
   right: 5%;
   bottom: 15%;
 `;
@@ -76,4 +77,5 @@ export const HeroBannerSlideThreeButton = styled(HeroBannerBaseButton)`
   top: 45%;
   right: 33%;
   background-color: ${colors.green[200]};
+  color: ${colors.gray[800]};
 `;
