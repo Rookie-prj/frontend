@@ -18,7 +18,7 @@ import EndDate from '../../../components/createProject/endDate/endDate';
 
 interface CreateProjectStep5Props {
   onPrev: () => void;
-  onSubmit?: () => void;
+  onSubmit?: (onSuccess: (boardId: number) => void) => void;
   currentStep: number;
 }
 
@@ -33,6 +33,7 @@ const CreateProjectStep5 = ({ onPrev, onSubmit, currentStep }: CreateProjectStep
 
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [isCompletionModalOpen, setIsCompletionModalOpen] = useState(false);
+  const [createdBoardId, setCreatedBoardId] = useState<number | null>(null);
 
   const handleEndDateTypeChange = (type: string) => {
     setSelectedEndDateType(type);
@@ -50,14 +51,22 @@ const CreateProjectStep5 = ({ onPrev, onSubmit, currentStep }: CreateProjectStep
     setIsCalendarModalOpen(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log('=== Step5 Store 데이터 ===');
     console.log('전체 store 데이터:', storeData);
     console.log('선택된 종료일:', selectedEndDate);
     console.log('종료일 타입:', selectedEndDateType);
     console.log('=======================');
 
-    setIsCompletionModalOpen(true);
+    if (onSubmit) {
+      onSubmit((boardId) => {
+        console.log('✅ 콜백에서 받은 boardId:', boardId);
+        setCreatedBoardId(boardId);
+        setIsCompletionModalOpen(true);
+      });
+    } else {
+      setIsCompletionModalOpen(true);
+    }
   };
 
   const handleCloseCompletionModal = () => {
@@ -66,9 +75,6 @@ const CreateProjectStep5 = ({ onPrev, onSubmit, currentStep }: CreateProjectStep
 
   const handleViewPost = () => {
     setIsCompletionModalOpen(false);
-    if (onSubmit) {
-      onSubmit();
-    }
   };
 
   return (
@@ -107,6 +113,7 @@ const CreateProjectStep5 = ({ onPrev, onSubmit, currentStep }: CreateProjectStep
         isOpen={isCompletionModalOpen}
         onClose={handleCloseCompletionModal}
         onViewPost={handleViewPost}
+        boardId={createdBoardId}
       />
     </>
   );
