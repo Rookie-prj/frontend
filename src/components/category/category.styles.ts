@@ -12,7 +12,6 @@ export const CategoryWrapper = styled.div`
   position: relative;
   padding-bottom: 0.44rem;
   border-bottom: 2px solid #f5f7fa; /* 흰색 줄 */
-  background: white;
 `;
 
 export const CategoryItem = styled.div<CategoryItemProps>`
