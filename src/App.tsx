@@ -8,14 +8,14 @@ const App = () => {
   return (
     <>
       <GlobalLayout />
-      {/* <QueryProvider>
+      <QueryProvider>
         <MSWProvider>
           <AppRoutes />
         </MSWProvider>
-      </QueryProvider> */}
-      <QueryProvider>
-        <AppRoutes />
       </QueryProvider>
+      {/* <QueryClientProvider client={queryClient}>
+          <AppRoutes />
+      </QueryClientProvider> */}
     </>
   );
 };

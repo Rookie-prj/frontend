@@ -80,54 +80,40 @@ export const deleteBoard = async (id: number): Promise<void> => {
 export const createBoardWithImages = async (boardData: BoardWithImagesRequest): Promise<Board> => {
   try {
     console.log('🚀 이미지와 함께 게시판 생성 시작:', {
-      ...boardData,
-      images: boardData.images.length > 0 ? `${boardData.images.length}개 파일` : '이미지 없음',
+      boardData,
     });
+
     const formData = new FormData();
-    // 이미지 파일들 추가
     boardData.images.forEach((image) => {
       formData.append('images', image);
     });
 
-    // JSON 데이터 구성
-    const jsonData = {
-      boardType: boardData.boardType,
-      title: boardData.title,
-      description: boardData.description,
-      estmtPeriod: boardData.estmtPeriod,
-      distance: boardData.distance,
-      techTools: boardData.techTools,
-      collabMthds: boardData.collabMthds,
-      isActive: boardData.isActive,
-      requredPpl: boardData.requredPpl,
-      cowrkrPosition: boardData.cowrkrPosition,
-      cowrkrSpeciality: boardData.cowrkrSpeciality,
-      endDate: boardData.endDate,
-      projectFields: boardData.projectFields,
-      workTools: boardData.workTools,
-      collabTools: boardData.collabTools,
-      doneType: boardData.doneType,
-      processStatus: boardData.processStatus,
-    };
+    // 각 필드를 FormData에 추가
+    formData.append('boardType', boardData.boardType);
+    formData.append('title', boardData.title);
+    formData.append('description', boardData.description);
+    formData.append('estmtPeriod', String(boardData.estmtPeriod));
+    formData.append('distance', boardData.distance);
+    formData.append('techTools', boardData.techTools);
+    formData.append('collabMthds', boardData.collabMthds);
+    formData.append('isActive', String(boardData.isActive));
+    formData.append('requredPpl', String(boardData.requredPpl));
+    formData.append('cowrkrPosition', boardData.cowrkrPosition?.join(',') || '');
+    formData.append('cowrkrSpeciality', JSON.stringify(boardData.cowrkrSpeciality));
+    formData.append('endDate', boardData.endDate || '');
+    formData.append('projectFields', boardData.projectFields?.join(',') || '');
+    formData.append('workTools', boardData.workTools?.join(',') || '');
+    formData.append('collabTools', boardData.collabTools?.join(',') || '');
+    formData.append('doneType', boardData.doneType || '');
 
-    console.log('📝 JSON Data:', jsonData);
+    if (boardData.processStatus) {
+      formData.append('processStatus', boardData.processStatus);
+    }
+
     console.log('📝 FormData entries:');
     for (let [key, value] of formData.entries()) {
       console.log(`${key}:`, value);
     }
-
-    // JSON 데이터를 FormData에 추가
-    Object.entries(jsonData).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        value.forEach((item, index) => {
-          formData.append(`${key}[${index}]`, item);
-        });
-      } else if (typeof value === 'object' && value !== null) {
-        formData.append(key, JSON.stringify(value));
-      } else {
-        formData.append(key, String(value));
-      }
-    });
 
     const response = await apiClient.post<Board>(API_ENDPOINT.BOARD_WITH_IMAGES, formData, {
       headers: {
