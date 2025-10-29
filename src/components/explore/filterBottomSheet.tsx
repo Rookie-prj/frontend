@@ -93,8 +93,8 @@ const FilterBottomSheet = ({
                 label={f.label}
                 size="small"
                 variant="defaultOutlined"
-                isActive={selectedInterestFields.includes(f.value)}
-                onClick={() => handleInterestClick(f.value)}
+                isActive={selectedInterestFields.includes(f.label)}
+                onClick={() => handleInterestClick(f.label)}
               />
             ))}
           </FilterRow>
@@ -105,8 +105,8 @@ const FilterBottomSheet = ({
                 label={f.label}
                 size="small"
                 variant="defaultOutlined"
-                isActive={selectedInterestFields.includes(f.value)}
-                onClick={() => handleInterestClick(f.value)}
+                isActive={selectedInterestFields.includes(f.label)}
+                onClick={() => handleInterestClick(f.label)}
               />
             ))}
           </FilterRow>
@@ -117,38 +117,8 @@ const FilterBottomSheet = ({
                 label={f.label}
                 size="small"
                 variant="defaultOutlined"
-                isActive={selectedInterestFields.includes(f.value)}
-                onClick={() => handleInterestClick(f.value)}
-              />
-            ))}
-          </FilterRow>
-        </FilterChipsContainer>
-      </FilterSection>
-
-      <FilterSection>
-        <h3>참여형태</h3>
-        <FilterChipsContainer>
-          <FilterRow>
-            {PARTICIPATION_TYPES.slice(0, 4).map((t) => (
-              <Chip
-                key={t.value}
-                label={t.label}
-                size="small"
-                variant="defaultOutlined"
-                isActive={selectedParticipationTypes.includes(t.value)}
-                onClick={() => handleParticipationClick(t.value)}
-              />
-            ))}
-          </FilterRow>
-          <FilterRow>
-            {PARTICIPATION_TYPES.slice(4, 8).map((t) => (
-              <Chip
-                key={t.value}
-                label={t.label}
-                size="small"
-                variant="defaultOutlined"
-                isActive={selectedParticipationTypes.includes(t.value)}
-                onClick={() => handleParticipationClick(t.value)}
+                isActive={selectedInterestFields.includes(f.label)}
+                onClick={() => handleInterestClick(f.label)}
               />
             ))}
           </FilterRow>

@@ -19,7 +19,7 @@ export const ContentBase = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 6px;
+  border-radius: 16px;
   background-color: ${colors.white};
   max-width: 80%;
   animation: fadeIn 0.3s ease-in-out forwards;

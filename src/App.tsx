@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import GlobalLayout from './style/reset';
 import AppRoutes from './routes/appRoutes';
 import { MSWProvider } from './components/common/MSWProvider/MSWProvider';
@@ -8,14 +7,14 @@ const App = () => {
   return (
     <>
       <GlobalLayout />
-      <QueryProvider>
+      {/* <QueryProvider>
         <MSWProvider>
           <AppRoutes />
         </MSWProvider>
+      </QueryProvider> */}
+      <QueryProvider>
+        <AppRoutes />
       </QueryProvider>
-      {/* <QueryClientProvider client={queryClient}>
-          <AppRoutes />
-      </QueryClientProvider> */}
     </>
   );
 };
