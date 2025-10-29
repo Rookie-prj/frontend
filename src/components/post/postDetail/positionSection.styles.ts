@@ -25,6 +25,11 @@ export const PositionCards = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  &:has(> *:only-child) > * {
+    width: 100%;
+    min-width: auto;
+  }
 `;
 
 export const PositionCard = styled.div`
