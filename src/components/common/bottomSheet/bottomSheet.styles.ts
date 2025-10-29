@@ -30,7 +30,8 @@ export const BottomSheetContainer = styled.div<BottomSheetContainerProps>`
   z-index: 1001;
   display: flex;
   flex-direction: column;
-  width: 430px;
+  width: 100%;
+  max-width: 430px;
   touch-action: pan-y;
 `;
 
