@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
+import { colors } from '../../../style/colors';
 
 const fadeIn = keyframes`
   from {
@@ -35,14 +36,14 @@ export const ToastContainer = styled.div<{ isVisible: boolean }>`
   pointer-events: none;
 `;
 
-export const ToastBase = styled.div`
+export const ToastBase = styled.div<{ $isError?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: start;
   width: 100%;
   min-height: 40px;
   padding: 16px 10px;
-  background-color: #bdf9cb;
+  background-color: ${({ $isError }) => ($isError ? colors.red[300] : colors.green[100])};
   border-radius: 6px;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.05);
 `;

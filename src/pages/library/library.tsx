@@ -33,7 +33,9 @@ const Library = () => {
   const sortType = searchParams.get('sortType') as LibraryCategoryValue;
   const [selectedBoardId, setSelectedBoardId] = useState(0);
   const { savedBoards, isLoading: isLoadingSavedBoards } = useSavedBoardsQuery(sortType || 'saved');
-  const { handleDeleteMyProject } = useDeleteMyProjectMutation();
+  const { handleDeleteMyProject } = useDeleteMyProjectMutation({
+    onSuccess: (message) => handleToastOpen(message),
+  });
   const { handleModifyProjectActive } = useModifyProjectActiveMutation();
   const { profile } = useMyProfileDetail();
   const { myProjectBoards, isLoading: isLoadingMyProjectBoards } = useMyProjectBoardsQuery(
@@ -181,6 +183,7 @@ const Library = () => {
         onConfirm={() => {
           if (sortType === 'my_project') {
             handleDeleteMyProject(selectedBoardId, {
+              onSuccess: () => handleToastOpen(),
               onError: () => {
                 handleRedirectModalOpen();
               },

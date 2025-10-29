@@ -9,6 +9,7 @@ import { useToastAnimation } from '../../../hooks/useToastAnimation';
 function Toast({
   children,
   message,
+  isError,
   isOpen,
   duration = 3000,
   onClose = (event?: React.SyntheticEvent) => {
@@ -36,7 +37,9 @@ function Toast({
   return createPortal(
     <ToastProvider value={toastProps}>
       <S.ToastContainer isVisible={isVisible}>
-        <S.ToastBase>{message ? <S.ToastMessage>{message}</S.ToastMessage> : children}</S.ToastBase>
+        <S.ToastBase $isError={isError}>
+          {message ? <S.ToastMessage>{message}</S.ToastMessage> : children}
+        </S.ToastBase>
       </S.ToastContainer>
     </ToastProvider>,
     document.getElementById('toast-root') as HTMLElement,
