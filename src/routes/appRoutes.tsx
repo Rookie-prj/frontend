@@ -38,7 +38,11 @@ const AppRoutes = () => {
         },
         {
           path: ROUTES.explore,
-          element: <ExplorePage />,
+          element: (
+            <QueryErrorBoundary>
+              <ExplorePage />
+            </QueryErrorBoundary>
+          ),
         },
         {
           path: ROUTES.chat,
@@ -106,9 +110,11 @@ const AppRoutes = () => {
     {
       path: ROUTES.rookieDetail,
       element: (
-        <Layout hideNavigation={true}>
-          <RookieDetail />
-        </Layout>
+        <QueryErrorBoundary>
+          <Layout hideNavigation={true}>
+            <RookieDetail />
+          </Layout>
+        </QueryErrorBoundary>
       ),
     },
     {

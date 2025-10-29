@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
+import { typography } from '../../../style/theme';
 
 interface MessageWrapperProps {
   isMyMessage: boolean;
@@ -11,9 +12,9 @@ interface MessageBubbleProps {
 
 export const MessageWrapper = styled.div<MessageWrapperProps>`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: ${({ isMyMessage }) => (isMyMessage ? 'flex-end' : 'flex-start')};
-  gap: 16px;
+  gap: 13px;
   width: 100%;
   max-width: 100%;
   margin-bottom: 16px;
@@ -42,4 +43,19 @@ export const MessageBubble = styled.div<MessageBubbleProps>`
   word-wrap: break-word;
   word-break: break-word;
   white-space: pre-wrap;
+`;
+
+export const ProfileImage = styled.img`
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
+export const ParticipantName = styled.div`
+  font-size: ${typography.caption.caption5.fontSize};
+  font-weight: ${typography.caption.caption5.fontWeight};
+  line-height: ${typography.caption.caption5.lineHeight};
+  letter-spacing: ${typography.caption.caption5.letterSpacing};
+  color: ${colors.gray[700]};
 `;

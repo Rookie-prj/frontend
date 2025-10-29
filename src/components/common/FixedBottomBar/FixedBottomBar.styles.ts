@@ -5,15 +5,15 @@ export const FixedBottomBar = styled.div`
   bottom: 0;
   left: 50%;
   right: 0;
-  max-width: 430px;
   width: 100%;
+  max-width: 430px;
   height: 100px;
   background: #f9fafb;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
   padding: 0 16px;
+  gap: 7px;
   z-index: 100;
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
   transform: translateX(-50%);
@@ -24,7 +24,7 @@ export const ActionButton = styled.button<{ variant?: 'primary' | 'secondary' }>
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: 168px;
+  width: 100%;
   height: 50px;
   padding: 16px;
   border-radius: ${(props) => (props.variant === 'primary' ? '8px' : '12px')};

@@ -2,22 +2,16 @@ import { useSearchParams } from 'react-router-dom';
 import { ChipBar } from '../../components/common/chipbar/chipBar';
 import Header from '../../components/header/header';
 import { CHAT_TABS, ChatTabValue } from '../../constants/filter';
-import { useEffect, useState } from 'react';
-import SockJS from 'sockjs-client';
-import { Client } from '@stomp/stompjs';
-import useChatRooms from '../../hooks/useChatRooms';
+import useChatRooms from '../../components/chat/hook/useChatRooms';
 import ChatCardList from '../../components/chat/chatCardList';
-import { BASE_URL } from '../../api/httpclient';
-import { API_ENDPOINT } from '../../constants/apiEndpoint';
 import { CHAT_MESSAGES } from '../../constants/chat';
 import { ChatEmpty } from '../../components/chat';
 
 const Chat = () => {
   const [searchParams] = useSearchParams();
   const chatType = searchParams.get('roleType') as ChatTabValue;
-  const [stompClient, setStompClient] = useState<Client | null>(null);
 
-  const { chatRooms, isLoading, error } = useChatRooms();
+  const { chatRooms } = useChatRooms();
 
   return (
     <div>

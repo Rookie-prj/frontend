@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import RookieCard from '../../components/rookie/rookieCard/rookieCard';
 import Header from '../../components/header/header';
-import useRookieDetail from '../../hooks/useRookieDetail';
+import useRookieDetail from '../../components/rookieDetail/hook/useRookieDetail';
 import { Loading } from '../../components/common/loading';
 import { RookieStats, RookieInfoSection } from '../../components/rookieDetail';
 import { ProjectList } from '../../components/post';
@@ -18,7 +18,9 @@ import {
 import { ROUTES } from '../../constants/routes';
 import { useUserCheerUpMutation } from '../../components/rookieDetail/hook/useCheerUpMutation';
 import { getAccessToken } from '../../api/token';
-import useChatRooms from '../../hooks/useChatRooms';
+import useChatRooms from '../../components/chat/hook/useChatRooms';
+import useToast from '../../hooks/useToast';
+import Toast from '../../components/common/toast/toast';
 
 function RookieDetail() {
   const { id } = useParams<{ id: string }>();
@@ -36,7 +38,11 @@ function RookieDetail() {
   const { rookie, isLoading, isError } = useRookieDetail({ id: rookieId });
   const accessToken = getAccessToken();
   const [loginState, setLoginState] = useState<boolean>(accessToken ? true : false); // 임시 로그인 상태
-  const { handleUserCheerUp } = useUserCheerUpMutation();
+  const { isOpen: isToastOpen, message, handleToastOpen, handleToastClose } = useToast();
+  const { handleUserCheerUp } = useUserCheerUpMutation({
+    onSuccess: (msg) => handleToastOpen(msg),
+    onError: (msg) => handleToastOpen(msg),
+  });
   localStorage.setItem('otherUserName', rookie?.name || '');
   localStorage.setItem('otherUserId', rookie?.userId.toString() || '');
   const { chatRooms } = useChatRooms();
@@ -104,6 +110,7 @@ function RookieDetail() {
           description={CHEERUP_DESCRIPTION(rookie.name)}
         />
       )}
+      <Toast isOpen={isToastOpen} message={message} onClose={handleToastClose} />
     </div>
   );
 }

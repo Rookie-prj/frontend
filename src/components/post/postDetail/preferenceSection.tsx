@@ -8,11 +8,28 @@ import {
   MethodChip,
   ToolsChipsContainer,
 } from './preferenceSection.styles';
+import {
+  TEAM_DISTANCE_OPTIONS,
+  TEAM_COOPERATION_METHOD_OPTIONS,
+} from '../../../constants/createProject';
+
 interface PreferenceSectionProps {
   distance: string;
   tools: string[];
   method: string;
 }
+
+// value를 label로 변환하는 헬퍼 함수들
+const getDistanceLabel = (value: string) => {
+  const option = TEAM_DISTANCE_OPTIONS.find((opt) => opt.value === value);
+  return option?.label || value;
+};
+
+const getMethodLabel = (value: string) => {
+  const option = TEAM_COOPERATION_METHOD_OPTIONS.find((opt) => opt.value === value);
+  return option?.label || value;
+};
+
 const PreferenceSection = ({ distance, tools, method }: PreferenceSectionProps) => {
   return (
     <PreferencesContainer>

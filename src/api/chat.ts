@@ -6,6 +6,14 @@ export const getMyChatRooms = () => {
   return apiClient.get<ChatRoom[]>(API_ENDPOINT.CHAT_ROOMS);
 };
 
+/**
+ * 채팅방 상세 조회
+ * @param roomId 채팅방 ID
+ */
+export const getChatRoomDetail = (roomId: string) => {
+  return apiClient.get<ChatRoom>(`${API_ENDPOINT.CHAT_ROOM_MESSAGES}/${roomId}`);
+};
+
 export const getChatRoomMessages = (roomId: string) => {
   return apiClient.get<ChatMessage[]>(`${API_ENDPOINT.CHAT_ROOM_MESSAGES}/${roomId}/messages/all`);
 };
