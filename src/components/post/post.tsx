@@ -5,9 +5,10 @@ import Loading from '../common/loading/loading';
 
 interface PostProps {
   limit?: number;
+  variant?: 'default' | 'large';
 }
 
-const Post = ({ limit }: PostProps) => {
+const Post = ({ limit, variant = 'default' }: PostProps) => {
   const response = useProjectsQuery();
 
   if (response.isLoading) {
@@ -41,6 +42,7 @@ const Post = ({ limit }: PostProps) => {
           total={post.total}
           field={post.field}
           imageUrl1={post.imageUrl1}
+          variant={variant}
         />
       ))}
     </PostContainer>
