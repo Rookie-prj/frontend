@@ -12,11 +12,13 @@ import SlideBar from '../slideBar/slideBar';
 import RegisterButton from '../registerButton/registerButton';
 
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 import {
   HeroBannerSlideOneButton,
   HeroBannerSlideThreeButton,
   HeroBannerSlideTwoButton,
 } from '../../common/button/button.styles';
+
 interface HeroBannerProps {
   totalSlides?: number;
   currentSlide: number;
@@ -31,9 +33,47 @@ const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBanner
   ];
 
   const navigate = useNavigate();
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const total = totalSlides || 3;
+
+  useEffect(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      onSlideChange((currentSlide + 1) % total);
+    }, 2000);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [currentSlide, total, onSlideChange]);
+
+  // 스크롤 감지
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let scrollTimeout: NodeJS.Timeout;
+    const handleWheel = (e: WheelEvent) => {
+      if (timerRef.current) clearInterval(timerRef.current);
+
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (Math.abs(e.deltaX) > 50) {
+          const next = (currentSlide + (e.deltaX > 0 ? 1 : -1) + total) % total;
+          onSlideChange(next);
+        }
+      }, 100);
+    };
+
+    container.addEventListener('wheel', handleWheel);
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+      clearTimeout(scrollTimeout);
+    };
+  }, [currentSlide, total, onSlideChange]);
 
   return (
-    <HeroBannerContainer>
+    <HeroBannerContainer ref={containerRef}>
       <SlideContainer currentSlide={currentSlide}>
         {slides.map((slide, index) => (
           <div
