@@ -28,17 +28,24 @@ function ChatCardList({ chatRooms }: ChatCardListProps) {
     <>
       {chatRooms.map((room) => {
         const otherParticipants = getOtherParticipants(room.participants);
+
+        // otherParticipants가 비어있거나 첫 번째 참여자가 없으면 렌더링하지 않음
+        if (otherParticipants.length === 0 || !otherParticipants[0]) {
+          return null;
+        }
+
+        const firstParticipant = otherParticipants[0];
         const userName =
           otherParticipants.length === 1
-            ? otherParticipants[0].name
+            ? firstParticipant.name
             : `참여자 ${room.participants.length}명`;
-        const profileImageUrl = otherParticipants[0]?.profileImageUrl;
+        const profileImageUrl = firstParticipant.profileImageUrl;
         const lastMessageContent = room.lastMessage?.content || CHAT_MESSAGES.NO_MESSAGE;
 
         return (
           <ChatCard
             key={room.id}
-            userId={otherParticipants[0].userId}
+            userId={firstParticipant.userId}
             userName={userName}
             lastMessage={lastMessageContent}
             unreadCount={room.unreadCount}

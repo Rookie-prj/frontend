@@ -28,14 +28,14 @@ const Header = ({ type, title }: HeaderProps) => {
     logo: (
       <>
         <img src={logo} alt="logo" />
-        <img src={search} alt="search" />
+        {/* <img src={search} alt="search" /> */}
       </>
     ),
     title: <HeaderTitle>{title}</HeaderTitle>,
     search: (
       <>
         <Title>탐색</Title>
-        <img src={search} alt="search" style={{ cursor: 'pointer' }} />
+        {/* <img src={search} alt="search" style={{ cursor: 'pointer' }} /> */}
       </>
     ),
     library: (
