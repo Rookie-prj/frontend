@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { ChipBar } from '../../components/common/chipbar/chipBar';
 import Header from '../../components/header/header';
 import { CHAT_TABS, ChatTabValue } from '../../constants/filter';
-import useChatRooms from '../../hooks/useChatRooms';
+import useChatRooms from '../../components/chat/hook/useChatRooms';
 import ChatCardList from '../../components/chat/chatCardList';
 import { CHAT_MESSAGES } from '../../constants/chat';
 import { ChatEmpty } from '../../components/chat';

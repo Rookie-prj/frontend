@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { useChatMessages } from '../../../hooks/useChatMessages';
+import { useChatMessages } from '../../../components/chat/hook/useChatMessages';
 import MessageItem from '../../../components/chat/chatroom';
 import ChatInput from '../../../components/chat/chatInput';
 import * as S from './chatroom.styles';
 import { Loading } from '../../../components/common/loading';
 import useMessageMutation from '../../../components/chat/hook/useMessageMutation';
 import ChatRoomHeader from '../../../components/chat/chatroom/header';
-import useChatRoomDetail from '../../../hooks/useChatRoomDetail';
+import useChatRoomDetail from '../../../components/chat/hook/useChatRoomDetail';
 import { ChatRoom as ChatRoomType } from '../../../models/chat';
 
 function Chatroom() {

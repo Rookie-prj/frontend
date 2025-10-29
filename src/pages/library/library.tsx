@@ -24,6 +24,8 @@ import EmptyState from '../../components/common/emptyState/emptyState';
 import rookieyGray from '../../assets/icons/rookieGray.svg';
 import { useMyProfileDetail } from '../../hooks/useMyProfile';
 import RedirectModal from '../../components/rookieDetail/redirectModal';
+import useToast from '../../hooks/useToast';
+import Toast from '../../components/common/toast/toast';
 
 const Library = () => {
   const [searchParams] = useSearchParams();
@@ -31,7 +33,6 @@ const Library = () => {
   const sortType = searchParams.get('sortType') as LibraryCategoryValue;
   const [selectedBoardId, setSelectedBoardId] = useState(0);
   const { savedBoards, isLoading: isLoadingSavedBoards } = useSavedBoardsQuery(sortType || 'saved');
-  const { handleRemoveBookmark } = useRemoveBookmarkMutation();
   const { handleDeleteMyProject } = useDeleteMyProjectMutation();
   const { handleModifyProjectActive } = useModifyProjectActiveMutation();
   const { profile } = useMyProfileDetail();
@@ -61,6 +62,11 @@ const Library = () => {
     handleModalClose: handleRedirectModalClose,
     handleModalOpen: handleRedirectModalOpen,
   } = useModal();
+  const { isOpen: isToastOpen, message, handleToastOpen, handleToastClose } = useToast();
+  const { handleRemoveBookmark } = useRemoveBookmarkMutation({
+    onError: handleRedirectModalOpen,
+    onSuccess: handleToastOpen,
+  });
 
   const handleDeleteBookmark = (boardId: number) => {
     setSelectedBoardId(boardId);
@@ -135,6 +141,7 @@ const Library = () => {
                 projects={savedBoards}
                 rightIcon={bookmark}
                 isBookmark={true}
+                onSuccess={handleToastOpen}
                 handleDeleteBookmark={handleDeleteBookmark}
                 onDeleteModalOpen={handleDeleteModalOpen}
                 onActionSheetOpen={handleActionSheetOpenWithId}
@@ -201,6 +208,7 @@ const Library = () => {
         onClose={handleActionSheetClose}
         actions={actionItems}
       />
+      <Toast isOpen={isToastOpen} message={message} onClose={handleToastClose} />
     </div>
   );
 };

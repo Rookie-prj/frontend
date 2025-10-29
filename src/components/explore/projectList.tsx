@@ -12,6 +12,7 @@ interface ProjectListProps {
   onDeleteModalOpen?: () => void;
   onActionSheetOpen?: (boardId: number) => void;
   onError?: () => void;
+  onSuccess?: (message: string) => void;
 }
 function ProjectList({
   projects,
@@ -21,8 +22,9 @@ function ProjectList({
   onDeleteModalOpen,
   onActionSheetOpen,
   onError,
+  onSuccess,
 }: ProjectListProps) {
-  const { handleAddBookmark } = useAddBookmarkMutation(onError);
+  const { handleAddBookmark } = useAddBookmarkMutation({ onError, onSuccess });
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
