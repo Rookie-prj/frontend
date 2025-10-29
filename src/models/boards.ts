@@ -12,7 +12,7 @@ export interface Board {
   imageUrl3: string | null;
   projectFields: string[];
   distance: string;
-  processStatus: string;
+  processStatus: string | null;
   techTools: string;
   workTools: string[];
   collabTools: string[];
