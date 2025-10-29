@@ -6,9 +6,10 @@ import Loading from '../common/loading/loading';
 interface PostListProps {
   limit?: number;
   title?: string;
+  variant?: 'default' | 'large';
 }
 
-function ProjectList({ limit, title }: PostListProps) {
+function ProjectList({ limit, title, variant = 'default' }: PostListProps) {
   const response = useProjectsQuery();
 
   if (response.isLoading) {
@@ -44,6 +45,7 @@ function ProjectList({ limit, title }: PostListProps) {
             total={post.total}
             field={post.field}
             imageUrl1={post.imageUrl1}
+            variant={variant}
           />
         ))}
       </S.PostListContainer>

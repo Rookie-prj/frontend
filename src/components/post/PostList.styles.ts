@@ -5,13 +5,10 @@ export const PostListContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0.63rem;
-  padding-left: 16px;
-  padding-right: 16px;
+  margin: 0 1rem;
   padding-bottom: 1rem;
-
   overflow-x: auto;
   overflow-y: hidden;
-
   scrollbar-width: none;
   -ms-overflow-style: none;
 
@@ -20,8 +17,8 @@ export const PostListContainer = styled.div`
   }
 
   > * {
-    flex-shrink: 0;
-    scroll-snap-align: start;
+    flex: 0 0 calc((100% - 1rem - 0.63rem) / 2);
+    min-width: 0;
   }
 `;
 

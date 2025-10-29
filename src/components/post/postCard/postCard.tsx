@@ -26,6 +26,7 @@ interface PostCardProps {
   backgroundImage?: string;
   backgroundColor?: string;
   overlayColor?: string;
+  variant?: 'default' | 'large';
 }
 
 export const PostCard = ({
@@ -40,6 +41,7 @@ export const PostCard = ({
   backgroundImage = background,
   backgroundColor,
   overlayColor,
+  variant = 'default',
 }: PostCardProps) => {
   const navigate = useNavigate();
 
@@ -50,8 +52,12 @@ export const PostCard = ({
   const projectImage = imageUrl1 || backgroundImg;
 
   return (
-    <PostCardContainer onClick={handleClick}>
-      <PostCardTitleWrapper backgroundImage={projectImage} backgroundColor={backgroundColor}>
+    <PostCardContainer $variant={variant} onClick={handleClick}>
+      <PostCardTitleWrapper
+        backgroundImage={projectImage}
+        backgroundColor={backgroundColor}
+        $variant={variant}
+      >
         <PostCardTitleContent>
           <PostCardTitleText>{title}</PostCardTitleText>
           <PostCardAuthor>{author}</PostCardAuthor>
