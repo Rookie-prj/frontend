@@ -23,8 +23,9 @@ export const ItemWrapper = styled.div`
 
 export const CategoryBarText = styled.p<{ $isActive?: boolean }>`
   font-size: ${typography.subhead.subhead4.fontSize};
-  font-weight: ${typography.subhead.subhead4.fontWeight};
+  font-weight: ${({ $isActive }) => ($isActive ? 700 : typography.subhead.subhead4.fontWeight)};
   line-height: ${typography.subhead.subhead4.lineHeight};
   letter-spacing: ${typography.subhead.subhead4.letterSpacing};
+
   color: ${({ $isActive }) => ($isActive ? colors.gray[800] : colors.gray[200])};
 `;

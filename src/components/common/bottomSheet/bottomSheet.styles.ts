@@ -24,7 +24,7 @@ export const BottomSheetContainer = styled.div<BottomSheetContainerProps>`
   transition: ${({ $isOpen }) => ($isOpen ? 'transform 0.3s ease-out' : 'transform 0.3s ease-in')};
   right: 0;
   max-height: 80vh;
-  min-height: 550px;
+  min-height: 435px;
   background: white;
   border-radius: 16px 16px 0 0;
   z-index: 1001;

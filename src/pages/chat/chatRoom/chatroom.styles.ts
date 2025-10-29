@@ -7,6 +7,7 @@ export const MessageContainer = styled.div`
   flex-direction: column;
   gap: 16px;
   padding: 16px;
+  padding-top: 70px;
   padding-bottom: 100px;
   width: 100%;
   min-height: calc(100vh - 100px);

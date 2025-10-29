@@ -66,3 +66,77 @@ export interface BoardsListResponse {
   page: number;
   size: number;
 }
+
+// 필터 요청 타입
+export interface PageableRequest {
+  page: number;
+  size: number;
+  sort?: string[];
+}
+
+export interface BoardFilterRequest {
+  boardTypes?: string[];
+  projectFields?: string[];
+}
+
+// 필터 응답 타입
+export interface Sort {
+  empty: boolean;
+  unsorted: boolean;
+  sorted: boolean;
+}
+
+export interface Pageable {
+  offset: number;
+  sort: Sort;
+  paged: boolean;
+  pageNumber: number;
+  pageSize: number;
+  unpaged: boolean;
+}
+
+export interface FilteredBoard {
+  boardId: number;
+  boardType: string;
+  estmtPeriod: number;
+  cowrkrPosition: string;
+  processStatus: string;
+  cowrkrSpeciality: {
+    [key: string]: string;
+  };
+  endDate: string;
+  title: string;
+  description: string;
+  imageUrl1: string;
+  imageUrl2: string;
+  imageUrl3: string;
+  projectFields: string;
+  distance: string;
+  techTools: string;
+  workTools: string;
+  collabTools: string;
+  collabMthds: string;
+  isActive: boolean;
+  requredPpl: number;
+  viewCount: number;
+  support: number;
+  bookmark: number;
+  writer: string;
+  doneType: string;
+  createdAt: string;
+  modifiedAt: string;
+}
+
+export interface BoardFilterResponse {
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  content: FilteredBoard[];
+  number: number;
+  sort: Sort;
+  numberOfElements: number;
+  pageable: Pageable;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+}

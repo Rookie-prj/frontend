@@ -7,17 +7,17 @@ export interface CowrkrSpeciality {
 
 export interface MyProjectBoard {
   boardId: number;
-  boardType: 'PROJECT' | 'ROOKIE';
+  boardType: 'PROJECT' | 'ROOKIE' | 'STUDY' | 'CONTEST';
   estmtPeriod: number;
   cowrkrPosition: string;
-  processStatus: string;
-  cowrkrSpeciality: CowrkrSpeciality;
+  processStatus: string | null;
+  cowrkrSpeciality: Record<string, number>;
   endDate: string;
   title: string;
   description: string;
-  imageUrl1: string;
-  imageUrl2: string;
-  imageUrl3: string;
+  imageUrl1: string | null;
+  imageUrl2: string | null;
+  imageUrl3: string | null;
   projectFields: string;
   distance: string;
   techTools: string;

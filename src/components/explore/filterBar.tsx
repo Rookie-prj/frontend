@@ -13,9 +13,10 @@ interface FilterBarProps {
   sortType: ExploreCategoryValue | LibraryCategoryValue;
   roleType: RoleTabValue | LibraryTabValue | FilterTabValue;
   handleBottomSheet?: () => void;
+  handleFilterReset?: () => void;
 }
 
-function FilterBar({ sortType, roleType, handleBottomSheet }: FilterBarProps) {
+function FilterBar({ sortType, roleType, handleBottomSheet, handleFilterReset }: FilterBarProps) {
   let tabs;
   if (sortType === 'rookie') {
     tabs = ROLE_TABS;
@@ -32,7 +33,7 @@ function FilterBar({ sortType, roleType, handleBottomSheet }: FilterBarProps) {
       {sortType === 'project' && (
         <img src={option} onClick={handleBottomSheet} style={{ cursor: 'pointer' }} />
       )}
-      <ChipBar tabs={tabs} type={roleType} gap="8px" />
+      <ChipBar tabs={tabs} type={roleType} gap="8px" onClick={handleFilterReset} />
     </div>
   );
 }

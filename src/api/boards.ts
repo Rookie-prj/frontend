@@ -6,6 +6,9 @@ import {
   BoardWithImagesRequest,
   ImageUploadResponse,
   BoardsListResponse,
+  BoardFilterRequest,
+  BoardFilterResponse,
+  PageableRequest,
 } from '../models/boards';
 
 /**
@@ -267,6 +270,35 @@ export const deleteBoardImages = async (imageIds: string[]): Promise<void> => {
     console.log('✅ 이미지 삭제 성공');
   } catch (error) {
     console.error('❌ 이미지 삭제 실패:', error);
+    throw error;
+  }
+};
+
+/**
+ * 게시판 필터 조회
+ * POST /explore/boards/filter
+ */
+export const filterBoards = async (
+  pageable: PageableRequest,
+  filterRequest: BoardFilterRequest,
+): Promise<BoardFilterResponse> => {
+  try {
+    console.log('🚀 게시판 필터 조회 시작:', { pageable, filterRequest });
+    const response = await apiClient.post<BoardFilterResponse>(
+      API_ENDPOINT.BOARD_FILTER,
+      filterRequest,
+      {
+        params: {
+          page: pageable.page,
+          size: pageable.size,
+          ...(pageable.sort && pageable.sort.length > 0 && { sort: pageable.sort }),
+        },
+      },
+    );
+    console.log('✅ 게시판 필터 조회 성공:', response);
+    return response;
+  } catch (error) {
+    console.error('❌ 게시판 필터 조회 실패:', error);
     throw error;
   }
 };
