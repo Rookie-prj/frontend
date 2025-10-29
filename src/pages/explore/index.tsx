@@ -21,15 +21,41 @@ import rookieyGray from '../../assets/icons/rookieGray.svg';
 import RedirectModal from '../../components/rookieDetail/redirectModal';
 import useToast from '../../hooks/useToast';
 import Toast from '../../components/common/toast/toast';
+import { useFilterBoardsMutation } from '../../components/explore/hooks/useFilterBoardsMutation';
+import { FilteredBoard, BoardFilterResponse } from '../../models/boards';
 
 const ExplorePage = () => {
   const [searchParams] = useSearchParams();
   const sortType = (searchParams.get('sortType') || 'project') as ExploreCategoryValue;
   const roleType = searchParams.get('roleType') as RoleTabValue;
   const [isOpen, setIsOpen] = useState(false);
+  const [boardField, setBoardField] = useState<string[]>([]);
   const [selectedInterestFields, setSelectedInterestFields] = useState<string[]>([]);
   const { rookies, hasNextPage, fetchNextPage, isFetchingNextPage } = useRookieQuery(sortType);
   const [selectedBoardId, setSelectedBoardId] = useState<number>(0);
+
+  // 필터 데이터 상태
+  const [filterDatas, setFilterDatas] = useState<FilteredBoard[] | null>(null);
+
+  const {
+    handleFilterBoards,
+    isLoading: isFilterLoading,
+    data: filterData,
+    convertFilteredBoardToProject,
+  } = useFilterBoardsMutation({
+    onSuccess: (data: BoardFilterResponse) => {
+      console.log('필터 조회 성공:', data);
+      // 필터 성공 시 상태 업데이트
+      if (data && data.content) {
+        setFilterDatas(data.content);
+      }
+    },
+    onError: (error) => {
+      console.error('필터 조회 실패:', error);
+      // 에러 발생 시 필터 상태 초기화
+      setFilterDatas(null);
+    },
+  });
 
   const {
     isOpen: isDeleteModalOpen,
@@ -64,11 +90,22 @@ const ExplorePage = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleFilterReset = () => {
+    setSelectedInterestFields([]);
+    setBoardField([]);
+    setFilterDatas(null); // 필터 리셋 시 필터 데이터도 초기화
+  };
+
   return (
     <div>
       <Header type="search" />
       <CategoryBar sortType={sortType} />
-      <FilterTab sortType={sortType} roleType={roleType} handleBottomSheet={handleBottomSheet} />
+      <FilterTab
+        sortType={sortType}
+        roleType={roleType}
+        handleBottomSheet={handleBottomSheet}
+        handleFilterReset={handleFilterReset}
+      />
       <div style={{ paddingBottom: '130px' }}>
         {sortType === 'rookie' && (
           <InfiniteScrollList
@@ -90,7 +127,17 @@ const ExplorePage = () => {
             isFetchingNextPage={projectIsFetchingNextPage}
             padding="4px 16px 0 16px"
           >
-            {projects.length > 0 && (
+            {filterDatas && filterDatas.length > 0 && (
+              <ProjectList
+                projects={filterDatas.map(convertFilteredBoardToProject)}
+                rightIcon={bookmark}
+                handleDeleteBookmark={handleDeleteBookmark}
+                isBookmark={true}
+                onError={handleRedirectModalOpen}
+                onSuccess={handleToastOpen}
+              />
+            )}
+            {!filterDatas && projects.length > 0 && (
               <ProjectList
                 projects={projects}
                 rightIcon={bookmark}
@@ -100,7 +147,8 @@ const ExplorePage = () => {
                 onSuccess={handleToastOpen}
               />
             )}
-            {projects.length === 0 && (
+            {((filterDatas && filterDatas.length === 0) ||
+              (!filterDatas && projects.length === 0)) && (
               <EmptyState message="탐색할 프로젝트가 없어요" icon={rookieyGray} />
             )}
           </InfiniteScrollList>
@@ -125,15 +173,30 @@ const ExplorePage = () => {
         isOpen={isOpen}
         onClose={handleBottomSheet}
         selectedInterestFields={selectedInterestFields}
+        selectedProjectTypes={boardField}
         onInterestFieldToggle={(value: string) => {
           setSelectedInterestFields((prev) =>
             prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
           );
         }}
-        onReset={() => setSelectedInterestFields([])}
+        onProjectTypeToggle={(value: string) => {
+          setBoardField((prev) =>
+            prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
+          );
+        }}
+        onReset={handleFilterReset}
         onConfirm={() => {
-          /* 필터 적용 로직 */
-          console.log('필터 적용 로직');
+          handleFilterBoards({
+            pageable: {
+              page: 0,
+              size: 10,
+              sort: ['createdAt'],
+            },
+            filterRequest: {
+              boardTypes: boardField.length > 0 ? boardField : undefined,
+              projectFields: selectedInterestFields.length > 0 ? selectedInterestFields : undefined,
+            },
+          });
         }}
       />
       <Toast isOpen={isToastOpen} message={message} onClose={handleToastClose} />
