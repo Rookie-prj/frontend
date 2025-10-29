@@ -1,22 +1,25 @@
 import { useQuery } from '@tanstack/react-query';
 import { LibraryCategoryValue } from '../../../constants/category';
 import { getSavedBoards, getMyProjectBoards } from '../api/library';
-import { SavedLibraryResponse } from '../../../models/saved';
-import { MyProjectLibraryResponse } from '../../../models/myProject';
+import { SavedLibraryResponse, BookmarkItem } from '../../../models/saved';
+import { MyProjectLibraryResponse, MyProjectBoard } from '../../../models/myProject';
 import { Project } from '../../../models/project';
 import { LIBRARY_QUERY_KEY } from '../key';
 
 const useSavedBoardsQuery = (sortType: LibraryCategoryValue) => {
-  const { data, isLoading, isFetching } = useQuery<SavedLibraryResponse>({
+  const { data, isLoading, isFetching } = useQuery<SavedLibraryResponse | BookmarkItem[]>({
     queryKey: [LIBRARY_QUERY_KEY.savedBoards],
     queryFn: async () => {
       return await getSavedBoards();
     },
   });
 
+  // API 응답이 배열인 경우와 객체인 경우 모두 처리
+  const bookmarks = Array.isArray(data) ? data : (data as SavedLibraryResponse)?.bookmarks ?? [];
+
   // 북마크 데이터를 Project 형식으로 변환
   const savedBoards: Project[] =
-    data?.bookmarks
+    bookmarks
       ?.filter((bookmark) => bookmark?.board)
       .map((bookmark) => ({
         boardId: bookmark.board.boardId,
@@ -63,15 +66,18 @@ const useSavedBoardsQuery = (sortType: LibraryCategoryValue) => {
 };
 
 const useMyProjectBoardsQuery = (sortType: LibraryCategoryValue, writer?: string) => {
-  const { data, isLoading, isFetching } = useQuery<MyProjectLibraryResponse>({
+  const { data, isLoading, isFetching } = useQuery<MyProjectLibraryResponse | MyProjectBoard[]>({
     queryKey: [LIBRARY_QUERY_KEY.myProjectBoards, writer],
     queryFn: async () => {
       return await getMyProjectBoards({ writer });
     },
-    enabled: sortType === 'my_project',
+    enabled: sortType === 'my_project' && !!writer,
   });
 
-  const myProjectBoards = data?.boards ?? [];
+  // API 응답이 배열인 경우와 객체인 경우 모두 처리
+  const myProjectBoards = Array.isArray(data)
+    ? data
+    : (data as MyProjectLibraryResponse)?.boards ?? [];
 
   return {
     myProjectBoards,
