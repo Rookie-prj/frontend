@@ -25,10 +25,9 @@ const ProjectCategorySection = ({
 
   const handleCardClick = (projectType: string) => {
     if (onCardClick) {
-      // onCardClick이 있으면 그것을 사용 (step1에서 스토어에 저장)
+      setSelectedProjectType(projectType);
       onCardClick(projectType);
     } else {
-      // onCardClick이 없으면 navigate (홈화면에서 페이지 이동)
       navigate(`${ROUTES.explore}?roleType=${projectType}`);
     }
   };

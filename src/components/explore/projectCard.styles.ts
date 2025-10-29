@@ -142,10 +142,13 @@ export const Tag = styled.div<{
     if (props.doneType === 'RECRUITMENT_END') {
       return colors.red[100];
     }
+    if (props.doneType && props.doneType !== 'RECRUITMENT_END') {
+      return colors.green[200];
+    }
     if (!props.isdoneType) {
       return colors.gray[150];
     }
-    return colors.green[100];
+    return colors.green[200];
   }};
   color: ${(props) => props.textColor || colors.gray[800]};
   font-size: 10px;
