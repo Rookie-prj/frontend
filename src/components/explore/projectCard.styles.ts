@@ -111,6 +111,7 @@ export const ProfileImage = styled.img`
   height: 52px;
   border-radius: 50%;
   object-fit: cover;
+  background-color: ${colors.white};
   border: 2px solid ${colors.white};
   z-index: 1;
 `;
