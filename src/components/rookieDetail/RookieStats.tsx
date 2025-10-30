@@ -49,7 +49,7 @@ function RookieStats({ publicPortfolioCount, responseRate, passionMeter }: Rooki
     <S.StatsContainer>
       {/* 공개 가능 프로젝트 */}
       <S.StatItem>
-        <S.StatValue>{publicPortfolioCount}개</S.StatValue>
+        <S.StatValue>{publicPortfolioCount}</S.StatValue>
         <S.StatLabel>공개 가능 프로젝트</S.StatLabel>
       </S.StatItem>
 
