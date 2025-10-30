@@ -108,7 +108,13 @@ const Login = () => {
           isOpen={isOpen}
           onClose={handleModalClose}
           redirectTo="/signup"
-          title="가입된 계정이 없어요. 지금 바로 루키로 시작해볼까요?"
+          title={
+            <span>
+              가입된 계정이 없어요.
+              <br />
+              지금 바로 루키로 시작해볼까요?
+            </span>
+          }
           buttonText="회원가입하기"
         />
       </SignupLayout>
