@@ -92,12 +92,12 @@ const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.2rem;
+  gap: 0 0.2rem;
 `;
-const SignupLink = styled.a`
+export const SignupLink = styled.a<{ $justifyContent: 'center' | 'flex-start' }>`
   text-decoration: underline;
   display: flex;
-  justify-content: center;
+  justify-content: ${({ $justifyContent }) => $justifyContent};
   text-underline-offset: 2px;
   color: ${colors.gray[600]};
   font-size: ${typography.caption.caption3.fontSize};
@@ -178,7 +178,9 @@ const Onboarding = () => {
         <Button onClick={handleLogin} size="large" variant="primary">
           로그인하기
         </Button>
-        <SignupLink href="/signup">회원가입하기</SignupLink>
+        <SignupLink href="/signup" $justifyContent="center">
+          회원가입하기
+        </SignupLink>
       </ButtonContainer>
     </OnboardingContainer>
   );
