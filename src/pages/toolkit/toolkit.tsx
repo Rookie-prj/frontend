@@ -16,14 +16,13 @@ const Toolkit = () => {
   return (
     <div
       style={{
-        overflowY: 'auto',
         paddingBottom: '4.9375rem',
 
         backgroundColor: colors.gray[50],
         minHeight: '100vh',
       }}
     >
-      <div style={{ paddingLeft: '1rem' }}>
+      <div style={{ marginLeft: '1rem' }}>
         <Header type="backdrop" />
       </div>
       <Header type="title" title="툴킷" />
