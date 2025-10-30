@@ -8,7 +8,7 @@ interface RookieInfoRowProps {
 
 function RookieInfoRow({ label, value, separator = ', ' }: RookieInfoRowProps) {
   // 배열인 경우 separator로 결합
-  const displayValue = Array.isArray(value) ? value.join(separator) : value;
+  const displayValue = Array.isArray(value) ? value.join(separator) : value.replace(/,/g, ', ');
 
   return (
     <S.InfoRowContainer>

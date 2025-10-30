@@ -6,6 +6,10 @@ export const InfoRowContainer = styled.div`
   flex-direction: column;
   gap: 6px;
   width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 export const Label = styled.div`

@@ -178,6 +178,12 @@ export const RookieFavoriteSubjectWrapper = styled.div`
   align-items: center;
   gap: 0.5rem;
   padding: 0 10px 10px 10px;
+  max-height: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 export const RookieFavoriteSubjectChip = styled.div`

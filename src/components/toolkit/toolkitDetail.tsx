@@ -100,7 +100,9 @@ const ToolkitDetail = () => {
   return (
     <PageContainer>
       {/* Header */}
-      <Header type="backdrop" />
+      <div style={{ paddingLeft: '16px' }}>
+        <Header type="backdrop" />
+      </div>
       {/* Hero Section */}
       <Header type="title" title="툴킷" />
       <HeroSection>
