@@ -21,7 +21,7 @@ export const SIGNUP = {
   FAVORITE_SUBJECT_SELECTION_LIMIT: '중복선택 가능(최대 5개 선택 가능)',
   REQUIRED_PROJECT_COUNT: '현재까지 진행한\n 프로젝트 개수를 선택해주세요',
   REQUIRED_PROJECT_COUNT_MODAL: '프로젝트 개수를 선택해주세요',
-  WELCOME: '루키에 오신걸 환영합니다!',
+  WELCOME: '가입완료\n 루키에 오신걸 환영합니다!',
 };
 export const UNIVERSITY_PUBLIC_OPTIONS = [
   {
@@ -47,6 +47,14 @@ export const UNIVERSITY_GRADE_OPTIONS = [
   {
     value: '3',
     label: '3학년',
+  },
+  {
+    value: '4',
+    label: '4학년',
+  },
+  {
+    value: '5',
+    label: '대학원생',
   },
 ];
 export const CURRENT_STUDY_OPTIONS = [
@@ -402,5 +410,17 @@ export const PROJECT_COUNT_OPTIONS = [
   {
     value: '2',
     label: '2개',
+  },
+  {
+    value: '3',
+    label: '3개',
+  },
+  {
+    value: '4',
+    label: '4개',
+  },
+  {
+    value: '5',
+    label: '5개이상',
   },
 ];
