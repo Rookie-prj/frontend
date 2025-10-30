@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { loginUser } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
 import { saveAccessToken, saveUserInfo } from '../../api/token';
+import { SignupLink } from '../onboarding/onboarding';
 
 const Login = () => {
   const { email, password, setEmail, setPassword } = useSignupStore();
@@ -51,8 +52,6 @@ const Login = () => {
         saveUserInfo(result.user);
         console.log('👤 사용자 정보 저장 완료:', result.user);
       }
-
-      // 홈페이지로 리다이렉트
       console.log('🏠 /home으로 리다이렉트 시도');
       navigate('/home');
       console.log('✅ navigate 호출 완료');
@@ -96,6 +95,9 @@ const Login = () => {
           type="password"
         />
       </div>
+      <SignupLink href="/signup" $justifyContent="flex-start" style={{ marginTop: '0.75rem' }}>
+        회원가입하기
+      </SignupLink>
     </SignupLayout>
   );
 };
