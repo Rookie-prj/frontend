@@ -5,11 +5,12 @@ import ToolkitFile from '../assets/img/toolkit-file.svg';
 import ToolkitFire from '../assets/img/toolkit-fire.svg';
 import ToolkitWrite from '../assets/img/toolkit-write.svg';
 import ToolkitPin from '../assets/img/toolkit-pin.svg';
-import Toolkit1 from '../assets/img/toolkit-1.svg';
-import Toolkit2 from '../assets/img/toolkit-2.svg';
-import Toolkit3 from '../assets/img/toolkit-3.svg';
-import Toolkit4 from '../assets/img/toolkit-4.svg';
-import Toolkit5 from '../assets/img/toolkit-5.svg';
+import Toolkit1 from '../assets/img/toolkit-1.png';
+import Toolkit2 from '../assets/img/toolkit-2.png';
+import Toolkit3 from '../assets/img/toolkit-3.png';
+import Toolkit4 from '../assets/img/toolkit-4.png';
+import Toolkit5 from '../assets/img/toolkit-5.png';
+
 export interface TextSegment {
   text: string;
   color?: string;
