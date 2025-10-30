@@ -6,12 +6,14 @@ interface FilterChipBarProps<T extends readonly { value: string; label: string }
   tabs: T;
   type: string | null;
   gap?: string;
+  onClick?: () => void;
 }
 
 export const ChipBar = <T extends readonly { value: string; label: string }[]>({
   tabs,
   type,
   gap = '8px',
+  onClick,
 }: FilterChipBarProps<T>) => {
   return (
     <ScrollBar gap={gap}>
@@ -22,6 +24,7 @@ export const ChipBar = <T extends readonly { value: string; label: string }[]>({
             label={tab.label}
             size="medium"
             variant={type === tab.value ? 'primary' : 'default'}
+            onClick={onClick}
           />
         </QueryLink>
       ))}

@@ -81,7 +81,6 @@ const Library = () => {
   };
 
   const handleEdit = () => {
-    console.log('수정하기');
     navigate(`${ROUTES.createProject}?create-project.step=projectInfo`);
     handleActionSheetClose();
   };

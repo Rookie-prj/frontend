@@ -13,12 +13,14 @@ interface RedirectModalProps {
   onClose: () => void;
   redirectTo?: string;
   title?: React.ReactNode;
+  buttonText?: string;
 }
 function RedirectModal({
   isOpen,
   onClose,
   redirectTo,
   title,
+  buttonText,
   children,
 }: PropsWithChildren<RedirectModalProps>) {
   usePreventScroll(isOpen);
@@ -45,7 +47,7 @@ function RedirectModal({
               취소
             </Button>
             <Button variant="primary" size="medium" onClick={handleRedirect}>
-              로그인하기
+              {buttonText || '로그인하기'}
             </Button>
           </div>
         </Modal.Body>

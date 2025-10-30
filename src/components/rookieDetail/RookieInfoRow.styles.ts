@@ -6,11 +6,14 @@ export const InfoRowContainer = styled.div`
   flex-direction: column;
   gap: 6px;
   width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 export const Label = styled.div`
   color: ${colors.gray[600]};
-  font-family: Pretendard;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.5em;
@@ -19,7 +22,6 @@ export const Label = styled.div`
 
 export const Value = styled.div`
   color: ${colors.gray[950]};
-  font-family: Pretendard;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.43em;

@@ -27,7 +27,6 @@ export const MessageBubble = styled.div<MessageBubbleProps>`
   min-height: 40px;
   max-width: 80%;
 
-  font-family: Pretendard;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.5em;
