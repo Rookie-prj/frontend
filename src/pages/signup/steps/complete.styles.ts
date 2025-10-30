@@ -17,5 +17,6 @@ export const WelcomeText = styled.h1`
   color: ${colors.gray[800]};
   text-align: center;
   margin: 0;
+  white-space: pre-line;
   letter-spacing: ${typography.headline.headline4.letterSpacing};
 `;
