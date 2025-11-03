@@ -58,3 +58,22 @@ export const ParticipantName = styled.div`
   letter-spacing: ${typography.caption.caption5.letterSpacing};
   color: ${colors.gray[700]};
 `;
+
+export const ProfileButton = styled.button`
+  font-size: ${typography.caption.caption5.fontSize};
+  font-weight: ${typography.caption.caption5.fontWeight};
+  line-height: ${typography.caption.caption5.lineHeight};
+  letter-spacing: ${typography.caption.caption5.letterSpacing};
+  color: ${colors.gray[600]};
+  padding: 12px 24.5px;
+  border-radius: 999px;
+  background-color: ${colors.green[200]};
+`;
+
+export const IsProfileMessageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 8px;
+`;

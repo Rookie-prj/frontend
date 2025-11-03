@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
-import { typography } from '../../../style/theme';
 
 export const MessageContainer = styled.div`
   display: flex;
@@ -37,7 +36,9 @@ export const InputWrapper = styled.div`
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  flex-direction: column;
   justify-content: center;
+
   padding: 16px;
   background-color: ${colors.gray[50]};
   width: 100%;

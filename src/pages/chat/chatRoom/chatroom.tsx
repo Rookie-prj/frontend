@@ -8,7 +8,8 @@ import { Loading } from '../../../components/common/loading';
 import useMessageMutation from '../../../components/chat/hook/useMessageMutation';
 import ChatRoomHeader from '../../../components/chat/chatroom/header';
 import useChatRoomDetail from '../../../components/chat/hook/useChatRoomDetail';
-import { ChatRoom as ChatRoomType } from '../../../models/chat';
+import { Chip } from '../../../components/common/chip';
+import clip from '../../../assets/icons/portFolioclip.svg';
 
 function Chatroom() {
   const { id } = useParams();
@@ -38,6 +39,11 @@ function Chatroom() {
     handleSendMessage({ targetUserId: Number(otherUserId), content, roomId: id as string });
   };
 
+  const handleGiveProfile = () => {
+    const profileMessage = `루키프로필 확인하기\n${participantName}\n${profileImage}`;
+    handleSendMessageToRoom(profileMessage);
+  };
+
   if (isLoading) {
     return (
       <div>
@@ -61,6 +67,20 @@ function Chatroom() {
         <div ref={messageEndRef} />
       </S.MessageContainer>
       <S.InputWrapper>
+        <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }}>
+          <Chip label="내 프로필 보내기" variant="chatRoomProfile" onClick={handleGiveProfile} />
+          <Chip
+            label={
+              <>
+                <img src={clip} alt="clip" style={{ marginRight: '6px' }} />
+                포트폴리오 PDF 보내기
+              </>
+            }
+            variant="chatRoomPdf"
+            isActive={true}
+          />
+        </div>
+
         <ChatInput onSendMessage={handleSendMessageToRoom} />
       </S.InputWrapper>
     </S.chatRoomsContainer>
