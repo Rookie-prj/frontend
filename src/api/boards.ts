@@ -283,7 +283,6 @@ export const filterBoards = async (
   filterRequest: BoardFilterRequest,
 ): Promise<BoardFilterResponse> => {
   try {
-    console.log('🚀 게시판 필터 조회 시작:', { pageable, filterRequest });
     const response = await apiClient.post<BoardFilterResponse>(
       API_ENDPOINT.BOARD_FILTER,
       filterRequest,
@@ -295,10 +294,8 @@ export const filterBoards = async (
         },
       },
     );
-    console.log('✅ 게시판 필터 조회 성공:', response);
     return response;
   } catch (error) {
-    console.error('❌ 게시판 필터 조회 실패:', error);
     throw error;
   }
 };
