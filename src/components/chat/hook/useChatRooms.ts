@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getMyChatRooms } from '../../../api/chat';
 
-const CHAT_ROOMS_QUERY_KEY = 'chatRooms';
+export const CHAT_ROOMS_QUERY_KEY = 'chatRooms';
 
 const useChatRooms = () => {
   const { data, isLoading, isError, error, refetch } = useQuery({

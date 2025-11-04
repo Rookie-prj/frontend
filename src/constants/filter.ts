@@ -34,8 +34,8 @@ export const PARTICIPATION_TYPES = [
 export const ROLE_TABS = [
   { value: 'all', label: '전체' },
   { value: 'planning', label: '기획 · 마케팅 전공' },
-  { value: 'design', label: '디자인' },
-  { value: 'development', label: '개발' },
+  { value: 'design', label: '디자인 전공' },
+  { value: 'development', label: '개발 전공' },
   { value: 'etc', label: '기타' },
 ] as const;
 

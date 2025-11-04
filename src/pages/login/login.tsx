@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { loginUser } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
 import { saveAccessToken, saveUserInfo } from '../../api/token';
+import { SignupLink } from '../onboarding/onboarding';
 import RedirectModal from '../../components/rookieDetail/redirectModal';
 import { useModal } from '../../hooks/useModal';
 import HttpError from '../../api/httpError';
@@ -55,8 +56,6 @@ const Login = () => {
         saveUserInfo(result.user);
         console.log('👤 사용자 정보 저장 완료:', result.user);
       }
-
-      // 홈페이지로 리다이렉트
       console.log('🏠 /home으로 리다이렉트 시도');
       navigate('/home');
       console.log('✅ navigate 호출 완료');
@@ -104,20 +103,24 @@ const Login = () => {
             type="password"
           />
         </div>
-        <RedirectModal
-          isOpen={isOpen}
-          onClose={handleModalClose}
-          redirectTo="/signup"
-          title={
-            <span>
-              가입된 계정이 없어요.
-              <br />
-              지금 바로 루키로 시작해볼까요?
-            </span>
-          }
-          buttonText="회원가입하기"
-        />
+
+        <SignupLink href="/signup" $justifyContent="flex-start" style={{ marginTop: '0.75rem' }}>
+          회원가입하기
+        </SignupLink>
       </SignupLayout>
+      <RedirectModal
+        isOpen={isOpen}
+        onClose={handleModalClose}
+        redirectTo="/signup"
+        title={
+          <span>
+            가입된 계정이 없어요.
+            <br />
+            지금 바로 루키로 시작해볼까요?
+          </span>
+        }
+        buttonText="회원가입하기"
+      />
     </>
   );
 };

@@ -92,7 +92,19 @@ const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.2rem;
+  gap: 0 0.2rem;
+`;
+export const SignupLink = styled.a<{ $justifyContent: 'center' | 'flex-start' }>`
+  text-decoration: underline;
+  display: flex;
+  justify-content: ${({ $justifyContent }) => $justifyContent};
+  text-underline-offset: 2px;
+  color: ${colors.gray[600]};
+  font-size: ${typography.caption.caption3.fontSize};
+  font-style: normal;
+  font-weight: ${typography.caption.caption3.fontWeight};
+  line-height: ${typography.caption.caption3.lineHeight};
+  letter-spacing: ${typography.caption.caption3.letterSpacing};
 `;
 
 const Onboarding = () => {
@@ -112,7 +124,6 @@ const Onboarding = () => {
   };
 
   const handleGuest = () => {
-    // 게스트 모드 로직
     navigate('/home');
   };
 
@@ -167,6 +178,9 @@ const Onboarding = () => {
         <Button onClick={handleLogin} size="large" variant="primary">
           로그인하기
         </Button>
+        <SignupLink href="/signup" $justifyContent="center">
+          회원가입하기
+        </SignupLink>
       </ButtonContainer>
     </OnboardingContainer>
   );
