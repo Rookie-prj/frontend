@@ -1,3 +1,4 @@
+import { SerializedStyles } from '@emotion/react';
 import { ButtonContainer } from './button.styles';
 interface ButtonProps {
   children: React.ReactNode;
@@ -5,6 +6,7 @@ interface ButtonProps {
   size?: 'small' | 'medium' | 'large';
   variant?: 'primary' | 'gray';
   disabled?: boolean;
+  css?: SerializedStyles;
 }
 const Button = ({
   children,
@@ -12,6 +14,7 @@ const Button = ({
   size = 'small',
   variant = 'primary',
   disabled = false,
+  css,
 }: ButtonProps) => {
   return (
     <ButtonContainer
@@ -19,6 +22,7 @@ const Button = ({
       onClick={disabled ? undefined : onClick}
       variant={variant}
       disabled={disabled}
+      css={css}
     >
       {children}
     </ButtonContainer>

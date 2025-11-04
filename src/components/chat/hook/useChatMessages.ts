@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getChatRoomMessages } from '../../../api/chat';
 
-const CHAT_MESSAGES_QUERY_KEY = 'chatMessages';
+export const CHAT_MESSAGES_QUERY_KEY = 'chatMessages';
 
 interface UseChatMessagesParams {
   roomId: string;
