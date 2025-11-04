@@ -56,11 +56,12 @@ const PortfolioBottomSheet = ({ isOpen, onClose, onFileSelected }: PortfolioBott
             style={{ display: 'none' }}
             onChange={handleFileChange}
           />
-          {/* 숨겨진 이미지 input */}
+          {/* 숨겨진 이미지 input - 모바일에서 갤러리 직접 열림 */}
           <input
             ref={imageInputRef}
             type="file"
             accept="image/*"
+            capture="environment"
             style={{ display: 'none' }}
             onChange={handleImageChange}
           />
