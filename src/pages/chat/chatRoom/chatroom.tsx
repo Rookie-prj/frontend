@@ -4,12 +4,14 @@ import { useChatMessages } from '../../../components/chat/hook/useChatMessages';
 import MessageItem from '../../../components/chat/chatroom';
 import ChatInput from '../../../components/chat/chatInput';
 import * as S from './chatroom.styles';
-import { Loading } from '../../../components/common/loading';
 import useMessageMutation from '../../../components/chat/hook/useMessageMutation';
 import ChatRoomHeader from '../../../components/chat/chatroom/header';
 import useChatRoomDetail from '../../../components/chat/hook/useChatRoomDetail';
 import { Chip } from '../../../components/common/chip';
 import clip from '../../../assets/icons/portFolioclip.svg';
+import PortfolioBottomSheet from '../../../components/chat/portfolioBottomSheet/portfolioBottomSheet';
+import { useModal } from '../../../hooks/useModal';
+import useSendFileMutation from '../../../components/chat/hook/useSendFileMutation';
 
 function Chatroom() {
   const { id } = useParams();
@@ -23,6 +25,8 @@ function Chatroom() {
   const { data: chatRoomDetail } = useChatRoomDetail({
     roomId: id as string,
   });
+
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
 
   const participantProfile = chatRoomDetail?.participants?.find(
     (p) => p.userId === Number(otherUserId),
@@ -39,51 +43,69 @@ function Chatroom() {
     handleSendMessage({ targetUserId: Number(otherUserId), content, roomId: id as string });
   };
 
+  const { handleSendFile } = useSendFileMutation({
+    onSuccess: () => {
+      console.log('파일 전송 성공');
+    },
+    onError: (error) => {
+      console.error('파일 전송 실패:', error);
+    },
+  });
+
   const handleGiveProfile = () => {
-    const profileMessage = `루키프로필 확인하기\n${participantName}\n${profileImage}`;
+    const profileMessage = `루키프로필 확인하기`;
     handleSendMessageToRoom(profileMessage);
   };
 
-  if (isLoading) {
-    return (
-      <div>
-        <Loading showText={true} />
-      </div>
-    );
-  }
+  const handleFileSelected = (file: File) => {
+    handleSendFile({
+      targetUserId: Number(otherUserId),
+      content: '포트폴리오를 보냅니다',
+      file: file,
+      roomId: id,
+    });
+  };
 
   return (
-    <S.chatRoomsContainer>
-      <ChatRoomHeader />
-      <S.MessageContainer>
-        {messages.map((message) => (
-          <MessageItem
-            key={message.id}
-            participantName={participantName}
-            profileImage={profileImage}
-            message={message}
-          />
-        ))}
-        <div ref={messageEndRef} />
-      </S.MessageContainer>
-      <S.InputWrapper>
-        <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }}>
-          <Chip label="내 프로필 보내기" variant="chatRoomProfile" onClick={handleGiveProfile} />
-          <Chip
-            label={
-              <>
-                <img src={clip} alt="clip" style={{ marginRight: '6px' }} />
-                포트폴리오 PDF 보내기
-              </>
-            }
-            variant="chatRoomPdf"
-            isActive={true}
-          />
-        </div>
+    <>
+      <S.chatRoomsContainer>
+        <ChatRoomHeader />
+        <S.MessageContainer>
+          {messages.map((message) => (
+            <MessageItem
+              key={message.id}
+              participantName={participantName}
+              profileImage={profileImage}
+              message={message}
+            />
+          ))}
+          <div ref={messageEndRef} />
+        </S.MessageContainer>
+        <S.InputWrapper>
+          <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }}>
+            <Chip label="내 프로필 보내기" variant="chatRoomProfile" onClick={handleGiveProfile} />
+            <Chip
+              label={
+                <>
+                  <img src={clip} alt="clip" style={{ marginRight: '6px' }} />
+                  포트폴리오 PDF 보내기
+                </>
+              }
+              onClick={handleModalOpen}
+              variant="chatRoomPdf"
+              isActive={true}
+            />
+          </div>
 
-        <ChatInput onSendMessage={handleSendMessageToRoom} />
-      </S.InputWrapper>
-    </S.chatRoomsContainer>
+          <ChatInput onSendMessage={handleSendMessageToRoom} />
+        </S.InputWrapper>
+      </S.chatRoomsContainer>
+      <PortfolioBottomSheet
+        isOpen={isOpen}
+        onClose={handleModalClose}
+        onFileSelected={handleFileSelected}
+      />
+    </>
   );
 }
 
