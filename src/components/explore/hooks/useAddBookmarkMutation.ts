@@ -15,6 +15,7 @@ export const useAddBookmarkMutation = (options?: {
 
   const addBookmarkMutation = useMutation({
     mutationFn: (boardId: number) => addBookmark(boardId),
+    throwOnError: false,
     // 낙관적 업데이트: mutation 실행 전에 캐시 업데이트
     onMutate: async (boardId: number) => {
       // 진행 중인 다른 쿼리 취소
@@ -43,11 +44,14 @@ export const useAddBookmarkMutation = (options?: {
       queryClient.invalidateQueries({ queryKey: [PROJECT_QUERY_KEY.project] });
       queryClient.invalidateQueries({ queryKey: [LIBRARY_QUERY_KEY.savedBoards] });
       queryClient.invalidateQueries({ queryKey: [LIBRARY_QUERY_KEY.myProjectBoards] });
+      queryClient.invalidateQueries({ queryKey: ['boardDetail'] });
       if (onSuccess) {
         onSuccess('북마크가 추가되었습니다.');
       }
     },
     onError: (error: HttpError, boardId, context) => {
+      console.error('북마크 추가 실패:', error);
+
       // 실패 시 이전 데이터로 롤백
       if (context?.previousData) {
         queryClient.setQueryData([PROJECT_QUERY_KEY.project], context.previousData);
@@ -55,9 +59,11 @@ export const useAddBookmarkMutation = (options?: {
         queryClient.setQueryData([LIBRARY_QUERY_KEY.myProjectBoards], context.previousData);
       }
 
-      // 500 에러 또는 인증 오류 체크
-      const isAuthError = error.status === 401 || error.status === 500 || !getAccessToken();
-      if (isAuthError && onError) {
+      // boardDetail 쿼리도 롤백
+      queryClient.invalidateQueries({ queryKey: ['boardDetail'] });
+
+      // 에러 핸들러 호출
+      if (onError) {
         onError();
       }
     },

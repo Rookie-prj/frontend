@@ -103,19 +103,7 @@ const Login = () => {
             type="password"
           />
         </div>
-        <RedirectModal
-          isOpen={isOpen}
-          onClose={handleModalClose}
-          redirectTo="/signup"
-          title={
-            <span>
-              가입된 계정이 없어요.
-              <br />
-              지금 바로 루키로 시작해볼까요?
-            </span>
-          }
-          buttonText="회원가입하기"
-        />
+
         <SignupLink href="/signup" $justifyContent="flex-start" style={{ marginTop: '0.75rem' }}>
           회원가입하기
         </SignupLink>
