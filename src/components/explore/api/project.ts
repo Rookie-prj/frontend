@@ -8,10 +8,18 @@ interface GetProjectsParams {
   sortBy?: string;
   sortDirection?: string;
   boardType?: string;
+  search?: string;
 }
 
 export const getProjects = (params: GetProjectsParams = {}) => {
-  const { page = 0, size = 10, sortBy = 'createdAt', sortDirection = 'desc', boardType } = params;
+  const {
+    page = 0,
+    size = 10,
+    sortBy = 'createdAt',
+    sortDirection = 'desc',
+    boardType,
+    search,
+  } = params;
 
   const queryParams: Record<string, any> = {
     page,
@@ -22,6 +30,10 @@ export const getProjects = (params: GetProjectsParams = {}) => {
 
   if (boardType && boardType !== 'all') {
     queryParams.boardType = boardType;
+  }
+
+  if (search) {
+    queryParams.search = search;
   }
 
   return apiClient.get<ProjectResponse>(API_ENDPOINT.PROJECT, {

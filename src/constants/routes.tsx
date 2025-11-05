@@ -17,4 +17,5 @@ export const ROUTES = {
   login: '/login',
   myprofile: '/myprofile',
   myprofileSetting: '/myprofile/setting',
+  search: '/search',
 };

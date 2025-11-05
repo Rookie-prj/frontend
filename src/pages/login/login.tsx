@@ -116,11 +116,9 @@ const Login = () => {
           }
           buttonText="회원가입하기"
         />
-      </div>
-      <SignupLink href="/signup" $justifyContent="flex-start" style={{ marginTop: '0.75rem' }}>
-        회원가입하기
-      </SignupLink>
-    </SignupLayout>
+        <SignupLink href="/signup" $justifyContent="flex-start" style={{ marginTop: '0.75rem' }}>
+          회원가입하기
+        </SignupLink>
       </SignupLayout>
     </>
   );
