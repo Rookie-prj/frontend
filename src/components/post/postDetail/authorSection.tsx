@@ -16,7 +16,7 @@ import {
 } from './authorSection.styles';
 import ProfileEx from '../../../assets/icons/profileEx.svg';
 import GreenPin from '../../../assets/icons/greenPin.svg';
-import Level1 from '../../../assets/icons/levels/level-1.svg';
+import Level1 from '../../../assets/icons/passion/Lv.1.svg';
 import Exclamation from '../../../assets/icons/exclamation.svg';
 interface AuthorSectionProps {
   name: string;
@@ -59,7 +59,7 @@ const AuthorSection = ({ name, location, projects, responseRate, level }: Author
             </LevelIcon>
             <LevelText>
               <span>열정기어</span>
-              <img src={Exclamation} alt="exclamation" />
+              <img src={Exclamation} alt="exclamation" style={{ width: '1rem', height: '1rem' }} />
             </LevelText>
           </AuthorLevel>
         </AuthorStats>
