@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   PostDetailContainer,
@@ -12,7 +12,7 @@ import { CATEGORY, PostCategoryValue } from '../../constants/category';
 import BackDrop from '../../components/common/backDrop/backDrop';
 import { BaseContainerWithSpaceBetween } from '../../components/container/container.styles';
 import StatusChips from '../../components/post/statusChips/statusChips';
-import TitleSection from '../../components/post/postDetail/titleSection';
+import TitleSection, { TitleSectionProps } from '../../components/post/postDetail/titleSection';
 import InfoSection from '../../components/post/postDetail/infoSection';
 import PositionSection from '../../components/post/postDetail/positionSection';
 import AuthorSection from '../../components/post/postDetail/authorSection';
@@ -23,12 +23,33 @@ import DividerBar from '../../components/post/postDetail/dividerBar';
 import BottomActions from '../../components/post/postDetail/bottomActions';
 import { useBoardDetail } from '../../hooks/useBoardDetail';
 import Loading from '../../components/common/loading/loading';
+import { useSavedBoardsQuery } from '../../components/library/hook/useLibrary';
+import { useAddBookmarkMutation } from '../../components/explore/hooks/useAddBookmarkMutation';
+import { useRemoveBookmarkMutation } from '../../components/explore/hooks/useRemoveBookmarkMutation';
 const PostDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState<PostCategoryValue>(
     CATEGORY.POST_CONTENT?.value || 'content',
   );
   const { data: boardData, isLoading } = useBoardDetail(id);
+  const { savedBoards = [] } = useSavedBoardsQuery('saved');
+  const { handleAddBookmark } = useAddBookmarkMutation();
+  const { handleRemoveBookmark } = useRemoveBookmarkMutation();
+
+  // 현재 게시글이 북마크되었는지 확인
+  const isBookmarked = useMemo(() => {
+    if (!boardData || !savedBoards || savedBoards.length === 0) return false;
+    return savedBoards.some((board) => board.boardId === boardData.boardId);
+  }, [boardData, savedBoards]);
+
+  const handleBookmarkToggle = () => {
+    if (!boardData) return;
+    if (isBookmarked) {
+      handleRemoveBookmark(boardData.boardId);
+    } else {
+      handleAddBookmark(boardData.boardId);
+    }
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -55,7 +76,12 @@ const PostDetail: React.FC = () => {
       </HeaderImage>
 
       <ContentContainer>
-        <TitleSection title={boardData.title} tags={boardData.projectFields.join(', ')} />
+        <TitleSection
+          title={boardData.title}
+          tags={boardData.projectFields.join(', ')}
+          isBookmarked={isBookmarked}
+          onBookmarkToggle={handleBookmarkToggle}
+        />
         <StatusChips progress={boardData.processStatus} deadline={boardData.endDate} />
         <InfoSection
           total={boardData.requredPpl}
