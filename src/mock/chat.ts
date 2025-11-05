@@ -231,7 +231,7 @@ export const sendMessage = http.post(
     const content = await request.json();
 
     // 모킹: 새 채팅방 생성
-    const newRoomId = `room-${Date.now()}`;
+    const newRoomId = `1`;
     const newMessage = {
       id: `msg-${Date.now()}`,
       roomId: newRoomId,

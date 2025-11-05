@@ -55,3 +55,24 @@ export const sendMessageToRoom = (roomId: string, content: string) => {
 export const markMessagesAsRead = (roomId: string) => {
   return apiClient.put<void>(`${API_ENDPOINT.CHAT_ROOM_MESSAGES}/${roomId}/messages/read`);
 };
+
+/**
+ * 파일 전송 (PDF, 이미지)
+ * @param targetUserId 상대방 ID
+ * @param content 메시지 내용
+ * @param file 전송할 파일
+ */
+export const sendFileToChat = (targetUserId: number, content: string, file: File) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return apiClient.post<ChatMessage>(
+    `/api/chat/send/file?targetUserId=${targetUserId}&content=${encodeURIComponent(content)}`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    },
+  );
+};

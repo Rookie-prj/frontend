@@ -2,7 +2,13 @@ import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
 import { typography } from '../../../style/theme';
 
-export type ChipVariant = 'default' | 'primary' | 'outlined' | 'defaultOutlined';
+export type ChipVariant =
+  | 'default'
+  | 'primary'
+  | 'outlined'
+  | 'defaultOutlined'
+  | 'chatRoomPdf'
+  | 'chatRoomProfile';
 export type ChipSize = 'small' | 'medium' | 'large';
 
 interface ChipButtonProps {
@@ -27,6 +33,22 @@ const getChipStyles = ($variant: ChipVariant, $isActive: boolean) => {
       background: colors.gray[100],
       color: colors.gray[500],
       border: `1px solid ${colors.gray[500]}`,
+    };
+  }
+
+  if ($variant === 'chatRoomProfile') {
+    return {
+      background: colors.gray[100],
+      color: colors.gray[600],
+      border: 'none',
+    };
+  }
+
+  if ($variant === 'chatRoomPdf') {
+    return {
+      background: colors.gray[50],
+      color: colors.gray[600],
+      border: `1px solid ${colors.gray[200]}`,
     };
   }
 

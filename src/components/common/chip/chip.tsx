@@ -3,7 +3,7 @@ import { SerializedStyles } from '@emotion/react';
 import { ChipButton, ChipVariant, ChipSize } from './chip.styles';
 
 export interface ChipProps {
-  label: string;
+  label: string | React.ReactNode;
   variant?: ChipVariant;
   size?: ChipSize;
   isActive?: boolean;
