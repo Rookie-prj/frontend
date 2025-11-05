@@ -31,7 +31,10 @@ const ExplorePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [boardField, setBoardField] = useState<string[]>([]);
   const [selectedInterestFields, setSelectedInterestFields] = useState<string[]>([]);
-  const { rookies, hasNextPage, fetchNextPage, isFetchingNextPage } = useRookieQuery(sortType);
+  const { rookies, hasNextPage, fetchNextPage, isFetchingNextPage } = useRookieQuery(
+    sortType,
+    roleType,
+  );
   const [selectedBoardId, setSelectedBoardId] = useState<number>(0);
 
   // 필터 데이터 상태

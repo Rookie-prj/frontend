@@ -3,12 +3,12 @@ import { getRookie } from '../api/rookie';
 import { ROOKIE_QUERY_KEY } from './key';
 import { ExploreCategoryValue } from '../../../constants/category';
 
-const useRookieQuery = (sortType: ExploreCategoryValue) => {
+const useRookieQuery = (sortType: ExploreCategoryValue, roleType: string) => {
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: [ROOKIE_QUERY_KEY.rookie],
+      queryKey: [ROOKIE_QUERY_KEY.rookie, roleType],
       queryFn: async ({ pageParam = 0 }) => {
-        return await getRookie({ page: pageParam, size: 10 });
+        return await getRookie({ page: pageParam, size: 10, roleType });
       },
       getNextPageParam: (lastPage: any, allPages) => {
         if (!lastPage || (Array.isArray(lastPage) && lastPage.length < 10)) {
