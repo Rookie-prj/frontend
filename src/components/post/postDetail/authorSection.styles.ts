@@ -94,7 +94,7 @@ export const AuthorStatValue = styled.div`
 `;
 
 export const AuthorStatLabel = styled.div`
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 500;
   color: ${colors.gray[900]};
   line-height: 0.75rem;
@@ -116,7 +116,6 @@ export const LevelIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateX(-7px);
 `;
 
 export const LevelText = styled.div`
@@ -125,7 +124,7 @@ export const LevelText = styled.div`
   gap: 0.125rem;
 
   span {
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     font-weight: 500;
     color: ${colors.gray[900]};
     line-height: 0.75rem;
