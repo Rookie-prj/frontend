@@ -22,6 +22,8 @@ import deleteIcon from '../../assets/icons/search-delete.svg';
 import SearchInput from '../../components/search/input';
 import { BaseContainer } from '../../components/container/container.styles';
 import { ROUTES } from '../../constants/routes';
+import { useModal } from '../../hooks/useModal';
+import DeleteConfirmModal from '../../components/common/deleteModal/deleteConfirmModal';
 
 const RECENT_SEARCHES_KEY = 'recentSearches';
 const MAX_RECENT_SEARCHES = 10;
@@ -33,6 +35,11 @@ const Search = () => {
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const {
+    isOpen: isDeleteAllModalOpen,
+    handleModalClose: handleDeleteAllModalClose,
+    handleModalOpen: handleDeleteAllModalOpen,
+  } = useModal();
 
   useEffect(() => {
     // sessionStorage에서 최근 검색어 불러오기
@@ -86,9 +93,14 @@ const Search = () => {
     sessionStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(updated));
   };
 
-  const handleDeleteAll = () => {
+  const handleDeleteAllClick = () => {
+    handleDeleteAllModalOpen();
+  };
+
+  const handleDeleteAllConfirm = () => {
     setRecentSearches([]);
     sessionStorage.removeItem(RECENT_SEARCHES_KEY);
+    handleDeleteAllModalClose();
   };
 
   const handleRecommendClick = (keyword: string) => {
@@ -121,7 +133,7 @@ const Search = () => {
             <RecentSearchSection>
               <RecentSearchHeader>
                 <RecentSearchTitle>최근검색</RecentSearchTitle>
-                <DeleteAllButton onClick={handleDeleteAll}>전체삭제</DeleteAllButton>
+                <DeleteAllButton onClick={handleDeleteAllClick}>전체삭제</DeleteAllButton>
               </RecentSearchHeader>
               <RecentSearchList>
                 {recentSearches.map((keyword, index) => (
@@ -150,6 +162,14 @@ const Search = () => {
           )}
         </>
       )}
+
+      <DeleteConfirmModal
+        isOpen={isDeleteAllModalOpen}
+        onClose={handleDeleteAllModalClose}
+        onConfirm={handleDeleteAllConfirm}
+        message="최근검색창을 전부 비울까요?"
+        confirmText="확인"
+      />
     </BaseContainer>
   );
 };
