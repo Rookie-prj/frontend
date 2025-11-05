@@ -22,3 +22,7 @@ export const BackDropWithSkipContainer = styled(BackDropContainer)`
     letter-spacing: ${typography.subhead.subhead1.letterSpacing};
   }
 `;
+
+export const BackDropImage = styled.img<{ $variant?: 'default' | 'white' }>`
+  filter: ${({ $variant }) => ($variant === 'white' ? 'brightness(0) invert(1)' : 'none')};
+`;
