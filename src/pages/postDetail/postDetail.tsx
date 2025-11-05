@@ -50,7 +50,7 @@ const PostDetail: React.FC = () => {
         }}
       >
         <BaseContainerWithSpaceBetween>
-          <BackDrop />
+          <BackDrop variant="white" />
         </BaseContainerWithSpaceBetween>
       </HeaderImage>
 
