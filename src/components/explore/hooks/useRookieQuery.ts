@@ -60,8 +60,6 @@ const useRookieQuery = ({ sortType, search }: UseRookieQueryParams) => {
     });
 
   const allRookies = data?.pages.flat() ?? [];
-
-  // 클라이언트 사이드 필터링 적용
   const rookies = useMemo(() => {
     if (normalizedSearch) {
       return filterRookiesByKeyword(allRookies, normalizedSearch);

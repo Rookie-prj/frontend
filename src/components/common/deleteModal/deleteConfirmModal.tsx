@@ -9,6 +9,7 @@ interface DeleteConfirmModalProps {
   onClose: () => void;
   onConfirm: () => void;
   message?: string;
+  confirmText?: string;
 }
 
 function DeleteConfirmModal({
@@ -16,6 +17,7 @@ function DeleteConfirmModal({
   onClose,
   onConfirm,
   message = '보관함에서 제거할까요?',
+  confirmText = '삭제',
 }: DeleteConfirmModalProps) {
   usePreventScroll(isOpen);
   const ref = useOutsideClick(() => onClose());
@@ -36,7 +38,7 @@ function DeleteConfirmModal({
             <S.Message>{message}</S.Message>
             <S.ButtonContainer>
               <S.CancelButton onClick={handleCancel}>취소</S.CancelButton>
-              <S.DeleteButton onClick={handleConfirm}>삭제</S.DeleteButton>
+              <S.DeleteButton onClick={handleConfirm}>{confirmText}</S.DeleteButton>
             </S.ButtonContainer>
           </S.DeleteConfirmModalContainer>
         </Modal.Body>
