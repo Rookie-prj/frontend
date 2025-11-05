@@ -17,7 +17,7 @@ function CategoryBar({ sortType }: CategoryBarProps) {
   return (
     <CategoryBarContainer>
       <ItemWrapper>
-        <QueryLink extraQuery={{ sortType: CATEGORY.PROJECT.value }} preserveQuery={false}>
+        <QueryLink extraQuery={{ sortType: CATEGORY.PROJECT.value }} preserveQuery={true}>
           <CategoryBarItem $isActive={currentSortType === CATEGORY.PROJECT.value}>
             <CategoryBarText $isActive={currentSortType === CATEGORY.PROJECT.value}>
               {CATEGORY.PROJECT.label}
@@ -27,7 +27,7 @@ function CategoryBar({ sortType }: CategoryBarProps) {
       </ItemWrapper>
 
       <ItemWrapper>
-        <QueryLink extraQuery={{ sortType: CATEGORY.ROOKIE.value }} preserveQuery={false}>
+        <QueryLink extraQuery={{ sortType: CATEGORY.ROOKIE.value }} preserveQuery={true}>
           <CategoryBarItem $isActive={currentSortType === CATEGORY.ROOKIE.value}>
             <CategoryBarText $isActive={currentSortType === CATEGORY.ROOKIE.value}>
               {CATEGORY.ROOKIE.label}

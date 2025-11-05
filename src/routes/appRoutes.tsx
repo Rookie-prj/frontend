@@ -21,6 +21,7 @@ import MyProfile from '../pages/myprofile';
 import MyProfileSetting from '../pages/myprofile/setting';
 import QueryErrorBoundary from '../error/QueryErrorBoundary';
 import Chatroom from '../pages/chat/chatRoom/chatroom';
+import Search from '../pages/search/search';
 
 const AppRoutes = () => {
   const routes = [
@@ -142,6 +143,14 @@ const AppRoutes = () => {
       element: (
         <Layout hideNavigation={true}>
           <Login />
+        </Layout>
+      ),
+    },
+    {
+      path: ROUTES.search,
+      element: (
+        <Layout hideNavigation={true}>
+          <Search />
         </Layout>
       ),
     },
