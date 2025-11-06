@@ -52,12 +52,14 @@ export const RookieTitleWrapper = styled.div<{ type?: 'explore' | 'default' | 'd
     if (props.type === 'explore') {
       return `
     border-radius: 1.75rem 0.5rem 0 0;
+             padding-top: 0.63rem;
 
   `;
     } else if (props.type === 'default') {
       return `
         border-radius: 0.5rem 0.5rem 0 0;
             height: 7.5rem;
+            padding-top: 0.5rem;
       `;
     } else if (props.type === 'detail') {
       return `
@@ -68,11 +70,10 @@ export const RookieTitleWrapper = styled.div<{ type?: 'explore' | 'default' | 'd
     }
   }}
 `;
-export const RookieIcon = styled.div`
+export const RookieIcon = styled.div<{ type?: 'explore' | 'default' | 'detail' }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 0.75rem;
   width: 100%;
 `;
 export const RookieName = styled.div<{ type?: 'explore' | 'default' | 'detail' }>`
@@ -136,7 +137,7 @@ export const RookieSchoolTextWrapper = styled.div<{ type?: 'explore' | 'default'
     } else if (props.type === 'default') {
       return `
         margin-top: -0.5rem;
-        padding-bottom: 1.06rem;
+        padding-bottom: 0.94rem;
       `;
     } else if (props.type === 'detail') {
       return `
