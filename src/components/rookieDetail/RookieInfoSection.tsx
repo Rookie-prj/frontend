@@ -14,10 +14,9 @@ interface RookieInfoSectionProps {
 }
 
 const defaultFields: InfoField[] = [
-  { label: '현재 학습', key: 'currentStudy' },
   { label: '세부 분야', key: 'currentStudyDetail' },
-  { label: '툴셋', key: 'toolset' },
-  { label: '관심 주제', key: 'favoriteSubject' },
+  { label: '사용 가능 툴', key: 'toolset' },
+  { label: '관심주제', key: 'favoriteSubject' },
 ];
 
 function RookieInfoSection({ rookie, fields = defaultFields }: RookieInfoSectionProps) {

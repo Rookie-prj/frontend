@@ -9,6 +9,8 @@ export const useMyProfileDetail = () => {
     queryKey: [MY_PROFILE_QUERY_KEY, 'detail'],
     queryFn: () => getMyProfileDetail(),
     enabled: !!getAccessToken(), // 로그인 상태일 때만 조회
+    throwOnError: false, // 에러를 ErrorBoundary로 전파하지 않음
+    retry: false, // 자동 재시도 비활성화
   });
 
   return {
