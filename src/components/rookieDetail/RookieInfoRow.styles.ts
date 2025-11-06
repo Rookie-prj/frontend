@@ -13,7 +13,7 @@ export const InfoRowContainer = styled.div`
 `;
 
 export const Label = styled.div`
-  color: ${colors.gray[600]};
+  color: ${colors.gray[400]};
   font-size: 12px;
   font-weight: 500;
   line-height: 1.5em;
@@ -21,7 +21,7 @@ export const Label = styled.div`
 `;
 
 export const Value = styled.div`
-  color: ${colors.gray[950]};
+  color: ${colors.gray[800]};
   font-size: 14px;
   font-weight: 500;
   line-height: 1.43em;

@@ -8,8 +8,8 @@ export const RookieCardContainer = styled.div<{ type?: 'explore' | 'default' | '
   width: 100%;
   cursor: pointer;
   border: 0.5px solid ${colors.gray[150]};
-  background: ${colors.white};
-  min-height: ${(props) => (props.type ? '215px' : 'auto')};
+  background: #fafbfe;
+  min-height: ${(props) => (props.type ? '8.71194rem' : 'auto')};
   ${(props) => {
     if (props.type === 'explore') {
       return `
@@ -36,7 +36,7 @@ export const RookieTitleWrapper = styled.div<{ type?: 'explore' | 'default' | 'd
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-top: 0.75rem;
+  padding-top: 1rem;
   width: 100%;
   height: 7.125rem;
   border-bottom: 1px solid ${colors.gray[150]};
@@ -54,7 +54,7 @@ export const RookieTitleWrapper = styled.div<{ type?: 'explore' | 'default' | 'd
     } else if (props.type === 'detail') {
       return `
         background: ${colors.gray[70]};
-        height:140px;
+        height:8.71194rem;
       `;
     }
   }}
@@ -63,6 +63,7 @@ export const RookieIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   width: 100%;
 `;
 export const RookieName = styled.div<{ type?: 'explore' | 'default' | 'detail' }>`
@@ -74,8 +75,10 @@ export const RookieName = styled.div<{ type?: 'explore' | 'default' | 'detail' }
   padding-top: 0.5rem;
   font-size: 0.875rem;
   font-style: normal;
-  font-weight: 600;
-  line-height: 1.25rem;
+  font-weight: ${(props) =>
+    props.type === 'detail' ? typography.headline.headline2.fontWeight : 600};
+  line-height: ${(props) =>
+    props.type === 'detail' ? typography.headline.headline2.lineHeight : '1.25rem'};
   letter-spacing: -0.00875rem;
   ${(props) => {
     if (props.type === 'detail') {

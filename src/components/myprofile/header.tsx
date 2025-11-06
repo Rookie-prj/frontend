@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import leftArrow from '../../assets/icons/leftArrow.svg';
+import leftArrow from '../../assets/icons/profile-backdrop.svg';
 import setting from '../../assets/icons/setting.svg';
 import styled from '@emotion/styled';
 import { ROUTES } from '../../constants/routes';
@@ -17,7 +17,6 @@ const HeaderContainer = styled.div`
 `;
 
 const Title = styled.h3`
-  font-family: Pretendard;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.43;
@@ -55,11 +54,7 @@ const MyProfileHeader = () => {
   return (
     <HeaderContainer>
       <IconButton onClick={handleBack}>
-        <img
-          src={leftArrow}
-          alt="back"
-          style={{ width: '40px', height: '40px', transform: 'rotate(180deg)' }}
-        />
+        <img src={leftArrow} alt="back" />
       </IconButton>
       <Title>나의 프로필</Title>
       <IconButton onClick={handleSettings}>

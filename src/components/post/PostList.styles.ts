@@ -24,6 +24,7 @@ export const PostListContainer = styled.div`
 
 export const PostListTitle = styled.h4`
   margin-bottom: 17px;
+  margin-top: 1.69rem;
   padding-left: 16px;
   font: ${typography.subhead.subhead5};
 `;
