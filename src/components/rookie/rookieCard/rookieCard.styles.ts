@@ -21,7 +21,7 @@ export const RookieCardContainer = styled.div<{ type?: 'explore' | 'default' | '
       return `
         box-shadow: none;
         border-radius: 0.75rem;
-        min-height: auto;
+        min-height: 10.25rem;
       `;
     } else if (props.type === 'detail') {
       return `
@@ -57,6 +57,7 @@ export const RookieTitleWrapper = styled.div<{ type?: 'explore' | 'default' | 'd
     } else if (props.type === 'default') {
       return `
         border-radius: 0.5rem 0.5rem 0 0;
+            height: 7.5rem;
       `;
     } else if (props.type === 'detail') {
       return `
