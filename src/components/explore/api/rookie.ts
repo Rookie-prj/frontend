@@ -1,30 +1,26 @@
 import { API_ENDPOINT } from '../../../constants/apiEndpoint';
 import { apiClient } from '../../../api/index';
 import { RookieList } from 'models';
+import getFilteredRookie from '../util/getFilteredRookie';
 
 interface GetRookieParams {
   page?: number;
   size?: number;
   sortBy?: string;
   sortDirection?: string;
-  search?: string;
+  roleType?: string;
 }
 
 export const getRookie = (params: GetRookieParams = {}) => {
-  const { page = 0, size = 10, sortBy = 'createdAt', sortDirection = 'desc', search } = params;
-
-  const queryParams: Record<string, any> = {
-    page,
-    size,
-    sortBy,
-    sortDirection,
-  };
-
-  if (search) {
-    queryParams.search = search;
-  }
-
+  const { page = 0, size = 10, sortBy = 'createdAt', sortDirection = 'desc', roleType } = params;
+  const major = getFilteredRookie(roleType || '');
   return apiClient.get<RookieList>(API_ENDPOINT.ROOKIE, {
-    params: queryParams,
+    params: {
+      page,
+      size,
+      sortBy,
+      sortDirection,
+      major,
+    },
   });
 };

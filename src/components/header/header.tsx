@@ -5,6 +5,7 @@ import profile from '../../assets/icons/profile.svg';
 import BackDrop, { BackDropWithSkip } from '../../components/common/backDrop/backDrop';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
+import alertIcon from '../../assets/icons/alert.svg';
 
 type BackdropType = 'backdrop' | 'backdropWithSkip';
 type ContainerType = 'logo' | 'title' | 'search' | 'library';
@@ -28,12 +29,20 @@ const Header = ({ type, title }: HeaderProps) => {
     logo: (
       <>
         <img src={logo} alt="logo" />
-        <img
-          src={search}
-          alt="search"
-          onClick={() => navigate(ROUTES.search)}
-          style={{ cursor: 'pointer' }}
-        />
+        <div>
+          <img
+            src={alertIcon}
+            alt="alert"
+            onClick={() => navigate(ROUTES.notification)}
+            style={{ cursor: 'pointer' }}
+          />
+          <img
+            src={search}
+            alt="search"
+            onClick={() => navigate(ROUTES.search)}
+            style={{ cursor: 'pointer' }}
+          />
+        </div>
       </>
     ),
     title: <HeaderTitle>{title}</HeaderTitle>,

@@ -31,7 +31,7 @@ const ErrorFallback = ({ error }: ErrorFallBackProps) => {
   const navigate = useNavigate();
   const context = useContext(ErrorBoundaryContext);
   if (!context) return null;
-
+  console.log('ErrorFallback 렌더링:', error);
   const { resetErrorBoundary } = context;
 
   const redicrecToLogin = () => {
@@ -46,6 +46,7 @@ const ErrorFallback = ({ error }: ErrorFallBackProps) => {
       <S.Container>
         <img src={rookieGray} alt="rookieGray" />
         <S.ErrorMessage>{errorMessage}</S.ErrorMessage>
+
         {error.status !== HTTP_STATUS.UNAUTHORIZED &&
           error.status !== HTTP_STATUS.FORBIDDEN &&
           error.status !== HTTP_STATUS.INTERNAL_SERVER_ERROR && (
