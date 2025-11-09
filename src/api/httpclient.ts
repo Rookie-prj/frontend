@@ -92,7 +92,6 @@ export class APIClient implements APIClientType {
 
             // 토큰 갱신 실패 시 모든 인증 데이터 삭제 후 로그인 페이지로 리다이렉트
             clearAuthData();
-            window.location.href = '/login';
 
             return Promise.reject(refreshError);
           }
