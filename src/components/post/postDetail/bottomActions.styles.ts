@@ -29,13 +29,13 @@ export const ActionButton = styled.button`
 export const SecondaryButton = styled(ActionButton)`
   background: ${colors.gray[150]};
   color: ${colors.gray[800]};
-  flex: 1;
-  max-width: 136px;
+  flex: 0.5;
+  min-width: 8.5rem;
 `;
 
 export const PrimaryButton = styled(ActionButton)`
   background: ${colors.green[200]};
   color: ${colors.gray[800]};
   flex: 1;
-  max-width: 202px;
+  min-width: 12.625rem;
 `;

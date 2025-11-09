@@ -18,4 +18,5 @@ export const ROUTES = {
   myprofile: '/myprofile',
   myprofileSetting: '/myprofile/setting',
   notification: '/notification',
+  search: '/search',
 };

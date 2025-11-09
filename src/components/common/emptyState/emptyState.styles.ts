@@ -12,19 +12,19 @@ export const EmptyStateContainer = styled.div`
   text-align: center;
 `;
 
-export const EmptyIcon = styled.img`
+export const EmptyIcon = styled.img<{ $isSearch?: boolean }>`
   width: 50.11px;
   height: 50.11px;
-  margin-bottom: 24px;
+  margin-bottom: ${({ $isSearch }) => ($isSearch ? '8px' : '24px')};
 `;
 
-export const EmptyMessage = styled.div`
-  color: ${colors.gray[300]};
-  font-size: ${typography.subhead.subhead2.fontSize};
-  font-weight: ${typography.subhead.subhead2.fontWeight};
-  line-height: ${typography.subhead.subhead2.lineHeight};
-  letter-spacing: ${typography.subhead.subhead2.letterSpacing};
+export const EmptyMessage = styled.div<{ $isSearch?: boolean }>`
+  color: ${({ $isSearch }) => ($isSearch ? colors.gray[400] : colors.gray[600])};
+  font-size: ${({ $isSearch }) => ($isSearch ? '14px' : '16px')};
+  font-weight: 600;
+  line-height: 1.5em;
   margin-bottom: 8px;
+  white-space: pre-line;
 `;
 
 export const EmptySubMessage = styled.div`

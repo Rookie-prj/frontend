@@ -57,12 +57,21 @@ export class APIClient implements APIClientType {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
+        const status = error.response?.status;
+        const requestUrl = originalRequest?.url || '';
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        // 리프레시 토큰 API 호출 자체는 토큰 갱신 로직에서 제외 (무한루프 방지)
+        if (requestUrl.includes('/rookie/refresh') || requestUrl.includes('/refresh')) {
+          return Promise.reject(error);
+        }
+
+        // 401(Unauthorized) 또는 500(Internal Server Error) 발생 시 토큰 갱신 시도
+        // 500 에러도 토큰 만료로 인한 경우가 많음
+        if ((status === 401 || status === 500) && !originalRequest._retry) {
           originalRequest._retry = true;
 
           try {
-            console.log('🔄 401 에러 발생, 토큰 갱신 시도');
+            console.log(`🔄 ${status} 에러 발생, 토큰 갱신 시도`);
 
             // 리프레시 토큰으로 새 액세스 토큰 요청
             const refreshResponse = await refreshAccessToken();

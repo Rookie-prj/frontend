@@ -90,6 +90,8 @@ export const PostCardRecruitTeamWrapper = styled.div`
   display: flex;
   padding-bottom: 0.81rem;
   gap: 0.87rem;
+  overflow: hidden;
+  width: 100%;
 `;
 export const PostCardRecruitTeamPeople = styled.div`
   color: ${colors.gray[500]};
@@ -102,4 +104,20 @@ export const PostCardRecruitTeamPeople = styled.div`
   display: flex;
   line-height: 1.125rem;
   letter-spacing: -0.0075rem;
+  overflow: hidden;
+
+  &:last-child {
+    min-width: 0;
+    flex: 1;
+
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  img {
+    flex-shrink: 0;
+  }
 `;

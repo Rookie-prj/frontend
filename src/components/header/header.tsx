@@ -1,5 +1,6 @@
 import { HeaderContainer, HeaderTitle, Title } from './header.styles';
 import logo from '../../assets/icons/logo.svg';
+import search from '../../assets/icons/search.svg';
 import profile from '../../assets/icons/profile.svg';
 import BackDrop, { BackDropWithSkip } from '../../components/common/backDrop/backDrop';
 import { useNavigate } from 'react-router-dom';
@@ -27,14 +28,24 @@ const Header = ({ type, title }: HeaderProps) => {
     logo: (
       <>
         <img src={logo} alt="logo" />
-        {/* <img src={search} alt="search" /> */}
+        <img
+          src={search}
+          alt="search"
+          onClick={() => navigate(ROUTES.search)}
+          style={{ cursor: 'pointer' }}
+        />
       </>
     ),
     title: <HeaderTitle>{title}</HeaderTitle>,
     search: (
       <>
         <Title>탐색</Title>
-        {/* <img src={search} alt="search" style={{ cursor: 'pointer' }} /> */}
+        <img
+          src={search}
+          alt="search"
+          onClick={() => navigate(ROUTES.search)}
+          style={{ cursor: 'pointer' }}
+        />
       </>
     ),
     library: (

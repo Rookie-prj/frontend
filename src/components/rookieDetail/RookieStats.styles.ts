@@ -6,7 +6,7 @@ export const StatsContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 286px;
+  max-width: 343px;
   height: 52px;
   position: relative;
 `;
@@ -40,7 +40,7 @@ export const StatLabel = styled.div`
 export const Divider = styled.div`
   width: 0;
   height: 52px;
-  border-left: 1.5px solid ${colors.gray[200]};
+  border-left: 1px solid ${colors.gray[150]};
 `;
 
 export const LevelBadge = styled.div`
