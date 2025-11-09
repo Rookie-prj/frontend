@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { Collaborator } from '../models/projects';
 
 interface CreateProjectState {
   selectedProjectType: string | null;
@@ -6,6 +7,7 @@ interface CreateProjectState {
   selectedPeriod: number | null;
   selectedPositionDetail: string | null;
   selectedPositionNumberOfPeople: string | null;
+  collaborators: Collaborator[];
   selectedProjectTitle: string | null;
   selectedProjectDescription: string | null;
   selectedProjectStatus: string | null;
@@ -33,6 +35,9 @@ interface CreateProjectState {
   setSkillText: (skillText: string | null) => void;
   setSelectedImages: (images: File[]) => void;
   setProjectFields: (fields: string[]) => void;
+  addCollaborator: (collaborator: Collaborator) => void;
+  updateCollaborator: (index: number, collaborator: Collaborator) => void;
+  removeCollaborator: (index: number) => void;
   reset: () => void;
 }
 
@@ -53,6 +58,7 @@ export const useCreateProjectStore = create<CreateProjectState>((set) => ({
   skillText: null,
   selectedImages: [],
   projectFields: [],
+  collaborators: [],
   setSelectedPositionDetail: (positionDetail) => set({ selectedPositionDetail: positionDetail }),
   setSelectedProjectTitle: (projectTitle) => set({ selectedProjectTitle: projectTitle }),
   setSelectedPositionNumberOfPeople: (positionNumberOfPeople) =>
@@ -71,6 +77,16 @@ export const useCreateProjectStore = create<CreateProjectState>((set) => ({
   setSkillText: (skillText) => set({ skillText: skillText }),
   setSelectedImages: (images) => set({ selectedImages: images }),
   setProjectFields: (fields) => set({ projectFields: fields }),
+  addCollaborator: (collaborator) =>
+    set((state) => ({ collaborators: [...state.collaborators, collaborator] })),
+  updateCollaborator: (index, collaborator) =>
+    set((state) => ({
+      collaborators: state.collaborators.map((c, i) => (i === index ? collaborator : c)),
+    })),
+  removeCollaborator: (index) =>
+    set((state) => ({
+      collaborators: state.collaborators.filter((_, i) => i !== index),
+    })),
   reset: () =>
     set({
       selectedProjectType: null,
@@ -89,5 +105,6 @@ export const useCreateProjectStore = create<CreateProjectState>((set) => ({
       skillText: null,
       selectedImages: [],
       projectFields: [],
+      collaborators: [],
     }),
 }));
