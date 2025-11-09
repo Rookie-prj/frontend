@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { getALLNotifications } from '../api/notification';
+import { NOTIFICATION_KEY } from './key';
 
 /**
  * 읽지 않은 알림 목록 조회 훅
  */
 export const useALLNotifications = () => {
   return useQuery({
-    queryKey: ['notifications', 'unread'],
+    queryKey: [NOTIFICATION_KEY.all, NOTIFICATION_KEY.unread],
     queryFn: getALLNotifications,
     // 30초마다 자동으로 알림 목록 갱신
     refetchInterval: 30000,

@@ -1,7 +1,13 @@
-import { apiClient } from '../api';
-import { API_ENDPOINT } from '../constants/apiEndpoint';
-import { NotificationList } from '../models';
+import { apiClient } from '../../../api';
+import { API_ENDPOINT } from '../../../constants/apiEndpoint';
+import { NotificationList } from '../../../models';
 
+/**
+ * 읽지 않은 알림 목록 조회
+ */
+export const getALLNotifications = async (): Promise<NotificationList> => {
+  return apiClient.get<NotificationList>(API_ENDPOINT.NOTIFICATIONS_ALL);
+};
 /**
  * 읽지 않은 알림 목록 조회
  */
