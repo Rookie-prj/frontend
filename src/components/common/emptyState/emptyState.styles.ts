@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
+import { typography } from '../../../style/theme';
 
 export const EmptyStateContainer = styled.div`
   display: flex;
@@ -18,10 +19,11 @@ export const EmptyIcon = styled.img`
 `;
 
 export const EmptyMessage = styled.div`
-  color: ${colors.gray[600]};
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5em;
+  color: ${colors.gray[300]};
+  font-size: ${typography.subhead.subhead2.fontSize};
+  font-weight: ${typography.subhead.subhead2.fontWeight};
+  line-height: ${typography.subhead.subhead2.lineHeight};
+  letter-spacing: ${typography.subhead.subhead2.letterSpacing};
   margin-bottom: 8px;
 `;
 
