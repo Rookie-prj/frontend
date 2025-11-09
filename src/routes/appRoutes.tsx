@@ -21,6 +21,7 @@ import MyProfile from '../pages/myprofile';
 import MyProfileSetting from '../pages/myprofile/setting';
 import QueryErrorBoundary from '../error/QueryErrorBoundary';
 import Chatroom from '../pages/chat/chatRoom/chatroom';
+import Notification from '../pages/notification';
 
 const AppRoutes = () => {
   const routes = [
@@ -171,6 +172,16 @@ const AppRoutes = () => {
         <QueryErrorBoundary>
           <Layout hideNavigation={true}>
             <Chatroom />
+          </Layout>
+        </QueryErrorBoundary>
+      ),
+    },
+    {
+      path: ROUTES.notification,
+      element: (
+        <QueryErrorBoundary>
+          <Layout hideNavigation={true}>
+            <Notification />
           </Layout>
         </QueryErrorBoundary>
       ),
