@@ -2,10 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import backdrop from '../../../assets/icons/backdrop.svg';
 import { BackDropContainer, BackDropWithSkipContainer } from './backDrop.styles';
 import { ROUTES } from '../../../constants/routes';
-
-const BackDrop = () => {
+interface BackDropProps {
+  onClick?: () => void;
+}
+const BackDrop = ({ onClick }: BackDropProps) => {
   const navigate = useNavigate();
   const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
     navigate(-1);
   };
 

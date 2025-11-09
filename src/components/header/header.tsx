@@ -1,6 +1,5 @@
 import { HeaderContainer, HeaderTitle, Title } from './header.styles';
 import logo from '../../assets/icons/logo.svg';
-import search from '../../assets/icons/search.svg';
 import profile from '../../assets/icons/profile.svg';
 import BackDrop, { BackDropWithSkip } from '../../components/common/backDrop/backDrop';
 import { useNavigate } from 'react-router-dom';
