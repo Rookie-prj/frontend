@@ -18,7 +18,7 @@ const queryClient = new QueryClient({
       gcTime: 20000,
     },
   },
-  //mutationCache: new MutationCache({ onError: handleMutationError }),
+  mutationCache: new MutationCache({ onError: handleMutationError }),
 });
 const retriedMutations = new WeakSet<Mutation<unknown, unknown, unknown>>();
 async function handleMutationError(
