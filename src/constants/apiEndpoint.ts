@@ -28,4 +28,9 @@ export const API_ENDPOINT = {
   BOARD_IMAGES_UPLOAD_SINGLE: '/api/boards/images/upload/single',
   BOARD_IMAGES_PREVIEW: '/api/boards/images/preview',
   BOARD_IMAGES_DELETE: '/api/boards/images',
+
+  // 알림 관련 엔드포인트
+  NOTIFICATIONS_SUBSCRIBE: '/api/notifications/subscribe',
+  NOTIFICATIONS_UNREAD: '/api/notifications/unread',
+  NOTIFICATIONS_ALL: '/api/notifications',
 };

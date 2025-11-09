@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
+import { typography } from '../../../style/theme';
 
 export const EmptyStateContainer = styled.div`
   display: flex;

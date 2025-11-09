@@ -35,6 +35,7 @@ const ExplorePage = () => {
   const { rookies, hasNextPage, fetchNextPage, isFetchingNextPage } = useRookieQuery({
     sortType,
     search,
+    roleType,
   });
   const [selectedBoardId, setSelectedBoardId] = useState<number>(0);
 
