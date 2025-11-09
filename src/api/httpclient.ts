@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import HttpError from './httpError';
 import throwAPIError from './throwAPIError';
 import { refreshAccessToken, saveAccessToken, clearAuthData, getAccessToken } from './token';
+import { HTTP_STATUS } from '../constants/http';
 
 export const BASE_URL = process.env.REACT_APP_API_BASE_URL ?? '';
 
@@ -67,7 +68,10 @@ export class APIClient implements APIClientType {
 
         // 401(Unauthorized) 또는 500(Internal Server Error) 발생 시 토큰 갱신 시도
         // 500 에러도 토큰 만료로 인한 경우가 많음
-        if ((status === 401 || status === 500) && !originalRequest._retry) {
+        if (
+          (status === HTTP_STATUS.UNAUTHORIZED || status === HTTP_STATUS.INTERNAL_SERVER_ERROR) &&
+          !originalRequest._retry
+        ) {
           originalRequest._retry = true;
 
           try {
@@ -90,10 +94,10 @@ export class APIClient implements APIClientType {
           } catch (refreshError) {
             console.error('❌ 토큰 갱신 실패:', refreshError);
 
-            // 토큰 갱신 실패 시 모든 인증 데이터 삭제 후 로그인 페이지로 리다이렉트
+            // 토큰 갱신 실패 시 모든 인증 데이터 삭제
             clearAuthData();
 
-            return Promise.reject(refreshError);
+            return Promise.reject(error);
           }
         }
 
@@ -107,11 +111,11 @@ export class APIClient implements APIClientType {
       const response: AxiosResponse<T> = await this.client.request<T>(config);
       return response.data;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        throwAPIError(error.response.status);
-      }
       if (error instanceof HttpError) {
         console.error(`HTTP Error ${error.status}: ${error.message}`);
+      }
+      if (axios.isAxiosError(error) && error.response) {
+        throwAPIError(error.response.status);
       }
       throw error;
     }

@@ -31,7 +31,7 @@ const ErrorFallback = ({ error }: ErrorFallBackProps) => {
   const navigate = useNavigate();
   const context = useContext(ErrorBoundaryContext);
   if (!context) return null;
-
+  console.log('ErrorFallback 렌더링:', error);
   const { resetErrorBoundary } = context;
 
   const redicrecToLogin = () => {

@@ -12,8 +12,6 @@ const useSavedBoardsQuery = (sortType: LibraryCategoryValue) => {
     queryFn: async () => {
       return await getSavedBoards();
     },
-    throwOnError: false,
-    retry: false,
   });
 
   // API 응답이 배열인 경우와 객체인 경우 모두 처리
