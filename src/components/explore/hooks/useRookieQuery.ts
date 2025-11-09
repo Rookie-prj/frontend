@@ -8,6 +8,7 @@ import { Rookie } from '../../../models/rookie';
 interface UseRookieQueryParams {
   sortType: ExploreCategoryValue;
   search?: string;
+  roleType?: string;
 }
 
 // 클라이언트 사이드 검색 필터링 함수
@@ -34,18 +35,19 @@ const filterRookiesByKeyword = (rookies: Rookie[], keyword: string): Rookie[] =>
   });
 };
 
-const useRookieQuery = ({ sortType, search }: UseRookieQueryParams) => {
+const useRookieQuery = ({ sortType, search, roleType }: UseRookieQueryParams) => {
   // 검색어 정규화
   const normalizedSearch = search && search.trim() ? search.trim() : undefined;
 
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: [ROOKIE_QUERY_KEY.rookie, normalizedSearch],
+      queryKey: [ROOKIE_QUERY_KEY.rookie, normalizedSearch, roleType],
       queryFn: async ({ pageParam = 0 }) => {
         // 검색어가 있을 때만 검색 파라미터 전달 (백엔드 필터링 시도)
         return await getRookie({
           page: pageParam,
           size: 10,
+          roleType,
           ...(normalizedSearch && { search: normalizedSearch }),
         });
       },
