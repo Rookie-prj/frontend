@@ -46,7 +46,7 @@ export const SignupLayout = ({
         )}
         {children}
       </BaseContainer>
-      <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
+      <div style={{ marginBottom: '4.7rem', marginTop: '1.7rem' }}>
         <Button
           onClick={onNext}
           size="large"
