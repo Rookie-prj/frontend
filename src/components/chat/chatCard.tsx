@@ -38,7 +38,7 @@ function ChatCard({
     <Container onClick={handleClick}>
       <ContentWrapper>
         <ProfileImage>
-          <img src={profileImage || profileEx} alt="profile" />
+          <img src={profileImage || profileEx} alt="profile" style={{ width: 50, height: 50 }} />
         </ProfileImage>
         <MessageContent>
           <UserName>{userName}</UserName>
