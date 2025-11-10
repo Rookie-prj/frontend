@@ -14,11 +14,13 @@ export const AuthorTitle = styled.h3`
 `;
 
 export const AuthorCard = styled.div`
+  position: relative;
   background: ${colors.gray[70]};
   border-radius: 0.625rem;
-  padding-top: 1.38rem;
-padding-bottom: 1.57rem;
-  }
+  padding: 1.38rem 0 1.57rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 `;
 
 export const AuthorProfile = styled.div`
@@ -63,9 +65,8 @@ export const AuthorStats = styled.div`
   display: flex;
   width: 100%;
   align-items: stretch;
-  margin-top: 0.75rem;
-
   justify-content: center;
+  padding: 0 1.375rem;
   .response-rate {
     border-left: 1.5px solid ${colors.gray[200]};
     border-right: 1px solid ${colors.gray[200]};
@@ -110,6 +111,7 @@ export const AuthorLevel = styled.div`
   gap: 0.375rem;
   height: 100%;
   flex: 1;
+  cursor: pointer;
 `;
 
 export const LevelIcon = styled.div`
@@ -129,5 +131,14 @@ export const LevelText = styled.div`
     color: ${colors.gray[900]};
     line-height: 0.75rem;
     letter-spacing: -0.00625rem;
+  }
+`;
+
+export const TooltipWrapper = styled.div`
+  position: relative;
+  width: 100%;
+
+  > div {
+    bottom: -60px;
   }
 `;

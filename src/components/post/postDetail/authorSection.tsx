@@ -13,11 +13,14 @@ import {
   AuthorTitle,
   LevelIcon,
   LevelText,
+  TooltipWrapper,
 } from './authorSection.styles';
+import passionIcon from '../../../assets/icons/passion/passioninfo.svg';
 import ProfileEx from '../../../assets/icons/profileEx.svg';
 import GreenPin from '../../../assets/icons/greenPin.svg';
 import Level1 from '../../../assets/icons/passion/Lv.1.svg';
-import Exclamation from '../../../assets/icons/exclamation.svg';
+import { useState } from 'react';
+import PassionMeterTooltip from '../../common/passionMeterTooltip/passionMeterTooltip';
 interface AuthorSectionProps {
   name: string;
   location: string;
@@ -26,6 +29,7 @@ interface AuthorSectionProps {
   level: string;
 }
 const AuthorSection = ({ name, location, projects, responseRate, level }: AuthorSectionProps) => {
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   return (
     <AuthorContainer>
       <AuthorTitle>작성자 루키 정보</AuthorTitle>
@@ -53,16 +57,22 @@ const AuthorSection = ({ name, location, projects, responseRate, level }: Author
             <AuthorStatValue>{responseRate}%</AuthorStatValue>
             <AuthorStatLabel>응답률</AuthorStatLabel>
           </AuthorStatItem>
-          <AuthorLevel>
+          <AuthorLevel onClick={() => setIsTooltipVisible(true)}>
             <LevelIcon>
               <img src={Level1} alt="level-1" />
             </LevelIcon>
             <LevelText>
               <span>열정기어</span>
-              <img src={Exclamation} alt="exclamation" style={{ width: '1rem', height: '1rem' }} />
+              <img src={passionIcon} alt="열정기여도 정보" />
             </LevelText>
           </AuthorLevel>
         </AuthorStats>
+        <TooltipWrapper>
+          <PassionMeterTooltip
+            isVisible={isTooltipVisible}
+            onClose={() => setIsTooltipVisible(false)}
+          />
+        </TooltipWrapper>
       </AuthorCard>
     </AuthorContainer>
   );
