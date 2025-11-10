@@ -285,7 +285,6 @@ import TextArea from '../../../components/common/textArea/textArea';
 import { ProjectDescriptionHint } from '../../../components/createProject/projectDescriptionHint/projectDescriptionHint';
 import ImageUpload from '../../../components/createProject/imageUpload/imageUpload';
 import { ProjectDetailTypeChips } from '../../../components/createProject/projectTypeChips/projectDetailTypeChips';
-import { ProjectTypeChips } from '../../../components/createProject/projectTypeChips/projectTypeChips';
 interface CreateProjectStep3Props {
   onNext: () => void;
   onPrev: () => void;
@@ -303,8 +302,6 @@ export const CreateProjectStep3 = ({ onNext, onPrev, currentStep }: CreateProjec
     setSelectedImages,
     projectFields,
     setProjectFields,
-    selectedProjectType,
-    setSelectedProjectType,
   } = useCreateProjectStore();
 
   const handleCloseModal = () => {
@@ -380,10 +377,6 @@ export const CreateProjectStep3 = ({ onNext, onPrev, currentStep }: CreateProjec
           </StepContainer>
           <StepContainer style={{ marginTop: '2.12rem' }}>
             <Questions text={TEAM.STEP3_PROJECT_MORE_DESCRIPTION} number="three" />
-            <ProjectTypeChips
-              selectedProjectType={selectedProjectType}
-              setSelectedProjectType={setSelectedProjectType}
-            />
             <ProjectDetailTypeChips
               selectedCategories={projectFields}
               setSelectedCategories={setProjectFields}

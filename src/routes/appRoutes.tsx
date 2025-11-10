@@ -150,9 +150,11 @@ const AppRoutes = () => {
     {
       path: ROUTES.search,
       element: (
-        <Layout hideNavigation={true}>
-          <Search />
-        </Layout>
+        <QueryErrorBoundary>
+          <Layout>
+            <Search />
+          </Layout>
+        </QueryErrorBoundary>
       ),
     },
     {

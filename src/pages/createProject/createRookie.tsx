@@ -37,6 +37,7 @@ export const CreateRookie = () => {
         skillText: storeData.skillText,
         selectedImages: storeData.selectedImages,
         projectFields: storeData.projectFields,
+        collaborators: storeData.collaborators,
       };
 
       console.log('🔍 스토어에서 가져온 데이터:', storeProjectData);

@@ -13,8 +13,6 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  margin-top: 1.5rem;
 `;
 const Title = styled.p`
   color: ${colors.gray[700]};

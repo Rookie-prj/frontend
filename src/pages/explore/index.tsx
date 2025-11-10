@@ -124,7 +124,7 @@ const ExplorePage = () => {
               <EmptyState
                 message={
                   search
-                    ? '일치하는 결과가 없어요.\n다른 키워드로 탐색해볼까요?'
+                    ? `일치하는 결과가 없어요.\n다른 키워드로 탐색해볼까요?`
                     : '탐색할 루키가 없어요'
                 }
                 icon={rookieyGray}
@@ -165,7 +165,7 @@ const ExplorePage = () => {
               <EmptyState
                 message={
                   search
-                    ? '일치하는 결과가 없어요.\n다른 키워드로 탐색해볼까요?'
+                    ? `일치하는 결과가 없어요.\n다른 키워드로 탐색해볼까요?`
                     : '탐색할 프로젝트가 없어요'
                 }
                 icon={rookieyGray}

@@ -5,8 +5,7 @@ import {
   SlideBarWrapper,
 } from './heroBanner.styles';
 import slide1 from '../../../assets/img/slide-1.svg';
-// import slide2 from '../../../assets/img/slide-2.svg';
-import slide from '../../../assets/img/slide.svg';
+import slide2 from '../../../assets/img/slide-2.svg';
 import slide3 from '../../../assets/img/silde-3.svg';
 import SlideBar from '../slideBar/slideBar';
 import RegisterButton from '../registerButton/registerButton';
@@ -18,6 +17,11 @@ import {
   HeroBannerSlideThreeButton,
   HeroBannerSlideTwoButton,
 } from '../../common/button/button.styles';
+import { getAccessToken } from '../../../api/token';
+import { getMyProfileDetail } from '../../../api/myProfile';
+import { ROUTES } from '../../../constants/routes';
+import RedirectModal from '../../rookieDetail/redirectModal';
+import { useModal } from '../../../hooks/useModal';
 
 interface HeroBannerProps {
   totalSlides?: number;
@@ -28,7 +32,7 @@ interface HeroBannerProps {
 const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBannerProps) => {
   const slides = [
     { src: slide1, alt: 'slide-1' },
-    { src: slide, alt: 'slide-2' },
+    { src: slide2, alt: 'slide-2' },
     { src: slide3, alt: 'slide-3' },
   ];
 
@@ -36,6 +40,28 @@ const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBanner
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const total = totalSlides || 3;
+  const {
+    isOpen: isRedirectOpen,
+    handleModalOpen: openRedirect,
+    handleModalClose: closeRedirect,
+  } = useModal();
+
+  const handleCreateProjectClick = async () => {
+    const token = getAccessToken();
+
+    if (!token) {
+      openRedirect();
+      return;
+    }
+
+    try {
+      await getMyProfileDetail();
+      navigate(ROUTES.createProject);
+    } catch (error) {
+      console.error('인증 체크 실패:', error);
+      openRedirect();
+    }
+  };
 
   useEffect(() => {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -47,33 +73,8 @@ const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBanner
     };
   }, [currentSlide, total, onSlideChange]);
 
-  // 스크롤 감지
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    let scrollTimeout: NodeJS.Timeout;
-    const handleWheel = (e: WheelEvent) => {
-      if (timerRef.current) clearInterval(timerRef.current);
-
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        if (Math.abs(e.deltaX) > 50) {
-          const next = (currentSlide + (e.deltaX > 0 ? 1 : -1) + total) % total;
-          onSlideChange(next);
-        }
-      }, 100);
-    };
-
-    container.addEventListener('wheel', handleWheel);
-    return () => {
-      container.removeEventListener('wheel', handleWheel);
-      clearTimeout(scrollTimeout);
-    };
-  }, [currentSlide, total, onSlideChange]);
-
   return (
-    <HeroBannerContainer ref={containerRef}>
+    <HeroBannerContainer>
       <SlideContainer currentSlide={currentSlide}>
         {slides.map((slide, index) => (
           <div
@@ -97,11 +98,7 @@ const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBanner
             )}
 
             {index === 1 && currentSlide === 1 && (
-              <HeroBannerSlideTwoButton
-                onClick={() => {
-                  navigate('/toolkit');
-                }}
-              >
+              <HeroBannerSlideTwoButton onClick={handleCreateProjectClick}>
                 프로젝트 등록하기
               </HeroBannerSlideTwoButton>
             )}
@@ -124,6 +121,12 @@ const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBanner
           onSlideChange={onSlideChange}
         />
       </SlideBarWrapper>
+      <RedirectModal
+        isOpen={isRedirectOpen}
+        onClose={closeRedirect}
+        title="로그인 후 이용해주세요"
+        redirectTo={ROUTES.login}
+      />
     </HeroBannerContainer>
   );
 };

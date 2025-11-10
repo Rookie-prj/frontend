@@ -36,6 +36,7 @@ export const CreateProject = () => {
         skillText: storeData.skillText,
         selectedImages: storeData.selectedImages,
         projectFields: storeData.projectFields,
+        collaborators: storeData.collaborators,
       };
 
       const result = await createProjectFromStore(storeProjectData);

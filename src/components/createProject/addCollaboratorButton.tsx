@@ -10,7 +10,6 @@ interface AddCollaboratorButtonProps {
 const ButtonContainer = styled.button`
   display: flex;
   align-items: center;
-
   gap: 0.375rem;
   padding: 0.75rem 0.69rem;
   background-color: ${colors.gray[150]};
@@ -46,7 +45,6 @@ const IconWrapper = styled.div`
 
 const ButtonText = styled.span`
   color: ${colors.gray[600]};
-  font-family: 'Pretendard', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.25rem;
