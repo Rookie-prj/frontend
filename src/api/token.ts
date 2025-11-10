@@ -11,13 +11,20 @@ export const refreshAccessToken = async (): Promise<RefreshTokenResponse> => {
     console.log('🔄 액세스 토큰 갱신 시작:', {
       endpoint: API_ENDPOINT.ROOKIE_REFRESH,
     });
+    console.log('🍪 갱신 전 쿠키:', typeof document !== 'undefined' ? document.cookie : 'N/A');
 
-    const response = await apiClient.post<RefreshTokenResponse>(
-      API_ENDPOINT.ROOKIE_REFRESH,
-      {}, // 빈 body, RT는 쿠키로 전송
-    );
+    // axios 인스턴스를 직접 사용하여 응답 헤더 확인
+    const axiosInstance = (apiClient as any).client;
+    const fullResponse = await axiosInstance.post(API_ENDPOINT.ROOKIE_REFRESH, {});
+
+    const response = fullResponse.data as RefreshTokenResponse;
 
     console.log('✅ 액세스 토큰 갱신 성공:', response);
+    console.log('📦 갱신 응답 전체 데이터:', JSON.stringify(response, null, 2));
+    console.log('📋 응답 헤더:', fullResponse.headers);
+    console.log('🍪 Set-Cookie 헤더:', fullResponse.headers['set-cookie']);
+    console.log('🍪 갱신 후 쿠키:', typeof document !== 'undefined' ? document.cookie : 'N/A');
+
     return response;
   } catch (error) {
     console.error('❌ 액세스 토큰 갱신 실패:', error);

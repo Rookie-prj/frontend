@@ -74,4 +74,5 @@ export interface StoreProjectData {
   skillText: string | null;
   selectedImages: File[];
   projectFields: string[];
+  collaborators: Collaborator[];
 }

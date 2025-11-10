@@ -23,16 +23,23 @@ export const ButtonContainer = styled(BaseButton)<{ $size?: 'small' | 'medium' |
     else if ($size === 'large') return '1rem';
   }};
   justify-content: center;
-  border-radius: 0.75rem;
+  border-radius: ${({ $size }) => {
+    if ($size === 'medium') return '8px';
+    return '0.75rem';
+  }};
   line-height: 1.25rem;
   height: ${({ $size }) => {
     if ($size === 'small') return '3.125rem';
-    else if ($size === 'medium') return '43px';
+    else if ($size === 'medium') return '50px';
     else if ($size === 'large') return '3.625rem';
   }};
   padding: ${({ $size }) => {
     if ($size === 'small') return '1rem 2rem';
     else if ($size === 'large') return '1rem 9.875rem';
+  }};
+  max-width: ${({ $size }) => {
+    if ($size === 'medium') return '343px';
+    return '100%';
   }};
   &:disabled {
     cursor: not-allowed;

@@ -16,6 +16,7 @@ import {
 import { addBookmark, removeBookmark } from './bookmark';
 import { myProfileDetail } from './myProfile';
 import { filterBoardsHandler } from './filterBoards';
+import { allNotifications, markNotificationAsRead } from './notification';
 
 const handlers = [
   ex,
@@ -36,6 +37,8 @@ const handlers = [
   removeBookmark,
   myProfileDetail,
   filterBoardsHandler,
+  allNotifications,
+  markNotificationAsRead,
 ];
 
 export const worker = setupWorker(...handlers);

@@ -14,13 +14,14 @@ export const DeleteConfirmModalContainer = styled.div`
 `;
 
 export const Message = styled.div`
-  font-family: 'Pretendard', sans-serif;
   font-weight: 700;
   font-size: 14px;
   line-height: 1.43;
   color: ${colors.gray[800]};
   margin-bottom: 16px;
-  text-align: center;
+  text-align: left;
+  width: 100%;
+  align-self: flex-start;
 `;
 
 export const ButtonContainer = styled.div`

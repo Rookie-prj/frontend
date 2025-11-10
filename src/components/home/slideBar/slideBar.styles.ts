@@ -3,8 +3,6 @@ import { colors } from '../../../style/colors';
 
 export const SlideBarContainer = styled.div`
   display: flex;
-  width: 3.3125rem;
-  height: 0.875rem;
   padding: 0.25rem 0.38rem;
   flex-direction: row;
   align-items: center;

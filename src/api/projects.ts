@@ -157,10 +157,24 @@ export const createProjectFromStore = async (storeData: StoreProjectData): Promi
       techTools: storeData.skillText || '',
       collabMthds: storeData.selectedMethod || '',
       isActive: true,
-      requredPpl: parseInt(storeData.selectedPositionNumberOfPeople || ''),
-      cowrkrPosition: storeData.selectedPosition ? [storeData.selectedPosition] : [],
+      requredPpl:
+        storeData.collaborators.length > 0
+          ? storeData.collaborators.reduce((sum, c) => sum + parseInt(c.numberOfPeople || '0'), 0)
+          : parseInt(storeData.selectedPositionNumberOfPeople || '0'),
+      cowrkrPosition:
+        storeData.collaborators.length > 0
+          ? [...new Set(storeData.collaborators.map((c) => c.position))]
+          : storeData.selectedPosition
+          ? [storeData.selectedPosition]
+          : [],
       cowrkrSpeciality:
-        storeData.selectedPositionDetail && storeData.selectedPositionNumberOfPeople
+        storeData.collaborators.length > 0
+          ? storeData.collaborators.reduce((acc, c) => {
+              acc[c.positionDetail] =
+                (acc[c.positionDetail] || 0) + parseInt(c.numberOfPeople || '0');
+              return acc;
+            }, {} as Record<string, number>)
+          : storeData.selectedPositionDetail && storeData.selectedPositionNumberOfPeople
           ? {
               [storeData.selectedPositionDetail]: parseInt(
                 storeData.selectedPositionNumberOfPeople,

@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import HttpError from './httpError';
 import throwAPIError from './throwAPIError';
 import { refreshAccessToken, saveAccessToken, clearAuthData, getAccessToken } from './token';
+import { HTTP_STATUS } from '../constants/http';
 
 export const BASE_URL = process.env.REACT_APP_API_BASE_URL ?? '';
 
@@ -57,12 +58,24 @@ export class APIClient implements APIClientType {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
+        const status = error.response?.status;
+        const requestUrl = originalRequest?.url || '';
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        // 리프레시 토큰 API 호출 자체는 토큰 갱신 로직에서 제외 (무한루프 방지)
+        if (requestUrl.includes('/rookie/refresh') || requestUrl.includes('/refresh')) {
+          return Promise.reject(error);
+        }
+
+        // 401(Unauthorized) 또는 500(Internal Server Error) 발생 시 토큰 갱신 시도
+        // 500 에러도 토큰 만료로 인한 경우가 많음
+        if (
+          (status === HTTP_STATUS.UNAUTHORIZED || status === HTTP_STATUS.INTERNAL_SERVER_ERROR) &&
+          !originalRequest._retry
+        ) {
           originalRequest._retry = true;
 
           try {
-            console.log('🔄 401 에러 발생, 토큰 갱신 시도');
+            console.log(`🔄 ${status} 에러 발생, 토큰 갱신 시도`);
 
             // 리프레시 토큰으로 새 액세스 토큰 요청
             const refreshResponse = await refreshAccessToken();
@@ -81,11 +94,10 @@ export class APIClient implements APIClientType {
           } catch (refreshError) {
             console.error('❌ 토큰 갱신 실패:', refreshError);
 
-            // 토큰 갱신 실패 시 모든 인증 데이터 삭제 후 로그인 페이지로 리다이렉트
+            // 토큰 갱신 실패 시 모든 인증 데이터 삭제
             clearAuthData();
-            window.location.href = '/login';
 
-            return Promise.reject(refreshError);
+            return Promise.reject(error);
           }
         }
 
@@ -99,11 +111,11 @@ export class APIClient implements APIClientType {
       const response: AxiosResponse<T> = await this.client.request<T>(config);
       return response.data;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        throwAPIError(error.response.status);
-      }
       if (error instanceof HttpError) {
         console.error(`HTTP Error ${error.status}: ${error.message}`);
+      }
+      if (axios.isAxiosError(error) && error.response) {
+        throwAPIError(error.response.status);
       }
       throw error;
     }

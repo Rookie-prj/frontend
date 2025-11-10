@@ -12,6 +12,7 @@ import { useMyProfileDetail } from '../../hooks/useMyProfile';
 import Button from '../../components/common/button/button';
 import { useNavigate } from 'react-router-dom';
 import { MyProfileHeader } from '../../components/myprofile';
+import * as S from './index.styles';
 
 function MyProfile() {
   const navigate = useNavigate();
@@ -30,11 +31,11 @@ function MyProfile() {
   }
 
   return (
-    <div>
+    <S.MyProfileContainer>
       <MyProfileHeader />
       {profile && <RookieCard rookie={profile} type="detail" />}
 
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '27px' }}>
+      <S.StatsWrapper>
         {profile && (
           <RookieStats
             publicPortfolioCount={profile.publicPortfolioCount}
@@ -42,18 +43,18 @@ function MyProfile() {
             passionMeter={profile.passionMeter}
           />
         )}
-      </div>
+      </S.StatsWrapper>
+
       {profile && <RookieInfoSection rookie={profile} />}
 
-      <div style={{ padding: '0 16px', marginTop: '32px', marginBottom: '40px' }}>
+      <S.ButtonWrapper>
         <Button
           variant="primary"
-          size="medium"
           onClick={() => navigate(`${ROUTES.signup}?signup.step=currentStudyDetail`)}
         >
           내 프로필 수정하기
         </Button>
-      </div>
+      </S.ButtonWrapper>
 
       {/* 추후 로그인 상태로 제어 */}
       <RedirectModal
@@ -62,7 +63,7 @@ function MyProfile() {
         title={REDIRECT_LOGIN_MESSAGE}
         redirectTo={ROUTES.login}
       />
-    </div>
+    </S.MyProfileContainer>
   );
 }
 

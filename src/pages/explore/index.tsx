@@ -28,10 +28,15 @@ const ExplorePage = () => {
   const [searchParams] = useSearchParams();
   const sortType = (searchParams.get('sortType') || 'project') as ExploreCategoryValue;
   const roleType = searchParams.get('roleType') as RoleTabValue;
+  const search = searchParams.get('search') || undefined;
   const [isOpen, setIsOpen] = useState(false);
   const [boardField, setBoardField] = useState<string[]>([]);
   const [selectedInterestFields, setSelectedInterestFields] = useState<string[]>([]);
-  const { rookies, hasNextPage, fetchNextPage, isFetchingNextPage } = useRookieQuery(sortType);
+  const { rookies, hasNextPage, fetchNextPage, isFetchingNextPage } = useRookieQuery({
+    sortType,
+    search,
+    roleType,
+  });
   const [selectedBoardId, setSelectedBoardId] = useState<number>(0);
 
   // 필터 데이터 상태
@@ -79,7 +84,7 @@ const ExplorePage = () => {
     hasNextPage: projectHasNextPage,
     fetchNextPage: projectFetchNextPage,
     isFetchingNextPage: projectIsFetchingNextPage,
-  } = useProjectsQuery({ sortType, boardType: roleType });
+  } = useProjectsQuery({ sortType, boardType: roleType, search });
 
   const handleDeleteBookmark = (boardId: number) => {
     setSelectedBoardId(boardId);
@@ -116,7 +121,15 @@ const ExplorePage = () => {
           >
             {rookies.length > 0 && <Rookies rookies={rookies} type="explore" />}
             {rookies.length === 0 && (
-              <EmptyState message="탐색할 루키가 없어요" icon={rookieyGray} />
+              <EmptyState
+                message={
+                  search
+                    ? `일치하는 결과가 없어요.\n다른 키워드로 탐색해볼까요?`
+                    : '탐색할 루키가 없어요'
+                }
+                icon={rookieyGray}
+                search={!!search}
+              />
             )}
           </InfiniteScrollList>
         )}
@@ -149,7 +162,15 @@ const ExplorePage = () => {
             )}
             {((filterDatas && filterDatas.length === 0) ||
               (!filterDatas && projects.length === 0)) && (
-              <EmptyState message="탐색할 프로젝트가 없어요" icon={rookieyGray} />
+              <EmptyState
+                message={
+                  search
+                    ? `일치하는 결과가 없어요.\n다른 키워드로 탐색해볼까요?`
+                    : '탐색할 프로젝트가 없어요'
+                }
+                icon={rookieyGray}
+                search={!!search}
+              />
             )}
           </InfiniteScrollList>
         )}

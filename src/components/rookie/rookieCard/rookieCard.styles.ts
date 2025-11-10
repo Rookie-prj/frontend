@@ -8,20 +8,20 @@ export const RookieCardContainer = styled.div<{ type?: 'explore' | 'default' | '
   width: 100%;
   cursor: pointer;
   border: 0.5px solid ${colors.gray[150]};
-  background: ${colors.white};
-  min-height: ${(props) => (props.type ? '215px' : 'auto')};
+  background: #fafbfe;
+  min-height: ${(props) => (props.type ? '8.71194rem' : 'auto')};
   ${(props) => {
     if (props.type === 'explore') {
       return `
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.05);
     border-radius: 1.75rem 0.75rem 1.75rem 0.75rem;
-    min-height: 220.6px;
+    min-height:  13.4375rem;
   `;
     } else if (props.type === 'default') {
       return `
         box-shadow: none;
         border-radius: 0.75rem;
-        min-height: auto;
+        min-height: 10.25rem;
       `;
     } else if (props.type === 'detail') {
       return `
@@ -36,30 +36,41 @@ export const RookieTitleWrapper = styled.div<{ type?: 'explore' | 'default' | 'd
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-top: 0.75rem;
+
   width: 100%;
   height: 7.125rem;
   border-bottom: 1px solid ${colors.gray[150]};
   background: ${colors.gray[150]};
-
+  ${(props) => {
+    if (props.type === 'explore') {
+      return `
+    height: 7.5rem;
+  `;
+    }
+  }}
   ${(props) => {
     if (props.type === 'explore') {
       return `
     border-radius: 1.75rem 0.5rem 0 0;
+             padding-top: 0.63rem;
+
   `;
     } else if (props.type === 'default') {
       return `
         border-radius: 0.5rem 0.5rem 0 0;
+            height: 7.5rem;
+            padding-top: 0.5rem;
       `;
     } else if (props.type === 'detail') {
       return `
         background: ${colors.gray[70]};
-        height:140px;
+        height:8.71194rem;
+          padding-top: 1rem;
       `;
     }
   }}
 `;
-export const RookieIcon = styled.div`
+export const RookieIcon = styled.div<{ type?: 'explore' | 'default' | 'detail' }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,18 +83,14 @@ export const RookieName = styled.div<{ type?: 'explore' | 'default' | 'detail' }
   color: ${colors.gray[950]};
   text-align: center;
   padding-top: 0.5rem;
-  font-size: 0.875rem;
+  font-size: ${(props) =>
+    props.type === 'detail' ? typography.headline.headline2.fontSize : '0.875rem'};
   font-style: normal;
-  font-weight: 600;
-  line-height: 1.25rem;
+  font-weight: ${(props) =>
+    props.type === 'detail' ? typography.headline.headline2.fontWeight : 600};
+  line-height: ${(props) =>
+    props.type === 'detail' ? typography.headline.headline2.lineHeight : '1.25rem'};
   letter-spacing: -0.00875rem;
-  ${(props) => {
-    if (props.type === 'detail') {
-      return `
-    font-size: ${typography.headline.headline2.fontSize};
-  `;
-    }
-  }}
 `;
 export const RookieDepartmentText = styled.p<{ type?: 'explore' | 'default' | 'detail' }>`
   color: ${colors.gray[700]};
@@ -119,16 +126,23 @@ export const RookieSchoolTextWrapper = styled.div<{ type?: 'explore' | 'default'
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.06rem;
+  gap: 0.31rem;
   flex-direction: row;
   ${(props) => {
     if (props.type === 'explore') {
       return `
+    margin-top: -0.5rem;
     padding-bottom: 10px;
   `;
     } else if (props.type === 'default') {
       return `
-        padding-bottom: 1.06rem;
+        margin-top: -0.5rem;
+        padding-bottom: 0.94rem;
+      `;
+    } else if (props.type === 'detail') {
+      return `
+        margin-top: -0.5rem;
+        padding-bottom: 1.67rem;
       `;
     }
   }}
@@ -169,6 +183,7 @@ export const RookieDepartmentTextContainer = styled.div`
   display: flex;
   justify-content: center;
   transform: translateY(-50%);
+  padding-top: 0.5rem;
 `;
 
 export const RookieFavoriteSubjectWrapper = styled.div`
@@ -177,7 +192,7 @@ export const RookieFavoriteSubjectWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  padding: 0 10px 10px 10px;
+
   max-height: 50px;
   white-space: nowrap;
   overflow: hidden;
