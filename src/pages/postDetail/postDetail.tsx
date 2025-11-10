@@ -9,6 +9,9 @@ import {
 import backgroundImg from '../../assets/img/dim.png';
 import PreferenceSection from '../../components/post/postDetail/preferenceSection';
 import { CATEGORY, PostCategoryValue } from '../../constants/category';
+import { TEAM_POSITION_OPTIONS } from '../../constants/createProject';
+import { PROJECT_CATEGORY } from '../../constants/projectType';
+import { removeBrackets, getEncodedImageUrl } from '../../utils/stringUtils';
 import BackDrop from '../../components/common/backDrop/backDrop';
 import { BaseContainerWithSpaceBetween } from '../../components/container/container.styles';
 import StatusChips from '../../components/post/statusChips/statusChips';
@@ -59,7 +62,19 @@ const PostDetail: React.FC = () => {
     return <div>게시글을 찾을 수 없습니다.</div>;
   }
 
-  const projectImage = boardData.imageUrl1 || backgroundImg;
+  const projectImage = boardData.imageUrl1
+    ? getEncodedImageUrl(boardData.imageUrl1, backgroundImg)
+    : backgroundImg;
+
+  // cowrkrPosition의 value들을 label로 변환 (대괄호 제거 후 변환)
+  const positionLabels =
+    boardData.cowrkrPosition
+      ?.map((positionValue) => {
+        const cleanValue = removeBrackets(positionValue);
+        const option = TEAM_POSITION_OPTIONS.find((opt) => opt.value === cleanValue);
+        return option?.label || cleanValue;
+      })
+      .join(', ') || '';
 
   return (
     <PostDetailContainer>
@@ -78,22 +93,38 @@ const PostDetail: React.FC = () => {
       <ContentContainer>
         <TitleSection
           title={boardData.title}
-          tags={boardData.projectFields.join(', ')}
+          tags={boardData.projectFields
+            .map((field) => {
+              // 대괄호 제거 후 label로 변환
+              const cleanField = removeBrackets(field);
+              const categoryOption = Object.values(PROJECT_CATEGORY).find(
+                (cat) => cat.value === cleanField,
+              );
+              const label = categoryOption?.label || cleanField;
+              return `#${label}`;
+            })
+            .join(' ')}
           isBookmarked={isBookmarked}
           onBookmarkToggle={handleBookmarkToggle}
         />
         <StatusChips progress={boardData.processStatus} deadline={boardData.endDate} />
         <InfoSection
           total={boardData.requredPpl}
-          field={boardData.projectFields[0] || ''}
+          field={positionLabels}
           duration={`${boardData.estmtPeriod}개월`}
         />
         <PositionSection
           total={boardData.requredPpl}
-          positions={Object.entries(boardData.data).map(([role, count]) => ({
-            title: role,
-            count,
-          }))}
+          positions={Object.entries(boardData.data).map(([role, count]) => {
+            // 대괄호 제거 후 label로 변환
+            const cleanRole = removeBrackets(role);
+            const option = TEAM_POSITION_OPTIONS.find((opt) => opt.value === cleanRole);
+            const roleLabel = option?.label || cleanRole;
+            return {
+              title: roleLabel,
+              count,
+            };
+          })}
         />
         <AuthorSection
           name={boardData.writer}
@@ -121,8 +152,8 @@ const PostDetail: React.FC = () => {
 
         {activeTab === (CATEGORY.POST_DETAIL?.value || 'detail') && (
           <DetailSection
-            category={boardData.projectFields[0] || ''}
-            techTools={boardData.collabTools}
+            category={boardData.boardType || ''}
+            techTools={boardData.techTools || ''}
           />
         )}
       </ContentContainer>

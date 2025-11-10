@@ -30,6 +30,7 @@ export interface MyProjectBoard {
   support: number;
   bookmark: number;
   writer: string;
+  writerUniversity?: string; // 작성자 학교
   doneType: string;
   createdAt: string;
   modifiedAt: string;

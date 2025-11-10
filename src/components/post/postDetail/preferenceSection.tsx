@@ -11,7 +11,9 @@ import {
 import {
   TEAM_DISTANCE_OPTIONS,
   TEAM_COOPERATION_METHOD_OPTIONS,
+  TEAM_COOPERATION_TOOL_OPTIONS,
 } from '../../../constants/createProject';
+import { removeBrackets } from '../../../utils/stringUtils';
 
 interface PreferenceSectionProps {
   distance: string;
@@ -30,25 +32,31 @@ const getMethodLabel = (value: string) => {
   return option?.label || value;
 };
 
+const getToolLabel = (value: string) => {
+  const cleanValue = removeBrackets(value);
+  const option = TEAM_COOPERATION_TOOL_OPTIONS.find((opt) => opt.value === cleanValue);
+  return option?.label || cleanValue;
+};
+
 const PreferenceSection = ({ distance, tools, method }: PreferenceSectionProps) => {
   return (
     <PreferencesContainer>
       <PreferencesTitle>이런 사람과 같이 하고 싶어요!</PreferencesTitle>
       <PreferencesWrapper>
         <PreferencesLabel>선호하는 거리</PreferencesLabel>
-        <DistanceChip>{distance}</DistanceChip>
+        <DistanceChip>{getDistanceLabel(distance)}</DistanceChip>
       </PreferencesWrapper>
       <PreferencesWrapper>
         <PreferencesLabel>사용하는 협업툴</PreferencesLabel>
         <ToolsChipsContainer>
           {tools.map((tool, index) => (
-            <ToolsChip key={index}>{tool}</ToolsChip>
+            <ToolsChip key={index}>{getToolLabel(tool)}</ToolsChip>
           ))}
         </ToolsChipsContainer>
       </PreferencesWrapper>
       <PreferencesWrapper>
         <PreferencesLabel>모이는 방식</PreferencesLabel>
-        <MethodChip>{method}</MethodChip>
+        <MethodChip>{getMethodLabel(method)}</MethodChip>
       </PreferencesWrapper>
     </PreferencesContainer>
   );

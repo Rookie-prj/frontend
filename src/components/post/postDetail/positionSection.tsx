@@ -10,12 +10,15 @@ import {
   StatusDot,
   StatusText,
   BackgroundShape,
+  PositionTools,
 } from './positionSection.styles';
 import GreenSpeechBubble from '../../../assets/icons/greenSpeechBubble.svg';
 
 interface Position {
   title: string;
   count: number;
+  speciality?: string;
+  tools?: string[];
 }
 
 interface PositionSectionProps {
@@ -35,10 +38,12 @@ const PositionSection = ({ total, positions }: PositionSectionProps) => {
             </BackgroundShape>
             <StatusBadge>
               <StatusDot />
-              <StatusText>모집중</StatusText>
+              <StatusText>{position.speciality || '모집중'}</StatusText>
             </StatusBadge>
             <PositionCardContent>
-              <PositionCardTitle>{position.title}</PositionCardTitle>
+              <div>
+                <PositionCardTitle>{position.title}</PositionCardTitle>
+              </div>
               <PositionCount>{position.count}명</PositionCount>
             </PositionCardContent>
           </PositionCard>
