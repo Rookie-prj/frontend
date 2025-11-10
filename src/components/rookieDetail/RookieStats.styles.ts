@@ -55,6 +55,15 @@ export const PassionMeterContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 2px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
 `;
 
 export const PassionMeterIcon = styled.div`
