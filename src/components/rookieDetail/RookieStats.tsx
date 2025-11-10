@@ -4,6 +4,8 @@ import lv1 from '../../assets/icons/passion/Lv.1.svg';
 import lv2 from '../../assets/icons/passion/Lv.2.svg';
 import lv3 from '../../assets/icons/passion/Lv.3.svg';
 import lv4 from '../../assets/icons/passion/Lv.4.svg';
+import PassionMeterTooltip from '../common/passionMeterTooltip/passionMeterTooltip';
+import { useState } from 'react';
 
 interface RookieStatsProps {
   publicPortfolioCount: string | number;
@@ -12,6 +14,8 @@ interface RookieStatsProps {
 }
 
 function RookieStats({ publicPortfolioCount, responseRate, passionMeter }: RookieStatsProps) {
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+
   // 응답률 포맷팅
   const formatResponseRate = (rate: string | number) => {
     if (typeof rate === 'number') {
@@ -74,13 +78,17 @@ function RookieStats({ publicPortfolioCount, responseRate, passionMeter }: Rooki
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               />
             </S.LevelBadge>
-            <S.PassionMeterContainer>
+            <S.PassionMeterContainer onClick={() => setIsTooltipVisible(true)}>
               <S.PassionMeterText>열정기어</S.PassionMeterText>
-              <img src={passionIcon} alt="열정기여도 정보" />
+              <img src={passionIcon} alt="열정기여도 정보" style={{ cursor: 'pointer' }} />
             </S.PassionMeterContainer>
           </>
         )}
       </S.StatItem>
+      <PassionMeterTooltip
+        isVisible={isTooltipVisible}
+        onClose={() => setIsTooltipVisible(false)}
+      />
     </S.StatsContainer>
   );
 }

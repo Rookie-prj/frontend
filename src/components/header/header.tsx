@@ -48,7 +48,7 @@ const Header = ({ type, title }: HeaderProps) => {
     title: <HeaderTitle>{title}</HeaderTitle>,
     search: (
       <>
-        <Title>검색</Title>
+        <Title>탐색</Title>
         <img
           src={search}
           alt="search"
