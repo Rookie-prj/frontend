@@ -6,7 +6,7 @@ import {
 } from './heroBanner.styles';
 import slide1 from '../../../assets/img/slide-1.svg';
 import slide2 from '../../../assets/img/slide-2.svg';
-import slide3 from '../../../assets/img/silde-3.svg';
+import slide3 from '../../../assets/img/slide-3.svg';
 import SlideBar from '../slideBar/slideBar';
 import RegisterButton from '../registerButton/registerButton';
 
@@ -105,7 +105,7 @@ const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBanner
             {index === 2 && currentSlide === 2 && (
               <HeroBannerSlideThreeButton
                 onClick={() => {
-                  navigate('/toolkit');
+                  navigate('/explore');
                 }}
               >
                 프로젝트 보러가기
