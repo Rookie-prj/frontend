@@ -8,7 +8,12 @@ import { MyProjectBoard } from '../../models/myProject';
 import { BookmarkBoard } from '../../models/saved';
 import bookmark from '../../assets/icons/bookmark_fiiled.svg';
 import { Link, useNavigate } from 'react-router-dom';
-import { PROJECT_STATUS_OPTIONS } from '../../constants/createProject';
+import {
+  PROJECT_STATUS_OPTIONS,
+  TEAM_COOPERATION_TOOL_OPTIONS,
+  TEAM_COOPERATION_METHOD_OPTIONS,
+} from '../../constants/createProject';
+import { removeBrackets, getEncodedImageUrl } from '../../utils/stringUtils';
 
 interface ProjectCardProps {
   project: Project | MyProjectBoard | BookmarkBoard;
@@ -40,8 +45,24 @@ function ProjectCard({
     return statusOption ? statusOption.label : '처음부터 시작';
   };
 
+  // workTools의 value를 label로 변환
+  const getWorkToolsLabel = () => {
+    if (!project.workTools) return '';
+
+    const tools = Array.isArray(project.workTools) ? project.workTools : [project.workTools];
+    return tools
+      .map((tool) => {
+        const cleanValue = removeBrackets(tool);
+        const option = TEAM_COOPERATION_TOOL_OPTIONS.find((opt) => opt.value === cleanValue);
+        return option?.label || cleanValue;
+      })
+      .join(', ');
+  };
+
   // 첫 번째 이미지 또는 기본 이미지
-  const projectImage = project.imageUrl1 || backgroundImg;
+  const projectImage = project.imageUrl1
+    ? getEncodedImageUrl(project.imageUrl1, backgroundImg)
+    : backgroundImg;
   const handleRoute = (id: number) => {
     navigate(`/post/${id}`);
   };
@@ -81,7 +102,10 @@ function ProjectCard({
 
         <S.ProjectTitle>{project.title}</S.ProjectTitle>
 
-        <S.WriterInfo>{project.writer}</S.WriterInfo>
+        <S.WriterInfo>
+          {project.writer}
+          {project.writerUniversity && `·${project.writerUniversity}`}
+        </S.WriterInfo>
 
         <S.ProfileImage src={profile} alt="작성자" />
 
@@ -114,14 +138,16 @@ function ProjectCard({
             필수 툴
           </S.DetailLabel>
           <S.DetailContent>
-            {Array.isArray(project.cowrkrPosition)
-              ? project.cowrkrPosition.join(', ')
-              : project.cowrkrPosition || ''}
+            {(() => {
+              // cowrkrSpeciality의 key 값 추출
+              if ('cowrkrSpeciality' in project && project.cowrkrSpeciality) {
+                const specialityKeys = Object.keys(project.cowrkrSpeciality);
+                return specialityKeys.length > 0 ? specialityKeys.join(', ') : '';
+              }
+              return '';
+            })()}
             <br />
-            {Array.isArray(project.workTools)
-              ? project.workTools.join(', ')
-              : project.workTools || ''}
-            {project.techTools || ''}
+            {getWorkToolsLabel()}
           </S.DetailContent>
         </S.DetailSection>
       </S.ContentWrapper>

@@ -4,6 +4,7 @@ export interface Board {
   estmtPeriod: number;
   cowrkrPosition: string[];
   data: { [key: string]: number };
+  cowrkrSpeciality?: { [key: string]: number };
   endDate: string;
   title: string;
   description: string;
