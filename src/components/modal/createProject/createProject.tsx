@@ -14,6 +14,7 @@ import RedirectModal from '../../rookieDetail/redirectModal';
 import { useModal } from '../../../hooks/useModal';
 import { getAccessToken } from '../../../api/token';
 import { getMyProfileDetail } from '../../../api/myProfile';
+import { useCreateProjectStore } from '../../../store/createProjectStore';
 
 interface CreateProjectProps {
   isOpen: boolean;
@@ -22,6 +23,7 @@ interface CreateProjectProps {
 
 const CreateProject: React.FC<CreateProjectProps> = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
+  const reset = useCreateProjectStore((state) => state.reset);
   const {
     isOpen: isRedirectOpen,
     handleModalOpen: openRedirect,
@@ -50,9 +52,11 @@ const CreateProject: React.FC<CreateProjectProps> = ({ isOpen, onClose }) => {
 
       if (groupId === '1') {
         navigate(ROUTES.createProject);
+        reset();
       }
       if (groupId === '2') {
         navigate(ROUTES.createRookie);
+        reset();
       }
     } catch (error) {
       console.error('인증 체크 실패:', error);

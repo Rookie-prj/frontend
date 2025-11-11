@@ -8,9 +8,10 @@ import {
   ProjectsListResponse,
   StoreProjectData,
 } from '../models/projects';
-import { createBoardWithImages } from './boards';
-import { BoardWithImagesRequest } from '../models/boards';
-import { format } from 'date-fns';
+import { createBoardWithImages, updateBoardWithImages, getBoardDetail } from './boards';
+import { BoardWithImagesRequest, Board } from '../models/boards';
+import { format, parseISO } from 'date-fns';
+import { removeBrackets } from '../utils/stringUtils';
 
 /**
  * 프로젝트 목록 조회
@@ -61,25 +62,6 @@ export const createProject = async (projectData: ProjectCreateRequest): Promise<
     return response;
   } catch (error) {
     console.error('❌ 프로젝트 생성 실패:', error);
-    throw error;
-  }
-};
-
-/**
- * 프로젝트 수정
- * PUT /api/projects/{id}
- */
-export const updateProject = async (
-  id: number,
-  projectData: ProjectUpdateRequest,
-): Promise<Project> => {
-  try {
-    console.log('🚀 프로젝트 수정 시작:', { id, projectData });
-    const response = await apiClient.put<Project>(`${API_ENDPOINT.PROJECT}/${id}`, projectData);
-    console.log('✅ 프로젝트 수정 성공:', response);
-    return response;
-  } catch (error) {
-    console.error('❌ 프로젝트 수정 실패:', error);
     throw error;
   }
 };
@@ -161,12 +143,11 @@ export const createProjectFromStore = async (storeData: StoreProjectData): Promi
         storeData.collaborators.length > 0
           ? storeData.collaborators.reduce((sum, c) => sum + parseInt(c.numberOfPeople || '0'), 0)
           : parseInt(storeData.selectedPositionNumberOfPeople || '0'),
-      cowrkrPosition:
-        storeData.collaborators.length > 0
-          ? [...new Set(storeData.collaborators.map((c) => c.position))]
-          : storeData.selectedPosition
-          ? [storeData.selectedPosition]
-          : [],
+      cowrkrPosition: storeData.selectedPosition
+        ? [storeData.selectedPosition]
+        : storeData.collaborators.length > 0
+        ? [...new Set(storeData.collaborators.map((c) => c.position))]
+        : [],
       cowrkrSpeciality:
         storeData.collaborators.length > 0
           ? storeData.collaborators.reduce((acc, c) => {
@@ -184,9 +165,9 @@ export const createProjectFromStore = async (storeData: StoreProjectData): Promi
       endDate: storeData.selectedEndDate
         ? format(storeData.selectedEndDate, "yyyy-MM-dd'T'HH:mm:ss")
         : '',
-      projectFields: storeData.projectFields || [],
-      workTools: storeData.selectedTools || [],
-      collabTools: storeData.selectedTools || [],
+      projectFields: [...new Set(storeData.projectFields || [])],
+      workTools: [...new Set(storeData.selectedTools || [])],
+      collabTools: [...new Set(storeData.selectedTools || [])],
       doneType: storeData.selectedEndDateType || '',
       processStatus: storeData.selectedProjectStatus || '',
       images: storeData.selectedImages || [],
@@ -201,4 +182,140 @@ export const createProjectFromStore = async (storeData: StoreProjectData): Promi
     console.error('❌ 스토어 데이터로 게시글 생성 실패:', error);
     throw error;
   }
+};
+
+/**
+ * 스토어 데이터를 받아서 게시글 수정
+ * @param boardId 수정할 게시글 ID
+ * @param storeData 스토어에서 가져온 프로젝트 데이터
+ */
+export const updateProjectFromStore = async (
+  boardId: number,
+  storeData: StoreProjectData,
+): Promise<Board> => {
+  try {
+    console.log('🚀 스토어 데이터로 게시글 수정 시작:', { boardId });
+
+    // 기존 게시물 데이터 가져오기 (이미지 URL 유지용)
+    const existingBoard = await getBoardDetail(boardId);
+    console.log('📥 기존 게시물 데이터:', existingBoard);
+
+    const boardData: BoardWithImagesRequest = {
+      boardType:
+        (storeData.selectedProjectType as 'PROJECT' | 'STUDY' | 'CONTEST' | 'MENTORING') ||
+        'PROJECT',
+      title: storeData.selectedProjectTitle || '',
+      description: storeData.selectedProjectDescription || '',
+      estmtPeriod: storeData.selectedPeriod || 0,
+      distance: storeData.selectedDistance || '',
+      techTools: storeData.skillText || '',
+      collabMthds: storeData.selectedMethod || '',
+      isActive: true,
+      requredPpl:
+        storeData.collaborators.length > 0
+          ? storeData.collaborators.reduce((sum, c) => sum + parseInt(c.numberOfPeople || '0'), 0)
+          : parseInt(storeData.selectedPositionNumberOfPeople || '0'),
+      cowrkrPosition: storeData.selectedPosition
+        ? [storeData.selectedPosition]
+        : storeData.collaborators.length > 0
+        ? [...new Set(storeData.collaborators.map((c) => c.position))]
+        : [],
+      cowrkrSpeciality:
+        storeData.collaborators.length > 0
+          ? storeData.collaborators.reduce((acc, c) => {
+              acc[c.positionDetail] =
+                (acc[c.positionDetail] || 0) + parseInt(c.numberOfPeople || '0');
+              return acc;
+            }, {} as Record<string, number>)
+          : storeData.selectedPositionDetail && storeData.selectedPositionNumberOfPeople
+          ? {
+              [storeData.selectedPositionDetail]: parseInt(
+                storeData.selectedPositionNumberOfPeople,
+              ),
+            }
+          : {},
+      endDate: storeData.selectedEndDate
+        ? format(storeData.selectedEndDate, "yyyy-MM-dd'T'HH:mm:ss")
+        : '',
+      projectFields: [...new Set(storeData.projectFields || [])],
+      workTools: [...new Set(storeData.selectedTools || [])],
+      collabTools: [...new Set(storeData.selectedTools || [])],
+      doneType: storeData.selectedEndDateType || '',
+      processStatus: storeData.selectedProjectStatus || '',
+      images: storeData.selectedImages || [],
+    };
+    console.log('📝 변환된 게시글 수정 데이터:', boardData);
+
+    const result = await updateBoardWithImages(boardId, boardData, existingBoard);
+    console.log('✅ 스토어 데이터로 게시글 수정 성공:', result);
+    return result;
+  } catch (error) {
+    console.error('❌ 스토어 데이터로 게시글 수정 실패:', error);
+    throw error;
+  }
+};
+
+/**
+ * Board 데이터를 스토어 형식으로 변환
+ * @param board Board 데이터
+ */
+export const convertBoardToStoreData = (board: Board): Partial<StoreProjectData> => {
+  console.log('🔄 Board 데이터를 스토어 형식으로 변환:', board);
+
+  // 대괄호 제거 헬퍼 함수
+  const cleanValue = (value: string | null | undefined): string | null => {
+    if (!value) return null;
+    return removeBrackets(value);
+  };
+
+  const cleanArray = (arr: string[] | undefined): string[] => {
+    if (!arr || arr.length === 0) return [];
+    return arr.map((item) => removeBrackets(item));
+  };
+
+  // cowrkrPosition에서 대괄호 제거
+  const cleanedPosition = board.cowrkrPosition?.[0] ? cleanValue(board.cowrkrPosition[0]) : null;
+
+  // cowrkrSpeciality의 키에서 대괄호 제거
+  const cleanedSpecialityKeys =
+    board.cowrkrSpeciality && Object.keys(board.cowrkrSpeciality).length > 0
+      ? Object.keys(board.cowrkrSpeciality).map((key) => removeBrackets(key))
+      : [];
+
+  const collaborators =
+    board.cowrkrSpeciality && Object.keys(board.cowrkrSpeciality).length > 0
+      ? Object.entries(board.cowrkrSpeciality).map(([positionDetail, numberOfPeople]) => ({
+          position: cleanedPosition || '',
+          positionDetail: removeBrackets(positionDetail),
+          numberOfPeople: String(numberOfPeople),
+          requiredSkills: board.techTools ? board.techTools.split(',').map((s) => s.trim()) : [],
+          tools: cleanArray([...board.workTools, ...board.collabTools]),
+        }))
+      : [];
+
+  const storeData: Partial<StoreProjectData> = {
+    selectedProjectType: board.boardType,
+    selectedPosition: cleanedPosition,
+    selectedPeriod: board.estmtPeriod,
+    selectedPositionDetail: cleanedSpecialityKeys[0] || null,
+    selectedPositionNumberOfPeople:
+      board.cowrkrSpeciality && Object.keys(board.cowrkrSpeciality).length > 0
+        ? String(Object.values(board.cowrkrSpeciality)[0])
+        : null,
+    selectedProjectTitle: board.title,
+    selectedProjectDescription: board.description,
+    selectedProjectStatus: board.processStatus || null,
+    selectedEndDate: board.endDate ? parseISO(board.endDate) : null,
+    selectedEndDateType: board.doneType || null,
+    selectedDistance: cleanValue(board.distance),
+    selectedTools: [...new Set(cleanArray([...board.workTools, ...board.collabTools]))],
+    selectedMethod: cleanValue(board.collabMthds),
+    skillText: board.techTools,
+    selectedImages: [],
+    projectFields: [...new Set(cleanArray(board.projectFields))],
+    collaborators,
+  };
+
+  console.log('✅ 변환된 스토어 데이터:', storeData);
+  return storeData;
 };
