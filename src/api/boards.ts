@@ -52,10 +52,12 @@ export const getBoardDetail = async (id: number): Promise<Board> => {
 export const updateBoard = async (id: number, boardData: BoardUpdateRequest): Promise<Board> => {
   try {
     console.log('🚀 게시판 수정 시작:', { id, boardData });
-    const response = await apiClient.put<Board>(
-      `${API_ENDPOINT.BOARD_DETAIL}/${id}/with-images`,
-      boardData,
-    );
+    const response = await apiClient.put<Board>(`${API_ENDPOINT.BOARD_DETAIL}/${id}/with-images`, {
+      params: {
+        id,
+        ...boardData,
+      },
+    });
     console.log('✅ 게시판 수정 성공:', response);
     return response;
   } catch (error) {
