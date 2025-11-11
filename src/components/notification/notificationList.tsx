@@ -21,6 +21,7 @@ export const NotificationList: React.FC<NotificationListProps> = ({
       </div>
     );
   }
+
   return (
     <S.NotificationListContainer>
       {notifications.map((notification) => (
