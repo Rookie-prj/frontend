@@ -81,7 +81,8 @@ const Library = () => {
   };
 
   const handleEdit = () => {
-    navigate(`${ROUTES.createProject}?create-project.step=projectInfo`);
+    console.log('📝 게시물 수정 시작:', { boardId: selectedBoardId });
+    navigate(`${ROUTES.createProject}?create-project.step=projectInfo&boardId=${selectedBoardId}`);
     handleActionSheetClose();
   };
 
