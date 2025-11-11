@@ -25,6 +25,8 @@ export const ProjectCountStep = ({ onNext, currentStep }: ProjectCountProps) => 
     setIsModalOpen(true);
   };
 
+  const isFormValid = projectCount !== null && projectCount !== undefined && projectCount !== '';
+
   return (
     <>
       <SignupLayout
@@ -33,6 +35,8 @@ export const ProjectCountStep = ({ onNext, currentStep }: ProjectCountProps) => 
         totalSteps={5}
         headerType="backdropWithSkip"
         onNext={onNext}
+        buttonVariant="signup"
+        isFormValid={isFormValid}
       >
         <DropDown
           placeholder={'1개'}

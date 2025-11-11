@@ -22,6 +22,7 @@
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3",
     "swiper": "^12.0.3",
+    "zod": "^4.1.12",
     "zustand": "^5.0.8"
   },
   "scripts": {

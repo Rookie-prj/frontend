@@ -23,7 +23,7 @@ export const FieldWrapper = styled.div`
   }
 `;
 
-export const FieldInput = styled.input`
+export const FieldInput = styled.input<{ $warning?: boolean }>`
   flex: 1;
   border: none;
   outline: none;
@@ -36,7 +36,7 @@ export const FieldInput = styled.input`
   height: 100%;
   background: transparent;
   &::placeholder {
-    color: ${colors.gray[300]};
+    color: ${({ $warning }) => ($warning ? '#FF6C22' : colors.gray[300])};
   }
 `;
 export const FieldCharacterLimitWrapper = styled.div`

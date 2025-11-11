@@ -70,6 +70,8 @@ interface CollaboratorInputGroup {
   positionDetail: string | null;
   numberOfPeople: string | null;
   isModalOpen: boolean;
+  showPositionDetailError: boolean;
+  showNumberOfPeopleError: boolean;
 }
 
 export const CreateProjectStep2 = ({
@@ -98,6 +100,8 @@ export const CreateProjectStep2 = ({
       positionDetail: null,
       numberOfPeople: null,
       isModalOpen: false,
+      showPositionDetailError: false,
+      showNumberOfPeopleError: false,
     },
   ]);
 
@@ -111,6 +115,8 @@ export const CreateProjectStep2 = ({
           positionDetail: selectedPositionDetail,
           numberOfPeople: selectedPositionNumberOfPeople,
           isModalOpen: false,
+          showPositionDetailError: false,
+          showNumberOfPeopleError: false,
         },
       ]);
     }
@@ -149,7 +155,9 @@ export const CreateProjectStep2 = ({
   const handlePositionDetailChange = (groupId: string, value: string) => {
     const positionDetail = value || null;
     setInputGroups((groups) =>
-      groups.map((group) => (group.id === groupId ? { ...group, positionDetail } : group)),
+      groups.map((group) =>
+        group.id === groupId ? { ...group, positionDetail, showPositionDetailError: false } : group,
+      ),
     );
     // 첫 번째 그룹의 경우 스토어에도 저장
     if (groupId === '1') {
@@ -161,7 +169,11 @@ export const CreateProjectStep2 = ({
 
   const handleNumberOfPeopleSelect = (groupId: string, value: string) => {
     setInputGroups((groups) =>
-      groups.map((group) => (group.id === groupId ? { ...group, numberOfPeople: value } : group)),
+      groups.map((group) =>
+        group.id === groupId
+          ? { ...group, numberOfPeople: value, showNumberOfPeopleError: false }
+          : group,
+      ),
     );
     // 첫 번째 그룹의 경우 스토어에도 저장
     if (groupId === '1') {
@@ -180,8 +192,38 @@ export const CreateProjectStep2 = ({
         positionDetail: null,
         numberOfPeople: null,
         isModalOpen: false,
+        showPositionDetailError: false,
+        showNumberOfPeopleError: false,
       },
     ]);
+  };
+
+  const handleNext = () => {
+    // 모든 그룹에 대해 유효성 검사
+    const hasErrors = inputGroups.some((group) => {
+      const positionDetailError = !group.positionDetail || group.positionDetail.trim() === '';
+      const numberOfPeopleError = !group.numberOfPeople;
+
+      if (positionDetailError || numberOfPeopleError) {
+        setInputGroups((groups) =>
+          groups.map((g) =>
+            g.id === group.id
+              ? {
+                  ...g,
+                  showPositionDetailError: positionDetailError,
+                  showNumberOfPeopleError: numberOfPeopleError,
+                }
+              : g,
+          ),
+        );
+        return true;
+      }
+      return false;
+    });
+
+    if (!hasErrors) {
+      onNext();
+    }
   };
 
   return (
@@ -215,6 +257,8 @@ export const CreateProjectStep2 = ({
                   value={group.positionDetail || ''}
                   maxLength={22}
                   onChange={(value) => handlePositionDetailChange(group.id, value)}
+                  warningMessage="구체적인 분야를 입력해주세요"
+                  showWarning={group.showPositionDetailError}
                 />
               </StepContainer>
 
@@ -225,6 +269,8 @@ export const CreateProjectStep2 = ({
                   value={group.numberOfPeople || ''}
                   onClick={() => handleOpenModal(group.id)}
                   isOpen={group.isModalOpen}
+                  warningMessage="인원을 선택해주세요"
+                  showWarning={group.showNumberOfPeopleError}
                 />
               </StepContainer>
 
@@ -248,7 +294,9 @@ export const CreateProjectStep2 = ({
           </div>
         </BaseContainer>
         <div style={{ marginBottom: '1.7rem' }}>
-          <Button onClick={onNext}>다음</Button>
+          <Button onClick={handleNext} variant="primary">
+            다음
+          </Button>
         </div>
       </BaseContainerWithSpaceBetween>
     </>

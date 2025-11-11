@@ -4,7 +4,7 @@ interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   size?: 'small' | 'medium' | 'large';
-  variant?: 'primary' | 'gray';
+  variant?: 'primary' | 'gray' | 'disabled';
   disabled?: boolean;
   css?: SerializedStyles;
 }
@@ -16,12 +16,13 @@ const Button = ({
   disabled = false,
   css,
 }: ButtonProps) => {
+  const isDisabled = disabled || variant === 'disabled';
   return (
     <ButtonContainer
       $size={size}
-      onClick={disabled ? undefined : onClick}
+      onClick={isDisabled ? undefined : onClick}
       variant={variant}
-      disabled={disabled}
+      disabled={isDisabled}
       css={css}
     >
       {children}
