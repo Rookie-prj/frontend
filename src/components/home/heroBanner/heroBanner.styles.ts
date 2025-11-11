@@ -9,21 +9,6 @@ export const HeroBannerContainer = styled.div`
   overflow: hidden;
 `;
 
-export const SlideContainer = styled.div<{ currentSlide: number }>`
-  display: flex;
-  width: 300%;
-  height: 100%;
-  transform: translateX(${({ currentSlide }) => -currentSlide * 33.333}%);
-  transition: transform 0.5s ease-in-out;
-`;
-
-export const SlideImage = styled.img<{ slideIndex: number; isActive: boolean }>`
-  width: 100%;
-  height: 100%;
-  margin-top: 0.37rem;
-  }};
-`;
-
 export const SlideBarWrapper = styled.div`
   position: absolute;
   bottom: 1.25rem;

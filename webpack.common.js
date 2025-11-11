@@ -23,6 +23,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        include: /node_modules\/swiper/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.css$/,
         exclude: [/node_modules\/(?!react-datepicker)/],
         use: ['style-loader', 'css-loader'],
       },
