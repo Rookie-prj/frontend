@@ -85,6 +85,7 @@ const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBanner
         modules={[Autoplay, Mousewheel]}
         spaceBetween={0}
         slidesPerView={1}
+        allowTouchMove
         autoplay={{
           delay: 2000,
           disableOnInteraction: false,
