@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { colors } from '../../style/colors';
@@ -7,6 +7,9 @@ import Button from '../../components/common/button/button';
 import Questions from '../../components/createProject/common/questions/questions';
 import { INTRO_SLIDES } from '../../constants/intro';
 import RookieGreenLogo from '../../assets/img/rookie-green-logo.svg';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Mousewheel } from 'swiper/modules';
+import 'swiper/css';
 
 const OnboardingContainer = styled.div`
   height: 100vh;
@@ -56,13 +59,16 @@ const GifWrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const GifImage = styled.img<{ $isActive: boolean }>`
+
+const SwiperContainer = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const GifImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: ${({ $isActive }) => ($isActive ? 1 : 0)};
-  transition: opacity 0.3s ease-in-out;
-  position: absolute;
 `;
 
 const ProgressDots = styled.div`
@@ -111,14 +117,6 @@ const Onboarding = () => {
   const navigate = useNavigate();
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlideIndex((prev) => (prev + 1) % INTRO_SLIDES.length);
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   const handleLogin = () => {
     navigate('/login');
   };
@@ -155,14 +153,31 @@ const Onboarding = () => {
       </ContentContainer>
       <GifWrapper>
         <GifContainer>
-          {INTRO_SLIDES.map((slide, index) => (
-            <GifImage
-              key={index}
-              src={slide.gif}
-              alt={`Intro ${index + 1}`}
-              $isActive={index === currentSlideIndex}
-            />
-          ))}
+          <SwiperContainer>
+            <Swiper
+              modules={[Mousewheel]}
+              spaceBetween={0}
+              slidesPerView={1}
+              slidesPerGroup={1}
+              allowTouchMove
+              mousewheel={{
+                forceToAxis: true,
+                sensitivity: 1,
+                releaseOnEdges: true,
+              }}
+              speed={500}
+              onSlideChange={(swiper) => {
+                setCurrentSlideIndex(swiper.activeIndex);
+              }}
+              style={{ width: '100%', height: '100%' }}
+            >
+              {INTRO_SLIDES.map((slide, index) => (
+                <SwiperSlide key={index} style={{ width: '100%', height: '100%' }}>
+                  <GifImage src={slide.gif} alt={`Intro ${index + 1}`} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </SwiperContainer>
         </GifContainer>
         <ProgressDots>
           {INTRO_SLIDES.map((_, index) => (

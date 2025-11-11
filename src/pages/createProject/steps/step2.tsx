@@ -16,7 +16,7 @@ import Options from '../../../components/createProject/common/options/options';
 import { useCreateProjectStore } from '../../../store/createProjectStore';
 import Input from '../../../components/common/input/input';
 import DropDown from '../../../components/common/dropDown/dropDown';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
 
@@ -78,6 +78,19 @@ export const CreateProjectStep2 = ({
   onChange,
   currentStep,
 }: CreateProjectStep2Props) => {
+  const {
+    selectedPosition,
+    selectedPositionDetail,
+    selectedPositionNumberOfPeople,
+    collaborators,
+    addCollaborator,
+    removeCollaborator,
+    updateCollaborator,
+    setSelectedPosition,
+    setSelectedPositionDetail,
+    setSelectedPositionNumberOfPeople,
+  } = useCreateProjectStore();
+
   const [inputGroups, setInputGroups] = useState<CollaboratorInputGroup[]>([
     {
       id: '1',
@@ -87,7 +100,21 @@ export const CreateProjectStep2 = ({
       isModalOpen: false,
     },
   ]);
-  const { collaborators, addCollaborator, removeCollaborator } = useCreateProjectStore();
+
+  // 스토어의 값이 있으면 inputGroups 초기화
+  useEffect(() => {
+    if (selectedPosition || selectedPositionDetail || selectedPositionNumberOfPeople) {
+      setInputGroups([
+        {
+          id: '1',
+          position: selectedPosition,
+          positionDetail: selectedPositionDetail,
+          numberOfPeople: selectedPositionNumberOfPeople,
+          isModalOpen: false,
+        },
+      ]);
+    }
+  }, [selectedPosition, selectedPositionDetail, selectedPositionNumberOfPeople]);
 
   const handleCloseModal = (groupId: string) => {
     setInputGroups((groups) =>
@@ -105,6 +132,18 @@ export const CreateProjectStep2 = ({
     setInputGroups((groups) =>
       groups.map((group) => (group.id === groupId ? { ...group, position } : group)),
     );
+    // 첫 번째 그룹의 경우 스토어에도 저장
+    if (groupId === '1') {
+      setSelectedPosition(position);
+      // collaborators의 첫 번째 항목도 업데이트
+      if (collaborators.length > 0) {
+        updateCollaborator(0, {
+          ...collaborators[0],
+          position,
+        });
+      }
+      console.log('📝 포지션 저장:', position);
+    }
   };
 
   const handlePositionDetailChange = (groupId: string, value: string) => {
@@ -112,6 +151,11 @@ export const CreateProjectStep2 = ({
     setInputGroups((groups) =>
       groups.map((group) => (group.id === groupId ? { ...group, positionDetail } : group)),
     );
+    // 첫 번째 그룹의 경우 스토어에도 저장
+    if (groupId === '1') {
+      setSelectedPositionDetail(positionDetail);
+      console.log('📝 포지션 상세 저장:', positionDetail);
+    }
     onChange?.(positionDetail);
   };
 
@@ -119,6 +163,11 @@ export const CreateProjectStep2 = ({
     setInputGroups((groups) =>
       groups.map((group) => (group.id === groupId ? { ...group, numberOfPeople: value } : group)),
     );
+    // 첫 번째 그룹의 경우 스토어에도 저장
+    if (groupId === '1') {
+      setSelectedPositionNumberOfPeople(value);
+      console.log('📝 모집 인원 저장:', value);
+    }
   };
 
   const handleAddNewInputGroup = () => {
@@ -197,30 +246,6 @@ export const CreateProjectStep2 = ({
           >
             <AddCollaboratorButton onClick={handleAddNewInputGroup} />
           </div>
-
-          {/* 추가된 협업자 리스트 */}
-          {collaborators.length > 0 && (
-            <div style={{ marginTop: '2rem' }}>
-              {collaborators.map((collaborator, index) => (
-                <CollaboratorItemContainer key={index}>
-                  <DeleteButton onClick={() => removeCollaborator(index)}>×</DeleteButton>
-                  <CollaboratorInfo>
-                    <CollaboratorText>
-                      <strong>역할:</strong>{' '}
-                      {TEAM_POSITION_OPTIONS.find((opt) => opt.value === collaborator.position)
-                        ?.label || collaborator.position}
-                    </CollaboratorText>
-                    <CollaboratorText>
-                      <strong>역할 상세:</strong> {collaborator.positionDetail}
-                    </CollaboratorText>
-                    <CollaboratorText>
-                      <strong>인원 수:</strong> {collaborator.numberOfPeople}
-                    </CollaboratorText>
-                  </CollaboratorInfo>
-                </CollaboratorItemContainer>
-              ))}
-            </div>
-          )}
         </BaseContainer>
         <div style={{ marginBottom: '1.7rem' }}>
           <Button onClick={onNext}>다음</Button>

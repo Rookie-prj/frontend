@@ -22,6 +22,7 @@ export interface Project {
   support: number; // 지원자 수
   bookmark: number;
   writer: string;
+  writerUniversity?: string; // 작성자 학교
   doneType: string; // 완료 타입
   createdAt: string;
   modifiedAt: string;

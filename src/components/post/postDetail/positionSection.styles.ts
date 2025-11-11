@@ -67,6 +67,7 @@ export const PositionCount = styled.span`
   font-weight: 700;
   color: ${colors.gray[900]};
   line-height: 1.375rem;
+  z-index: 100;
   letter-spacing: -0.01rem;
 `;
 
@@ -103,4 +104,12 @@ export const StatusText = styled.span`
   color: ${colors.white};
   line-height: normal;
   white-space: nowrap;
+`;
+
+export const PositionTools = styled.div`
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: ${colors.gray[600]};
+  margin-top: 0.25rem;
+  line-height: 1.125rem;
 `;

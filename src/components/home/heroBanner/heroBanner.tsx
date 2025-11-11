@@ -1,27 +1,24 @@
-import {
-  HeroBannerContainer,
-  SlideContainer,
-  SlideImage,
-  SlideBarWrapper,
-} from './heroBanner.styles';
+import { HeroBannerContainer, SlideBarWrapper } from './heroBanner.styles';
 import slide1 from '../../../assets/img/slide-1.svg';
 import slide2 from '../../../assets/img/slide-2.svg';
 import slide3 from '../../../assets/img/slide-3.svg';
 import SlideBar from '../slideBar/slideBar';
-import RegisterButton from '../registerButton/registerButton';
-
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Mousewheel } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
 import {
   HeroBannerSlideOneButton,
-  HeroBannerSlideThreeButton,
   HeroBannerSlideTwoButton,
+  HeroBannerSlideThreeButton,
 } from '../../common/button/button.styles';
 import { getAccessToken } from '../../../api/token';
 import { getMyProfileDetail } from '../../../api/myProfile';
 import { ROUTES } from '../../../constants/routes';
 import RedirectModal from '../../rookieDetail/redirectModal';
 import { useModal } from '../../../hooks/useModal';
+import 'swiper/css';
 
 interface HeroBannerProps {
   totalSlides?: number;
@@ -37,9 +34,7 @@ const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBanner
   ];
 
   const navigate = useNavigate();
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const total = totalSlides || 3;
+  const swiperRef = useRef<SwiperType | null>(null);
   const {
     isOpen: isRedirectOpen,
     handleModalOpen: openRedirect,
@@ -48,72 +43,86 @@ const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBanner
 
   const handleCreateProjectClick = async () => {
     const token = getAccessToken();
-
-    if (!token) {
-      openRedirect();
-      return;
-    }
+    if (!token) return openRedirect();
 
     try {
       await getMyProfileDetail();
       navigate(ROUTES.createProject);
-    } catch (error) {
-      console.error('인증 체크 실패:', error);
+    } catch {
       openRedirect();
     }
   };
 
+  // 버튼 설정을 배열로 관리
+  const slideButtons = [
+    {
+      Button: HeroBannerSlideOneButton,
+      label: '툴킷 바로가기',
+      onClick: () => navigate('/toolkit'),
+    },
+    {
+      Button: HeroBannerSlideTwoButton,
+      label: '프로젝트 등록하기',
+      onClick: handleCreateProjectClick,
+    },
+    {
+      Button: HeroBannerSlideThreeButton,
+      label: '프로젝트 보러가기',
+      onClick: () => navigate('/explore'),
+    },
+  ];
+
+  // currentSlide 변경 시 Swiper 슬라이드 이동
   useEffect(() => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => {
-      onSlideChange((currentSlide + 1) % total);
-    }, 2000);
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [currentSlide, total, onSlideChange]);
+    if (swiperRef.current && swiperRef.current.activeIndex !== currentSlide) {
+      swiperRef.current.slideTo(currentSlide);
+    }
+  }, [currentSlide]);
 
   return (
     <HeroBannerContainer>
-      <SlideContainer currentSlide={currentSlide}>
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            style={{ position: 'relative', width: '33.333%', height: '100%', flexShrink: 0 }}
-          >
-            <SlideImage
-              src={slide.src}
-              alt={slide.alt}
-              slideIndex={index}
-              isActive={index === currentSlide}
-            />
-            {index === 0 && currentSlide === 0 && (
-              <HeroBannerSlideOneButton
-                onClick={() => {
-                  navigate('/toolkit');
-                }}
-              >
-                툴킷 바로가기
-              </HeroBannerSlideOneButton>
-            )}
+      <Swiper
+        modules={[Autoplay, Mousewheel]}
+        spaceBetween={0}
+        slidesPerView={1}
+        allowTouchMove
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false,
+        }}
+        mousewheel={{
+          forceToAxis: true,
+          sensitivity: 1,
+          releaseOnEdges: true,
+        }}
+        speed={500}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
+        onSlideChange={(swiper) => {
+          onSlideChange(swiper.activeIndex);
+        }}
+        style={{ width: '100%', height: '100%' }}
+      >
+        {slides.map((slide, index) => {
+          const { Button, label, onClick } = slideButtons[index];
 
-            {index === 1 && currentSlide === 1 && (
-              <HeroBannerSlideTwoButton onClick={handleCreateProjectClick}>
-                프로젝트 등록하기
-              </HeroBannerSlideTwoButton>
-            )}
-            {index === 2 && currentSlide === 2 && (
-              <HeroBannerSlideThreeButton
-                onClick={() => {
-                  navigate('/explore');
-                }}
-              >
-                프로젝트 보러가기
-              </HeroBannerSlideThreeButton>
-            )}
-          </div>
-        ))}
-      </SlideContainer>
+          return (
+            <SwiperSlide
+              key={index}
+              style={{ position: 'relative', width: '100%', height: '100%' }}
+            >
+              <img
+                src={slide.src}
+                alt={slide.alt}
+                style={{ width: '100%', height: '100%', marginTop: '0.37rem' }}
+              />
+              <Button onClick={onClick}>{label}</Button>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+
       <SlideBarWrapper>
         <SlideBar
           currentSlide={currentSlide}
@@ -121,6 +130,7 @@ const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBanner
           onSlideChange={onSlideChange}
         />
       </SlideBarWrapper>
+
       <RedirectModal
         isOpen={isRedirectOpen}
         onClose={closeRedirect}

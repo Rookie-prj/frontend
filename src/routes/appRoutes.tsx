@@ -100,9 +100,11 @@ const AppRoutes = () => {
     {
       path: ROUTES.postDetail,
       element: (
-        <Layout hideNavigation={true}>
-          <PostDetail />
-        </Layout>
+        <QueryErrorBoundary>
+          <Layout hideNavigation={true}>
+            <PostDetail />
+          </Layout>
+        </QueryErrorBoundary>
       ),
     },
     {
