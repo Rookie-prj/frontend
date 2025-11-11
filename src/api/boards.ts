@@ -178,11 +178,11 @@ export const updateBoardWithImages = async (
 
     const formData = new FormData();
 
-    // 이미지 파일 추가
+    // 이미지 파일 추가 (생성과 동일하게 image1, image2, image3로 전송)
     console.log('📸 이미지 배열:', boardData.images);
-    boardData.images.forEach((image) => {
-      formData.append('images', image);
-      console.log('📸 image 추가됨:', image.name || image);
+    boardData.images.slice(0, 3).forEach((image, index) => {
+      formData.append(`image${index + 1}`, image);
+      console.log(`📸 image${index + 1} 추가됨:`, image.name || image);
     });
 
     // 각 필드를 FormData에 추가
