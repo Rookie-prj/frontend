@@ -12,6 +12,7 @@ import { StepTitle } from './steps.styles';
 import Questions from '../../../components/createProject/common/questions/questions';
 import { TEAM, TEAM_END_DATE_OPTIONS } from '../../../constants/createProject';
 import { useCreateProjectStore } from '../../../store/createProjectStore';
+import { validateStep5 } from '../../../utils/formValidation';
 import { useState } from 'react';
 import DistanceOptions from '../../../components/createProject/distanceOptions/distanceOptions';
 import EndDate from '../../../components/createProject/endDate/endDate';
@@ -50,6 +51,8 @@ const CreateProjectStep5 = ({ onPrev, onSubmit, currentStep }: CreateProjectStep
     setSelectedEndDate(date);
     setIsCalendarModalOpen(false);
   };
+
+  const isFormValid = validateStep5(selectedEndDateType, selectedEndDate);
 
   const handleSubmit = async () => {
     console.log('=== Step5 Store 데이터 ===');
@@ -98,7 +101,9 @@ const CreateProjectStep5 = ({ onPrev, onSubmit, currentStep }: CreateProjectStep
         </BaseContainer>
 
         <div style={{ marginBottom: '1.7rem' }}>
-          <Button onClick={handleSubmit}>다음</Button>
+          <Button onClick={handleSubmit} variant={isFormValid ? 'primary' : 'disabled'}>
+            다음
+          </Button>
         </div>
       </BaseContainerWithSpaceBetween>
 

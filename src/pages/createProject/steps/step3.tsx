@@ -285,6 +285,7 @@ import TextArea from '../../../components/common/textArea/textArea';
 import { ProjectDescriptionHint } from '../../../components/createProject/projectDescriptionHint/projectDescriptionHint';
 import ImageUpload from '../../../components/createProject/imageUpload/imageUpload';
 import { ProjectDetailTypeChips } from '../../../components/createProject/projectTypeChips/projectDetailTypeChips';
+import { validateStep3 } from '../../../utils/formValidation';
 interface CreateProjectStep3Props {
   onNext: () => void;
   onPrev: () => void;
@@ -327,6 +328,12 @@ export const CreateProjectStep3 = ({ onNext, onPrev, currentStep }: CreateProjec
     setSelectedImages(images);
     console.log('Selected images:', images);
   };
+
+  const isFormValid = validateStep3(
+    selectedProjectTitle,
+    selectedProjectDescription,
+    projectFields,
+  );
 
   const handleNext = () => {
     console.log('=== Step3 Store 데이터 ===');
@@ -384,7 +391,9 @@ export const CreateProjectStep3 = ({ onNext, onPrev, currentStep }: CreateProjec
           </StepContainer>
         </BaseContainer>
         <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-          <Button onClick={handleNext}>다음</Button>
+          <Button onClick={handleNext} variant={isFormValid ? 'primary' : 'disabled'}>
+            다음
+          </Button>
         </div>
       </BaseContainerWithSpaceBetween>
     </>

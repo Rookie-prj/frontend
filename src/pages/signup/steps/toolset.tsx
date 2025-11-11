@@ -13,7 +13,7 @@ interface ToolsetProps {
 
 export const Toolset = ({ onNext, currentStep }: ToolsetProps) => {
   const { toolset, setToolset } = useSignupStore();
-  const [selectedTools, setSelectedTools] = useState<string[]>([]);
+  const [selectedTools, setSelectedTools] = useState<string[]>(toolset ? toolset.split(',') : []);
 
   const handleSelectionChange = (selectedValues: string[]) => {
     setSelectedTools(selectedValues);
@@ -41,8 +41,17 @@ export const Toolset = ({ onNext, currentStep }: ToolsetProps) => {
     return [];
   };
 
+  const isFormValid = selectedTools.length > 0;
+
   return (
-    <SignupLayout title={SIGNUP.REQUIRED_TOOLSET} currentStep={3} totalSteps={5} onNext={onNext}>
+    <SignupLayout
+      title={SIGNUP.REQUIRED_TOOLSET}
+      currentStep={3}
+      totalSteps={5}
+      onNext={onNext}
+      buttonVariant="signup"
+      isFormValid={isFormValid}
+    >
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         <div>
           <div style={{ fontSize: '0.875rem', fontWeight: 500, color: colors.gray[500] }}>

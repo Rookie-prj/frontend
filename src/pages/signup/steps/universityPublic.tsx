@@ -13,12 +13,17 @@ interface UniversityPublicProps {
 export const UniversityPublic = ({ onNext, currentStep }: UniversityPublicProps) => {
   const { universityPublic, setUniversityPublic } = useSignupStore();
 
+  const isFormValid =
+    universityPublic !== null && universityPublic !== undefined && universityPublic !== '';
+
   return (
     <SignupLayout
       title={SIGNUP.REQUIRED_UNIVERSITY_PUBLIC}
       currentStep={0}
       totalSteps={5}
       onNext={onNext}
+      buttonVariant="signup"
+      isFormValid={isFormValid}
     >
       <DistanceOptions
         options={UNIVERSITY_PUBLIC_OPTIONS}

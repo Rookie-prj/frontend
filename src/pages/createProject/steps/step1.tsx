@@ -12,6 +12,7 @@ import ProjectCategorySection from '../../../components/home/projectCategorySect
 import Questions from '../../../components/createProject/common/questions/questions';
 import Options from '../../../components/createProject/common/options/options';
 import { useCreateProjectStore } from '../../../store/createProjectStore';
+import { validateStep1 } from '../../../utils/formValidation';
 
 interface CreateProjectStep1Props {
   onNext: () => void;
@@ -20,7 +21,8 @@ interface CreateProjectStep1Props {
 }
 
 export const CreateProjectStep1 = ({ onNext, currentStep }: CreateProjectStep1Props) => {
-  const { selectedPeriod, setSelectedPeriod, setSelectedProjectType } = useCreateProjectStore();
+  const { selectedPeriod, selectedProjectType, setSelectedPeriod, setSelectedProjectType } =
+    useCreateProjectStore();
 
   const handleProjectTypeSelect = (projectType: string) => {
     setSelectedProjectType(projectType);
@@ -30,6 +32,8 @@ export const CreateProjectStep1 = ({ onNext, currentStep }: CreateProjectStep1Pr
     setSelectedPeriod(period);
     console.log('Selected period:', period);
   };
+
+  const isFormValid = validateStep1(selectedProjectType, selectedPeriod);
 
   return (
     <>
@@ -57,7 +61,9 @@ export const CreateProjectStep1 = ({ onNext, currentStep }: CreateProjectStep1Pr
         </BaseContainer>
 
         <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-          <Button onClick={onNext}>다음</Button>
+          <Button onClick={onNext} variant={isFormValid ? 'primary' : 'disabled'}>
+            다음
+          </Button>
         </div>
       </BaseContainerWithSpaceBetween>
     </>

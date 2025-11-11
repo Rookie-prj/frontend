@@ -21,6 +21,8 @@ export const FavoriteSubject = ({ onNext, currentStep }: FavoriteSubjectProps) =
     setFavoriteSubject(values.join(','));
   };
 
+  const isFormValid = selectedSubjects.length > 0;
+
   return (
     <SignupLayout
       title={SIGNUP.REQUIRED_FAVORITE_SUBJECT}
@@ -28,6 +30,8 @@ export const FavoriteSubject = ({ onNext, currentStep }: FavoriteSubjectProps) =
       totalSteps={5}
       onNext={onNext}
       headerType="backdropWithSkip"
+      buttonVariant="signup"
+      isFormValid={isFormValid}
     >
       <MultiSelectTags
         label={SIGNUP.FAVORITE_SUBJECT_SELECTION_LIMIT}

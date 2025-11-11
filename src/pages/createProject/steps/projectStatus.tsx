@@ -11,6 +11,7 @@ import Questions from '../../../components/createProject/common/questions/questi
 import CompletenessOptions from '../../../components/createProject/completenessOptions/completenessOptions';
 import Button from '../../../components/common/button/button';
 import { useCreateProjectStore } from '../../../store/createProjectStore';
+import { isValidString } from '../../../utils/formValidation';
 interface ProjectStatusProps {
   onNext: () => void;
   onPrev: () => void;
@@ -24,6 +25,8 @@ const ProjectStatus = ({ onNext, onPrev, currentStep }: ProjectStatusProps) => {
     setSelectedProjectStatus(value);
     console.log('Selected project status:', value);
   };
+
+  const isFormValid = isValidString(selectedProjectStatus);
 
   return (
     <BaseContainerWithSpaceBetween>
@@ -41,7 +44,9 @@ const ProjectStatus = ({ onNext, onPrev, currentStep }: ProjectStatusProps) => {
         </StepContainer>
       </BaseContainer>
       <div style={{ marginBottom: '1.7rem', marginTop: '1.7rem' }}>
-        <Button onClick={onNext}>다음</Button>
+        <Button onClick={onNext} variant={isFormValid ? 'primary' : 'disabled'}>
+          다음
+        </Button>
       </div>
     </BaseContainerWithSpaceBetween>
   );
