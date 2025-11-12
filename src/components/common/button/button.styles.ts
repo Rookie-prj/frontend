@@ -45,6 +45,11 @@ export const ButtonContainer = styled(BaseButton)<{ $size?: 'small' | 'medium' |
     if ($size === 'medium') return '343px';
     return '100%';
   }};
+  color: ${({ variant }) => {
+    if (variant === 'disabled') return colors.gray[400];
+    if (variant === 'gray') return colors.gray[800];
+    return colors.gray[800];
+  }};
 `;
 
 export const HeroBannerBaseButton = styled.button`
