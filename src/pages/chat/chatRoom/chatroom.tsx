@@ -10,6 +10,7 @@ import useChatRoomDetail from '../../../components/chat/hook/useChatRoomDetail';
 import { Chip } from '../../../components/common/chip';
 import clip from '../../../assets/icons/portFolioclip.svg';
 import PortfolioBottomSheet from '../../../components/chat/portfolioBottomSheet/portfolioBottomSheet';
+import ProfileSendBottomSheet from '../../../components/chat/profileSendBottomSheet/profileSendBottomSheet';
 import { useModal } from '../../../hooks/useModal';
 import useSendFileMutation from '../../../components/chat/hook/useSendFileMutation';
 
@@ -27,6 +28,11 @@ function Chatroom() {
   });
 
   const { isOpen, handleModalOpen, handleModalClose } = useModal();
+  const {
+    isOpen: isProfileModalOpen,
+    handleModalOpen: handleProfileModalOpen,
+    handleModalClose: handleProfileModalClose,
+  } = useModal();
 
   const participantProfile = chatRoomDetail?.participants?.find(
     (p) => p.userId === Number(otherUserId),
@@ -55,6 +61,7 @@ function Chatroom() {
   const handleGiveProfile = () => {
     const profileMessage = `루키프로필 확인하기`;
     handleSendMessageToRoom(profileMessage);
+    handleProfileModalClose();
   };
 
   const handleFileSelected = (file: File) => {
@@ -83,7 +90,11 @@ function Chatroom() {
         </S.MessageContainer>
         <S.InputWrapper>
           <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }}>
-            <Chip label="내 프로필 보내기" variant="chatRoomProfile" onClick={handleGiveProfile} />
+            <Chip
+              label="내 프로필 보내기"
+              variant="chatRoomProfile"
+              onClick={handleProfileModalOpen}
+            />
             <Chip
               label={
                 <>
@@ -104,6 +115,11 @@ function Chatroom() {
         isOpen={isOpen}
         onClose={handleModalClose}
         onFileSelected={handleFileSelected}
+      />
+      <ProfileSendBottomSheet
+        isOpen={isProfileModalOpen}
+        onClose={handleProfileModalClose}
+        onConfirm={handleGiveProfile}
       />
     </>
   );
