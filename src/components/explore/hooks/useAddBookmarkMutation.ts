@@ -5,6 +5,8 @@ import { PROJECT_QUERY_KEY } from './key';
 import { LIBRARY_QUERY_KEY } from '../../library/key';
 import { getAccessToken } from '../../../api/token';
 import HttpError from '../../../api/httpError';
+import { BOOKMARK_QUERY_KEY } from '../../../hooks/useBookmarks';
+import { Bookmark } from '../../../models/bookmark';
 
 export const useAddBookmarkMutation = (options?: {
   onError?: () => void;
@@ -20,9 +22,11 @@ export const useAddBookmarkMutation = (options?: {
     onMutate: async (boardId: number) => {
       // 진행 중인 다른 쿼리 취소
       await queryClient.cancelQueries({ queryKey: [PROJECT_QUERY_KEY.project] });
+      await queryClient.cancelQueries({ queryKey: BOOKMARK_QUERY_KEY.bookmarks });
 
       // 이전 값 백업
       const previousData = queryClient.getQueryData<ProjectResponse>([PROJECT_QUERY_KEY.project]);
+      const previousBookmarks = queryClient.getQueryData<Bookmark[]>(BOOKMARK_QUERY_KEY.bookmarks);
 
       // 낙관적 업데이트: 북마크 카운트 증가
       if (previousData) {
@@ -37,13 +41,27 @@ export const useAddBookmarkMutation = (options?: {
         });
       }
 
-      return { previousData };
+      // 낙관적 업데이트: 북마크 목록에 추가
+      if (previousBookmarks) {
+        queryClient.setQueryData<Bookmark[]>(BOOKMARK_QUERY_KEY.bookmarks, (old) => {
+          if (!old) return old;
+          // 이미 존재하지 않으면 추가
+          const exists = old.some((bookmark) => bookmark.boardId === boardId);
+          if (exists) return old;
+
+          // 임시 북마크 추가 (서버에서 실제 id를 받아올 것임)
+          return [...old, { id: Date.now(), boardId, boardTitle: '' }];
+        });
+      }
+
+      return { previousData, previousBookmarks };
     },
     onSuccess: () => {
       // 서버와 동기화
       queryClient.invalidateQueries({ queryKey: [PROJECT_QUERY_KEY.project] });
       queryClient.invalidateQueries({ queryKey: [LIBRARY_QUERY_KEY.savedBoards] });
       queryClient.invalidateQueries({ queryKey: [LIBRARY_QUERY_KEY.myProjectBoards] });
+      queryClient.invalidateQueries({ queryKey: BOOKMARK_QUERY_KEY.bookmarks });
       queryClient.invalidateQueries({ queryKey: ['boardDetail'] });
       if (onSuccess) {
         onSuccess('북마크가 추가되었습니다.');
@@ -57,6 +75,11 @@ export const useAddBookmarkMutation = (options?: {
         queryClient.setQueryData([PROJECT_QUERY_KEY.project], context.previousData);
         queryClient.setQueryData([LIBRARY_QUERY_KEY.savedBoards], context.previousData);
         queryClient.setQueryData([LIBRARY_QUERY_KEY.myProjectBoards], context.previousData);
+      }
+
+      // 북마크 목록 롤백
+      if (context?.previousBookmarks) {
+        queryClient.setQueryData(BOOKMARK_QUERY_KEY.bookmarks, context.previousBookmarks);
       }
 
       // boardDetail 쿼리도 롤백

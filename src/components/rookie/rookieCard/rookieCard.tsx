@@ -27,7 +27,7 @@ const RookieCard = ({ type: type = 'default', rookie }: RookieCardProps) => {
     <RookieCardContainer type={type}>
       <RookieTitleWrapper type={type}>
         <RookieIcon>
-          <img src={profile} alt="profile" width={55} height={55} />
+          <img src={profileImageUrl || profile} alt="profile" width={55} height={55} />
         </RookieIcon>
         <RookieName type={type}>{name}</RookieName>
       </RookieTitleWrapper>

@@ -33,7 +33,7 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({ notification
   return (
     <S.NotificationItemContainer onClick={handleClick} isUnread={!notification.read}>
       <S.IconWrapper>
-        <img src={fire} alt="알림 아이콘" width={16} height={16} />
+        <img src={fire} alt="알림 아이콘" width={18} height={18} />
       </S.IconWrapper>
       <S.ContentWrapper>
         <S.TitleAndMessageWrapper>

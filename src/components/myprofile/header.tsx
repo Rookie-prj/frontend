@@ -51,11 +51,11 @@ const MyProfileHeader = () => {
   return (
     <HeaderContainer>
       <IconButton onClick={handleBack}>
-        <img src={leftArrow} alt="back" />
+        <img src={leftArrow} alt="back" width={40} height={40} />
       </IconButton>
       <Title>나의 프로필</Title>
       <IconButton onClick={handleSettings}>
-        <img src={setting} alt="settings" />
+        <img src={setting} alt="settings" width={28} height={28} />
       </IconButton>
     </HeaderContainer>
   );

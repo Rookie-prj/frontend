@@ -5,6 +5,8 @@ import { PROJECT_QUERY_KEY } from './key';
 import { LIBRARY_QUERY_KEY } from '../../library/key';
 import { getAccessToken } from '../../../api/token';
 import HttpError from '../../../api/httpError';
+import { BOOKMARK_QUERY_KEY } from '../../../hooks/useBookmarks';
+import { Bookmark } from '../../../models/bookmark';
 
 export const useRemoveBookmarkMutation = (options?: {
   onError?: () => void;
@@ -20,9 +22,11 @@ export const useRemoveBookmarkMutation = (options?: {
     onMutate: async (boardId: number) => {
       // 진행 중인 다른 쿼리 취소
       await queryClient.cancelQueries({ queryKey: [PROJECT_QUERY_KEY.project] });
+      await queryClient.cancelQueries({ queryKey: BOOKMARK_QUERY_KEY.bookmarks });
 
       // 이전 값 백업
       const previousData = queryClient.getQueryData<ProjectResponse>([PROJECT_QUERY_KEY.project]);
+      const previousBookmarks = queryClient.getQueryData<Bookmark[]>(BOOKMARK_QUERY_KEY.bookmarks);
 
       // 낙관적 업데이트: 북마크 카운트 감소
       if (previousData) {
@@ -39,13 +43,22 @@ export const useRemoveBookmarkMutation = (options?: {
         });
       }
 
-      return { previousData };
+      // 낙관적 업데이트: 북마크 목록에서 제거
+      if (previousBookmarks) {
+        queryClient.setQueryData<Bookmark[]>(BOOKMARK_QUERY_KEY.bookmarks, (old) => {
+          if (!old) return old;
+          return old.filter((bookmark) => bookmark.boardId !== boardId);
+        });
+      }
+
+      return { previousData, previousBookmarks };
     },
     onSuccess: () => {
       // 서버와 동기화
       queryClient.invalidateQueries({ queryKey: [PROJECT_QUERY_KEY.project] });
       queryClient.invalidateQueries({ queryKey: [LIBRARY_QUERY_KEY.savedBoards] });
       queryClient.invalidateQueries({ queryKey: [LIBRARY_QUERY_KEY.myProjectBoards] });
+      queryClient.invalidateQueries({ queryKey: BOOKMARK_QUERY_KEY.bookmarks });
       queryClient.invalidateQueries({ queryKey: ['boardDetail'] });
       if (onSuccess) {
         onSuccess('북마크가 삭제되었습니다.');
@@ -59,6 +72,11 @@ export const useRemoveBookmarkMutation = (options?: {
         queryClient.setQueryData([PROJECT_QUERY_KEY.project], context.previousData);
         queryClient.setQueryData([LIBRARY_QUERY_KEY.savedBoards], context.previousData);
         queryClient.setQueryData([LIBRARY_QUERY_KEY.myProjectBoards], context.previousData);
+      }
+
+      // 북마크 목록 롤백
+      if (context?.previousBookmarks) {
+        queryClient.setQueryData(BOOKMARK_QUERY_KEY.bookmarks, context.previousBookmarks);
       }
 
       // boardDetail 쿼리도 롤백
