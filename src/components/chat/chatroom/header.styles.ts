@@ -20,7 +20,7 @@ export const HeaderTitle = styled.h3`
   letter-spacing: ${typography.subhead.subhead2.letterSpacing};
   color: ${colors.gray[950]};
   position: absolute;
-  left: 45%;
+  left: 43%;
   transform: translateX(-50%);
   top: 50%;
   transform: translateY(-50%);
