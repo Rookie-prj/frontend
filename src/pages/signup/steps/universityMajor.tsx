@@ -29,6 +29,9 @@ export const UniversityMajor = ({ onNext, currentStep }: UniversityMajorProps) =
   const handleInputChange = (value: string) => {
     setUniversityMajor(value);
   };
+
+  const isFormValid = universityMajor?.trim() !== '' && !!universityGrade;
+
   return (
     <>
       <SignupLayout
@@ -36,6 +39,8 @@ export const UniversityMajor = ({ onNext, currentStep }: UniversityMajorProps) =
         currentStep={0}
         totalSteps={5}
         onNext={onNext}
+        buttonVariant="signup"
+        isFormValid={isFormValid}
       >
         <Input
           placeholder="오버워치정크랫학과"

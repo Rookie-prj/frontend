@@ -46,27 +46,6 @@ export const getBoardDetail = async (id: number): Promise<Board> => {
 };
 
 /**
- * 게시판 수정
- * PUT /api/boards/{id}/with-images
- */
-export const updateBoard = async (id: number, boardData: BoardUpdateRequest): Promise<Board> => {
-  try {
-    console.log('🚀 게시판 수정 시작:', { id, boardData });
-    const response = await apiClient.put<Board>(`${API_ENDPOINT.BOARD_DETAIL}/${id}/with-images`, {
-      params: {
-        id,
-        ...boardData,
-      },
-    });
-    console.log('✅ 게시판 수정 성공:', response);
-    return response;
-  } catch (error) {
-    console.error('❌ 게시판 수정 실패:', error);
-    throw error;
-  }
-};
-
-/**
  * 게시판 삭제
  * DELETE /api/boards/{id}
  */
@@ -149,45 +128,20 @@ export const createBoardWithImages = async (boardData: BoardWithImagesRequest): 
 export const updateBoardWithImages = async (
   id: number,
   boardData: BoardWithImagesRequest,
-  existingBoard?: Board,
 ): Promise<Board> => {
   try {
-    // 로그용 객체 생성 (images 대신 imageUrl1, imageUrl2, imageUrl3 포함)
-    const logData = {
+    console.log('🚀 이미지와 함께 게시판 수정 시작:', {
       id,
-      boardType: boardData.boardType,
-      title: boardData.title,
-      description: boardData.description,
-      estmtPeriod: boardData.estmtPeriod,
-      distance: boardData.distance,
-      techTools: boardData.techTools,
-      collabMthds: boardData.collabMthds,
-      isActive: boardData.isActive,
-      requredPpl: boardData.requredPpl,
-      cowrkrPosition: boardData.cowrkrPosition,
-      cowrkrSpeciality: boardData.cowrkrSpeciality,
-      endDate: boardData.endDate,
-      projectFields: boardData.projectFields,
-      workTools: boardData.workTools,
-      collabTools: boardData.collabTools,
-      doneType: boardData.doneType,
-      processStatus: boardData.processStatus,
-      imageUrl1: existingBoard?.imageUrl1 || null,
-      imageUrl2: existingBoard?.imageUrl2 || null,
-      imageUrl3: existingBoard?.imageUrl3 || null,
-    };
-    console.log('🚀 이미지와 함께 게시판 수정 시작:', logData);
+      boardData,
+    });
 
     const formData = new FormData();
-
-    // 이미지 파일 추가 (생성과 동일하게 image1, image2, image3로 전송)
-    console.log('📸 이미지 배열:', boardData.images);
     boardData.images.slice(0, 3).forEach((image, index) => {
       formData.append(`image${index + 1}`, image);
-      console.log(`📸 image${index + 1} 추가됨:`, image.name || image);
     });
 
     // 각 필드를 FormData에 추가
+    // id는 path parameter이므로 URL 경로에 포함됨 (FormData에 추가하지 않음)
     formData.append('boardType', boardData.boardType);
     formData.append('title', boardData.title);
     formData.append('description', boardData.description);

@@ -20,6 +20,7 @@ import Options from '../../../components/createProject/common/options/options';
 import MethodChips from '../../../components/createProject/methodChips/methodChips';
 import { useCreateProjectStore } from '../../../store/createProjectStore';
 import { colors } from '../../../style/colors';
+import { validateStep4 } from '../../../utils/formValidation';
 
 interface CreateProjectStep4Props {
   onNext: () => void;
@@ -58,6 +59,8 @@ export const CreateProjectStep4 = ({ onNext, onPrev, currentStep }: CreateProjec
   const handleSkillChange = (value: string) => {
     setSkillText(value);
   };
+
+  const isFormValid = validateStep4(selectedDistance, skillText, selectedTools, selectedMethod);
 
   const handleNext = () => {
     onNext();
@@ -120,7 +123,9 @@ export const CreateProjectStep4 = ({ onNext, onPrev, currentStep }: CreateProjec
         </BaseContainer>
 
         <div style={{ marginBottom: '1.7rem', marginTop: '2.38rem' }}>
-          <Button onClick={handleNext}>다음</Button>
+          <Button onClick={handleNext} variant={isFormValid ? 'primary' : 'disabled'}>
+            다음
+          </Button>
         </div>
       </BaseContainerWithSpaceBetween>
     </>

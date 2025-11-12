@@ -1,17 +1,21 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../style/colors';
 import { typography } from '../../../style/theme';
-export const BaseButton = styled.button<{ variant?: 'primary' | 'gray' }>`
+export const BaseButton = styled.button<{ variant?: 'primary' | 'gray' | 'disabled' }>`
   background-color: ${({ variant }) =>
     variant === 'primary' ? colors.green[200] : colors.gray[10]};
-  color: ${colors.gray[800]};
+  color: ${({ variant }) => {
+    if (variant === 'disabled') return colors.gray[400];
+    if (variant === 'gray') return colors.gray[400];
+    return colors.gray[800];
+  }};
   display: flex;
   font-style: normal;
   font-weight: 700;
   text-align: center;
   align-items: center;
   white-space: nowrap;
-  cursor: pointer;
+  cursor: ${({ variant }) => (variant === 'disabled' ? 'not-allowed' : 'pointer')};
 `;
 export const ButtonContainer = styled(BaseButton)<{ $size?: 'small' | 'medium' | 'large' }>`
   width: ${({ $size }) => {
@@ -41,9 +45,11 @@ export const ButtonContainer = styled(BaseButton)<{ $size?: 'small' | 'medium' |
     if ($size === 'medium') return '343px';
     return '100%';
   }};
-  &:disabled {
-    cursor: not-allowed;
-  }
+  color: ${({ variant }) => {
+    if (variant === 'disabled') return colors.gray[400];
+    if (variant === 'gray') return colors.gray[800];
+    return colors.gray[800];
+  }};
 `;
 
 export const HeroBannerBaseButton = styled.button`
@@ -69,7 +75,7 @@ export const HeroBannerSlideOneButton = styled(HeroBannerBaseButton)`
   position: absolute;
   bottom: 11.25%;
   background-color: ${colors.green[200]};
-  color: ${colors.gray[800]} !important;
+  color: ${colors.gray[800]};
   right: 5%;
   bottom: 15%;
 `;

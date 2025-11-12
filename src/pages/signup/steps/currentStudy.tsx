@@ -21,12 +21,16 @@ export const CurrentStudy = ({ onNext, currentStep }: CurrentStudyProps) => {
     ),
   };
 
+  const isFormValid = currentStudy !== null && currentStudy !== undefined && currentStudy !== '';
+
   return (
     <SignupLayout
       title={signupTexts.REQUIRED_CURRENT_STUDY}
       currentStep={1}
       totalSteps={5}
       onNext={onNext}
+      buttonVariant="signup"
+      isFormValid={isFormValid}
     >
       <CurrentStudyCategory selectedCategory={currentStudy} onCategorySelect={setCurrentStudy} />
     </SignupLayout>

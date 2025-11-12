@@ -50,7 +50,7 @@ export const SignupLayout = ({
         <Button
           onClick={onNext}
           size="large"
-          variant={buttonVariant === 'signup' ? (isFormValid ? 'primary' : 'gray') : 'primary'}
+          variant={buttonVariant === 'signup' ? (isFormValid ? 'primary' : 'disabled') : 'primary'}
           disabled={buttonVariant === 'signup' && !isFormValid}
         >
           {buttonText}

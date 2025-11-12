@@ -66,12 +66,9 @@ export class APIClient implements APIClientType {
           return Promise.reject(error);
         }
 
-        // 401(Unauthorized) 또는 500(Internal Server Error) 발생 시 토큰 갱신 시도
-        // 500 에러도 토큰 만료로 인한 경우가 많음
-        if (
-          (status === HTTP_STATUS.UNAUTHORIZED || status === HTTP_STATUS.INTERNAL_SERVER_ERROR) &&
-          !originalRequest._retry
-        ) {
+        // 401(Unauthorized) 발생 시 토큰 갱신 시도
+        // 500 에러는 서버 내부 오류이므로 토큰 갱신하지 않음
+        if (status === HTTP_STATUS.UNAUTHORIZED && !originalRequest._retry) {
           originalRequest._retry = true;
 
           try {

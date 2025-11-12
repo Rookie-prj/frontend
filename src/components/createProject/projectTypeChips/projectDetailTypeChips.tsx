@@ -50,7 +50,7 @@ export const ProjectDetailTypeChips = ({
 
   return (
     <Container>
-      <Title>프로젝트 해당 분야(선택)</Title>
+      <Title>프로젝트 해당 분야</Title>
       <Subtitle>최대 3개 선택</Subtitle>
       <MethodChips
         options={options}

@@ -70,6 +70,8 @@ interface CollaboratorInputGroup {
   positionDetail: string | null;
   numberOfPeople: string | null;
   isModalOpen: boolean;
+  showPositionDetailError: boolean;
+  showNumberOfPeopleError: boolean;
 }
 
 export const CreateProjectStep2 = ({
@@ -98,12 +100,26 @@ export const CreateProjectStep2 = ({
       positionDetail: null,
       numberOfPeople: null,
       isModalOpen: false,
+      showPositionDetailError: false,
+      showNumberOfPeopleError: false,
     },
   ]);
 
   // 스토어의 값이 있으면 inputGroups 초기화
   useEffect(() => {
-    if (selectedPosition || selectedPositionDetail || selectedPositionNumberOfPeople) {
+    if (collaborators && collaborators.length > 0) {
+      const groups = collaborators.map((collab, index) => ({
+        id: index === 0 ? '1' : `collab-${Date.now()}-${index}`,
+        position: collab.position,
+        positionDetail: collab.positionDetail,
+        numberOfPeople: collab.numberOfPeople,
+        isModalOpen: false,
+        showPositionDetailError: false,
+        showNumberOfPeopleError: false,
+      }));
+      setInputGroups(groups);
+    } else if (selectedPosition || selectedPositionDetail || selectedPositionNumberOfPeople) {
+      // collaborators가 없으면 기존 로직 사용
       setInputGroups([
         {
           id: '1',
@@ -111,10 +127,12 @@ export const CreateProjectStep2 = ({
           positionDetail: selectedPositionDetail,
           numberOfPeople: selectedPositionNumberOfPeople,
           isModalOpen: false,
+          showPositionDetailError: false,
+          showNumberOfPeopleError: false,
         },
       ]);
     }
-  }, [selectedPosition, selectedPositionDetail, selectedPositionNumberOfPeople]);
+  }, [collaborators, selectedPosition, selectedPositionDetail, selectedPositionNumberOfPeople]);
 
   const handleCloseModal = (groupId: string) => {
     setInputGroups((groups) =>
@@ -149,7 +167,9 @@ export const CreateProjectStep2 = ({
   const handlePositionDetailChange = (groupId: string, value: string) => {
     const positionDetail = value || null;
     setInputGroups((groups) =>
-      groups.map((group) => (group.id === groupId ? { ...group, positionDetail } : group)),
+      groups.map((group) =>
+        group.id === groupId ? { ...group, positionDetail, showPositionDetailError: false } : group,
+      ),
     );
     // 첫 번째 그룹의 경우 스토어에도 저장
     if (groupId === '1') {
@@ -161,7 +181,11 @@ export const CreateProjectStep2 = ({
 
   const handleNumberOfPeopleSelect = (groupId: string, value: string) => {
     setInputGroups((groups) =>
-      groups.map((group) => (group.id === groupId ? { ...group, numberOfPeople: value } : group)),
+      groups.map((group) =>
+        group.id === groupId
+          ? { ...group, numberOfPeople: value, showNumberOfPeopleError: false }
+          : group,
+      ),
     );
     // 첫 번째 그룹의 경우 스토어에도 저장
     if (groupId === '1') {
@@ -180,8 +204,61 @@ export const CreateProjectStep2 = ({
         positionDetail: null,
         numberOfPeople: null,
         isModalOpen: false,
+        showPositionDetailError: false,
+        showNumberOfPeopleError: false,
       },
     ]);
+  };
+
+  const handleNext = () => {
+    // 모든 그룹에 대해 유효성 검사
+    const hasErrors = inputGroups.some((group) => {
+      const positionError = !group.position;
+      const positionDetailError = !group.positionDetail || group.positionDetail.trim() === '';
+      const numberOfPeopleError = !group.numberOfPeople;
+
+      if (positionError || positionDetailError || numberOfPeopleError) {
+        setInputGroups((groups) =>
+          groups.map((g) =>
+            g.id === group.id
+              ? {
+                  ...g,
+                  showPositionDetailError: positionDetailError,
+                  showNumberOfPeopleError: numberOfPeopleError,
+                }
+              : g,
+          ),
+        );
+        return true;
+      }
+      return false;
+    });
+
+    if (!hasErrors) {
+      // 모든 inputGroups를 collaborators로 변환하여 스토어에 저장
+      const newCollaborators = inputGroups
+        .filter((group) => group.position && group.positionDetail && group.numberOfPeople)
+        .map((group) => ({
+          position: group.position!,
+          positionDetail: group.positionDetail!,
+          numberOfPeople: group.numberOfPeople!,
+          requiredSkills: [],
+          tools: [],
+        }));
+
+      // 기존 collaborators를 모두 제거하고 새로운 것으로 교체
+      // 먼저 모든 collaborator 제거
+      for (let i = collaborators.length - 1; i >= 0; i--) {
+        removeCollaborator(i);
+      }
+      // 새로운 collaborators 추가
+      newCollaborators.forEach((collaborator) => {
+        addCollaborator(collaborator);
+      });
+
+      console.log('📝 저장된 협업자 목록:', newCollaborators);
+      onNext();
+    }
   };
 
   return (
@@ -215,6 +292,8 @@ export const CreateProjectStep2 = ({
                   value={group.positionDetail || ''}
                   maxLength={22}
                   onChange={(value) => handlePositionDetailChange(group.id, value)}
+                  warningMessage="구체적인 분야를 입력해주세요"
+                  showWarning={group.showPositionDetailError}
                 />
               </StepContainer>
 
@@ -225,6 +304,8 @@ export const CreateProjectStep2 = ({
                   value={group.numberOfPeople || ''}
                   onClick={() => handleOpenModal(group.id)}
                   isOpen={group.isModalOpen}
+                  warningMessage="인원을 선택해주세요"
+                  showWarning={group.showNumberOfPeopleError}
                 />
               </StepContainer>
 
@@ -248,7 +329,9 @@ export const CreateProjectStep2 = ({
           </div>
         </BaseContainer>
         <div style={{ marginBottom: '1.7rem' }}>
-          <Button onClick={onNext}>다음</Button>
+          <Button onClick={handleNext} variant="primary">
+            다음
+          </Button>
         </div>
       </BaseContainerWithSpaceBetween>
     </>

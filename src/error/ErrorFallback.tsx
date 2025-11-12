@@ -11,7 +11,7 @@ import { ROUTES } from '../constants/routes';
 
 interface ErrorFallBackProps {
   error: HttpError;
-  resetRef?: MutableRefObject<(() => void) | null>;
+  resetRef?: React.RefObject<(() => void) | null>;
 }
 
 const getErrorMessage = (status: number | 'unknown') => {
