@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '../../style/colors';
+import { typography } from '../../style/theme';
 
 interface NotificationItemContainerProps {
   isUnread: boolean;
@@ -38,18 +39,18 @@ export const TitleAndMessageWrapper = styled.div`
 
 export const Title = styled.span`
   font-weight: 500;
-  font-size: 12px;
+  font-size: ${typography.caption.caption3.fontSize};
   line-height: 1.5em;
   letter-spacing: -0.01em;
-  color: #99a1af;
+  color: ${colors.gray[400]};
 `;
 
 export const Message = styled.p`
   font-weight: 500;
-  font-size: 14px;
+  font-size: ${typography.subhead.subhead1.fontSize};
   line-height: 1.43em;
   letter-spacing: -0.01em;
-  color: #364153;
+  color: ${colors.gray[700]};
   max-width: 298px;
   word-break: keep-all;
   margin: 0;
@@ -60,8 +61,8 @@ export const TimeStamp = styled.span`
   top: 0;
   right: 0;
   font-weight: 500;
-  font-size: 12px;
+  font-size: ${typography.caption.caption3.fontSize};
   line-height: 1.5em;
   letter-spacing: -0.01em;
-  color: #d1d5dc;
+  color: ${colors.gray[300]};
 `;

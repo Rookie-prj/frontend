@@ -55,6 +55,7 @@ const Hot = () => {
   const handleCategoryChange = (category: string) => {
     console.log('선택된 카테고리:', category);
   };
+
   const navigate = useNavigate();
   return (
     <div
