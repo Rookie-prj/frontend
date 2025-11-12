@@ -81,7 +81,7 @@ function ProjectCard({
             }}
           />
         )}
-        {project.bookmark === 0 && isBookmark && (
+        {(project.bookmark <= -1 || project.bookmark === 0) && isBookmark && (
           <S.IconButtonWrapper
             iconSrc={rightIcon}
             onClick={(e) => {

@@ -43,6 +43,14 @@ const Library = () => {
     profile?.name,
   );
 
+  // roleType에 따라 내 프로젝트 필터링
+  const filteredMyProjectBoards =
+    roleType === 'recruiting'
+      ? myProjectBoards.filter((board) => board.isActive === true)
+      : roleType === 'completed'
+      ? myProjectBoards.filter((board) => board.isActive === false)
+      : myProjectBoards; // 'all' 또는 값이 없으면 전체
+
   const navigate = useNavigate();
   const {
     isOpen: isConfirmModalOpen,
@@ -156,15 +164,15 @@ const Library = () => {
         )}
         {sortType === 'my_project' && (
           <div style={{ padding: '4px 16px 0 16px' }}>
-            {myProjectBoards.length > 0 && (
+            {filteredMyProjectBoards.length > 0 && (
               <ProjectList
-                projects={myProjectBoards}
+                projects={filteredMyProjectBoards}
                 rightIcon={option}
                 isBookmark={false}
                 onActionSheetOpen={handleActionSheetOpenWithId}
               />
             )}
-            {myProjectBoards.length === 0 && !isLoadingMyProjectBoards && (
+            {filteredMyProjectBoards.length === 0 && !isLoadingMyProjectBoards && (
               <EmptyState message="작성한 프로젝트가 없어요" icon={rookieyGray} />
             )}
           </div>
