@@ -43,7 +43,12 @@ const NavigationBar = () => {
     setIsRotating(false);
   };
 
-  const isActive = (itemValue: NavigationValue) => location.pathname === ROUTES[itemValue];
+  const isActive = (itemValue: NavigationValue) => {
+    if (itemValue === 'home') {
+      return location.pathname === ROUTES.home || location.pathname === ROUTES.hot;
+    }
+    return location.pathname === ROUTES[itemValue];
+  };
 
   const renderNavItem = (item: any) => (
     <NavBarItem
