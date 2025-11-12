@@ -162,9 +162,12 @@ export const createProjectFromStore = async (storeData: StoreProjectData): Promi
               ),
             }
           : {},
-      endDate: storeData.selectedEndDate
-        ? format(storeData.selectedEndDate, 'yyyy-MM-dd HH:mm')
-        : '',
+      endDate:
+        storeData.selectedEndDateType === 'RECRUITMENT_END'
+          ? ''
+          : storeData.selectedEndDate
+          ? format(storeData.selectedEndDate, 'yyyy-MM-dd HH:mm')
+          : '',
       projectFields: [...new Set(storeData.projectFields || [])],
       workTools: [...new Set(storeData.selectedTools || [])],
       collabTools: [...new Set(storeData.selectedTools || [])],
@@ -234,9 +237,12 @@ export const updateProjectFromStore = async (
               ),
             }
           : {},
-      endDate: storeData.selectedEndDate
-        ? format(storeData.selectedEndDate, 'yyyy-MM-dd HH:mm')
-        : '',
+      endDate:
+        storeData.selectedEndDateType === 'RECRUITMENT_END'
+          ? ''
+          : storeData.selectedEndDate
+          ? format(storeData.selectedEndDate, 'yyyy-MM-dd HH:mm')
+          : '',
       projectFields: [...new Set(storeData.projectFields || [])],
       workTools: [...new Set(storeData.selectedTools || [])],
       collabTools: [...new Set(storeData.selectedTools || [])],

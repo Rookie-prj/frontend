@@ -13,6 +13,7 @@ export interface Board {
   imageUrl3: string | null;
   projectFields: string[];
   distance: string;
+
   processStatus: string | null;
   techTools: string;
   workTools: string[];
@@ -27,6 +28,7 @@ export interface Board {
   doneType: string | null;
   createdAt: string;
   modifiedAt: string | null;
+  deleteExisting?: boolean;
 }
 
 export interface BoardUpdateRequest {
@@ -36,7 +38,6 @@ export interface BoardUpdateRequest {
 
 // API 스펙에 맞는 게시글 생성 요청 타입
 export interface BoardWithImagesRequest {
-  id?: number; //
   boardType: 'PROJECT' | 'STUDY' | 'CONTEST' | 'MENTORING';
   title: string;
   description: string;
@@ -55,6 +56,7 @@ export interface BoardWithImagesRequest {
   doneType?: string;
   processStatus?: string;
   images: File[];
+  deleteExisting?: boolean;
 }
 export interface ImageUploadResponse {
   imageUrls: string[];
