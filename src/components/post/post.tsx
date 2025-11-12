@@ -24,6 +24,7 @@ const Post = ({ limit, variant = 'default' }: PostProps) => {
     deadline: project.endDate || '',
     total: project.requredPpl || 0,
     field: project.projectFields?.[0] || project.cowrkrPosition?.[0] || '개발자',
+    cowrkrPosition: project.cowrkrPosition,
     imageUrl1: project.imageUrl1,
   }));
 
@@ -41,6 +42,7 @@ const Post = ({ limit, variant = 'default' }: PostProps) => {
           deadline={post.deadline}
           total={post.total}
           field={post.field}
+          cowrkrPosition={post.cowrkrPosition}
           imageUrl1={post.imageUrl1}
           variant={variant}
         />
