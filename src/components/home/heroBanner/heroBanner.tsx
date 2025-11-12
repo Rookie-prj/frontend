@@ -13,11 +13,10 @@ import {
   HeroBannerSlideTwoButton,
   HeroBannerSlideThreeButton,
 } from '../../common/button/button.styles';
-import { getAccessToken } from '../../../api/token';
-import { getMyProfileDetail } from '../../../api/myProfile';
 import { ROUTES } from '../../../constants/routes';
 import RedirectModal from '../../rookieDetail/redirectModal';
 import { useModal } from '../../../hooks/useModal';
+import CreateProject from '../../modal/createProject/createProject';
 import 'swiper/css';
 
 interface HeroBannerProps {
@@ -40,17 +39,14 @@ const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBanner
     handleModalOpen: openRedirect,
     handleModalClose: closeRedirect,
   } = useModal();
+  const {
+    isOpen: isCreateProjectModalOpen,
+    handleModalOpen: openCreateProjectModal,
+    handleModalClose: closeCreateProjectModal,
+  } = useModal();
 
-  const handleCreateProjectClick = async () => {
-    const token = getAccessToken();
-    if (!token) return openRedirect();
-
-    try {
-      await getMyProfileDetail();
-      navigate(ROUTES.createProject);
-    } catch {
-      openRedirect();
-    }
+  const handleCreateProjectClick = () => {
+    openCreateProjectModal();
   };
 
   // 버튼 설정을 배열로 관리
@@ -137,6 +133,7 @@ const HeroBanner = ({ totalSlides = 3, currentSlide, onSlideChange }: HeroBanner
         title="로그인 후 이용해주세요"
         redirectTo={ROUTES.login}
       />
+      <CreateProject isOpen={isCreateProjectModalOpen} onClose={closeCreateProjectModal} />
     </HeroBannerContainer>
   );
 };
