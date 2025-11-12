@@ -131,7 +131,6 @@ export const updateBoardWithImages = async (
 ): Promise<Board> => {
   try {
     console.log('🚀 이미지와 함께 게시판 수정 시작:', {
-      id,
       boardData,
     });
 
@@ -158,7 +157,7 @@ export const updateBoardWithImages = async (
     formData.append('workTools', boardData.workTools?.join(',') || '');
     formData.append('collabTools', boardData.collabTools?.join(',') || '');
     formData.append('doneType', boardData.doneType || '');
-    formData.append('deleteExisting', 'true');
+    formData.append('deleteExisting', String(boardData.deleteExisting ?? true));
 
     if (boardData.processStatus) {
       formData.append('processStatus', boardData.processStatus);

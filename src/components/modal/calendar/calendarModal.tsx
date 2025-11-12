@@ -155,6 +155,7 @@ const CalendarModal = ({ isOpen, onClose, onDateSelect, selectedDate }: Calendar
             formatWeekDay={(nameOfDay) => nameOfDay.charAt(0)}
             locale={ko}
             renderCustomHeader={renderCustomHeader}
+            minDate={new Date()}
           />
         </CalendarWrapper>
 

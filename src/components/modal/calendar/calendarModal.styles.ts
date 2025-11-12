@@ -154,5 +154,11 @@ export const CalendarWrapper = styled.div`
       background: transparent;
       color: ${colors.gray[700]};
     }
+
+    &.react-datepicker__day--disabled {
+      color: ${colors.gray[400]};
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
   }
 `;
