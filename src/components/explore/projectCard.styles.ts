@@ -130,7 +130,7 @@ export const Tag = styled.div<{
   backgroundColor?: string;
   isdoneType?: boolean;
   textColor?: string;
-  doneType?: string;
+  isActive?: boolean;
 }>`
   display: flex;
   justify-content: center;
@@ -140,13 +140,13 @@ export const Tag = styled.div<{
   height: 20px;
   border-radius: 6.49px;
   background: ${(props) => {
-    if (props.doneType === 'RECRUITMENT_END') {
+    if (props.isActive === false) {
       return colors.red[100];
     }
-    if (props.doneType && props.doneType !== 'RECRUITMENT_END') {
+    if (props.isActive) {
       return colors.green[200];
     }
-    if (!props.isdoneType) {
+    if (!props.isActive) {
       return colors.gray[150];
     }
     return colors.green[200];

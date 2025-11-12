@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import thunder from '../../../assets/icons/thunder.svg';
 import people from '../../../assets/icons/people.svg';
 import StatusChips from '../statusChips/statusChips';
+import { TEAM_POSITION_OPTIONS } from '../../../constants/createProject';
+import { removeBrackets } from '../../../utils/stringUtils';
 import {
   PostCardAuthor,
   PostCardContainer,
@@ -22,6 +24,7 @@ interface PostCardProps {
   deadline: string;
   total?: number;
   field?: string;
+  cowrkrPosition?: string[];
   imageUrl1?: string | null;
   backgroundImage?: string;
   backgroundColor?: string;
@@ -37,6 +40,7 @@ export const PostCard = ({
   deadline,
   total,
   field,
+  cowrkrPosition,
   imageUrl1,
   backgroundImage = background,
   backgroundColor,
@@ -50,6 +54,16 @@ export const PostCard = ({
   };
 
   const projectImage = imageUrl1 || backgroundImg;
+
+  // cowrkrPosition의 value들을 label로 변환 (postDetail과 동일한 로직)
+  const positionLabels =
+    cowrkrPosition
+      ?.map((positionValue) => {
+        const cleanValue = removeBrackets(positionValue);
+        const option = TEAM_POSITION_OPTIONS.find((opt) => opt.value === cleanValue);
+        return option?.label || cleanValue;
+      })
+      .join(', ') || '';
 
   return (
     <PostCardContainer $variant={variant} onClick={handleClick}>
@@ -74,7 +88,7 @@ export const PostCard = ({
           </PostCardRecruitTeamPeople>
 
           <PostCardRecruitTeamPeople>
-            <img src={thunder} alt="thunder" /> <span>{field || '개발자'}</span>
+            <img src={thunder} alt="thunder" /> <span>{positionLabels || '개발자'}</span>
           </PostCardRecruitTeamPeople>
         </PostCardRecruitTeamWrapper>
       </div>

@@ -195,6 +195,9 @@ export const CreateProjectStep2 = ({
   };
 
   const handleAddNewInputGroup = () => {
+    if (inputGroups.length >= 3) {
+      return; // 최대 3개까지만 추가 가능
+    }
     const newId = Date.now().toString();
     setInputGroups((groups) => [
       ...groups,
@@ -325,7 +328,10 @@ export const CreateProjectStep2 = ({
               marginTop: '2.13rem',
             }}
           >
-            <AddCollaboratorButton onClick={handleAddNewInputGroup} />
+            <AddCollaboratorButton
+              onClick={handleAddNewInputGroup}
+              disabled={inputGroups.length >= 3}
+            />
           </div>
         </BaseContainer>
         <div style={{ marginBottom: '1.7rem' }}>
