@@ -92,6 +92,7 @@ function Chatroom() {
           <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }}>
             <Chip
               label="내 프로필 보내기"
+              size="large"
               variant="chatRoomProfile"
               onClick={handleProfileModalOpen}
             />
@@ -104,6 +105,7 @@ function Chatroom() {
               }
               onClick={handleModalOpen}
               variant="chatRoomPdf"
+              size="large"
               isActive={true}
             />
           </div>
