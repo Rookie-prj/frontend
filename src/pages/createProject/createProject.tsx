@@ -85,10 +85,17 @@ export const CreateProject = () => {
           if (storeDataFromBoard.projectFields) {
             storeData.setProjectFields(storeDataFromBoard.projectFields);
           }
+          // 기존 collaborators 초기화 후 새로 추가
           if (storeDataFromBoard.collaborators) {
+            // 기존 collaborators 모두 제거
+            for (let i = storeData.collaborators.length - 1; i >= 0; i--) {
+              storeData.removeCollaborator(i);
+            }
+            // 새로운 collaborators 추가
             storeDataFromBoard.collaborators.forEach((collab) => {
               storeData.addCollaborator(collab);
             });
+            console.log('📝 로드된 collaborators:', storeDataFromBoard.collaborators);
           }
 
           console.log('✅ 게시물 데이터를 스토어에 로드 완료');

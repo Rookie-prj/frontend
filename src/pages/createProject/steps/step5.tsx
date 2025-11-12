@@ -16,6 +16,7 @@ import { validateStep5 } from '../../../utils/formValidation';
 import { useState } from 'react';
 import DistanceOptions from '../../../components/createProject/distanceOptions/distanceOptions';
 import EndDate from '../../../components/createProject/endDate/endDate';
+import { setDateTo14 } from '../../../utils/dateUtils';
 
 interface CreateProjectStep5Props {
   onPrev: () => void;
@@ -48,7 +49,9 @@ const CreateProjectStep5 = ({ onPrev, onSubmit, currentStep }: CreateProjectStep
   };
 
   const handleDateSelect = (date: Date) => {
-    setSelectedEndDate(date);
+    // 날짜 선택 시 시간을 14:00:00으로 설정
+    const dateWithTime = setDateTo14(date);
+    setSelectedEndDate(dateWithTime);
     setIsCalendarModalOpen(false);
   };
 

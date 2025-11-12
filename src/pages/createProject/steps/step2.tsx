@@ -107,7 +107,19 @@ export const CreateProjectStep2 = ({
 
   // 스토어의 값이 있으면 inputGroups 초기화
   useEffect(() => {
-    if (selectedPosition || selectedPositionDetail || selectedPositionNumberOfPeople) {
+    if (collaborators && collaborators.length > 0) {
+      const groups = collaborators.map((collab, index) => ({
+        id: index === 0 ? '1' : `collab-${Date.now()}-${index}`,
+        position: collab.position,
+        positionDetail: collab.positionDetail,
+        numberOfPeople: collab.numberOfPeople,
+        isModalOpen: false,
+        showPositionDetailError: false,
+        showNumberOfPeopleError: false,
+      }));
+      setInputGroups(groups);
+    } else if (selectedPosition || selectedPositionDetail || selectedPositionNumberOfPeople) {
+      // collaborators가 없으면 기존 로직 사용
       setInputGroups([
         {
           id: '1',
@@ -120,7 +132,7 @@ export const CreateProjectStep2 = ({
         },
       ]);
     }
-  }, [selectedPosition, selectedPositionDetail, selectedPositionNumberOfPeople]);
+  }, [collaborators, selectedPosition, selectedPositionDetail, selectedPositionNumberOfPeople]);
 
   const handleCloseModal = (groupId: string) => {
     setInputGroups((groups) =>
@@ -201,10 +213,11 @@ export const CreateProjectStep2 = ({
   const handleNext = () => {
     // 모든 그룹에 대해 유효성 검사
     const hasErrors = inputGroups.some((group) => {
+      const positionError = !group.position;
       const positionDetailError = !group.positionDetail || group.positionDetail.trim() === '';
       const numberOfPeopleError = !group.numberOfPeople;
 
-      if (positionDetailError || numberOfPeopleError) {
+      if (positionError || positionDetailError || numberOfPeopleError) {
         setInputGroups((groups) =>
           groups.map((g) =>
             g.id === group.id
@@ -222,6 +235,28 @@ export const CreateProjectStep2 = ({
     });
 
     if (!hasErrors) {
+      // 모든 inputGroups를 collaborators로 변환하여 스토어에 저장
+      const newCollaborators = inputGroups
+        .filter((group) => group.position && group.positionDetail && group.numberOfPeople)
+        .map((group) => ({
+          position: group.position!,
+          positionDetail: group.positionDetail!,
+          numberOfPeople: group.numberOfPeople!,
+          requiredSkills: [],
+          tools: [],
+        }));
+
+      // 기존 collaborators를 모두 제거하고 새로운 것으로 교체
+      // 먼저 모든 collaborator 제거
+      for (let i = collaborators.length - 1; i >= 0; i--) {
+        removeCollaborator(i);
+      }
+      // 새로운 collaborators 추가
+      newCollaborators.forEach((collaborator) => {
+        addCollaborator(collaborator);
+      });
+
+      console.log('📝 저장된 협업자 목록:', newCollaborators);
       onNext();
     }
   };

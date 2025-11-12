@@ -163,7 +163,7 @@ export const createProjectFromStore = async (storeData: StoreProjectData): Promi
             }
           : {},
       endDate: storeData.selectedEndDate
-        ? format(storeData.selectedEndDate, "yyyy-MM-dd'T'HH:mm:ss")
+        ? format(storeData.selectedEndDate, 'yyyy-MM-dd HH:mm')
         : '',
       projectFields: [...new Set(storeData.projectFields || [])],
       workTools: [...new Set(storeData.selectedTools || [])],
@@ -235,7 +235,7 @@ export const updateProjectFromStore = async (
             }
           : {},
       endDate: storeData.selectedEndDate
-        ? format(storeData.selectedEndDate, "yyyy-MM-dd'T'HH:mm:ss")
+        ? format(storeData.selectedEndDate, 'yyyy-MM-dd HH:mm')
         : '',
       projectFields: [...new Set(storeData.projectFields || [])],
       workTools: [...new Set(storeData.selectedTools || [])],
@@ -246,7 +246,7 @@ export const updateProjectFromStore = async (
     };
     console.log('📝 변환된 게시글 수정 데이터:', boardData);
 
-    const result = await updateBoardWithImages(boardId, boardData, existingBoard);
+    const result = await updateBoardWithImages(boardId, boardData);
     console.log('✅ 스토어 데이터로 게시글 수정 성공:', result);
     return result;
   } catch (error) {
