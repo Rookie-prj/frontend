@@ -1,4 +1,5 @@
 export interface Board {
+  boardId?: number;
   boardType: 'PROJECT' | 'STUDY' | 'CONTEST' | 'MENTORING';
   estmtPeriod: number;
   cowrkrPosition: string[];
@@ -35,7 +36,7 @@ export interface BoardUpdateRequest {
 
 // API 스펙에 맞는 게시글 생성 요청 타입
 export interface BoardWithImagesRequest {
-  id?: number; // PUT 요청 시에는 path parameter로 전달되므로 optional
+  id?: number; //
   boardType: 'PROJECT' | 'STUDY' | 'CONTEST' | 'MENTORING';
   title: string;
   description: string;
