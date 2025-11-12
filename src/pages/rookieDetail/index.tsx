@@ -21,6 +21,7 @@ import { getAccessToken } from '../../api/token';
 import useChatRooms from '../../components/chat/hook/useChatRooms';
 import useToast from '../../hooks/useToast';
 import Toast from '../../components/common/toast/toast';
+import useMyProfileDetail from '../../hooks/useMyProfile';
 
 function RookieDetail() {
   const { id } = useParams<{ id: string }>();
@@ -39,6 +40,8 @@ function RookieDetail() {
   const accessToken = getAccessToken();
   const [loginState, setLoginState] = useState<boolean>(accessToken ? true : false); // 임시 로그인 상태
   const { isOpen: isToastOpen, message, handleToastOpen, handleToastClose } = useToast();
+
+  // 본인 프로필인지 확인
   const { handleUserCheerUp } = useUserCheerUpMutation({
     onSuccess: (msg) => handleToastOpen(msg),
     onError: (msg) => handleToastOpen(msg),
@@ -46,7 +49,8 @@ function RookieDetail() {
   localStorage.setItem('otherUserName', rookie?.name || '');
   localStorage.setItem('otherUserId', rookie?.userId.toString() || '');
   const { chatRooms } = useChatRooms();
-
+  const { profile } = useMyProfileDetail();
+  const isMyProfile = profile?.userId === rookie?.userId;
   // 현재 rookie와 대화한 채팅방 찾기
   const findChatRoomId = () => {
     if (!rookie || !chatRooms || chatRooms.length === 0) {
@@ -92,6 +96,7 @@ function RookieDetail() {
       <FixedBottomBar
         onSupport={loginState ? handleCheerupOpen : handleRedirectOpen}
         onMessage={loginState ? hadnleToChatRoom : handleRedirectOpen}
+        disabled={isMyProfile}
       />
       {/* 추후 로그인 상태로 제어 */}
       <RedirectModal
