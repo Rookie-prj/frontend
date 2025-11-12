@@ -13,7 +13,9 @@ const App = () => {
         </MSWProvider>
       </QueryProvider> */}
       <QueryProvider>
-        <AppRoutes />
+        <MSWProvider>
+          <AppRoutes />
+        </MSWProvider>
       </QueryProvider>
     </>
   );
