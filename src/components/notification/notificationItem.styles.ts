@@ -37,7 +37,6 @@ export const TitleAndMessageWrapper = styled.div`
 `;
 
 export const Title = styled.span`
-  font-family: Pretendard;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.5em;
@@ -46,7 +45,6 @@ export const Title = styled.span`
 `;
 
 export const Message = styled.p`
-  font-family: Pretendard;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.43em;
@@ -61,7 +59,6 @@ export const TimeStamp = styled.span`
   position: absolute;
   top: 0;
   right: 0;
-  font-family: Pretendard;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.5em;

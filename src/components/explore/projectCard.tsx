@@ -19,6 +19,7 @@ interface ProjectCardProps {
   project: Project | MyProjectBoard | BookmarkBoard;
   rightIcon?: string;
   isBookmark: boolean;
+  isBookmarked?: boolean; // 실제 북마크 여부
   handleAddBookmark?: (boardId: number) => void;
   onDeleteModalOpen?: () => void;
   handleDeleteBookmark?: (boardId: number) => void;
@@ -29,6 +30,7 @@ function ProjectCard({
   project,
   rightIcon,
   isBookmark,
+  isBookmarked = false,
   handleAddBookmark,
   handleDeleteBookmark,
   onActionSheetOpen,
@@ -71,8 +73,7 @@ function ProjectCard({
       <S.ProjectImageWrapper>
         <S.ProjectImage src={projectImage} alt="프로젝트 이미지" />
         <S.ImageDimOverlay />
-
-        {project.bookmark > 0 && isBookmark && (
+        {isBookmark && isBookmarked && (
           <S.IconButtonWrapper
             iconSrc={bookmark}
             onClick={(e) => {
@@ -81,7 +82,7 @@ function ProjectCard({
             }}
           />
         )}
-        {(project.bookmark <= -1 || project.bookmark === 0) && isBookmark && (
+        {isBookmark && !isBookmarked && (
           <S.IconButtonWrapper
             iconSrc={rightIcon}
             onClick={(e) => {
@@ -98,17 +99,13 @@ function ProjectCard({
               onActionSheetOpen?.(project.boardId);
             }}
           />
-        )}
-
+        )}{' '}
         <S.ProjectTitle>{project.title}</S.ProjectTitle>
-
         <S.WriterInfo>
           {project.writer}
           {project.writerUniversity && `·${project.writerUniversity}`}
         </S.WriterInfo>
-
         <S.ProfileImage src={profile} alt="작성자" />
-
         <S.TagsWrapper>
           <S.Tag textColor="#1E2939" isdoneType={false}>
             {getProcessStatusLabel()}
