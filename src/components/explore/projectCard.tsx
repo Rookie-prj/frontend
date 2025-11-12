@@ -110,8 +110,8 @@ function ProjectCard({
           <S.Tag textColor="#1E2939" isdoneType={false}>
             {getProcessStatusLabel()}
           </S.Tag>
-          <S.Tag doneType={project.doneType}>
-            {project.doneType === 'RECRUITMENT_END' ? '모집 완료' : '모집시 마감'}
+          <S.Tag isActive={project.isActive}>
+            {project.isActive === false ? '모집 완료' : '모집시 마감'}
           </S.Tag>
         </S.TagsWrapper>
       </S.ProjectImageWrapper>

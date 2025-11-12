@@ -94,9 +94,12 @@ const Library = () => {
     handleActionSheetClose();
   };
 
+  const selectedBoard = myProjectBoards.find((board) => board.boardId === selectedBoardId);
+  const currentIsActive = selectedBoard?.isActive ?? false;
   const handleComplete = () => {
+    // 현재 상태의 반대로 변경
     handleModifyProjectActive(
-      { boardId: selectedBoardId, isActive: true },
+      { boardId: selectedBoardId, isActive: !currentIsActive },
       {
         onSuccess: () => {
           handleConfirmModalOpen();
@@ -105,7 +108,7 @@ const Library = () => {
           handleRedirectModalOpen();
         },
       },
-    ); // isActive를 false로 설정하여 모집완료로 변경
+    );
     handleActionSheetClose();
   };
 
@@ -127,7 +130,7 @@ const Library = () => {
       onClick: handleEdit,
     },
     {
-      label: '모집완료로 변경하기',
+      label: currentIsActive ? '모집완료로 변경하기' : '모집중으로 변경하기',
       onClick: handleComplete,
     },
     {
@@ -182,7 +185,7 @@ const Library = () => {
       <ConfirmModal
         isOpen={isConfirmModalOpen}
         onClose={handleConfirmModalClose}
-        message="모집완료로 변경되었습니다"
+        message={currentIsActive ? '모집중으로 변경되었습니다' : '모집완료로 변경되었습니다'}
       />
 
       <DeleteConfirmModal
