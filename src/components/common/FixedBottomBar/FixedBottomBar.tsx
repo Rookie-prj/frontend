@@ -17,13 +17,13 @@ function FixedBottomBar({
 }: FixedBottomBarProps) {
   return (
     <S.FixedBottomBar>
-      <S.ActionButton variant="secondary" onClick={onSupport}>
+      <S.ActionButton variant="cheer" onClick={onSupport}>
         {supportIcon && <S.IconWrapper>{supportIcon}</S.IconWrapper>}
-        <S.ButtonText variant="secondary">{supportText}</S.ButtonText>
+        <S.ButtonText variant="cheer">{supportText}</S.ButtonText>
       </S.ActionButton>
 
-      <S.ActionButton variant="primary" onClick={onMessage}>
-        <S.ButtonText variant="primary">{messageText}</S.ButtonText>
+      <S.ActionButton variant="chat" onClick={onMessage}>
+        <S.ButtonText variant="chat">{messageText}</S.ButtonText>
       </S.ActionButton>
     </S.FixedBottomBar>
   );
