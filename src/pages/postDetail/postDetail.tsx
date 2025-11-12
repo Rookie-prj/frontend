@@ -41,12 +41,12 @@ const PostDetail: React.FC = () => {
 
   // 현재 게시글이 북마크되었는지 확인
   const isBookmarked = useMemo(() => {
-    if (!boardData || !savedBoards || savedBoards.length === 0) return false;
+    if (!boardData || !boardData.boardId || !savedBoards || savedBoards.length === 0) return false;
     return savedBoards.some((board) => board.boardId === boardData.boardId);
   }, [boardData, savedBoards]);
 
   const handleBookmarkToggle = () => {
-    if (!boardData) return;
+    if (!boardData || !boardData.boardId) return;
     if (isBookmarked) {
       handleRemoveBookmark(boardData.boardId);
     } else {

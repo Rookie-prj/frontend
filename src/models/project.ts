@@ -3,6 +3,7 @@ export interface Project {
   boardType: string; // "PROJECT"
   estmtPeriod: number; // 예상 기간
   cowrkrPosition: string[]; // 협업자 포지션 (배열)
+  cowrkrSpeciality?: Record<string, string>; // 협업자 전문 분야
   data: Record<string, string>; // 추가 데이터
   endDate: string; // 종료일
   title: string;

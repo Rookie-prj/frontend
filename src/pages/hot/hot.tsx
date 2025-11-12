@@ -68,7 +68,7 @@ const Hot = () => {
       <Header type="logo" />
       <CategoryBar group="HOME" onCategoryChange={handleCategoryChange} />
       <HeroBanner />
-      <ViewAllSection title="많은 루키들이 집중해요!" onClick={() => {}} route="hot" />
+      <ViewAllSection title="많은 루키들이 집중해요!" showButton={false} onClick={() => {}} />
       <Post limit={2} />
       <div style={{ marginTop: '0.56rem' }}>
         <ViewAllSection

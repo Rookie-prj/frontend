@@ -28,6 +28,7 @@ const useSavedBoardsQuery = (sortType: LibraryCategoryValue) => {
         cowrkrPosition: Array.isArray(bookmark.board.cowrkrPosition)
           ? bookmark.board.cowrkrPosition
           : bookmark.board.cowrkrPosition?.split(',') || [],
+        cowrkrSpeciality: bookmark.board.cowrkrSpeciality || {},
         data: bookmark.board.cowrkrSpeciality || {},
         endDate: bookmark.board.endDate,
         title: bookmark.board.title,
