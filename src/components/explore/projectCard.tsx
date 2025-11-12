@@ -123,8 +123,12 @@ function ProjectCard({
             <S.InfoText>{project.requredPpl}명</S.InfoText>
           </S.InfoItem>
           <S.InfoItem>
-            <S.InfoIcon src={position} alt="조회수" />
-            <S.InfoText>조회 {project.viewCount}</S.InfoText>
+            <S.InfoIcon src={position} alt="포지션" />
+            <S.InfoText>
+              {Array.isArray(project.cowrkrPosition)
+                ? project.cowrkrPosition.join(', ')
+                : project.cowrkrPosition}
+            </S.InfoText>
           </S.InfoItem>
         </S.InfoRow>
 
@@ -144,7 +148,7 @@ function ProjectCard({
               return '';
             })()}
             <br />
-            {getWorkToolsLabel()}
+            {project.techTools || ''}
           </S.DetailContent>
         </S.DetailSection>
       </S.ContentWrapper>
