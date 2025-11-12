@@ -95,10 +95,11 @@ const PostDetail: React.FC = () => {
           title={boardData.title}
           tags={boardData.projectFields
             .map((field) => {
-              // 대괄호 제거 후 label로 변환
-              const cleanField = removeBrackets(field);
+              // 대괄호 제거 후 공백 제거 및 label로 변환
+              const cleanField = removeBrackets(field).trim();
               const categoryOption = Object.values(PROJECT_CATEGORY).find(
-                (cat) => cat.value === cleanField,
+                (cat) =>
+                  cat.value === cleanField || cat.value.toUpperCase() === cleanField.toUpperCase(),
               );
               const label = categoryOption?.label || cleanField;
               return `#${label}`;
