@@ -19,7 +19,10 @@ export const FixedBottomBar = styled.div`
   transform: translateX(-50%);
 `;
 
-export const ActionButton = styled.button<{ variant?: 'primary' | 'secondary' | 'cheer' | 'chat' }>`
+export const ActionButton = styled.button<{
+  variant?: 'primary' | 'secondary' | 'cheer' | 'chat';
+  disabled?: boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,20 +38,23 @@ export const ActionButton = styled.button<{ variant?: 'primary' | 'secondary' | 
       : '12px'};
   border: none;
   background: ${(props) =>
-    props.variant === 'primary' || props.variant === 'chat'
+    props.disabled
+      ? '#E5E7EB'
+      : props.variant === 'primary' || props.variant === 'chat'
       ? '#66F285'
       : props.variant === 'cheer'
       ? '#EDEFF2'
       : '#E5E7EB'};
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
   transition: opacity 0.2s;
 
   &:hover {
-    opacity: 0.9;
+    opacity: ${(props) => (props.disabled ? 0.5 : 0.9)};
   }
 
   &:active {
-    opacity: 0.8;
+    opacity: ${(props) => (props.disabled ? 0.5 : 0.8)};
   }
 `;
 
