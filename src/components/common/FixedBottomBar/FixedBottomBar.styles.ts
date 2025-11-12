@@ -19,7 +19,7 @@ export const FixedBottomBar = styled.div`
   transform: translateX(-50%);
 `;
 
-export const ActionButton = styled.button<{ variant?: 'primary' | 'secondary' }>`
+export const ActionButton = styled.button<{ variant?: 'primary' | 'secondary' | 'cheer' | 'chat' }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,9 +27,19 @@ export const ActionButton = styled.button<{ variant?: 'primary' | 'secondary' }>
   width: 100%;
   height: 50px;
   padding: 16px;
-  border-radius: ${(props) => (props.variant === 'primary' ? '8px' : '12px')};
+  border-radius: ${(props) =>
+    props.variant === 'primary'
+      ? '8px'
+      : props.variant === 'secondary' || props.variant === 'cheer' || props.variant === 'chat'
+      ? '12px'
+      : '12px'};
   border: none;
-  background: ${(props) => (props.variant === 'primary' ? '#66F285' : '#EDEFF2')};
+  background: ${(props) =>
+    props.variant === 'primary' || props.variant === 'chat'
+      ? '#66F285'
+      : props.variant === 'cheer'
+      ? '#EDEFF2'
+      : '#E5E7EB'};
   cursor: pointer;
   transition: opacity 0.2s;
 
@@ -42,9 +52,14 @@ export const ActionButton = styled.button<{ variant?: 'primary' | 'secondary' }>
   }
 `;
 
-export const ButtonText = styled.span<{ variant?: 'primary' | 'secondary' }>`
+export const ButtonText = styled.span<{ variant?: 'primary' | 'secondary' | 'cheer' | 'chat' }>`
   font-family: Pretendard;
-  font-size: ${(props) => (props.variant === 'primary' ? '14px' : '16px')};
+  font-size: ${(props) =>
+    props.variant === 'primary' || props.variant === 'cheer' || props.variant === 'chat'
+      ? '14px'
+      : props.variant === 'secondary'
+      ? '16px'
+      : '16px'};
   font-weight: 700;
   line-height: ${(props) => (props.variant === 'primary' ? '1.2em' : '1.375em')};
   letter-spacing: ${(props) => (props.variant === 'primary' ? '0' : '-0.01em')};
