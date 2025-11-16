@@ -43,7 +43,7 @@ export const UniversityMajor = ({ onNext, currentStep }: UniversityMajorProps) =
         isFormValid={isFormValid}
       >
         <Input
-          placeholder="오버워치정크랫학과"
+          placeholder="커뮤니케이션디자인학과"
           value={universityMajor}
           onChange={handleInputChange}
           maxLength={22}
